@@ -31,6 +31,15 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v0.1.0.9002
+2018-02-16
+
+* Add parts without any modification from `MBSStools` package.
+    + rarify function
+    + metric.values function
+    + included data folder and files
+    + added Excel file to extdata with metric naming explanation
+
 ## v0.1.0.9001
 2018-02-16
 
