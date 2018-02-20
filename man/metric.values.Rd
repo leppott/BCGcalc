@@ -29,34 +29,28 @@ No manipulations of the taxa are performed by this routine.  All benthic macroin
 
 Both
 
-* Index.Name = Name of index to be used; MBSS_Fish_2005, MBSS_Bugs_2005, MSW_Bugs_1999 (genus index).
+* Index.Name = Name of index to be used; e.g., BCG_PacNW, MBSS_Fish_2005, or MBSS_Bugs_2005.
 
 Benthic Macroinvertebrates
 
 Bug metric values assumes the following fields (all upper case)
 
-* SITE = MBSS sample identifier.
+* SAMPLEID = sample identifier.
 
-* TAXON = MBSS benthic macroinvertebrate name.
+* TAXAID = benthic macroinvertebrate name.
 
 * N_TAXA = Number of taxon collected in sample.
 
 * EXCLUDE = Non-unique taxa (i.e., parent taxon with one or more children taxa present in sample).  "Y" = do not include in taxa richness metrics.
-* STRATA_R = Benthic macroinvertebrate region (COASTAL, EPIEDMONT, or HIGHLAND).
+* REGION = index region (e.g., COASTAL, EPIEDMONT, or HIGHLAND).
 
 * Phylogenetic fields
 
-+ (PHYLUM), CLASS, ORDER, FAMILY, GENUS, OTHER_TAXA, TRIBE, FFG, HABIT, FINALTOLVAL07
++ (PHYLUM), CLASS, ORDER, FAMILY, GENUS, OTHER_TAXA, TRIBE, FFG, HABIT, TOLVAL, LIFECYCLE
 
 Valid values for FFG: col, fil, pre, scr, shr
 
 Valid values for HABIT: BU, CB, CN, SP, SW
-
-MSW data should be first combined to family level and EXCLUDE recalculated.
-
-Additional fields needed:
-
-+ FAM_TV (need to include all the same fields, just leave blank).
 
 Fish
 
@@ -85,6 +79,32 @@ Fish metric values assumes the following fields (all upper case)
 The R library dplyr is required for this function.
 }
 \examples{
+
+# Metrics, BCG, Bugs
+library(readxl)
+df.samps.bugs <- read_excel("./data-raw/Data_BCG_Indiana.xlsx", sheet="R_Input")
+dim(df.samps.bugs)
+# rename some fields 
+names(df.samps.bugs)
+names(df.samps.bugs)[names(df.samps.bugs)=="VisitNum"] <- "SampleID"
+names(df.samps.bugs)[names(df.samps.bugs)=="FinalID"] <- "TaxaID"
+names(df.samps.bugs)[names(df.samps.bugs)=="Count"] <- "N_Taxa"
+# Add field
+df.samps.bugs[, "INDEX.NAME"] <- "BCG.IN"
+#
+# calculate
+myDF <- df.samps.bugs
+myIndex <- "BCG.IN"
+df.metric.values.bugs <- metric.values(myDF, "bugs")
+View(df.metric.values.bugs)
+
+# Get data in long format so can QC results
+df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX.NAME", "REGION")
+                          , variable.name="metric.name", value.name="metric.value")
+# Export for QC
+write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
+
+
 # Metrics, MBSS Index, Fish
 myIndex <- "MBSS.2005.Fish"
 # Thresholds
