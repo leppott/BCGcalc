@@ -23,15 +23,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Planned Features
 
-* Metric calculation
-
 * Attribute calculation
 
 * Tier membership
 
 * Model calculation
-
-* Subsample large counts.
 
 * More/special metrics.
 
@@ -50,6 +46,11 @@ cat(paste0("Last Update: ",Sys.time()))
 * Table of metrics for each model with DataExplorer report.
 
 # Version History
+
+## v0.1.0.9006
+2018-03-04
+
+* BCG.Tiers function.
 
 ## v0.1.0.9005
 2018-03-04
