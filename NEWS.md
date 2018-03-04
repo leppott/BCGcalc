@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-03 19:41:06
+2018-03-04 09:52:56
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-03 19:41:07
+    #> Last Update: 2018-03-04 09:52:57
 
 # Planned Features
 
@@ -42,6 +42,13 @@ BCGcalc-NEWS
   - Table of metrics for each model with DataExplorer report.
 
 # Version History
+
+## v0.1.0.9005
+
+2018-03-04
+
+  - Add BCG.Membership function. Return is in long format.
+      - Not QCed but has some known issues.
 
 ## v0.1.0.9004
 

@@ -51,6 +51,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v0.1.0.9005
+2018-03-04
+
+* Add BCG.Membership function.  Return is in long format.
+    + Not QCed but has some known issues.
+
 ## v0.1.0.9004
 2018-03-03
 
