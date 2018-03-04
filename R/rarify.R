@@ -1,11 +1,11 @@
-#' Rarify (subsample) biological sample to fixed count
+#' @title Rarify (subsample) biological sample to fixed count
 #'
-#' Takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.
+#' @description Takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.
 #'
 #' The other inputs are subsample size (target number of organisms in each sample) and seed.
 #' The seed is given so the results can be reproduced from the same input file.  If no seed is given a random seed is used.
 #'
-#' rarify function:
+#' @details rarify function:
 #'  R function to rarify (subsample) a macroinvertebrate sample down to a fixed count;
 #'  by John Van Sickle, USEPA. email: VanSickle.John@epa.gov    ;
 #'  Version 1.0, 06/10/05;
@@ -61,7 +61,7 @@ rarify<-function(inbug, sample.ID, abund, subsiz, mySeed=NA){##FUNCTION.rarify.S
     ranvec<-runif(n=nbug);
     #sort the expanded sample randomly;
     samp.ex2<-samp.expand[order(ranvec)];
-    #keep only the first piece of ranvec, of the desired fised count size;
+    #keep only the first piece of ranvec, of the desired fixed count size;
     #if there are fewer bugs than the fixed count size, keep them all;
     if(nbug>subsiz){subsamp<-samp.ex2[1:subsiz]} else{subsamp<-samp.ex2};
     #tabulate bugs in subsample;

@@ -22,14 +22,14 @@ data frame of SampleID and metric values
 \description{
 This function calculates metric values for bugs and fish.
 Inputs are a data frame with SampleID and taxa with phylogenetic and autecological information
-(see below for required fields by community).
+(see below for required fields by community).  The dplyr package is used to generate the metric values.
 }
 \details{
 No manipulations of the taxa are performed by this routine.  All benthic macroinvertebrate taxa should be identified to genus level.  Any non-count taxa should be identified in the "NonUnique" field as "N". To run the MSW genus level the taxa should be combined before calculating the metrics.
 
 Both
 
-* Index.Name = Name of index to be used; e.g., BCG_PacNW, MBSS_Fish_2005, or MBSS_Bugs_2005.
+* Index_Name = Name of index to be used; e.g., BCG_PacNW, MBSS_Fish_2005, or MBSS_Bugs_2005.
 
 Benthic Macroinvertebrates
 
@@ -51,6 +51,7 @@ Bug metric values assumes the following fields (all upper case)
 Valid values for FFG: col, fil, pre, scr, shr
 
 Valid values for HABIT: BU, CB, CN, SP, SW
+
 
 Fish
 
@@ -84,13 +85,20 @@ The R library dplyr is required for this function.
 library(readxl)
 df.samps.bugs <- read_excel("./data-raw/Data_BCG_Indiana.xlsx", sheet="R_Input")
 dim(df.samps.bugs)
+
+
+df.samps.bugs <- read_excel("./data-raw/Data_BCG_PacNW.xlsx")
+myDF <- df.samps.bugs
+
+
+
 # rename some fields 
 names(df.samps.bugs)
 names(df.samps.bugs)[names(df.samps.bugs)=="VisitNum"] <- "SampleID"
 names(df.samps.bugs)[names(df.samps.bugs)=="FinalID"] <- "TaxaID"
 names(df.samps.bugs)[names(df.samps.bugs)=="Count"] <- "N_Taxa"
 # Add field
-df.samps.bugs[, "INDEX.NAME"] <- "BCG.IN"
+df.samps.bugs[, "INDEX_NAME"] <- "BCG.IN"
 #
 # calculate
 myDF <- df.samps.bugs
@@ -99,18 +107,22 @@ df.metric.values.bugs <- metric.values(myDF, "bugs")
 View(df.metric.values.bugs)
 
 # Get data in long format so can QC results
-df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX.NAME", "REGION")
+df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
                           , variable.name="metric.name", value.name="metric.value")
 # Export for QC
 write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
 
+# DataExplorer Report
+library(DataExplorer)
+create_report(df.metric.values.bugs)
+create_report(df.samps.bugs)
 
 # Metrics, MBSS Index, Fish
 myIndex <- "MBSS.2005.Fish"
 # Thresholds
 thresh <- metrics_scoring
 # get metric names for myIndex
-(myMetrics.Fish <- as.character(droplevels(unique(thresh[thresh[,"Index.Name"]==myIndex,"Metric"]))))
+(myMetrics.Fish <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
 # Taxa Data
 myDF.Fish <- taxa_fish
 myMetric.Values.Fish <- metric.values(myDF.Fish, "fish", myMetrics.Fish)
@@ -122,7 +134,7 @@ myIndex <- "MBSS.2005.Bugs"
 # Thresholds
 thresh <- metrics_scoring
 # get metric names for myIndex
-(myMetrics.Bugs.MBSS <- as.character(droplevels(unique(thresh[thresh[,"Index.Name"]==myIndex,"Metric"]))))
+(myMetrics.Bugs.MBSS <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
 # Taxa Data
 myDF.Bugs.MBSS <- taxa_bugs_genus
 myMetric.Values.Bugs.MBSS <- metric.values(myDF.Bugs.MBSS, "bugs", myMetrics.Bugs.MBSS)
@@ -133,7 +145,7 @@ myIndex <- "MSW.1999.Bugs"
 # Thresholds
 thresh <- metrics_scoring
 # get metric names for myIndex
-(myMetrics.Bugs.MSW <- as.character(droplevels(unique(thresh[thresh[,"Index.Name"]==myIndex,"Metric"]))))
+(myMetrics.Bugs.MSW <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
 # Taxa Data
 myDF.Bugs.MSW <- taxa_bugs_family
 myMetric.Values.Bugs.MSW <- metric.values(myDF.Bugs.MSW, "bugs", myMetrics.Bugs.MSW)

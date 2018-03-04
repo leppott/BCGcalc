@@ -18,7 +18,7 @@ function (myDF, MetricNames = NULL, boo.Adjust)
     myDF[, "FFG_SHR"] <- grepl("SHREDDER", myDF[, "FFG"])
 	
     met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, 
-        INDEX.NAME, REGION)
+        INDEX_NAME, REGION)
 		
 			, ni_total = sum(N_TAXA)
 		
@@ -167,9 +167,8 @@ function (myDF, MetricNames = NULL, boo.Adjust)
 		
     met.val[is.na(met.val)] <- 0
     if (!is.null(MetricNames)) {
-        met.val <- met.val[, c("SAMPLEID", "REGION", "INDEX.NAME", 
+        met.val <- met.val[, c("SAMPLEID", "REGION", "INDEX_NAME", 
             ni_total, MetricNames)]
     }
     return(met.val)
 }
-<environment: namespace:BCGcalc>

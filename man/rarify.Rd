@@ -22,11 +22,11 @@ Returns a data frame with the same three columns but the abund field has been mo
 }
 \description{
 Takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.
-}
-\details{
+
 The other inputs are subsample size (target number of organisms in each sample) and seed.
 The seed is given so the results can be reproduced from the same input file.  If no seed is given a random seed is used.
-
+}
+\details{
 rarify function:
  R function to rarify (subsample) a macroinvertebrate sample down to a fixed count;
  by John Van Sickle, USEPA. email: VanSickle.John@epa.gov    ;

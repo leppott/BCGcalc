@@ -1,9 +1,11 @@
-README-BCGcalc
+BCGcalc-README
 ================
+<Erik.Leppo@tetratech.com>
+2018-02-21 19:31:16
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-02-16 12:30:01
+    #> Last Update: 2018-02-21 19:31:16
 
 # BCGcalc
 

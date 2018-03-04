@@ -1,5 +1,7 @@
 ---
-title: "README-BCGcalc"
+title: "BCGcalc-README"
+author: "Erik.Leppo@tetratech.com"
+date: "`r Sys.time()`"
 output: github_document
 ---
 

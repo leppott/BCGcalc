@@ -1,5 +1,7 @@
 ---
-title: "NEWS-BCGcalc"
+title: "BCGcalc-NEWS"
+author: "Erik.Leppo@tetratech.com"
+date: "`r Sys.time()`"
 output: github_document
   #md_document:
    # variant: markdown_github
@@ -19,17 +21,45 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# Planned Feature
+# Planned Features
 
 * Metric calculation
 
+* Attribute calculation
+
+* Tier membership
+
 * Model calculation
 
-* Subsample large counts
+* Subsample large counts.
 
-* Add excluded taxa flag to samples
+* More/special metrics.
+
+* Add excluded taxa flag to samples based on levels of taxonomy.  Will not be completely accurate.  Will have many false positives and false negatives.  That is, if there are only organisms at the higher level in a sample it will fail.  And if there are no organisms of the target group it will pass.
+    + Pass, Fail on each. And overall flag
+    + Chiro (tribe and family)
+    + Oligo
+    + trombidiformes
+
+* Hi/Lo models.
+    + parameter to run "correct" model or all models for each site.
+    + Have a field for site type.  So can override gradient.
+    
+* Report - QC, use DataExplorer.
+
+* Table of metrics for each model with DataExplorer report.
 
 # Version History
+
+## v0.1.0.9004
+2018-03-03
+
+* Add subtitles, date, author to YAML header to NEWS and README.
+* Add "flags" Excel file to raw-data for QC checks.  Used in qc.checks function (new).
+* Added 4 new ni metrics to metric values to be used for QC checks (flags).
+* qc.checks.R (incomplete but works).
+* Add BCGcalc.R to describe the package.
+* Update documentation headers in R files.
 
 ## v0.1.0.9003
 2018-02-20
