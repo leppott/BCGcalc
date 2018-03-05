@@ -1,7 +1,7 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, calculator
-Version: 0.1.0.9006
+Version: 0.1.0.9008
 Author: c(
 	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")))
 Maintainer: Erik W. Leppo <Erik.Leppo@tetratech.com>
@@ -16,4 +16,7 @@ Imports:
   dplyr, 
   reshape2
 Suggests:
-  readxl
+  readxl,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

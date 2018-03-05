@@ -1,0 +1,217 @@
+---
+title: "Vignette, BCGcalc"
+author: "Erik.Leppo@tetratech.com"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette, QW}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+<!-- Data is in vignettes\data folder  -->
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Main Tasks
+The BCGcalc package was created to enable users to implement a model created Biological Condition Gradient and apply it to their data.
+
+This vignette will cover the basics of calculating metrics, scoring the metrics, caculating the model, and some additional tasks.
+
+## Metric Caculation
+The `BCGcalc` package includes some example that will be used in this example.
+
+THe funtion metric.values generates 80+ different metrics for multi-metric indices as well as BCG specific metrics.  All metrics are calculated and reported back to the user in a data frame.
+
+```{r MetricValues_Calc, eval=FALSE}
+# Metrics, BCG, Bugs
+library(BCGcalc)
+library(readxl)
+
+# PACIFIC NW
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                       , package="BCGcalc"))
+myDF <- df.samps.bugs
+
+# calculate
+df.metric.values.bugs <- metric.values(myDF, "bugs")
+View(df.metric.values.bugs)
+
+```
+
+Other tasks can be performed on the data once it is returned as a data frame.
+
+```{r MetricValues_Extra, eval=FALSE}
+library(BCGcalc)
+library(reshape2)
+library(DataExplorer)
+
+# Convert to long format
+df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
+                          , variable.name="metric.name", value.name="metric.value")
+# Export for QC
+write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+
+# DataExplorer Report
+create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
+create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
+```
+
+## Metric Scoring (Membership)
+Metrics are scored according to a user defined table.  The membership scoring is BCG specific and results in a score in the range of 0 to 1.
+
+The results are returned in a data frame in the long format.
+
+```{r Import, eval=FALSE, echo=TRUE}
+library(BCGcalc)
+library(readxl)
+library(knitr)
+
+# Calculate Metrics
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                        , package="BCGcalc"))
+myDF <- df.samps.bugs
+df.metric.values.bugs <- metric.values(myDF, "bugs")
+
+# Import Rules
+df.rules.PacNW <- read_excel(system.file("./extdata/Rules.xlsx"
+                             , package="BCGcalc"), sheet="BCG_PacNW_2018") 
+
+# Run function
+df.Membership <- BCG.Membership(df.metric.values.bugs, df.rules.PacNW)
+
+# show results
+#View(df.Membership)
+
+tbl.rules <- df.rules.PacNW
+tbl.rules.caption <- "Membership rules."
+
+kable(tbl.rules, caption=tbl.rules.caption)
+
+```
+
+## Model Calculation
+The BCG Tiers are assigned from the Levels for each Tier.
+
+### Levels
+The levels are determiend according to the rules for a specific BCG model (e.g., Pacific Northwest low gradient).
+
+*TBD*
+
+### Tiers
+Tier assignments are done according the values of the levels.  The maximum level is designated at the nominal tier and the next highest value is assigned to the second tier.  
+```{r Tier, eval=TRUE, echo=TRUE}
+library(BCGcalc)
+library(knitr)
+
+# construct a dummy dataset
+L1 <- rep(0, 10)
+L2 <- c(0.4, 0, 0.4, rep(0,7))
+L3 <- c(0.6, 0, 0.6, 0, 0.42, 0, 1, 1, 0.22, 0.33)
+L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67)
+L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4))
+L6 <- rep(0, 10)
+SampID <- LETTERS[1:10]
+df.levels <- as.data.frame(SampID, stringsAsFactors=FALSE)
+df.levels[,"L1"] <- L1
+df.levels[,"L2"] <- L2
+df.levels[,"L3"] <- L3
+df.levels[,"L4"] <- L4
+df.levels[,"L5"] <- L5
+df.levels[,"L6"] <- L6
+
+df.Tiers <- BCG.Tiers(df.levels)
+
+#View(df.Tiers)
+
+kable(df.Tiers, caption="BCG Tier Assignments.")
+```
+
+
+## Additional Tasks
+There are some ancillary tasks that can be completed with the data that are a necessary part of data analysis and are included in the `BCGcalc` package.
+
+### Subsample (rarify)
+Subsample (rarify) a biological sample to a fixed count.
+
+Takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.
+
+The other inputs are subsample size (target number of organisms in each sample) and seed. The seed is given so the results can be reproduced from the same input file. If no seed is given a random seed is used.  An easy seed to remember is the date of admission to the Union for each state (e.g., Washinton is 18891111).  These values can be found on Wikipedia on the right sidebar.
+
+Returns a data frame with the same three columns but the abund field has been modified so the total count for each sample is no longer above the target (subsiz).
+
+Code from USEPA Corvallis John Van Sickle R code for RIVPACS (v1.0, 2005-06-10).  Tweaked for addition of seed.
+
+```{r Other_Rarify, eval=TRUE, echo=TRUE}
+library(BCGcalc)
+library(knitr)
+
+# load bio data
+DF.biodata <- data_bio2rarify
+#dim(DF.biodata)
+#View(DF.biodata)
+
+# subsample
+mySize <- 200
+Seed.OR <- 18590214
+Seed.WA <- 18891111
+bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep"
+                     ,abund="Count",subsiz=mySize, mySeed=Seed.WA)
+#dim(bugs.mysize)
+#View(bugs.mysize)
+
+# Compare
+df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampRep", "tax"))
+#View(df.compare)
+ 
+# save the data
+#write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
+
+tbl.compare <- head(df.compare)
+tbl.compare.caption <- "First few rows of original and rarified data."
+
+kable(tbl.compare, caption=tbl.compare.caption)
+
+```
+
+### QC Checks
+Specific to some programs there are QC checks on the samples that should be performed.  For example, minimum and maximum number of organisms to be a valid sample.
+
+This function uses an imported data frame to compare calcualted metrics and gives a Pass or Fail evaluation.
+
+The QC checks are matched against the data on Index Name, Region, and Metric Name.  Only those that match are evaluated.  Valid symbols are those used by R; <, >, <=, >=, ==, and !=.
+```{r Other_QCCheck, eval=TRUE, echo=TRUE}
+library(readxl)
+library(BCGcalc)
+library(knitr)
+
+# Calculate Metrics
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                        , package="BCGcalc"))
+myDF <- df.samps.bugs
+df.metric.values.bugs <- metric.values(myDF, "bugs")
+
+# Import Checks
+df.checks.PacNW <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+                                          , package="BCGcalc"), sheet="Flags") 
+
+# Run function
+df.flags <- qc.checks(df.metric.values.bugs, df.checks.PacNW)
+
+# Show QC checks table
+tbl.checks <- df.checks.PacNW
+tbl.checks.caption <- "QC Checks"
+
+kable(tbl.checks, caption = tbl.checks.caption)
+
+# Show results summary
+tbl.results <- table(df.flags[,"CheckName"], df.flags[,"Flag"])
+tbl.results.caption <- "QC Check Results"
+
+kable(tbl.results, caption = tbl.results.caption)
+```
+
+
+

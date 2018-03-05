@@ -67,10 +67,9 @@
 #' @examples
 #' 
 #' # Metrics, BCG, Bugs
-## Some things to be changed before final version (use system.files)
 #' library(readxl)
 #' 
-#' #' # PACIFIC NW
+#' # PACIFIC NW
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 #'                                        , package="BCGcalc"))
 #' myDF <- df.samps.bugs
@@ -102,8 +101,8 @@
 #' 
 #' # DataExplorer Report
 #' library(DataExplorer)
-#' create_report(df.metric.values.bugs)
-#' create_report(df.samps.bugs)
+#' create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
+#' create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # OLD, Remove
@@ -231,7 +230,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              , ni_Gnorimo = sum(N_TAXA[GENUS == "Gnorimosphaeroma"], na.rm=TRUE)
              , ni_brackish= ni_Americo + ni_Gnorimo
              , ni_Ramello = sum(N_TAXA[GENUS == "Ramellogammarus"], na.rm=TRUE)
-             
+
              # percent individuals####
              , pi_Amph = sum(N_TAXA[ORDER == "Amphipoda"], na.rm=TRUE)/ni_total
              , pi_Bival = sum(N_TAXA[CLASS == "Bivalvia"], na.rm=TRUE)/ni_total
@@ -301,10 +300,50 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              
              # Special ####
              # oddball or specialized metrics
-             # PacNW = clumpy taxa
-             #NonIns_sel_NonClump	Excludes Class Insecta, Class Arachnida, Order Decapoda, 
+             # , ni_NonIns = sum(N_TAXA[CLASS==NA | CLASS!="Insecta"], na.rm=TRUE)
+             # , ni_NonArach = sum(N_TAXA[CLASS==NA | CLASS!="Arachnida"], na.rm=TRUE)
+             # , ni_NonDeca = sum(N_TAXA[ORDER==NA | ORDER!="Decapoda"], na.rm=TRUE)
+             # 
+             # , ni_clumpy = sum(N_TAXA[GENUS=="Juga" & GENUS=="Rissoidea"], na.rm=TRUE)
+             # , ni_Nonclumpy = sum(N_TAXA[GENUS!="Juga" & GENUS!="Rissoidea"], na.rm=TRUE)
+             #
+             # PacNW, NonIns_select
+             #This metric excludes Class Insecta, Class Arachnida and Order Decapoda; 
+             # and only includes Attribute IV, V, VI taxa. 
+             , nt_NonInsArachDeca_BCG_att456 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
+                                      & (CLASS == NA | CLASS != "Insecta")
+                                      & (CLASS == NA | CLASS != "Arachnida")
+                                      & (ORDER == NA | ORDER != "Decapoda")
+                                      & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                     , na.rm = TRUE)
+             , pi_NonInsArachDeca_BCG_att456 = sum(N_TAXA[(CLASS == NA | CLASS != "Insecta") 
+                                      & (CLASS == NA | CLASS != "Arachnida")
+                                      & (ORDER == NA | ORDER != "Decapoda")          
+                                      & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                      , na.rm=TRUE)/ni_total
+             , pt_NonInsArachDeca_BCG_att456 = nt_NonInsArachDeca_BCG_att456/nt_total
+             # PacNW, NonIns_select_NonClump
+             # above but also non-clumpy
              #clumpy' taxa (Juga and Rissoidea in PacNW); and it only includes Attribute IV, V, VI taxa. 
+             , nt_NonInsArachDecaClump_BCG_att456 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
+                                                & (CLASS == NA | CLASS != "Insecta")
+                                                & (CLASS == NA | CLASS != "Arachnida")
+                                                & (ORDER == NA | ORDER != "Decapoda")
+                                                & (GENUS == NA | GENUS!="Juga" | GENUS!="Rissoidea")
+                                                & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                                , na.rm = TRUE)
+             , pi_NonInsArachDecaClump_BCG_att456 = sum(N_TAXA[(CLASS == NA | CLASS != "Insecta") 
+                                                & (CLASS == NA | CLASS != "Arachnida")
+                                                & (ORDER == NA | ORDER != "Decapoda")
+                                                & (GENUS == NA | GENUS!="Juga" | GENUS!="Rissoidea")          
+                                                & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                                , na.rm=TRUE)/ni_total
+             , pt_NonInsArachDecaClump_BCG_att456 = nt_NonInsArachDecaClump_BCG_att456/nt_total
              
+             
+             
+             
+
              
              # Thermal Indicators
              # Density
@@ -428,8 +467,11 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              # 6i, 6m, 6t
             ## nt_BCG
             , nt_BCG_att12 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "1" | BCG_ATTR == "2")], na.rm = TRUE)
+            , nt_BCG_att1i2 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "1i" | BCG_ATTR == "2")], na.rm = TRUE)
             , nt_BCG_att123 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & 
                                                        (BCG_ATTR == "1" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm = TRUE)
+            , nt_BCG_att1i23 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & 
+                                                         (BCG_ATTR == "1i" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm = TRUE)
             , nt_BCG_att2 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "2")], na.rm = TRUE)
             , nt_BCG_att23 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm = TRUE)
             , nt_BCG_att234 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "2" | BCG_ATTR == "3" | BCG_ATTR == "4")], na.rm = TRUE)
@@ -441,9 +483,13 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
             ## EPT
             , nt_EPT_BCG_att123 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (ORDER == "Ephemeroptera" | ORDER == "Trichoptera" | ORDER == "Plecoptera") 
                                                            & (BCG_ATTR == "1" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm = TRUE)
+            , nt_EPT_BCG_att1i23 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (ORDER == "Ephemeroptera" | ORDER == "Trichoptera" | ORDER == "Plecoptera") 
+                                                           & (BCG_ATTR == "1i" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm = TRUE)
             ## pi_BCG
             , pi_BCG_att12 = sum(N_TAXA[(BCG_ATTR == "1" | BCG_ATTR == "2")], na.rm=TRUE)/ni_total
+            , pi_BCG_att1i2 = sum(N_TAXA[(BCG_ATTR == "1i" | BCG_ATTR == "2")], na.rm=TRUE)/ni_total
             , pi_BCG_att123 = sum(N_TAXA[(BCG_ATTR == "1" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
+            , pi_BCG_att1i23 = sum(N_TAXA[(BCG_ATTR == "1i" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
             , pi_BCG_att23 = sum(N_TAXA[(BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
             , pi_BCG_att234 = sum(N_TAXA[(BCG_ATTR == "2" | BCG_ATTR == "3" | BCG_ATTR == "4")], na.rm=TRUE)/ni_total
             , pi_BCG_att4 = sum(N_TAXA[(BCG_ATTR == "4")], na.rm=TRUE)/ni_total
@@ -456,7 +502,9 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
                                              & (BCG_ATTR == "1" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
             ## pt_BCG  
             , pt_BCG_att12 = nt_BCG_att12/nt_total 
+            , pt_BCG_att1i2 = nt_BCG_att12/nt_total 
             , pt_BCG_att123 = nt_BCG_att123/nt_total
+            , pt_BCG_att1i23 = nt_BCG_att123/nt_total
             , pt_BCG_att2 = nt_BCG_att2/nt_total 
             , pt_BCG_att23 = nt_BCG_att23/nt_total
             , pt_BCG_att234 = nt_BCG_att234/nt_total 

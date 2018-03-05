@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-05 09:35:33
+2018-03-05 14:10:33
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-05 09:35:33
+    #> Last Update: 2018-03-05 14:10:33
 
 # Planned Features
 
@@ -38,6 +38,13 @@ BCGcalc-NEWS
   - Table of metrics for each model with DataExplorer report.
 
 # Version History
+
+## v0.1.0.9008
+
+2018-03-05
+
+  - Add last of the PacNW specific metrics to metric.values.
+  - Added Vignette.
 
 ## v0.1.0.9007
 

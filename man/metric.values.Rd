@@ -84,7 +84,7 @@ The R library dplyr is required for this function.
 # Metrics, BCG, Bugs
 library(readxl)
 
-#' # PACIFIC NW
+# PACIFIC NW
 df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
                                        , package="BCGcalc"))
 myDF <- df.samps.bugs
@@ -116,7 +116,7 @@ df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NA
 
 # DataExplorer Report
 library(DataExplorer)
-create_report(df.metric.values.bugs)
-create_report(df.samps.bugs)
+create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
+create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
 
 }
