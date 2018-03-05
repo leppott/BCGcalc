@@ -40,4 +40,6 @@ df.levels[,"L6"] <- L6
 
 df.Tiers <- BCG.Tiers(df.levels)
 
+View(df.Tiers)
+
 }

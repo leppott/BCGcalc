@@ -15,12 +15,14 @@
 #' library(readxl)
 #' 
 #' # Calculate Metrics
-#' df.samps.bugs <- read_excel("./data-raw/Data_BCG_PacNW.xlsx")
+#' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+#'                                         , package="BCGcalc"))
 #' myDF <- df.samps.bugs
 #' df.metric.values.bugs <- metric.values(myDF, "bugs")
 #' 
 #' # Import Rules
-#' df.rules.PacNW <- read_excel("./inst/extdata/Rules.xlsx", sheet="BCG_PacNW_2018") 
+#' df.rules.PacNW <- read_excel(system.file("./extdata/Rules.xlsx"
+#'                              , package="BCGcalc"), sheet="BCG_PacNW_2018") 
 #' 
 #' # Run function
 #' df.Membership <- BCG.Membership(df.metric.values.bugs, df.rules.PacNW)

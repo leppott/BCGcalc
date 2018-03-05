@@ -44,8 +44,13 @@ bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampRep"
                      ,abund="Count",subsiz=mySize, mySeed=Seed.MS)
 dim(bugs.mysize)
 View(bugs.mysize)
+
+# Compare
+df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampRep", "tax"))
+View(df.compare)
+ 
 # save the data
-write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\\t")
+#write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\\t")
 }
 \keyword{rarify,}
 \keyword{subsample}

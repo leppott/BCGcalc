@@ -4,7 +4,6 @@
 #' 
 #' @details used reshape2 package
 #' 
-#' 
 #' @param df.metrics Wide data frame with metric values to be evaluated.
 #' @param df.checks  Data frame of metric thresholds to check.
 #' @param input.shape Shape of df.metrics; wide or long.  Default is wide.
@@ -15,57 +14,20 @@
 #' library(readxl)
 #' 
 #' # Calculate Metrics
-#' df.samps.bugs <- read_excel("./data-raw/Data_BCG_PacNW.xlsx")
+#' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+#'                                         , package="BCGcalc"))
 #' myDF <- df.samps.bugs
 #' df.metric.values.bugs <- metric.values(myDF, "bugs")
 #' 
 #' # Import Checks
-#' df.checks.PacNW <- read_excel("./inst/extdata/MetricFlags.xlsx", sheet="Flags") 
+#' df.checks.PacNW <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+#'                                           , package="BCGcalc"), sheet="Flags") 
 #' 
 #' # Run function
 #' df.flags <- qc.checks(df.metric.values.bugs, df.checks.PacNW)
 #' 
 #' # show results
 #' table(df.flags[,"CheckName"], df.flags[,"Flag"])
-#' 
-#'  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'  junk below, need to remove
-#'   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#'   
-#' # convert to long format
-#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
-#'                           , variable.name="metric.name", value.name="metric.value")
-#' 
-
-#'
-#' #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # don't need to cut down as merge will only keep the matches
-#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#' 
-#' 
-#' # select for appropriate index
-#' myIndex <- "BCG_PacNW_2018"
-#' df.checks.PacNW <- df.checks[df.checks[,"Index_Name"]==myIndex, ]
-#' # Metrics to Check
-#' metrics.check <- as.vector(unique(as.data.frame(df.checks.PacNW[,"Metric"])))
-#' 
-#' 
-#' #~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#' # select only metrics to check
-#' boo.metrics <- df.long[, "metric.name"] %in% metrics.check
-#' df.QC <- df.long[boo.metrics, ]
-#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#' 
-#' # temp, just ni_total 
-#' df.QC <- df.long[df.long$metric.name=="ni_total", ]
-#' 
-#' # add QC checks
-#' df.merge <- merge(df.long, df.checks, by.x=c("INDEX_NAME", "metric.name"), by.y=c("Index_Name", "Metric"))
-#' # drops non-matching metrics
-#' 
-#' 
-#' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # df.metrics <- df.metric.values.bugs
@@ -84,7 +46,9 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   }##IF.input.shape.END
   #
   # merge metrics and checks
-  df.merge <- merge(df.long, df.checks, by.x=c("INDEX_NAME", "REGION", "metric.name"), by.y=c("Index_Name", "Region", "Metric"))
+  df.merge <- merge(df.long, df.checks
+                    , by.x=c("INDEX_NAME", "REGION", "metric.name")
+                    , by.y=c("Index_Name", "Region", "Metric"))
   #
   # perform evaluation (adds Pass/Fail, default is NA)
 
@@ -102,7 +66,7 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   # x <- "1 < 2"
   # eval(parse(text=x))
   
-  # temporary
+  # temporary (quick and dirty)
   for (i in 1:nrow(df.merge)){
     df.merge[i, "Eval"] <- eval(parse(text=df.merge[i, "Expr"]))
   }

@@ -1,23 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-04 09:52:56
+2018-03-05 09:35:33
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-04 09:52:57
+    #> Last Update: 2018-03-05 09:35:33
 
 # Planned Features
-
-  - Metric calculation
 
   - Attribute calculation
 
   - Tier membership
 
   - Model calculation
-
-  - Subsample large counts.
 
   - More/special metrics.
 
@@ -42,6 +38,21 @@ BCGcalc-NEWS
   - Table of metrics for each model with DataExplorer report.
 
 # Version History
+
+## v0.1.0.9007
+
+2018-03-05
+
+  - Check clean up.
+  - Convert data imports from development folder to pacakge folder with
+    system.file.
+  - Add data for rarify function.
+
+## v0.1.0.9006
+
+2018-03-04
+
+  - BCG.Tiers function.
 
 ## v0.1.0.9005
 

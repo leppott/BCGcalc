@@ -30,6 +30,8 @@
 #' 
 #' df.Tiers <- BCG.Tiers(df.levels)
 #' 
+#' View(df.Tiers)
+#' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # SampID <- LETTERS[1:10]

@@ -69,15 +69,17 @@
 #' # Metrics, BCG, Bugs
 ## Some things to be changed before final version (use system.files)
 #' library(readxl)
-#' df.samps.bugs <- read_excel("./data-raw/Data_BCG_Indiana.xlsx", sheet="R_Input")
-#' dim(df.samps.bugs)
 #' 
-#' 
-#' df.samps.bugs <- read_excel("./data-raw/Data_BCG_PacNW.xlsx")
+#' #' # PACIFIC NW
+#' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+#'                                        , package="BCGcalc"))
 #' myDF <- df.samps.bugs
 #' 
 #' 
-#' 
+#' # INDIANA
+#' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_Indiana.xlsx"
+#'                            , package="BCGcalc"), sheet="R_Input")
+#' dim(df.samps.bugs) 
 #' # rename some fields 
 #' names(df.samps.bugs)
 #' names(df.samps.bugs)[names(df.samps.bugs)=="VisitNum"] <- "SampleID"
@@ -96,7 +98,7 @@
 #' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
 #'                           , variable.name="metric.name", value.name="metric.value")
 #' # Export for QC
-#' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+#' #write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
 #' 
 #' # DataExplorer Report
 #' library(DataExplorer)
@@ -104,45 +106,51 @@
 #' create_report(df.samps.bugs)
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' # Metrics, MBSS Index, Fish
-#' myIndex <- "MBSS.2005.Fish"
-#' # Thresholds
-#' thresh <- metrics_scoring
-#' # get metric names for myIndex
-#' (myMetrics.Fish <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
-#' # Taxa Data
-#' myDF.Fish <- taxa_fish
-#' myMetric.Values.Fish <- metric.values(myDF.Fish, "fish", myMetrics.Fish)
-#' View(myMetric.Values.Fish)
-#'
-#' # Metrics, Index, Benthic Macroinvertebrates, genus
-#' # (generate values then scores)
-#' myIndex <- "MBSS.2005.Bugs"
-#' # Thresholds
-#' thresh <- metrics_scoring
-#' # get metric names for myIndex
-#' (myMetrics.Bugs.MBSS <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
-#' # Taxa Data
-#' myDF.Bugs.MBSS <- taxa_bugs_genus
-#' myMetric.Values.Bugs.MBSS <- metric.values(myDF.Bugs.MBSS, "bugs", myMetrics.Bugs.MBSS)
-#' View(myMetric.Values.Bugs.MBSS)
-#'
-#' # Metrics, MSW Index, Benthic Macroinvertebrates, family
-#' myIndex <- "MSW.1999.Bugs"
-#' # Thresholds
-#' thresh <- metrics_scoring
-#' # get metric names for myIndex
-#' (myMetrics.Bugs.MSW <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
-#' # Taxa Data
-#' myDF.Bugs.MSW <- taxa_bugs_family
-#' myMetric.Values.Bugs.MSW <- metric.values(myDF.Bugs.MSW, "bugs", myMetrics.Bugs.MSW)
-#' View(myMetric.Values.Bugs.MSW)
+# OLD, Remove
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# # Metrics, MBSS Index, Fish
+# myIndex <- "MBSS.2005.Fish"
+# # Thresholds
+# thresh <- metrics_scoring
+# # get metric names for myIndex
+# (myMetrics.Fish <- as.character(droplevels(unique(
+#                           thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
+# # Taxa Data
+# myDF.Fish <- taxa_fish
+# myMetric.Values.Fish <- metric.values(myDF.Fish, "fish", myMetrics.Fish)
+# View(myMetric.Values.Fish)
+#
+# # Metrics, Index, Benthic Macroinvertebrates, genus
+# # (generate values then scores)
+# myIndex <- "MBSS.2005.Bugs"
+# # Thresholds
+# thresh <- metrics_scoring
+# # get metric names for myIndex
+# (myMetrics.Bugs.MBSS <- as.character(droplevels(unique(thresh
+#                                     [thresh[,"Index_Name"]==myIndex,"Metric"]))))
+# # Taxa Data
+# myDF.Bugs.MBSS <- taxa_bugs_genus
+# myMetric.Values.Bugs.MBSS <- metric.values(myDF.Bugs.MBSS, "bugs", myMetrics.Bugs.MBSS)
+# View(myMetric.Values.Bugs.MBSS)
+#
+# # Metrics, MSW Index, Benthic Macroinvertebrates, family
+# myIndex <- "MSW.1999.Bugs"
+# # Thresholds
+# thresh <- metrics_scoring
+# # get metric names for myIndex
+# (myMetrics.Bugs.MSW <- as.character(droplevels(unique(thresh
+#                                   [thresh[,"Index_Name"]==myIndex,"Metric"]))))
+# # Taxa Data
+# myDF.Bugs.MSW <- taxa_bugs_family
+# myMetric.Values.Bugs.MSW <- metric.values(myDF.Bugs.MSW, "bugs", myMetrics.Bugs.MSW)
+# View(myMetric.Values.Bugs.MSW)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # QC
 # ## Fish
 # myIndex <- "MBSS.2005.Fish"
 # thresh <- metrics_scoring
-# (myMetrics.Fish <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
+# (myMetrics.Fish <- as.character(droplevels(unique(thresh
+#                                   [thresh[,"Index_Name"]==myIndex,"Metric"]))))
 # myDF <- myDF.Fish
 # myMetric.Values.Fish <- metric.values(myDF.Fish, "SampleID", "fish", myMetrics.Fish, TRUE)
 # fun.DF <- myDF.Fish
@@ -167,7 +175,7 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
 #
 #
 #' @export
-metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust){##FUNCTION.metric.values.bugs.START
+metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.bugs.START
   # Data Munging ####
   # Convert to data.frame.  Code breaks if myDF is a tibble.
   myDF <- as.data.frame(myDF)
@@ -516,7 +524,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust){##FUNCTION.me
 #
 #
 #' @export
-metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust){##FUNCTION.metric.values.fish.START
+metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.fish.START
   # Remove Non-Target Taxa
   #myDF <- myDF[myDF[,"NonTarget"]==0,]
   # set case on fields
@@ -659,7 +667,7 @@ metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust){##F
 #
 #
 #' @export
-metric.values.algae <- function(myDF, MetricNames=NULL, boo.Adjust){##FUNCTION.metric.values.algae.START
+metric.values.algae <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.algae.START
   # Calculate Metrics (could have used pipe, %>%)
     met.val <- dplyr::summarise(dplyr::group_by(myDF, SampleID, "Index_Name", "Index.Region")
                 #

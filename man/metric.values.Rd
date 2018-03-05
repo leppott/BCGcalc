@@ -83,15 +83,17 @@ The R library dplyr is required for this function.
 
 # Metrics, BCG, Bugs
 library(readxl)
-df.samps.bugs <- read_excel("./data-raw/Data_BCG_Indiana.xlsx", sheet="R_Input")
-dim(df.samps.bugs)
 
-
-df.samps.bugs <- read_excel("./data-raw/Data_BCG_PacNW.xlsx")
+#' # PACIFIC NW
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                       , package="BCGcalc"))
 myDF <- df.samps.bugs
 
 
-
+# INDIANA
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_Indiana.xlsx"
+                           , package="BCGcalc"), sheet="R_Input")
+dim(df.samps.bugs) 
 # rename some fields 
 names(df.samps.bugs)
 names(df.samps.bugs)[names(df.samps.bugs)=="VisitNum"] <- "SampleID"
@@ -110,44 +112,11 @@ View(df.metric.values.bugs)
 df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
                           , variable.name="metric.name", value.name="metric.value")
 # Export for QC
-write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
+#write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
 
 # DataExplorer Report
 library(DataExplorer)
 create_report(df.metric.values.bugs)
 create_report(df.samps.bugs)
 
-# Metrics, MBSS Index, Fish
-myIndex <- "MBSS.2005.Fish"
-# Thresholds
-thresh <- metrics_scoring
-# get metric names for myIndex
-(myMetrics.Fish <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
-# Taxa Data
-myDF.Fish <- taxa_fish
-myMetric.Values.Fish <- metric.values(myDF.Fish, "fish", myMetrics.Fish)
-View(myMetric.Values.Fish)
-
-# Metrics, Index, Benthic Macroinvertebrates, genus
-# (generate values then scores)
-myIndex <- "MBSS.2005.Bugs"
-# Thresholds
-thresh <- metrics_scoring
-# get metric names for myIndex
-(myMetrics.Bugs.MBSS <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
-# Taxa Data
-myDF.Bugs.MBSS <- taxa_bugs_genus
-myMetric.Values.Bugs.MBSS <- metric.values(myDF.Bugs.MBSS, "bugs", myMetrics.Bugs.MBSS)
-View(myMetric.Values.Bugs.MBSS)
-
-# Metrics, MSW Index, Benthic Macroinvertebrates, family
-myIndex <- "MSW.1999.Bugs"
-# Thresholds
-thresh <- metrics_scoring
-# get metric names for myIndex
-(myMetrics.Bugs.MSW <- as.character(droplevels(unique(thresh[thresh[,"Index_Name"]==myIndex,"Metric"]))))
-# Taxa Data
-myDF.Bugs.MSW <- taxa_bugs_family
-myMetric.Values.Bugs.MSW <- metric.values(myDF.Bugs.MSW, "bugs", myMetrics.Bugs.MSW)
-View(myMetric.Values.Bugs.MSW)
 }

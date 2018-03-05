@@ -1,12 +1,11 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, calculator
-Version: 0.1.0.9005
+Version: 0.1.0.9006
 Author: c(
 	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")))
 Maintainer: Erik W. Leppo <Erik.Leppo@tetratech.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Biological Condition Gradient helper functions.
 License: MIT
 Encoding: UTF-8
 LazyData: true
