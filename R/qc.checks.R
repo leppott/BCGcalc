@@ -20,13 +20,13 @@
 #' df.metric.values.bugs <- metric.values(myDF, "bugs")
 #' 
 #' # Import Checks
-#' df.checks.PacNW <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+#' df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
 #'                                           , package="BCGcalc"), sheet="Flags") 
 #' 
-#' # Run function
-#' df.flags <- qc.checks(df.metric.values.bugs, df.checks.PacNW)
+#' # Run Function
+#' df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 #' 
-#' # show results
+#' # Summarize Results
 #' table(df.flags[,"CheckName"], df.flags[,"Flag"])
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
@@ -39,7 +39,7 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   #
   # Metrics to long
   if (input.shape=="wide") {##IF.input.shape.START
-    df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
+    df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
                              , variable.name="metric.name", value.name="metric.value")
   } else {
     df.long <- df.metrics
@@ -47,8 +47,8 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   #
   # merge metrics and checks
   df.merge <- merge(df.long, df.checks
-                    , by.x=c("INDEX_NAME", "REGION", "metric.name")
-                    , by.y=c("Index_Name", "Region", "Metric"))
+                    , by.x=c("INDEX_NAME", "SITETYPE", "metric.name")
+                    , by.y=c("Index_Name", "SiteType", "Metric"))
   #
   # perform evaluation (adds Pass/Fail, default is NA)
 

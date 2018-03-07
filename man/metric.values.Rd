@@ -102,17 +102,19 @@ names(df.samps.bugs)[names(df.samps.bugs)=="Count"] <- "N_Taxa"
 # Add field
 df.samps.bugs[, "INDEX_NAME"] <- "BCG.IN"
 #
-# calculate
+# Run Function
 myDF <- df.samps.bugs
 myIndex <- "BCG.IN"
 df.metric.values.bugs <- metric.values(myDF, "bugs")
+
+# View Results
 View(df.metric.values.bugs)
 
 # Get data in long format so can QC results
-df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
+df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
                           , variable.name="metric.name", value.name="metric.value")
-# Export for QC
-#write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
+# Save Results
+write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
 
 # DataExplorer Report
 library(DataExplorer)

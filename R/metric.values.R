@@ -87,17 +87,19 @@
 #' # Add field
 #' df.samps.bugs[, "INDEX_NAME"] <- "BCG.IN"
 #' #
-#' # calculate
+#' # Run Function
 #' myDF <- df.samps.bugs
 #' myIndex <- "BCG.IN"
 #' df.metric.values.bugs <- metric.values(myDF, "bugs")
+#' 
+#' # View Results
 #' View(df.metric.values.bugs)
 #' 
 #' # Get data in long format so can QC results
-#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
+#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
 #'                           , variable.name="metric.name", value.name="metric.value")
-#' # Export for QC
-#' #write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+#' # Save Results
+#' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
 #' 
 #' # DataExplorer Report
 #' library(DataExplorer)
@@ -207,7 +209,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   #
   # Calculate Metrics (could have used pipe, %>%)
   # met.val <- myDF %>% 
-  #                 dplyr::group_by(SAMPLEID, INDEX_NAME, REGION) %>%
+  #                 dplyr::group_by(SAMPLEID, INDEX_NAME, SITETYPE) %>%
   #                   dplyr::summarise(ni_total=sum(N_TAXA)
   #                         , nt_total=dplyr::n_distinct(TAXAID[EXCLUDE != TRUE], na.rm = TRUE)
   #                         , ni_max= max(N_TAXA)
@@ -216,13 +218,13 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   #https://stackoverflow.com/questions/45365484/how-to-find-top-n-descending-values-in-group-in-dplyr
   # may have to create a 2nd output with domX metrics then join together.
   # dom.val <- myDF %>%
-  #               group_by(SAMPLEID, INDEX_NAME, REGION) %>%
+  #               group_by(SAMPLEID, INDEX_NAME, SITETYPE) %>%
   #                 summarise(N_TAXA=n()) %>%
   #                   top_n(n=3, wt=N_TAXA) %>%
   #                     arrange()
   
   
-  met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, INDEX_NAME, REGION)
+  met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, INDEX_NAME, SITETYPE)
              #
              # individuals ####
              , ni_total=sum(N_TAXA)
@@ -566,7 +568,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
 
 
   if (!is.null(MetricNames)) {
-    met.val <- met.val[, c("SAMPLEID", "REGION", "INDEX_NAME", 
+    met.val <- met.val[, c("SAMPLEID", "SITETYPE", "INDEX_NAME", 
                            ni_total, MetricNames)]
   }
   # df to report back
@@ -720,7 +722,7 @@ metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust=FALS
 #' @export
 metric.values.algae <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.algae.START
   # Calculate Metrics (could have used pipe, %>%)
-    met.val <- dplyr::summarise(dplyr::group_by(myDF, SampleID, "Index_Name", "Index.Region")
+    met.val <- dplyr::summarise(dplyr::group_by(myDF, SampleID, "Index_Name", "Index_Type")
                 #
                 # individuals, total
                 ,ni_total=sum(N_TAXA)
@@ -730,7 +732,7 @@ metric.values.algae <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNC
     met.val[is.na(met.val)] <- 0
     # subset to only metrics specified by user
     if (!is.null(MetricNames)){
-      met.val <- met.val[,c(SampleID, "Index_Name", "Index.Region", "ni_total", MetricNames)]
+      met.val <- met.val[,c(SampleID, "Index_Name", "Index_Type", "ni_total", MetricNames)]
     }
     # df to report back
     return(met.val)

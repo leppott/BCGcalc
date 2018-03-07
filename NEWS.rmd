@@ -23,31 +23,31 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Planned Features
 
-* Attribute calculation
-
-* Tier membership
-
-* Model calculation
-
-* More/special metrics.
-
 * Add excluded taxa flag to samples based on levels of taxonomy.  Will not be completely accurate.  Will have many false positives and false negatives.  That is, if there are only organisms at the higher level in a sample it will fail.  And if there are no organisms of the target group it will pass.
     + Pass, Fail on each. And overall flag
     + Chiro (tribe and family)
     + Oligo
     + trombidiformes
+    
+* Flags, would prefer to have flags attached to final Level assignments.
 
 * Hi/Lo models.
-    + parameter to run "correct" model or all models for each site.
+    + ~~parameter to run "correct" model or all models for each site.~~
     + Have a field for site type.  So can override gradient.
     
-* Report - QC, use DataExplorer.
+* ~~Report - QC, use DataExplorer.~~
 
-* Table of metrics for each model with DataExplorer report.
+* ~~Table of metrics for each model with DataExplorer report.~~
+
 
 # Version History
 
+## v0.1.0.9010
+2018-03-07
 
+* Remove "Tier" wording in package and rename some functions to better reflect usage.
+* Include example code for saving results for each function.
+* Change Region to SiteType in code and example data files.
 
 ## v0.1.0.9009
 2018-03-05

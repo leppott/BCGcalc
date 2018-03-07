@@ -32,12 +32,12 @@ myDF <- df.samps.bugs
 df.metric.values.bugs <- metric.values(myDF, "bugs")
 
 # Import Checks
-df.checks.PacNW <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
                                           , package="BCGcalc"), sheet="Flags") 
 
-# Run function
-df.flags <- qc.checks(df.metric.values.bugs, df.checks.PacNW)
+# Run Function
+df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 
-# show results
+# Summarize Results
 table(df.flags[,"CheckName"], df.flags[,"Flag"])
 }

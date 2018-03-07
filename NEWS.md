@@ -1,21 +1,13 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-05 16:07:41
+2018-03-07 17:45:44
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-05 16:07:41
+    #> Last Update: 2018-03-07 17:45:44
 
 # Planned Features
-
-  - Attribute calculation
-
-  - Tier membership
-
-  - Model calculation
-
-  - More/special metrics.
 
   - Add excluded taxa flag to samples based on levels of taxonomy. Will
     not be completely accurate. Will have many false positives and false
@@ -28,16 +20,29 @@ BCGcalc-NEWS
       - Oligo
       - trombidiformes
 
+  - Flags, would prefer to have flags attached to final Level
+    assignments.
+
   - Hi/Lo models.
     
-      - parameter to run “correct” model or all models for each site.
+      - ~~parameter to run “correct” model or all models for each
+        site.~~
       - Have a field for site type. So can override gradient.
 
-  - Report - QC, use DataExplorer.
+  - ~~Report - QC, use DataExplorer.~~
 
-  - Table of metrics for each model with DataExplorer report.
+  - ~~Table of metrics for each model with DataExplorer report.~~
 
 # Version History
+
+## v0.1.0.9010
+
+2018-03-07
+
+  - Remove “Tier” wording in package and rename some functions to better
+    reflect usage.
+  - Include example code for saving results for each function.
+  - Change Region to SiteType in code and example data files.
 
 ## v0.1.0.9009
 
