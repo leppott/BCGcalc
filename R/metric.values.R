@@ -339,6 +339,9 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
                                                 & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
                                                 , na.rm=TRUE)/ni_total
              , pt_NonInsArachDecaClump_BCG_att456 = nt_NonInsArachDecaClump_BCG_att456/nt_total
+             # dominant
+             , pi_dom02_att456_nonclump = max(N_TAXA)/ni_total
+             # placeholder
              
              
              

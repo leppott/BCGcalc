@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-05 14:10:33
+2018-03-05 16:07:41
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-05 14:10:33
+    #> Last Update: 2018-03-05 16:07:41
 
 # Planned Features
 
@@ -38,6 +38,15 @@ BCGcalc-NEWS
   - Table of metrics for each model with DataExplorer report.
 
 # Version History
+
+## v0.1.0.9009
+
+2018-03-05
+
+  - Dom02 special metric placeholder.
+  - Update Rule table for Level assignments.
+  - BCG.Levels function.
+  - Fixed error in sequencing in BCG.Membership function.
 
 ## v0.1.0.9008
 

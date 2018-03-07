@@ -21,11 +21,11 @@
 #' df.metric.values.bugs <- metric.values(myDF, "bugs")
 #' 
 #' # Import Rules
-#' df.rules.PacNW <- read_excel(system.file("./extdata/Rules.xlsx"
+#' df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
 #'                              , package="BCGcalc"), sheet="BCG_PacNW_2018") 
 #' 
 #' # Run function
-#' df.Membership <- BCG.Membership(df.metric.values.bugs, df.rules.PacNW)
+#' df.Membership <- BCG.Membership(df.metric.values.bugs, df.rules)
 #' 
 #' # show results
 #' View(df.Membership)
@@ -33,7 +33,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # df.metrics <- df.metric.values.bugs
-# df.rules <- df.rules.PacNW
+# df.rules <- df.rules
 # input.shape <- "wide"
 # scores <- BCG.Membership(df.metrics, df.rules, "wide")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,24 +59,23 @@ BCG.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FUNCTION.
   df.merge[,"Membership"] <- NA
   #
   boo.score.0 <- df.merge[,"metric.value"] < df.merge[,"Lower"]
-  boo.score.1 <- df.merge[,"metric.value"] > df.merge[,"Upper"]
-  boo.score.calc <- is.na(df.merge[,"Membership"])
+  df.merge[boo.score.0, "Membership"] <- 0 
   #
-  df.merge[boo.score.0, "Membership"] <- 0
+  boo.score.1 <- df.merge[,"metric.value"] > df.merge[,"Upper"]
   df.merge[boo.score.1, "Membership"] <- 1
-  df.merge[boo.score.calc, "Membership"] <- df.merge[,"metric.value"] / (df.merge[,"Upper"] - df.merge[,"Lower"]) - 
-                                        df.merge[,"Lower"] / (df.merge[,"Upper"] - df.merge[,"Lower"])
+  #
+  boo.score.calc <- is.na(df.merge[,"Membership"])
+  df.merge[boo.score.calc, "Membership"] <- df.merge[boo.score.calc,"metric.value"] / 
+    (df.merge[boo.score.calc,"Upper"] - df.merge[boo.score.calc,"Lower"]) - 
+     df.merge[boo.score.calc,"Lower"] / 
+    (df.merge[boo.score.calc,"Upper"] - df.merge[boo.score.calc,"Lower"])
   # direction
   boo.direction <- df.merge[,"Increase"]
-  df.merge[!boo.direction, "Membership"] <- 1-df.merge[,"Membership"]
+  df.merge[!boo.direction, "Membership"] <- 1-df.merge[boo.direction,"Membership"]
       # can mess up 0 and 1
-  
-  
-  
+
   # wide name
   df.merge[,"name.wide"] <- paste0("L", df.merge[,"Level"], "_", df.merge[,"metric.name"])
-  
-  
   #
   # create output
   return(df.merge)
