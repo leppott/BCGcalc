@@ -31,8 +31,8 @@ L3 <- c(0.6, 0, 0.6, 0, 0.42, 0, 1, 1, 0.22, 0.33)
 L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67)
 L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4))
 L6 <- rep(0, 10)
-SampID <- LETTERS[1:10]
-df.Level.Membership <- as.data.frame(SampID, stringsAsFactors=FALSE)
+SampleID <- LETTERS[1:10]
+df.Level.Membership <- as.data.frame(SampleID, stringsAsFactors=FALSE)
 df.Level.Membership[,"L1"] <- L1
 df.Level.Membership[,"L2"] <- L2
 df.Level.Membership[,"L3"] <- L3

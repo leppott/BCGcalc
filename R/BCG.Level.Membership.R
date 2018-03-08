@@ -48,7 +48,7 @@
 # df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
 #                              , package="BCGcalc"), sheet="BCG_PacNW_2018")
 # # Calculate Membership
-# df.Metric.Membership <- BCG.Level.Membership(df.metric.values.bugs, df.rules)
+# df.metric.membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
 # #
 # input.shape <- "long"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,16 +75,67 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
                     , by.y=c("Index_Name", "SiteType", "Level", "Metric.Name"))
   
   # Min of Alt2
-  
   # Max of Alt1 (with Min of Alt2)
-  
-  
   # Min of Rule0 (with alt above)
   
+  # Will get lots of warnings for the SampID that don't have alt 1 or alt 2 rules
+  suppressWarnings(
+    df.lev <- dplyr::summarise(dplyr::group_by(df.merge, SAMPLEID, INDEX_NAME
+                                                 , SITETYPE, Level)
+                              #
+                              # Min of Alt2
+                              , MembCalc1_Alt2=min(Membership[LevelRule == "Alt2"], na.rm=TRUE)
+                              # Max of Alt1
+                              , MembCalc2_Alt1=max(Membership[LevelRule == "Alt1"], na.rm=TRUE)
+                              # Min of Rule0 (with alt above)
+                              , MembCalc3_Rule0=min(Membership[LevelRule == "Rule0"], na.rm=TRUE)
+
+  ))
+
+  # convert from tible to df
+  df.lev <- as.data.frame(df.lev)
+  # replace Inf and -Inf with NA
+  df.lev[!is.finite(df.lev[,"MembCalc1_Alt2"]), "MembCalc1_Alt2"] <- NA
+  df.lev[!is.finite(df.lev[,"MembCalc2_Alt1"]), "MembCalc2_Alt1"] <- NA
+  # this one shouldn't happen.  Use zero just in case.
+  df.lev[!is.finite(df.lev[,"MembCalc3_Rule0"]), "MembCalc3_Rule0"] <- 0
   
-  # Results are for each SAMPLEID, INDEX_NAME, SITETYPE, and TIER/LEVEL
   
-  df.results <- df.merge
+  # Have to do outside of dplyr to get rid of Inf and -Inf
+  
+  # Need to suppress warnings again
+  suppressWarnings(
+    df.lev[,"MembCalc4_Max12"] <- apply(df.lev[,c("MembCalc1_Alt2", "MembCalc2_Alt1")]
+                                          , 1, max, na.rm=TRUE)
+  )
+  # replace Inf with NA
+  df.lev[!is.finite(df.lev[,"MembCalc4_Max12"]), "MembCalc4_Max12"] <- NA
+  
+  # Final Calc
+  # df.lev[,"Level.Membership"] <- min(df.lev[,"MembCalc4_Max12"]
+  #                                      , df.lev[,"MembCalc3_Rule0"], na.rm=TRUE)
+  
+  
+  df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc4_Max12", "MembCalc3_Rule0")]
+                                         , 1, min, na.rm=TRUE)
+  # add extra to "Level"
+  df.lev[,"Level"] <- paste0("L", df.lev[,"Level"])
+  
+  df.lev.wide <- reshape2::dcast(df.lev, SAMPLEID + INDEX_NAME + SITETYPE 
+                                 ~ Level, value.var="Level.Membership"
+                                 )
+  # Add missing Levels and sort L1:L6
+  col.Levels <- c(paste0("L",1:6))
+  col.Other <- names(df.lev.wide)[!(names(df.lev.wide) %in% col.Levels)]
+  col.Levels.Present <- names(df.lev.wide)[(names(df.lev.wide) %in% col.Levels)]
+  col.Levels.Absent  <- col.Levels[!col.Levels %in% names(df.lev.wide)]
+  # Add missing Level columns
+  df.lev.wide[, col.Levels.Absent] <- 0
+  # Sort columns
+  df.results <- df.lev.wide[,c(col.Other, col.Levels)]
+  
+  # Results are for each SAMPLEID, INDEX_NAME, SITETYPE, and LEVEL Assignment/Membership
+  #df.results <- df.lev.wide
 
   # create output
   return(df.results)

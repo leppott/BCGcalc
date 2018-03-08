@@ -21,8 +21,8 @@
 #' L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67)
 #' L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4))
 #' L6 <- rep(0, 10)
-#' SampID <- LETTERS[1:10]
-#' df.Level.Membership <- as.data.frame(SampID, stringsAsFactors=FALSE)
+#' SampleID <- LETTERS[1:10]
+#' df.Level.Membership <- as.data.frame(SampleID, stringsAsFactors=FALSE)
 #' df.Level.Membership[,"L1"] <- L1
 #' df.Level.Membership[,"L2"] <- L2
 #' df.Level.Membership[,"L3"] <- L3
@@ -42,8 +42,8 @@
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
-# SampID <- LETTERS[1:10]
-# df.Level.Membership <- as.data.frame(SampID, stringsAsFactors=FALSE)
+# SampleID <- LETTERS[1:10]
+# df.Level.Membership <- as.data.frame(SampleID, stringsAsFactors=FALSE)
 # df.Level.Membership[,"L1"] <- L1
 # df.Level.Membership[,"L2"] <- L2
 # df.Level.Membership[,"L3"] <- L3
@@ -60,38 +60,38 @@ BCG.Level.Assignment <- function(df.level.membership){##FUNCTION.START
   df.level.membership[df.level.membership[,"Memb.Total"]==1, "Memb.QC"] <- "PASS"
   #
   # Max
-  df.level.membership[, "Tier1.Memb"] <- apply(df.level.membership[, c(paste0("L",1:6))], 1, max, na.rm=TRUE)
-  # df.level.membership[, "Tier1.Name"] <- apply(df.level.membership, 1, function(x) match(df.level.membership[,"Tier1.Memb"]
+  df.level.membership[, "Lev.1.Memb"] <- apply(df.level.membership[, c(paste0("L",1:6))], 1, max, na.rm=TRUE)
+  # df.level.membership[, "Lev.1.Name"] <- apply(df.level.membership, 1, function(x) match(df.level.membership[,"Lev.1.Memb"]
   #                                                                    , df.level.membership[,paste0("L",1:6)]))
   # quick and dirty
   for (i in 1:nrow(df.level.membership)){##FOR.i.START
-    # Max Value Tier
-    df.level.membership[i, "Tier1.Name"] <- match(df.level.membership[i, "Tier1.Memb"], df.level.membership[i, paste0("L",1:6)])
+    # Max Value Lev
+    df.level.membership[i, "Lev.1.Name"] <- match(df.level.membership[i, "Lev.1.Memb"], df.level.membership[i, paste0("L",1:6)])
     # Remove max and get max of remainder
-    df.level.membership[i, "Tier2.Memb"]  <- max(df.level.membership[i, paste0("L",1:6)][-df.level.membership[i, "Tier1.Name"]], na.rm=TRUE)
+    df.level.membership[i, "Lev.2.Memb"]  <- max(df.level.membership[i, paste0("L",1:6)][-df.level.membership[i, "Lev.1.Name"]], na.rm=TRUE)
     # match 2nd
-    if(df.level.membership[i, "Tier1.Memb"]==1){##IF.START
-      df.level.membership[i, "Tier2.Name"] <- NA
+    if(df.level.membership[i, "Lev.1.Memb"]==1){##IF.START
+      df.level.membership[i, "Lev.2.Name"] <- NA
     } else {
-      df.level.membership[i, "Tier2.Name"] <- match(df.level.membership[i, "Tier2.Memb"], df.level.membership[i, paste0("L",1:6)]) 
+      df.level.membership[i, "Lev.2.Name"] <- match(df.level.membership[i, "Lev.2.Memb"], df.level.membership[i, paste0("L",1:6)]) 
     }##IF.END
     #
-    df.level.membership[i, "Tier.Memb.Diff"] <- df.level.membership[i, "Tier1.Memb"] - df.level.membership[i, "Tier2.Memb"]
-    #df.levels[i, "Tier.Memb.close"] <- NA
+    df.level.membership[i, "Lev.Memb.Diff"] <- df.level.membership[i, "Lev.1.Memb"] - df.level.membership[i, "Lev.2.Memb"]
+    #df.levels[i, "Lev.Memb.close"] <- NA
     
-    if(df.level.membership[i,"Tier.Memb.Diff"]<0.2){
-      df.level.membership[i, "Tier.Memb.close"] <- "yes"
+    if(df.level.membership[i,"Lev.Memb.Diff"]<0.2){
+      df.level.membership[i, "Lev.Memb.close"] <- "yes"
     }
-    if(df.level.membership[i,"Tier.Memb.Diff"]<0.1){
-      df.level.membership[i, "Tier.Memb.close"] <- "tie"
+    if(df.level.membership[i,"Lev.Memb.Diff"]<0.1){
+      df.level.membership[i, "Lev.Memb.close"] <- "tie"
     }
   }##FOR.i.END
   
   # Close
-  # df.level.membership[, "Tier.Memb.Diff"] <- df.level.membership[, "Tier1.Memb"] - df.level.membership[, "Tier2.Memb"]
-  # df.level.membership[,"Tier.Memb.close"] <- NA
-  # df.level.membership[df.level.membership[,"Tier.Memb.Diff"]<0.2, "Tier.Memb.close"] <- "yes"
-  # df.level.membership[df.level.membership[,"Tier.Memb.Diff"]<0.1, "Tier.Memb.close"] <- "tie"
+  # df.level.membership[, "Lev.Memb.Diff"] <- df.level.membership[, "Lev.1.Memb"] - df.level.membership[, "Lev.2.Memb"]
+  # df.level.membership[,"Lev.Memb.close"] <- NA
+  # df.level.membership[df.level.membership[,"Lev.Memb.Diff"]<0.2, "Lev.Memb.close"] <- "yes"
+  # df.level.membership[df.level.membership[,"Lev.Memb.Diff"]<0.1, "Lev.Memb.close"] <- "tie"
 
   # create output
   return(df.level.membership)

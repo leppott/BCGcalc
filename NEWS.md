@@ -1,13 +1,13 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-07 17:45:44
+2018-03-08 11:52:10
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-07 17:45:44
+    #> Last Update: 2018-03-08 11:52:11
 
-# Planned Features
+# Future Possibile Features (Wish List)
 
   - Add excluded taxa flag to samples based on levels of taxonomy. Will
     not be completely accurate. Will have many false positives and false
@@ -33,7 +33,21 @@ BCGcalc-NEWS
 
   - ~~Table of metrics for each model with DataExplorer report.~~
 
+  - Include a master taxa list.
+    
+      - Match data input and add information (phylo and auteco)
+      - Will need to report back unmatched
+
+  - Generate SiteType from data (gradient for PacNW)
+
 # Version History
+
+## v0.1.0.9011
+
+2018-03-08
+
+  - Completed lingering edits for “Tier” to “Level”.
+  - Completed BCG.Level.Membership function.
 
 ## v0.1.0.9010
 

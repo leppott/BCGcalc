@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# Planned Features
+# Future Possibile Features (Wish List)
 
 * Add excluded taxa flag to samples based on levels of taxonomy.  Will not be completely accurate.  Will have many false positives and false negatives.  That is, if there are only organisms at the higher level in a sample it will fail.  And if there are no organisms of the target group it will pass.
     + Pass, Fail on each. And overall flag
@@ -39,8 +39,20 @@ cat(paste0("Last Update: ",Sys.time()))
 
 * ~~Table of metrics for each model with DataExplorer report.~~
 
+* Include a master taxa list.
+    + Match data input and add information (phylo and auteco)
+    + Will need to report back unmatched
+    
+* Generate SiteType from data (gradient for PacNW)
+
 
 # Version History
+
+## v0.1.0.9011
+2018-03-08
+
+* Completed lingering edits for "Tier" to "Level".
+* Completed BCG.Level.Membership function.
 
 ## v0.1.0.9010
 2018-03-07
