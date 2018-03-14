@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-08 11:52:10
+2018-03-14 08:49:39
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-08 11:52:11
+    #> Last Update: 2018-03-14 08:49:40
 
 # Future Possibile Features (Wish List)
 
@@ -41,6 +41,24 @@ BCGcalc-NEWS
   - Generate SiteType from data (gradient for PacNW)
 
 # Version History
+
+## v0.1.0.9013
+
+2018-03-14
+
+  - Added PacNW benthic master taxa list to data.
+  - Created “data.R”. Not complete\!
+
+## v0.1.0.9012
+
+2018-03-08
+
+  - Update PacNW example data to use TRUE/FALSE for Excluded and
+    NonTarget fields.
+  - Updated metric.values
+      - Moved common data munging to earlier in function so applies to
+        all communities.
+      - Enabled NonTarget exclusion. NonTarget column now required.
 
 ## v0.1.0.9011
 

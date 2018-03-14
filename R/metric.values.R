@@ -161,7 +161,20 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.START
-  fun.Community <- toupper(fun.Community)
+  # Data Munging (common to all data types)
+  # Convert to data.frame.  Code breaks if myDF is a tibble.
+  fun.DF <- as.data.frame(fun.DF)
+  # convert Field Names to UPPER CASE
+  names(fun.DF) <- toupper(names(fun.DF))
+  # Remove Count = 0 taxa
+  fun.DF <- fun.DF[fun.DF[,"N_TAXA"]>0, ]
+  # Remove non-target taxa (only if have the field)
+  ## find "non-target" field
+  #boo.NonTarget.Present <- "NONTARGET" %in% names(fun.DF)
+  #if(boo.NonTarget.Present==TRUE){##IF.boo.NonTarget.Preset.START
+  fun.DF <- fun.DF[fun.DF[,"NONTARGET"]==FALSE,]
+  #}##IF.boo.NonTarget.Preset.START
+  #
   # convert community to lowercase
   fun.Community <- tolower(fun.Community)
   # run the proper sub function
@@ -178,14 +191,6 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
 #' @export
 metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.bugs.START
   # Data Munging ####
-  # Convert to data.frame.  Code breaks if myDF is a tibble.
-  myDF <- as.data.frame(myDF)
-  # convert Field Names to UPPER CASE
-  names(myDF) <- toupper(names(myDF))
-  # Remove Count = 0 taxa
-  myDF <- myDF[myDF[,"N_TAXA"]>0, ]
-  # Remove Non-Target Taxa
-  #myDF <- myDF[myDF[,"NONTARGET"]==0,]
   # Convert values to upper case (FFG, Habit, LifeCycle)
   myDF[, "HABIT"] <- toupper(myDF[, "HABIT"])
   myDF[, "FFG"] <- toupper(myDF[, "FFG"])
