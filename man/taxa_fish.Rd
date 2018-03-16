@@ -3,11 +3,24 @@
 \docType{data}
 \name{taxa_fish}
 \alias{taxa_fish}
-\title{USGS Gages}
+\title{Example sample fish taxa data}
 \format{A data frame with 1693 rows and 15 variables:
 \describe{
-   \item{usgsGageID}{USGS Gage ID}
-   \item{siteName}{USGS Site Name}
+   \item{SITE}{}
+   \item{SPECIES}{}
+   \item{TOTAL}{}
+   \item{TYPE}{}
+   \item{PTOLR}{}
+   \item{NATIVE_MBSS}{}
+   \item{TROPHIC_MBSS}{}
+   \item{SILT}{}
+   \item{PIRHALLA}{}
+   \item{FIBISTRATA}{}
+   \item{ACREAGE}{}
+   \item{LEN_SAMP}{}
+   \item{AVWID}{}
+   \item{TOTBIOM}{}
+   \item{Index.Name}{}
 }}
 \usage{
 taxa_fish

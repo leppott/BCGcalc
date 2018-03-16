@@ -3,11 +3,29 @@
 \docType{data}
 \name{taxa_bugs_genus}
 \alias{taxa_bugs_genus}
-\title{USGS Gages}
+\title{Example benthic taxa data, genus-level}
 \format{A data frame with 5066 rows and 20 variables:
 \describe{
-   \item{usgsGageID}{USGS Gage ID}
-   \item{siteName}{USGS Site Name}
+   \item{Index.Name}{}
+   \item{SITE}{}
+   \item{DATE}{}
+   \item{TAXON}{}
+   \item{N_TAXA}{}
+   \item{N_GRIDS}{}
+   \item{EXCLUDE}{}
+   \item{strata_r}{}
+   \item{Phylum}{}
+   \item{Class}{}
+   \item{Order}{}
+   \item{Family}{}
+   \item{Genus}{}
+   \item{Other_Taxa}{}
+   \item{Tribe}{}
+   \item{FFG}{}
+   \item{FAM_TV}{}
+   \item{Habit}{}
+   \item{FinalTolVal07}{}
+   \item{FinalTolVal08}{}
 }}
 \usage{
 taxa_bugs_genus

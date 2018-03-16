@@ -7,8 +7,8 @@
 \format{A data frame with 74 rows and 3 variables:
 \describe{
    \item{SampRep}{Station code}
-   \item{tax}{}
-   \item{count}{}
+   \item{tax}{taxonomic identifier}
+   \item{count}{number of individuals}
 }}
 \source{
 example data

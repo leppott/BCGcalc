@@ -3,16 +3,40 @@
 \docType{data}
 \name{TaxaMaster_Ben_BCG_PacNW}
 \alias{TaxaMaster_Ben_BCG_PacNW}
-\title{USGS Gages}
+\title{Benthic Master Taxa List, BCG Pacific Northwest}
 \format{A data frame with 684 rows and 19 variables:
 \describe{
-   \item{TaxaID}{taxonomic identifier}
-   \item{Phylum}{Phylum}
+   \item{TaxaID}{unique taxonomic identifier}
+   \item{Phylum}{Taxonomic rank, Phylum}
+   \item{SubPhylum}{Taxonomic rank, SubPhylum}
+   \item{Class}{Taxonomic rank, Class}
+   \item{SubClass}{Taxonomic rank, SubClass}
+   \item{Class}{Taxonomic rank, Class}
+   \item{Order}{Taxonomic rank, Order}
+   \item{Family}{Taxonomic rank, Family}
+   \item{Tribe}{Taxonomic rank, Tribe}
+   \item{Genus}{Taxonomic rank, Genus}
+   \item{SubGenus}{Taxonomic rank, SubGenus}
+   \item{Species}{Taxonomic rank, Species}
+   \item{BCG_Attr}{BCG Attribute}
+   \item{NonTarget}{Non-Target True/False}
+   \item{Thermal indicator}{thermal tolerance indicator}
+   \item{Long_lived}{Long-lived indicator}
+   \item{FFG}{Function Feeding Group}
+   \item{Habit}{Habit}
+   \item{LifeCycle}{Voltinism}
+   \item{TolVal}{Tolerance Value}
 }}
 \usage{
 TaxaMaster_Ben_BCG_PacNW
 }
 \description{
-Long Description
+Master taxa list for BCG model for Pacific Northwest; 
+current as of 2018-03-14.
+}
+\details{
+To export to file use the code below.
+
+write.csv(TaxaMaster_Ben_BCG_PacNW, "TaxaMaster_Ben_BCG_PacNW_20180314.csv")
 }
 \keyword{datasets}

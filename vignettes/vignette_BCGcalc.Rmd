@@ -15,12 +15,23 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-# Main Tasks
-The BCGcalc package was created to enable users to implement a model created Biological Condition Gradient and apply it to their data.
+# Purpose
+The `BCGcalc` package was created to enable users to implement a model created Biological Condition Gradient and apply it to their data.
 
-This vignette will cover the basics of calculating metrics, scoring the metrics, caculating the model, and some additional tasks.
+This vignette will cover the basics going from raw data to model results.
 
-## Metric Caculation
+# Tasks
+1. Metric calculation
+
+2. Metric scoring (membership)
+
+3. Level membership
+
+4. Level assignment
+
+5. Other
+
+## Metric Calculation
 The `BCGcalc` package includes some example that will be used in this example.
 
 THe funtion metric.values generates 80+ different metrics for multi-metric indices as well as BCG specific metrics.  All metrics are calculated and reported back to the user in a data frame.
@@ -76,33 +87,53 @@ myDF <- df.samps.bugs
 df.metric.values.bugs <- metric.values(myDF, "bugs")
 
 # Import Rules
-df.rules.PacNW <- read_excel(system.file("./extdata/Rules.xlsx"
+df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
                              , package="BCGcalc"), sheet="BCG_PacNW_2018") 
 
 # Run function
-df.Membership <- BCG.Membership(df.metric.values.bugs, df.rules.PacNW)
+df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules.PacNW)
 
 # show results
-#View(df.Membership)
+#View(df.Metric.Membership)
 
-tbl.rules <- df.rules.PacNW
+tbl.rules <- df.rules
 tbl.rules.caption <- "Membership rules."
 
 kable(tbl.rules, caption=tbl.rules.caption)
 
 ```
 
-## Model Calculation
-The BCG Tiers are assigned from the Levels for each Tier.
+## Level Membership
+The levels are determined according to the rules for a specific BCG model (e.g., Pacific Northwest low gradient).  The rules assign values (0-1) based on metric values.
 
-### Levels
-The levels are determiend according to the rules for a specific BCG model (e.g., Pacific Northwest low gradient).
+```{r LevelMembership, eval=FALSE}
+library(readxl)
 
-*TBD*
+# Calculate Metrics
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                        , package="BCGcalc"))
+myDF <- df.samps.bugs
+df.metric.values.bugs <- metric.values(myDF, "bugs")
 
-### Tiers
-Tier assignments are done according the values of the levels.  The maximum level is designated at the nominal tier and the next highest value is assigned to the second tier.  
-```{r Tier, eval=TRUE, echo=TRUE}
+# Import Rules
+df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
+                             , package="BCGcalc"), sheet="BCG_PacNW_2018") 
+
+# Calculate Metric Memberships
+df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
+
+# Calculate Level Memberships
+df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+
+# Show results
+View(df.Level.Membership)
+```
+
+## Level Assignment
+The level assignments are done according the values of the rules and metric level memberships.  The maximum level is designated as the primary level and the next highest value is assigned as the secondary level.
+
+There is some QC to ensure the total membership equals 1 and a field to note if the assigned nears are a tie or close.
+```{r LevelAssignment, eval=TRUE, echo=TRUE}
 library(BCGcalc)
 library(knitr)
 
@@ -113,25 +144,40 @@ L3 <- c(0.6, 0, 0.6, 0, 0.42, 0, 1, 1, 0.22, 0.33)
 L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67)
 L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4))
 L6 <- rep(0, 10)
-SampID <- LETTERS[1:10]
-df.levels <- as.data.frame(SampID, stringsAsFactors=FALSE)
-df.levels[,"L1"] <- L1
-df.levels[,"L2"] <- L2
-df.levels[,"L3"] <- L3
-df.levels[,"L4"] <- L4
-df.levels[,"L5"] <- L5
-df.levels[,"L6"] <- L6
+SampleID <- LETTERS[1:10]
+df.Level.Membership <- as.data.frame(SampleID, stringsAsFactors=FALSE)
+df.Level.Membership[,"L1"] <- L1
+df.Level.Membership[,"L2"] <- L2
+df.Level.Membership[,"L3"] <- L3
+df.Level.Membership[,"L4"] <- L4
+df.Level.Membership[,"L5"] <- L5
+df.Level.Membership[,"L6"] <- L6
 
-df.Tiers <- BCG.Tiers(df.levels)
+# Run Function
+df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 
-#View(df.Tiers)
+# # Show Results
+# View(df.Levels)
+# 
+# # Save Results
+# write.table(df.Levels, "Levels.tsv"
+#             , row.names=FALSE, col.names=TRUE, sep="\t")
 
-kable(df.Tiers, caption="BCG Tier Assignments.")
+kable(df.Levels, caption="BCG Tier Assignments.")
 ```
 
 
-## Additional Tasks
-There are some ancillary tasks that can be completed with the data that are a necessary part of data analysis and are included in the `BCGcalc` package.
+## Other Tasks
+There are some ancillary tasks that can be completed with the data that are a necessary part of data analysis and are included in the `BCGcalc` package for convenience.
+
+### Master Taxa List
+The Pacific Northwest benthic macroinvertebrate master taxa list is included for reference and can be saved to a file.
+
+```{r BMT, eval=FALSE}
+library(BCGcalc)
+
+write.csv(TaxaMaster_Ben_BCG_PacNW, "TaxaMaster_Ben_BCG_PacNW_20180314.csv")
+```
 
 ### Subsample (rarify)
 Subsample (rarify) a biological sample to a fixed count.
@@ -212,6 +258,5 @@ tbl.results.caption <- "QC Check Results"
 
 kable(tbl.results, caption = tbl.results.caption)
 ```
-
 
 

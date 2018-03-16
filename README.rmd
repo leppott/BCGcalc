@@ -21,7 +21,7 @@ cat(paste0("Last Update: ",Sys.time()))
 
 
 # BCGcalc
-Biological Condition Gradient (BCG) calculator.  Peform basic functions needed for metric calculation and model (tier) assignments.
+Biological Condition Gradient (BCG) calculator.  Peform basic functions needed for metric calculation and model (level) assignments.
 
 Installation
 -----------------
@@ -65,7 +65,7 @@ data.packages = c(
 lapply(data.packages,function(x) install.packages(x))
 ```
 
-Additionally Pandoc is required for creating the reports and needs to be installed separately.  Pandoc is installed with RStudio so if you have RStudio you already have Pandoc on your computer.
+Additionally Pandoc is required for creating the reports and (sometimes) needs to be installed separately.  Pandoc is installed with RStudio so if you have RStudio you already have Pandoc on your computer.  Install directions are included below.
 
 ```{r Install_Pandoc, eval=FALSE}
 ## pandoc
@@ -75,7 +75,7 @@ install.pandoc()
 
 Purpose
 --------------
-
+To aid users in data tasks related to the Biological Condition Gradient for the Pacific Northwest.
 
 Usage
 ------------
@@ -93,7 +93,6 @@ The default working directory is based on how R was installed but is typically t
 myDir.BASE <- getwd()
 setwd(myDir.BASE)
 ```
-
 
 Help
 ------------
@@ -118,7 +117,7 @@ The vignette file is located in the “doc” directory of the library in the R 
 "C:\\Programs\\R\\R-3.4.3\\library\\ContDataQC\\doc\\ContDataQC_Vignette.html"
 
 ```{r Help_Vignette, eval=FALSE}
-vignette("BCGcalc_Vignette", package="BCGcalc")
+vignette("vignette_BCGcalc", package="BCGcalc")
 ```
 
 If the vignette fails to show on your computer.  Run the code below to reinstall the package and specify the creation of the vignette.

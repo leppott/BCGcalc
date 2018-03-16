@@ -3,27 +3,29 @@
 \docType{data}
 \name{taxa_bugs_family}
 \alias{taxa_bugs_family}
-\title{Master Stations List}
+\title{Example sample benthic taxa data, family-level}
 \format{A data frame with 2749 rows and 20 variables:
 \describe{
-   \item{station}{}
-   \item{state}{}
-   \item{locationType}{}
-   \item{waterbody}{}
-   \item{latitude}{}
-   \item{longitude}{}
-   \item{cbSeg92}{}
-   \item{usgsGageID}{}
-   \item{usgsGageMatch}{}
-   \item{stationRO1}{}
-   \item{stationRO2}{}
-   \item{stationGrpName}{}
-   \item{stationMethodGroup}{}
-   \item{hydroTerm}{}
-   \item{flwAvgWin}{}
-   \item{flwParms}{}
-   \item{salParms}{}
-   \item{notes}{}
+   \item{Index.Name}{}
+   \item{SITE}{}
+   \item{DATE}{}
+   \item{TAXON}{}
+   \item{N_TAXA}{}
+   \item{N_GRIDS}{}
+   \item{EXCLUDE}{}
+   \item{strata_r}{}
+   \item{Phylum}{}
+   \item{Class}{}
+   \item{Order}{}
+   \item{Family}{}
+   \item{Genus}{}
+   \item{Other_Taxa}{}
+   \item{Tribe}{}
+   \item{FFG}{}
+   \item{FAM_TV}{}
+   \item{Habit}{}
+   \item{FinalTolVal07}{}
+   \item{FinalTolVal08}{}
 }}
 \usage{
 taxa_bugs_family

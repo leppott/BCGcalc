@@ -44,43 +44,71 @@
 #' @export
 BCG.Metric.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FUNCTION.START
   #
+  # scrub off "Tibble" as it throws off other data operations below
+  df.metrics <- as.data.frame(df.metrics)
+  df.rules <- as.data.frame(df.rules)
+  #
   # Metrics to long
   if (input.shape=="wide") {##IF.input.shape.START
     df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-                             , variable.name="metric.name", value.name="metric.value")
+                             , variable.name="METRIC.NAME", value.name="METRIC.VALUE")
   } else {
     df.long <- df.metrics
   }##IF.input.shape.END
   #
+  # ColNames to Upper Case
+  ## has to be df.long if upper case df.metrics the metric names become upper case.
+  names(df.long) <- toupper(names(df.long))
+  names(df.rules) <- toupper(names(df.rules))
+  #
+  # Check for Missing Metrics (only for index provided in metric df)
+  ## ignore site type for checking
+  index.data <- unique(df.long[, "INDEX_NAME"])
+  rules.metrics.names <- unique(df.rules[df.rules[,"INDEX_NAME"]==index.data, "METRIC.NAME"])
+  rules.metrics.TF <- rules.metrics.names %in% unique(df.long[, "METRIC.NAME"])
+  rules.metrics.len <- length(rules.metrics.names)
+  #
+  if(sum(rules.metrics.TF)!=rules.metrics.len){##IF.RulesCount.START
+    Msg <- paste0("Data provided does not include all metrics in rules table. "
+                  , "The following metrics are missing: "
+                  , paste(rules.metrics.names[!rules.metrics.TF], collapse=", "))
+    stop(Msg)
+  }##IF.RulesCount.END
+  
+  
   # merge metrics and checks
   df.merge <- merge(df.long, df.rules
-                    , by.x=c("INDEX_NAME", "SITETYPE", "metric.name")
-                    , by.y=c("Index_Name", "SiteType", "Metric.Name"))
+                    , by.x=c("INDEX_NAME", "SITETYPE", "METRIC.NAME")
+                    , by.y=c("INDEX_NAME", "SITETYPE", "METRIC.NAME"))
   #
-
+  # The above only returns a single match, not all.
+  # dplyr version
+  #df.merge2 <- df.long %>% left_join(df.rules)
+  #
+  
   # Excel FuzzyMembership function is much simpler than the Access code
   # need to apply only to select rows
-  df.merge[,"Membership"] <- NA
+  df.merge[,"MEMBERSHIP"] <- NA
   #
-  boo.score.0 <- df.merge[,"metric.value"] < df.merge[,"Lower"]
-  df.merge[boo.score.0, "Membership"] <- 0 
+  boo.score.0 <- df.merge[,"METRIC.VALUE"] < df.merge[,"LOWER"]
+  df.merge[boo.score.0, "MEMBERSHIP"] <- 0 
   #
-  boo.score.1 <- df.merge[,"metric.value"] > df.merge[,"Upper"]
-  df.merge[boo.score.1, "Membership"] <- 1
+  boo.score.1 <- df.merge[,"METRIC.VALUE"] > df.merge[,"UPPER"]
+  df.merge[boo.score.1, "MEMBERSHIP"] <- 1
   #
-  boo.score.calc <- is.na(df.merge[,"Membership"])
-  df.merge[boo.score.calc, "Membership"] <- df.merge[boo.score.calc,"metric.value"] / 
-    (df.merge[boo.score.calc,"Upper"] - df.merge[boo.score.calc,"Lower"]) - 
-     df.merge[boo.score.calc,"Lower"] / 
-    (df.merge[boo.score.calc,"Upper"] - df.merge[boo.score.calc,"Lower"])
+  boo.score.calc <- is.na(df.merge[,"MEMBERSHIP"])
+  df.merge[boo.score.calc, "MEMBERSHIP"] <- df.merge[boo.score.calc,"METRIC.VALUE"] / 
+    (df.merge[boo.score.calc,"UPPER"] - df.merge[boo.score.calc,"LOWER"]) - 
+     df.merge[boo.score.calc,"LOWER"] / 
+    (df.merge[boo.score.calc,"UPPER"] - df.merge[boo.score.calc,"LOWER"])
   # direction
-  boo.direction <- df.merge[,"Increase"]
-  df.merge[!boo.direction, "Membership"] <- 1-df.merge[boo.direction,"Membership"]
+  boo.direction <- df.merge[,"INCREASE"]
+  df.merge[!boo.direction, "MEMBERSHIP"] <- 1-df.merge[!boo.direction,"MEMBERSHIP"]
       # can mess up 0 and 1
 
   # wide name
-  df.merge[,"name.wide"] <- paste0("L", df.merge[,"Level"], "_", df.merge[,"LevelRule"]
-                                   , "_", df.merge[,"metric.name"])
+  df.merge[,"NAME.WIDE"] <- paste0(df.merge[,"SITETYPE"],"_L", df.merge[,"LEVEL"], "_", df.merge[,"RULETYPE"]
+                                   , "_", df.merge[,"METRIC.NAME"])
   #
   # create output
   return(df.merge)

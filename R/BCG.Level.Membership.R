@@ -37,6 +37,7 @@
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
+# library(BCGcalc)
 # library(readxl)
 # # Calculate Metrics
 # df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
@@ -64,15 +65,19 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   #   df.long <- df.metric.membership
   # }##IF.input.shape.END
   
+  # Convert names to upper case
+  names(df.metric.membership) <- toupper(names(df.metric.membership))
+  names(df.rules) <- toupper(names(df.rules))
+  
   # Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
-  col.drop <- c("Numeric rules", "Symbol", "Lower", "Upper", "Increase", "Description", "LevelRule")
+  col.drop <- c("NUMERIC RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION", "RULETYPE")
   col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% col.drop)]
   
   # merge metrics and rules
   df.merge <- merge(df.metric.membership[,col.keep], df.rules
-                    , by.x=c("INDEX_NAME", "SITETYPE", "Level", "metric.name")
-                    , by.y=c("Index_Name", "SiteType", "Level", "Metric.Name"))
+                    , by.x=c("INDEX_NAME", "SITETYPE", "LEVEL", "METRIC.NAME")
+                    , by.y=c("INDEX_NAME", "SITETYPE", "LEVEL", "METRIC.NAME"))
   
   # Min of Alt2
   # Max of Alt1 (with Min of Alt2)
@@ -81,14 +86,14 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   # Will get lots of warnings for the SampID that don't have alt 1 or alt 2 rules
   suppressWarnings(
     df.lev <- dplyr::summarise(dplyr::group_by(df.merge, SAMPLEID, INDEX_NAME
-                                                 , SITETYPE, Level)
+                                                 , SITETYPE, LEVEL)
                               #
                               # Min of Alt2
-                              , MembCalc1_Alt2=min(Membership[LevelRule == "Alt2"], na.rm=TRUE)
+                              , MembCalc1_Alt2=min(MEMBERSHIP[RULETYPE == "Alt2"], na.rm=TRUE)
                               # Max of Alt1
-                              , MembCalc2_Alt1=max(Membership[LevelRule == "Alt1"], na.rm=TRUE)
+                              , MembCalc2_Alt1=max(MEMBERSHIP[RULETYPE == "Alt1"], na.rm=TRUE)
                               # Min of Rule0 (with alt above)
-                              , MembCalc3_Rule0=min(Membership[LevelRule == "Rule0"], na.rm=TRUE)
+                              , MembCalc3_Rule0=min(MEMBERSHIP[RULETYPE == "Rule0"], na.rm=TRUE)
 
   ))
 
@@ -119,10 +124,10 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc4_Max12", "MembCalc3_Rule0")]
                                          , 1, min, na.rm=TRUE)
   # add extra to "Level"
-  df.lev[,"Level"] <- paste0("L", df.lev[,"Level"])
+  df.lev[,"LEVEL"] <- paste0("L", df.lev[,"LEVEL"])
   
   df.lev.wide <- reshape2::dcast(df.lev, SAMPLEID + INDEX_NAME + SITETYPE 
-                                 ~ Level, value.var="Level.Membership"
+                                 ~ LEVEL, value.var="Level.Membership"
                                  )
   # Add missing Levels and sort L1:L6
   col.Levels <- c(paste0("L",1:6))

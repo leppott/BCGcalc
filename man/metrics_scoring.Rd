@@ -3,24 +3,17 @@
 \docType{data}
 \name{metrics_scoring}
 \alias{metrics_scoring}
-\title{Parameter List}
+\title{Metric Scoring}
 \format{A data frame with 69 rows and 8 variables:
 \describe{
-   \item{parm}{}
-   \item{parmSource}{}
-   \item{parmCat}{}
-   \item{parmName}{}
-   \item{parmCalc}{}
-   \item{parmNamelc}{}
-   \item{parmUnits}{}
-   \item{parmSource}{}
-   \item{parmRecensor}{}
-   \item{parmRO1}{}
-   \item{parmRO2}{}
-   \item{parmTrend}{}
-   \item{logTrans}{}
-   \item{order}{}
-   \item{trendIncrease}{}
+   \item{Index.Name}{}
+   \item{Index.Region}{}
+   \item{Metric}{}
+   \item{Direction}{}
+   \item{Thresh.Lo}{}
+   \item{Thresh.Hi}{}
+   \item{ScoreRegime}{}
+   \item{Name_Other}{}
 }}
 \usage{
 metrics_scoring

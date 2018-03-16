@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-14 08:49:39
+2018-03-15 21:45:17
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-14 08:49:40
+    #> Last Update: 2018-03-15 21:45:18
 
 # Future Possibile Features (Wish List)
 
@@ -36,11 +36,30 @@ BCGcalc-NEWS
   - Include a master taxa list.
     
       - Match data input and add information (phylo and auteco)
-      - Will need to report back unmatched
+      - Ability to report back unmatched
 
   - Generate SiteType from data (gradient for PacNW)
 
 # Version History
+
+## v0.1.0.9014
+
+2018-03-15
+
+  - Tweak “data.R”. Not complete\!
+      - Added example save code for master taxa list.
+  - Update BCG.Metric.Membership.
+      - Add some error checking.
+      - Colnames to upper case.
+  - Updated Rules.xlsx
+      - Percent metrics convered to 0-1 values to match metric.values
+        calculations.
+      - Fixed Index Name for some records.
+  - metric.values.R
+      - Updated examples, details, and description.
+  - Update BCGcalc Vignette.
+  - Update Readme.
+  - Update BCG.Level.Membership
 
 ## v0.1.0.9013
 

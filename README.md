@@ -1,16 +1,16 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2018-02-21 19:31:16
+2018-03-15 15:00:24
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-02-21 19:31:16
+    #> Last Update: 2018-03-15 15:00:24
 
 # BCGcalc
 
 Biological Condition Gradient (BCG) calculator. Peform basic functions
-needed for metric calculation and model (tier) assignments.
+needed for metric calculation and model (level) assignments.
 
 ## Installation
 
@@ -56,9 +56,10 @@ data.packages = c(
 lapply(data.packages,function(x) install.packages(x))
 ```
 
-Additionally Pandoc is required for creating the reports and needs to be
-installed separately. Pandoc is installed with RStudio so if you have
-RStudio you already have Pandoc on your computer.
+Additionally Pandoc is required for creating the reports and (sometimes)
+needs to be installed separately. Pandoc is installed with RStudio so if
+you have RStudio you already have Pandoc on your computer. Install
+directions are included below.
 
 ``` r
 ## pandoc
@@ -67,6 +68,9 @@ install.pandoc()
 ```
 
 ## Purpose
+
+To aid users in data tasks related to the Biological Condition Gradient
+for the Pacific Northwest.
 
 ## Usage
 
@@ -119,7 +123,7 @@ package.
 “C:\\Programs\\R\\R-3.4.3\\library\\ContDataQC\\doc\\ContDataQC\_Vignette.html”
 
 ``` r
-vignette("BCGcalc_Vignette", package="BCGcalc")
+vignette("vignette_BCGcalc", package="BCGcalc")
 ```
 
 If the vignette fails to show on your computer. Run the code below to

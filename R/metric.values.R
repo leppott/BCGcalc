@@ -4,60 +4,32 @@
 #' Inputs are a data frame with SampleID and taxa with phylogenetic and autecological information
 #' (see below for required fields by community).  The dplyr package is used to generate the metric values.
 #'
-#' @details No manipulations of the taxa are performed by this routine.  All benthic macroinvertebrate taxa should be identified to genus level.  Any non-count taxa should be identified in the "NonUnique" field as "N". To run the MSW genus level the taxa should be combined before calculating the metrics.
-#'
-#' Both
-#'
-#' * Index_Name = Name of index to be used; e.g., BCG_PacNW, MBSS_Fish_2005, or MBSS_Bugs_2005.
-#'
-#' Benthic Macroinvertebrates
-#'
-#' Bug metric values assumes the following fields (all upper case)
-#'
-#' * SAMPLEID = sample identifier.
-#'
-#' * TAXAID = benthic macroinvertebrate name.
-#'
-#' * N_TAXA = Number of taxon collected in sample.
-#'
-#' * EXCLUDE = Non-unique taxa (i.e., parent taxon with one or more children taxa present in sample).  "Y" = do not include in taxa richness metrics.
-
-#' * REGION = index region (e.g., COASTAL, EPIEDMONT, or HIGHLAND).
-#'
-#' * Phylogenetic fields
-#'
-#' + (PHYLUM), CLASS, ORDER, FAMILY, GENUS, OTHER_TAXA, TRIBE, FFG, HABIT, TOLVAL, LIFECYCLE
-#'
+#' @details No manipulations of the taxa are performed by this routine.  
+#' All benthic macroinvertebrate taxa should be identified to genus level.  
+#' Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
+#' 
+#' Required Fields:
+#' 
+#' * SAMPLEID
+#' 
+#' * TAXAID
+#' 
+#' * N_TAXA
+#' 
+#' * EXCLUDE
+#' 
+#' * SITETYPE
+#' 
+#' * NONTARGET
+#' 
+#' * PHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, GENUS
+#' 
+#' * FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR
+#' 
 #' Valid values for FFG: col, fil, pre, scr, shr
 #'
 #' Valid values for HABIT: BU, CB, CN, SP, SW
-#'
-#'
-#' Fish
-#'
-#' Fish metric values assumes the following fields (all upper case)
-#'
-#' * SITE = MBSS sample identifier.
-#'
-#' * FIBISTRATA = Fish region (COASTAL, EPIEDMONT, WARM, COLD).
-#'
-#' * ACREAGE = Catchment area in acres.
-#'
-#' * LEN_SAMP = Length of stream sampled; typically 75-meters.
-#'
-#' * AVWID = Average stream width (meters) for sampled site.
-#'
-#' * SPECIES = MBSS fish taxa name.
-#'
-#' * TOTAL = Number of fish collected in sample.
-#'
-#' * TYPE = Fish group identifier (ALL CAPS); SCULPIN, DARTER, MADTOM, etc.
-#'
-#' * TROPHIC_MBSS = MBSS tropic status designations (ALL CAPS); OM, GE, IS, IV, etc.
-#'
-#' * PTOLR = Pollution tolerance level (ALL CAPS); T, I, NO TYPE.
-#'
-#' The R library dplyr is required for this function.
+#' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.DF Data frame of taxa (list required fields)
 #' @param fun.Community Community name for which to calculate metric values (bugs, fish, or algae)
@@ -65,17 +37,36 @@
 #' @param boo.Adjust Optional boolean value on whether to perform adjustments of values prior to scoring.  Default = FALSE but will always be TRUE for fish metrics.
 #' @return data frame of SampleID and metric values
 #' @examples
+#' # PACIFIC NW BCG
 #' 
-#' # Metrics, BCG, Bugs
 #' library(readxl)
-#' 
-#' # PACIFIC NW
+#'
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 #'                                        , package="BCGcalc"))
 #' myDF <- df.samps.bugs
 #' 
+#' # Run Function
+#' df.metric.values.bugs <- metric.values(myDF, "bugs")
 #' 
-#' # INDIANA
+#' # View Results
+#' View(df.metric.values.bugs)
+#' 
+#' # Get data in long format so can QC results more easily
+#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
+#'                           , variable.name="metric.name", value.name="metric.value")
+#' # Save Results
+#' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+#' 
+#' # DataExplorer Report
+#' library(DataExplorer)
+#' create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
+#' create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
+#' 
+#' #~~~~~~~~~~~~~~~~~~~~~~~
+#' # INDIANA BCG
+#' 
+#' library(readxl)
+#' 
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_Indiana.xlsx"
 #'                            , package="BCGcalc"), sheet="R_Input")
 #' dim(df.samps.bugs) 
@@ -89,13 +80,12 @@
 #' #
 #' # Run Function
 #' myDF <- df.samps.bugs
-#' myIndex <- "BCG.IN"
 #' df.metric.values.bugs <- metric.values(myDF, "bugs")
 #' 
 #' # View Results
 #' View(df.metric.values.bugs)
 #' 
-#' # Get data in long format so can QC results
+#' # Get data in long format so can QC results more easily
 #' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
 #'                           , variable.name="metric.name", value.name="metric.value")
 #' # Save Results
@@ -347,7 +337,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
                                                 , na.rm=TRUE)/ni_total
              , pt_NonInsArachDecaClump_BCG_att456 = nt_NonInsArachDecaClump_BCG_att456/nt_total
              # dominant
-             , pi_dom02_att456_nonclump = max(N_TAXA)/ni_total
+             , pi_dom02_BCG_att456_nonclump = max(N_TAXA)/ni_total
              # placeholder
              
              
