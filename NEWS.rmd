@@ -47,6 +47,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v0.1.0.9017
+2018-03-16
+
+* metric.values.R
+    + Added Thermal Indicator (TI) metrics.
+* Updates to PacNW bug data and rules files (xlsx).
+    
 ## v0.1.0.9016
 2018-03-16
 

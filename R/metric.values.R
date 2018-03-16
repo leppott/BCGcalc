@@ -185,6 +185,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   myDF[, "HABIT"] <- toupper(myDF[, "HABIT"])
   myDF[, "FFG"] <- toupper(myDF[, "FFG"])
   myDF[, "LIFECYCLE"] <- toupper(myDF[, "LIFECYCLE"])
+  myDF[, "THERMAL_INDICATOR"] <- toupper(myDF[, "THERMAL_INDICATOR"])
   # Add extra columns for FFG and Habit 
   # (need unique values for functions in summarise)
   # each will be TRUE or FALSE
@@ -201,6 +202,10 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   myDF[, "LC_MULTI"] <- grepl("MULTI", myDF[, "LIFECYCLE"])
   myDF[, "LC_SEMI"]  <- grepl("SEMI", myDF[, "LIFECYCLE"])
   myDF[, "LC_UNI"]   <- grepl("UNI", myDF[, "LIFECYCLE"])
+  myDF[, "TI_COLD"] <- grepl("COLD", myDF[, "THERMAL_INDICATOR"])
+  myDF[, "TI_COLDCOOL"]   <- grepl("COLD_COOL", myDF[, "THERMAL_INDICATOR"])
+  myDF[, "TI_COOLWARM"]   <- grepl("COOL_WARM", myDF[, "THERMAL_INDICATOR"])
+  myDF[, "TI_WARM"]   <- grepl("WARM", myDF[, "THERMAL_INDICATOR"])
   #
   # Calculate Metrics (could have used pipe, %>%)
   # met.val <- myDF %>% 
@@ -341,12 +346,27 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              # placeholder
              
              
-             
-             
+          
 
              
-             # Thermal Indicators
-             # Density
+             # Thermal Indicators ####
+             ## nt_ti
+             , nt_ti_c = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TI_COLD == TRUE], na.rm = TRUE)
+             , nt_ti_cc = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TI_COLDCOOL == TRUE], na.rm = TRUE)
+             , nt_ti_cw = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TI_COOLWARM == TRUE], na.rm = TRUE)
+             , nt_ti_w = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TI_WARM == TRUE], na.rm = TRUE)
+              ## pi_ti
+             , pi_ti_c = sum(N_TAXA[TI_COLD == TRUE], na.rm=TRUE)/ni_total
+             , pi_ti_cc = sum(N_TAXA[TI_COLDCOOL == TRUE], na.rm=TRUE)/ni_total
+             , pi_ti_cw = sum(N_TAXA[TI_COOLWARM == TRUE], na.rm=TRUE)/ni_total
+             , pi_ti_w = sum(N_TAXA[TI_WARM == TRUE], na.rm=TRUE)/ni_total
+             ## pt_ti
+             , pt_ti_c = nt_ti_c/nt_total
+             , pt_ti_cc = nt_ti_cc/nt_total
+             , pt_ti_cw = nt_ti_cw/nt_total
+             , pt_ti_w = nt_ti_w/nt_total
+             
+             # Density ####
              
              
              # percent of taxa ####

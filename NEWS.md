@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-16 09:21:57
+2018-03-16 14:29:02
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-16 09:21:57
+    #> Last Update: 2018-03-16 14:29:03
 
 # Future Possibile Features (Wish List)
 
@@ -41,6 +41,14 @@ BCGcalc-NEWS
   - Generate SiteType from data (gradient for PacNW)
 
 # Version History
+
+## v0.1.0.9017
+
+2018-03-16
+
+  - metric.values.R
+      - Added Thermal Indicator (TI) metrics.
+  - Updates to PacNW bug data and rules files (xlsx).
 
 ## v0.1.0.9016
 
