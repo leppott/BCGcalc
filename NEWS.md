@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-15 21:45:17
+2018-03-16 07:41:35
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-15 21:45:18
+    #> Last Update: 2018-03-16 07:41:35
 
 # Future Possibile Features (Wish List)
 
@@ -41,6 +41,12 @@ BCGcalc-NEWS
   - Generate SiteType from data (gradient for PacNW)
 
 # Version History
+
+## v0.1.0.9015
+
+2018-03-16
+
+  - Vignette didn’t update in previous version.
 
 ## v0.1.0.9014
 
