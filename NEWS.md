@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-16 07:41:35
+2018-03-16 09:21:57
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-16 07:41:35
+    #> Last Update: 2018-03-16 09:21:57
 
 # Future Possibile Features (Wish List)
 
@@ -41,6 +41,15 @@ BCGcalc-NEWS
   - Generate SiteType from data (gradient for PacNW)
 
 # Version History
+
+## v0.1.0.9016
+
+2018-03-16
+
+  - metric.values.R
+      - Update pt\_BCG\_att1i2 and 1i23 metrics (numerator not capturing
+        “i” taxa).
+  - Update Rules.xlsx
 
 ## v0.1.0.9015
 

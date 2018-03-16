@@ -502,9 +502,9 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
                                              & (BCG_ATTR == "1" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
             ## pt_BCG  
             , pt_BCG_att12 = nt_BCG_att12/nt_total 
-            , pt_BCG_att1i2 = nt_BCG_att12/nt_total 
+            , pt_BCG_att1i2 = nt_BCG_att1i2/nt_total 
             , pt_BCG_att123 = nt_BCG_att123/nt_total
-            , pt_BCG_att1i23 = nt_BCG_att123/nt_total
+            , pt_BCG_att1i23 = nt_BCG_att1i23/nt_total
             , pt_BCG_att2 = nt_BCG_att2/nt_total 
             , pt_BCG_att23 = nt_BCG_att23/nt_total
             , pt_BCG_att234 = nt_BCG_att234/nt_total 

@@ -47,6 +47,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v0.1.0.9016
+2018-03-16
+
+* metric.values.R
+    + Update pt_BCG_att1i2 and 1i23 metrics (numerator not capturing "i" taxa).
+* Update Rules.xlsx
+    
 ## v0.1.0.9015
 2018-03-16
 
