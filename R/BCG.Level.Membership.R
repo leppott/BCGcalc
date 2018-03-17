@@ -2,7 +2,16 @@
 #' 
 #' @description Biological Condition Gradient Level assignment given metric memberships.
 #' 
-#' @details Input is metric memberships and a rules tables.  Output are 
+#' @details Input is metric memberships and a rules tables.  
+#' Output is a data frame with the membership for each row to each Level (1:6).
+#' Minimum of:
+#' * 1- sum of previous levels
+#' * Rule0 memberships
+#' * max of Alt1 rules (and min of Alt2 rules)
+#' That is in this order:
+#' 1. Min of Alt2 metric memberships
+#' 2. Max of Alt2 rules and the above result.
+#' 3. Min of Rule0, the above result, and the sum of previous levels.
 #' 
 #' @param df.metric.membership Data frame of metric memberships (long format, the same as the output of BCG.Membership).
 #' @param df.rules Data frame of BCG model rules.
@@ -136,12 +145,33 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   col.Levels.Absent  <- col.Levels[!col.Levels %in% names(df.lev.wide)]
   # Add missing Level columns
   df.lev.wide[, col.Levels.Absent] <- 0
-  # Sort columns
-  df.results <- df.lev.wide[,c(col.Other, col.Levels)]
+   # Sort columns
+  df.subtotal <- df.lev.wide[,c(col.Other, col.Levels)]
+  # rename L1:6 with .sub
+  col.rename <- names(df.subtotal) %in% col.Levels
+  col.sub <- paste0(names(df.subtotal)[col.rename], ".Sub")
+  names(df.subtotal)[col.rename] <- col.sub
+  # Calculate Final scoring
+  ## Need to consider other final scores (use apply)
+  df.subtotal[,"L1"] <- df.subtotal[,"L1.Sub"]
   
+  df.subtotal[,"L2"] <- apply(df.subtotal[,c("L1", "L2.Sub")], 1
+                              , function(x) min(1-x[1], x[2], na.rm=TRUE))
+  df.subtotal[,"L3"] <- apply(df.subtotal[,c("L1", "L2", "L3.Sub")], 1
+                              , function(x) min(1-sum(x[1], x[2], na.rm=TRUE)
+                                                , x[3], na.rm=TRUE))
+  df.subtotal[,"L4"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4.Sub")], 1
+                              , function(x) min(1-sum(x[1], x[2], x[3], na.rm=TRUE)
+                                                , x[4], na.rm=TRUE))
+  df.subtotal[,"L5"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5.Sub")], 1
+                              , function(x) min(1-sum(x[1], x[2], x[3], x[4], na.rm=TRUE)
+                                                , x[5], na.rm=TRUE))
+  df.subtotal[,"L6"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5")], 1
+                              , function(x) 1-sum(x[1], x[2], x[3], x[4], x[5], na.rm=TRUE))
+  # Return RESULTS ####
+  # Remove sub fields
+  df.results <- df.subtotal[,!(names(df.subtotal) %in% col.sub)]
   # Results are for each SAMPLEID, INDEX_NAME, SITETYPE, and LEVEL Assignment/Membership
-  #df.results <- df.lev.wide
-
   # create output
   return(df.results)
   #

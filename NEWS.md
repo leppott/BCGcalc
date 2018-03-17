@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-16 14:29:02
+2018-03-17 10:42:10
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-16 14:29:03
+    #> Last Update: 2018-03-17 10:42:10
 
 # Future Possibile Features (Wish List)
 
@@ -41,6 +41,14 @@ BCGcalc-NEWS
   - Generate SiteType from data (gradient for PacNW)
 
 # Version History
+
+## v0.1.0.9018
+
+2018-03-17
+
+  - BCG.Level.Membership.R
+      - Correct function to consider preceeding levels when assigning
+        membership scores.
 
 ## v0.1.0.9017
 

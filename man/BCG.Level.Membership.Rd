@@ -18,7 +18,16 @@ Returns a data frame of results in the wide format.
 Biological Condition Gradient Level assignment given metric memberships.
 }
 \details{
-Input is metric memberships and a rules tables.  Output are
+Input is metric memberships and a rules tables.  
+Output is a data frame with the membership for each row to each Level (1:6).
+Minimum of:
+* 1- sum of previous levels
+* Rule0 memberships
+* max of Alt1 rules (and min of Alt2 rules)
+That is in this order:
+1. Min of Alt2 metric memberships
+2. Max of Alt2 rules and the above result.
+3. Min of Rule0, the above result, and the sum of previous levels.
 }
 \examples{
 library(readxl)
