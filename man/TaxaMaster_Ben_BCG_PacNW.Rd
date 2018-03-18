@@ -21,10 +21,10 @@
    \item{BCG_Attr}{BCG Attribute}
    \item{NonTarget}{Non-Target True/False}
    \item{Thermal indicator}{thermal tolerance indicator}
-   \item{Long_lived}{Long-lived indicator}
+   \item{Long_Lived}{Long-lived indicator}
    \item{FFG}{Function Feeding Group}
    \item{Habit}{Habit}
-   \item{LifeCycle}{Voltinism}
+   \item{Life_Cycle}{Voltinism}
    \item{TolVal}{Tolerance Value}
 }}
 \usage{

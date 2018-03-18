@@ -27,28 +27,39 @@
 #' df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 #' 
 #' # Summarize Results
-#' table(df.flags[,"CheckName"], df.flags[,"Flag"])
+#' table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"])
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # df.metrics <- df.metric.values.bugs
-# df.checks <- df.checks.PacNW
+# df.checks <- df.checks
 # input.shape <- "wide"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.START
   #
+  # to data frame (from Tibble)
+  df.metrics <- as.data.frame(df.metrics)
+  df.checks <- as.data.frame(df.checks)
+  #
   # Metrics to long
   if (input.shape=="wide") {##IF.input.shape.START
-    df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-                             , variable.name="metric.name", value.name="metric.value")
+    df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+                             , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
   } else {
     df.long <- df.metrics
   }##IF.input.shape.END
   #
+  # Names to Upper Case
+  names(df.long) <- toupper(names(df.long))
+  names(df.checks) <- toupper(names(df.checks))
+  #
+  df.long[,"SITE_TYPE"] <- tolower(df.long[,"SITE_TYPE"])
+  df.checks[,"SITE_TYPE"] <- tolower(df.checks[,"SITE_TYPE"])
+  #
   # merge metrics and checks
   df.merge <- merge(df.long, df.checks
-                    , by.x=c("INDEX_NAME", "SITETYPE", "metric.name")
-                    , by.y=c("Index_Name", "SiteType", "Metric"))
+                    , by.x=c("INDEX_NAME", "SITE_TYPE", "METRIC_NAME")
+                    , by.y=c("INDEX_NAME", "SITE_TYPE", "METRIC_NAME"))
   #
   # perform evaluation (adds Pass/Fail, default is NA)
 
@@ -59,7 +70,7 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   # ==
   # !=
   
-  df.merge$Expr <- eval(expression(paste(df.merge$metric.value, df.merge$Symbol, df.merge$Value)))
+  df.merge[,"EXPR"] <- eval(expression(paste(df.merge[,"METRIC_VALUE"], df.merge[,"SYMBOL"], df.merge[,"VALUE"])))
   
   # y <- apply(df.merge$Expr, 1, function(x) eval(parse(text=x)))
   # 
@@ -68,22 +79,20 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   
   # temporary (quick and dirty)
   for (i in 1:nrow(df.merge)){
-    df.merge[i, "Eval"] <- eval(parse(text=df.merge[i, "Expr"]))
+    df.merge[i, "EVAL"] <- eval(parse(text=df.merge[i, "EXPR"]))
   }
   
   # apply?
   # deparse etc
   
   ## default to NA
-  df.merge[,"Flag"] <- NA
+  df.merge[,"FLAG"] <- NA
   
-  df.merge[df.merge[,"Eval"]==FALSE,"Flag"] <- "PASS"
-  df.merge[df.merge[,"Eval"]==TRUE,"Flag"] <- "FAIL"
-  
-  
+  df.merge[df.merge[,"EVAL"]==FALSE, "FLAG"] <- "PASS"
+  df.merge[df.merge[,"EVAL"]==TRUE,  "FLAG"] <- "FAIL"
   
   #
   # create output
-  return(df.merge)
+  return(as.data.frame(df.merge))
   #
 }##FUNCTION.END

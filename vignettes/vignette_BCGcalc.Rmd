@@ -34,7 +34,39 @@ This vignette will cover the basics going from raw data to model results.
 ## Metric Calculation
 The `BCGcalc` package includes some example that will be used in this example.
 
-THe funtion metric.values generates 80+ different metrics for multi-metric indices as well as BCG specific metrics.  All metrics are calculated and reported back to the user in a data frame.
+The funtion metric.values generates 160+ different metrics for multi-metric indices as well as BCG specific metrics.  All metrics are calculated and reported back to the user in a data frame.
+
+No manipulations of the taxa are performed by this routine. 
+All benthic macroinvertebrate taxa should be identified to 
+the appropriate operational taxonomic unit (OTU).  
+ny non-count taxa should be identified in the "Exclude" field as "TRUE". 
+These taxa will be excluded from taxa richness metrics (but will count for all others).  
+Any non-target taxa should be identified in the "NonTarget" field as "TRUE".  
+These taxa will be removed prior to any calculations.
+
+Required Fields:
+
+* SAMPLEID (character or number, must be unique)
+
+* TAXAID (character or number, must be unique)
+
+* N_TAXA
+
+* EXCLUDE (valid values are TRUE and FALSE)
+
+* SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are "hi" or "lo")
+
+* NONTARGET (valid values are TRUE and FALSE)
+
+* PHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, GENUS
+
+* FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR
+
+Valid values for FFG: CG, CF, PR, SC, SH
+
+Valid values for HABIT: BU, CB, CN, SP, SW
+
+Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 
 ```{r MetricValues_Calc, eval=FALSE}
 # Metrics, BCG, Bugs
@@ -60,8 +92,8 @@ library(reshape2)
 library(DataExplorer)
 
 # Convert to long format
-df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "REGION")
-                          , variable.name="metric.name", value.name="metric.value")
+df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+                          , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 # Export for QC
 write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
 
@@ -240,20 +272,20 @@ myDF <- df.samps.bugs
 df.metric.values.bugs <- metric.values(myDF, "bugs")
 
 # Import Checks
-df.checks.PacNW <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
                                           , package="BCGcalc"), sheet="Flags") 
 
 # Run function
-df.flags <- qc.checks(df.metric.values.bugs, df.checks.PacNW)
+df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 
 # Show QC checks table
-tbl.checks <- df.checks.PacNW
+tbl.checks <- df.checks
 tbl.checks.caption <- "QC Checks"
 
 kable(tbl.checks, caption = tbl.checks.caption)
 
 # Show results summary
-tbl.results <- table(df.flags[,"CheckName"], df.flags[,"Flag"])
+tbl.results <- table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"])
 tbl.results.caption <- "QC Check Results"
 
 kable(tbl.results, caption = tbl.results.caption)

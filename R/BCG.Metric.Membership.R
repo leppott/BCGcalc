@@ -48,10 +48,11 @@ BCG.Metric.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FU
   df.metrics <- as.data.frame(df.metrics)
   df.rules <- as.data.frame(df.rules)
   #
+  #
   # Metrics to long
   if (input.shape=="wide") {##IF.input.shape.START
-    df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-                             , variable.name="METRIC.NAME", value.name="METRIC.VALUE")
+    df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+                             , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
   } else {
     df.long <- df.metrics
   }##IF.input.shape.END
@@ -61,11 +62,15 @@ BCG.Metric.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FU
   names(df.long) <- toupper(names(df.long))
   names(df.rules) <- toupper(names(df.rules))
   #
+  # SITE_TYPE to lowercase
+  df.long[,"SITE_TYPE"] <- tolower(df.long[,"SITE_TYPE"])
+  df.rules[,"SITE_TYPE"] <- tolower(df.rules[,"SITE_TYPE"])
+  #
   # Check for Missing Metrics (only for index provided in metric df)
   ## ignore site type for checking
   index.data <- unique(df.long[, "INDEX_NAME"])
-  rules.metrics.names <- unique(df.rules[df.rules[,"INDEX_NAME"]==index.data, "METRIC.NAME"])
-  rules.metrics.TF <- rules.metrics.names %in% unique(df.long[, "METRIC.NAME"])
+  rules.metrics.names <- unique(df.rules[df.rules[,"INDEX_NAME"]==index.data, "METRIC_NAME"])
+  rules.metrics.TF <- rules.metrics.names %in% unique(df.long[, "METRIC_NAME"])
   rules.metrics.len <- length(rules.metrics.names)
   #
   if(sum(rules.metrics.TF)!=rules.metrics.len){##IF.RulesCount.START
@@ -78,8 +83,8 @@ BCG.Metric.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FU
   
   # merge metrics and checks
   df.merge <- merge(df.long, df.rules
-                    , by.x=c("INDEX_NAME", "SITETYPE", "METRIC.NAME")
-                    , by.y=c("INDEX_NAME", "SITETYPE", "METRIC.NAME"))
+                    , by.x=c("INDEX_NAME", "SITE_TYPE", "METRIC_NAME")
+                    , by.y=c("INDEX_NAME", "SITE_TYPE", "METRIC_NAME"))
   #
   # The above only returns a single match, not all.
   # dplyr version
@@ -90,14 +95,14 @@ BCG.Metric.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FU
   # need to apply only to select rows
   df.merge[,"MEMBERSHIP"] <- NA
   #
-  boo.score.0 <- df.merge[,"METRIC.VALUE"] < df.merge[,"LOWER"]
+  boo.score.0 <- df.merge[,"METRIC_VALUE"] < df.merge[,"LOWER"]
   df.merge[boo.score.0, "MEMBERSHIP"] <- 0 
   #
-  boo.score.1 <- df.merge[,"METRIC.VALUE"] > df.merge[,"UPPER"]
+  boo.score.1 <- df.merge[,"METRIC_VALUE"] > df.merge[,"UPPER"]
   df.merge[boo.score.1, "MEMBERSHIP"] <- 1
   #
   boo.score.calc <- is.na(df.merge[,"MEMBERSHIP"])
-  df.merge[boo.score.calc, "MEMBERSHIP"] <- df.merge[boo.score.calc,"METRIC.VALUE"] / 
+  df.merge[boo.score.calc, "MEMBERSHIP"] <- df.merge[boo.score.calc,"METRIC_VALUE"] / 
     (df.merge[boo.score.calc,"UPPER"] - df.merge[boo.score.calc,"LOWER"]) - 
      df.merge[boo.score.calc,"LOWER"] / 
     (df.merge[boo.score.calc,"UPPER"] - df.merge[boo.score.calc,"LOWER"])
@@ -107,8 +112,8 @@ BCG.Metric.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FU
       # can mess up 0 and 1
 
   # wide name
-  df.merge[,"NAME.WIDE"] <- paste0(df.merge[,"SITETYPE"],"_L", df.merge[,"LEVEL"], "_", df.merge[,"RULETYPE"]
-                                   , "_", df.merge[,"METRIC.NAME"])
+  df.merge[,"NAME_WIDE"] <- paste0(df.merge[,"SITE_TYPE"],"_L", df.merge[,"LEVEL"], "_", df.merge[,"RULE_TYPE"]
+                                   , "_", df.merge[,"METRIC_NAME"])
   #
   # create output
   return(df.merge)

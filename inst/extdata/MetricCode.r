@@ -5,7 +5,7 @@ function (myDF, MetricNames = NULL, boo.Adjust)
     names(myDF) <- toupper(names(myDF))
     myDF[, "HABIT"] <- toupper(myDF[, "HABIT"])
     myDF[, "FFG"] <- toupper(myDF[, "FFG"])
-    myDF[, "LIFECYCLE"] <- toupper(myDF[, "LIFECYCLE"])
+    myDF[, "LIFECYCLE"] <- toupper(myDF[, "LIFE_CYCLE"])
     myDF[, "HABIT_BU"] <- grepl("BU", myDF[, "HABIT"])
     myDF[, "HABIT_CB"] <- grepl("CB", myDF[, "HABIT"])
     myDF[, "HABIT_CN"] <- grepl("CN", myDF[, "HABIT"])
@@ -18,7 +18,7 @@ function (myDF, MetricNames = NULL, boo.Adjust)
     myDF[, "FFG_SHR"] <- grepl("SHREDDER", myDF[, "FFG"])
 	
     met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, 
-        INDEX_NAME, REGION)
+        INDEX_NAME, SITE_TYPE)
 		
 			, ni_total = sum(N_TAXA)
 		
@@ -167,7 +167,7 @@ function (myDF, MetricNames = NULL, boo.Adjust)
 		
     met.val[is.na(met.val)] <- 0
     if (!is.null(MetricNames)) {
-        met.val <- met.val[, c("SAMPLEID", "REGION", "INDEX_NAME", 
+        met.val <- met.val[, c("SAMPLEID", "SITE_TYPE", "INDEX_NAME", 
             ni_total, MetricNames)]
     }
     return(met.val)

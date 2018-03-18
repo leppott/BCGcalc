@@ -87,6 +87,8 @@ BCG.Level.Assignment <- function(df.level.membership){##FUNCTION.START
     }
   }##FOR.i.END
   
+  # should be able to redo with apply similar to Level Assignment
+  
   # Close
   # df.level.membership[, "Lev.Memb.Diff"] <- df.level.membership[, "Lev.1.Memb"] - df.level.membership[, "Lev.2.Memb"]
   # df.level.membership[,"Lev.Memb.close"] <- NA

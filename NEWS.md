@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-17 10:42:10
+2018-03-18 18:57:29
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-17 10:42:10
+    #> Last Update: 2018-03-18 18:57:30
 
 # Future Possibile Features (Wish List)
 
@@ -40,7 +40,48 @@ BCGcalc-NEWS
 
   - Generate SiteType from data (gradient for PacNW)
 
+  - Update For loop in BCG.Level.Assignment to apply function (similar
+    to BCG.Level.Membership).
+
 # Version History
+
+## v0.1.0.9019
+
+2018-03-18
+
+  - Rules.xlsx
+      - Fill in missing cells.
+  - metric.values.R
+      - Update FFG abbreviations to match example data.
+      - Dominant N and special Dominant N metrics.
+      - Define pipe as referncing dplyr. Slows down the functions but
+        keeps dplyr from needing to be loaded.
+  - SiteType values to lowercase.
+      - metric.values.R
+      - BCG.Metric.Membership.R
+      - BCG.Level.Membership.R
+      - BCG.Level.Assignment.R
+  - Consistent terminology; don’t mix “.”, " “, and”*“. Use”*“.
+      - METRIC\_NAMES
+      - METRIC\_VALUES
+      - SITE\_TYPE (and change from REGION)
+      - RULE\_TYPE
+      - NUMERIC\_RULES
+      - LIFE\_CYCLE
+      - LONG\_LIVED
+      - THERMAL\_INDICATOR
+      - NAME\_WIDE
+  - Rebuild PacNW master taxa list with changes.
+      - Consistent names (columns and categories).
+  - Example PacNW data.
+      - Consistent names (columns).
+  - QC Checks
+  - Update Vignette.
+  - All functions and examples seem to be generating the proper outputs.
+    When QC only a few metrics are off. But enough that no final results
+    are correct (that is, all levels, site types, and samples are
+    affected but the remaning QC issues). Non-Insect and modified
+    dominant 2 metrics are the 4 that have issues.
 
 ## v0.1.0.9018
 

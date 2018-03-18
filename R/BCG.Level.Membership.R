@@ -48,7 +48,7 @@
 # QC
 # library(BCGcalc)
 # library(readxl)
-# # Calculate Metrics
+# Calculate Metrics
 # df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 #                                         , package="BCGcalc"))
 # myDF <- df.samps.bugs
@@ -68,25 +68,33 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   # # convert membership to long format if provided
   # # Metrics to long
   # if (input.shape=="wide") {##IF.input.shape.START
-  #   df.long <- reshape2::melt(df.metric.membership, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-  #                             , variable.name="metric.name", value.name="metric.value")
+  #   df.long <- reshape2::melt(df.metric.membership, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+  #                             , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
   # } else {
   #   df.long <- df.metric.membership
   # }##IF.input.shape.END
+  
+  # Convert to data.frame (from Tibble)
+  df.metric.membership <- as.data.frame(df.metric.membership)
+  df.rules <- as.data.frame(df.rules)
   
   # Convert names to upper case
   names(df.metric.membership) <- toupper(names(df.metric.membership))
   names(df.rules) <- toupper(names(df.rules))
   
+  # SITE_TYPE to lowercase
+  df.metric.membership[,"SITE_TYPE"] <- tolower(df.metric.membership[,"SITE_TYPE"])
+  df.rules[,"SITE_TYPE"] <- tolower(df.rules[,"SITE_TYPE"])
+  
   # Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
-  col.drop <- c("NUMERIC RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION", "RULETYPE")
+  col.drop <- c("NUMERIC_RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION", "RULE_TYPE")
   col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% col.drop)]
   
   # merge metrics and rules
   df.merge <- merge(df.metric.membership[,col.keep], df.rules
-                    , by.x=c("INDEX_NAME", "SITETYPE", "LEVEL", "METRIC.NAME")
-                    , by.y=c("INDEX_NAME", "SITETYPE", "LEVEL", "METRIC.NAME"))
+                    , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME")
+                    , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME"))
   
   # Min of Alt2
   # Max of Alt1 (with Min of Alt2)
@@ -95,18 +103,18 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   # Will get lots of warnings for the SampID that don't have alt 1 or alt 2 rules
   suppressWarnings(
     df.lev <- dplyr::summarise(dplyr::group_by(df.merge, SAMPLEID, INDEX_NAME
-                                                 , SITETYPE, LEVEL)
+                                                 , SITE_TYPE, LEVEL)
                               #
                               # Min of Alt2
-                              , MembCalc1_Alt2=min(MEMBERSHIP[RULETYPE == "Alt2"], na.rm=TRUE)
+                              , MembCalc1_Alt2=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
                               # Max of Alt1
-                              , MembCalc2_Alt1=max(MEMBERSHIP[RULETYPE == "Alt1"], na.rm=TRUE)
+                              , MembCalc2_Alt1=max(MEMBERSHIP[RULE_TYPE == "Alt1"], na.rm=TRUE)
                               # Min of Rule0 (with alt above)
-                              , MembCalc3_Rule0=min(MEMBERSHIP[RULETYPE == "Rule0"], na.rm=TRUE)
+                              , MembCalc3_Rule0=min(MEMBERSHIP[RULE_TYPE == "Rule0"], na.rm=TRUE)
 
   ))
 
-  # convert from tible to df
+  # convert from tibble to df
   df.lev <- as.data.frame(df.lev)
   # replace Inf and -Inf with NA
   df.lev[!is.finite(df.lev[,"MembCalc1_Alt2"]), "MembCalc1_Alt2"] <- NA
@@ -135,7 +143,7 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   # add extra to "Level"
   df.lev[,"LEVEL"] <- paste0("L", df.lev[,"LEVEL"])
   
-  df.lev.wide <- reshape2::dcast(df.lev, SAMPLEID + INDEX_NAME + SITETYPE 
+  df.lev.wide <- reshape2::dcast(df.lev, SAMPLEID + INDEX_NAME + SITE_TYPE 
                                  ~ LEVEL, value.var="Level.Membership"
                                  )
   # Add missing Levels and sort L1:L6
@@ -171,7 +179,7 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   # Return RESULTS ####
   # Remove sub fields
   df.results <- df.subtotal[,!(names(df.subtotal) %in% col.sub)]
-  # Results are for each SAMPLEID, INDEX_NAME, SITETYPE, and LEVEL Assignment/Membership
+  # Results are for each SAMPLEID, INDEX_NAME, SITE_TYPE, and LEVEL Assignment/Membership
   # create output
   return(df.results)
   #

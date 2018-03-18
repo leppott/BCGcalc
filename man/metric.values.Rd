@@ -26,30 +26,36 @@ Inputs are a data frame with SampleID and taxa with phylogenetic and autecologic
 }
 \details{
 No manipulations of the taxa are performed by this routine.  
-All benthic macroinvertebrate taxa should be identified to genus level.  
+All benthic macroinvertebrate taxa should be identified to 
+the appropriate operational taxonomic unit (OTU).  
 Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
+These taxa will be excluded from taxa richness metrics (but will count for all others).  
+Any non-target taxa should be identified in the "NonTarget" field as "TRUE".  
+These taxa will be removed prior to any calculations.
 
 Required Fields:
 
-* SAMPLEID
+* SAMPLEID (character or number, must be unique)
 
-* TAXAID
+* TAXAID (character or number, must be unique)
 
 * N_TAXA
 
-* EXCLUDE
+* EXCLUDE (valid values are TRUE and FALSE)
 
-* SITETYPE
+* SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are "hi" or "lo")
 
-* NONTARGET
+* NONTARGET (valid values are TRUE and FALSE)
 
 * PHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, GENUS
 
 * FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR
 
-Valid values for FFG: col, fil, pre, scr, shr
+Valid values for FFG: CG, CF, PR, SC, SH
 
 Valid values for HABIT: BU, CB, CN, SP, SW
+
+Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 }
 \examples{
 # PACIFIC NW BCG
@@ -67,8 +73,8 @@ df.metric.values.bugs <- metric.values(myDF, "bugs")
 View(df.metric.values.bugs)
 
 # Get data in long format so can QC results more easily
-df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-                          , variable.name="metric.name", value.name="metric.value")
+df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+                          , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 # Save Results
 write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
 
@@ -101,8 +107,8 @@ df.metric.values.bugs <- metric.values(myDF, "bugs")
 View(df.metric.values.bugs)
 
 # Get data in long format so can QC results more easily
-df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-                          , variable.name="metric.name", value.name="metric.value")
+df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+                          , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 # Save Results
 write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\\t")
 
@@ -110,5 +116,4 @@ write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="
 library(DataExplorer)
 create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
 create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
-
 }

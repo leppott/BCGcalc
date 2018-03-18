@@ -5,30 +5,36 @@
 #' (see below for required fields by community).  The dplyr package is used to generate the metric values.
 #'
 #' @details No manipulations of the taxa are performed by this routine.  
-#' All benthic macroinvertebrate taxa should be identified to genus level.  
+#' All benthic macroinvertebrate taxa should be identified to 
+#' the appropriate operational taxonomic unit (OTU).  
 #' Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
+#' These taxa will be excluded from taxa richness metrics (but will count for all others).  
+#' Any non-target taxa should be identified in the "NonTarget" field as "TRUE".  
+#' These taxa will be removed prior to any calculations.
 #' 
 #' Required Fields:
 #' 
-#' * SAMPLEID
+#' * SAMPLEID (character or number, must be unique)
 #' 
-#' * TAXAID
+#' * TAXAID (character or number, must be unique)
 #' 
 #' * N_TAXA
 #' 
-#' * EXCLUDE
+#' * EXCLUDE (valid values are TRUE and FALSE)
 #' 
-#' * SITETYPE
+#' * SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are "hi" or "lo")
 #' 
-#' * NONTARGET
+#' * NONTARGET (valid values are TRUE and FALSE)
 #' 
 #' * PHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, GENUS
 #' 
 #' * FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR
 #' 
-#' Valid values for FFG: col, fil, pre, scr, shr
+#' Valid values for FFG: CG, CF, PR, SC, SH
 #'
 #' Valid values for HABIT: BU, CB, CN, SP, SW
+#' 
+#' Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.DF Data frame of taxa (list required fields)
@@ -52,8 +58,8 @@
 #' View(df.metric.values.bugs)
 #' 
 #' # Get data in long format so can QC results more easily
-#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-#'                           , variable.name="metric.name", value.name="metric.value")
+#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+#'                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 #' # Save Results
 #' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
 #' 
@@ -86,8 +92,8 @@
 #' View(df.metric.values.bugs)
 #' 
 #' # Get data in long format so can QC results more easily
-#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITETYPE")
-#'                           , variable.name="metric.name", value.name="metric.value")
+#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+#'                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 #' # Save Results
 #' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
 #' 
@@ -95,7 +101,35 @@
 #' library(DataExplorer)
 #' create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
 #' create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
-#' 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# DomN metric
+# library(readxl)
+# library(dplyr)
+# df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+#                                       , package="BCGcalc"))
+# myDF <- as.data.frame(df.samps.bugs)
+# names(myDF) <- toupper(names(myDF))
+# 
+# 
+# # arrang in descending order (SampleID and N_Taxa)
+# x <- myDF %>% arrange(SampleID, desc(N_Taxa))
+# #y <- x %>% top_n(2, wt=N_Taxa) # only gets 2 rows on entire DF
+# y <- x %>% group_by(SampleID) %>% filter(row_number()<=5)
+# a <- table(y$SampleID)
+# 
+# X <- myDF %>% arrange(SampleID, desc(N_Taxa)) %>% 
+#                 group_by(SampleID) %>% 
+#                   filter(row_number()<=5)
+# A <- table(X$SampleID)
+# View(A)
+# 
+# # then Sum N_Taxa by SampleID
+# 
+# # too many results (i.e., those with ties)
+# z <- myDF %>% group_by(SampleID) %>% top_n(5, N_Taxa)
+# View(z)
+# table(z$SampID)
+ 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # OLD, Remove
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,6 +199,8 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
   fun.DF <- fun.DF[fun.DF[,"NONTARGET"]==FALSE,]
   #}##IF.boo.NonTarget.Preset.START
   #
+  # SiteType to lowercase
+  fun.DF[,"SITE_TYPE"] <- tolower(fun.DF[,"SITE_TYPE"])
   # convert community to lowercase
   fun.Community <- tolower(fun.Community)
   # run the proper sub function
@@ -181,10 +217,10 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
 #' @export
 metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.bugs.START
   # Data Munging ####
-  # Convert values to upper case (FFG, Habit, LifeCycle)
+  # Convert values to upper case (FFG, Habit, Life_Cycle)
   myDF[, "HABIT"] <- toupper(myDF[, "HABIT"])
   myDF[, "FFG"] <- toupper(myDF[, "FFG"])
-  myDF[, "LIFECYCLE"] <- toupper(myDF[, "LIFECYCLE"])
+  myDF[, "LIFE_CYCLE"] <- toupper(myDF[, "LIFE_CYCLE"])
   myDF[, "THERMAL_INDICATOR"] <- toupper(myDF[, "THERMAL_INDICATOR"])
   # Add extra columns for FFG and Habit 
   # (need unique values for functions in summarise)
@@ -194,14 +230,14 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   myDF[, "HABIT_CN"] <- grepl("CN", myDF[, "HABIT"])
   myDF[, "HABIT_SP"] <- grepl("SP", myDF[, "HABIT"])
   myDF[, "HABIT_SW"] <- grepl("SW", myDF[, "HABIT"])
-  myDF[, "FFG_COL"]  <- grepl("COLLECTOR", myDF[, "FFG"])
-  myDF[, "FFG_FIL"]  <- grepl("FILTERER", myDF[, "FFG"])
-  myDF[, "FFG_PRE"]  <- grepl("PREDATOR", myDF[, "FFG"])
-  myDF[, "FFG_SCR"]  <- grepl("SCRAPER", myDF[, "FFG"])
-  myDF[, "FFG_SHR"]  <- grepl("SHREDDER", myDF[, "FFG"])
-  myDF[, "LC_MULTI"] <- grepl("MULTI", myDF[, "LIFECYCLE"])
-  myDF[, "LC_SEMI"]  <- grepl("SEMI", myDF[, "LIFECYCLE"])
-  myDF[, "LC_UNI"]   <- grepl("UNI", myDF[, "LIFECYCLE"])
+  myDF[, "FFG_COL"]  <- grepl("CG", myDF[, "FFG"])
+  myDF[, "FFG_FIL"]  <- grepl("CF", myDF[, "FFG"])
+  myDF[, "FFG_PRE"]  <- grepl("PR", myDF[, "FFG"])
+  myDF[, "FFG_SCR"]  <- grepl("SC", myDF[, "FFG"])
+  myDF[, "FFG_SHR"]  <- grepl("SH", myDF[, "FFG"])
+  myDF[, "LC_MULTI"] <- grepl("MULTI", myDF[, "LIFE_CYCLE"])
+  myDF[, "LC_SEMI"]  <- grepl("SEMI", myDF[, "LIFE_CYCLE"])
+  myDF[, "LC_UNI"]   <- grepl("UNI", myDF[, "LIFE_CYCLE"])
   myDF[, "TI_COLD"] <- grepl("COLD", myDF[, "THERMAL_INDICATOR"])
   myDF[, "TI_COLDCOOL"]   <- grepl("COLD_COOL", myDF[, "THERMAL_INDICATOR"])
   myDF[, "TI_COOLWARM"]   <- grepl("COOL_WARM", myDF[, "THERMAL_INDICATOR"])
@@ -209,7 +245,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   #
   # Calculate Metrics (could have used pipe, %>%)
   # met.val <- myDF %>% 
-  #                 dplyr::group_by(SAMPLEID, INDEX_NAME, SITETYPE) %>%
+  #                 dplyr::group_by(SAMPLEID, INDEX_NAME, SITE_TYPE) %>%
   #                   dplyr::summarise(ni_total=sum(N_TAXA)
   #                         , nt_total=dplyr::n_distinct(TAXAID[EXCLUDE != TRUE], na.rm = TRUE)
   #                         , ni_max= max(N_TAXA)
@@ -218,13 +254,99 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   #https://stackoverflow.com/questions/45365484/how-to-find-top-n-descending-values-in-group-in-dplyr
   # may have to create a 2nd output with domX metrics then join together.
   # dom.val <- myDF %>%
-  #               group_by(SAMPLEID, INDEX_NAME, SITETYPE) %>%
+  #               group_by(SAMPLEID, INDEX_NAME, SITE_TYPE) %>%
   #                 summarise(N_TAXA=n()) %>%
   #                   top_n(n=3, wt=N_TAXA) %>%
   #                     arrange()
+  # https://groups.google.com/forum/#!topic/manipulatr/ZzohinbNsJc
   
+  # X <- myDF %>% arrange(SampleID, desc(N_Taxa)) %>% 
+  #   group_by(SampleID) %>% 
+  #   filter(row_number()<=5)
+
+   
+  # Create Dominant N ####
+  # Create df for Top N (without ties)
+  # define pipe
+  `%>%` <- dplyr::`%>%`
+  #
+  df.dom01 <- dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>%
+                            dplyr::group_by(SAMPLEID)  %>% 
+                                dplyr::filter(row_number()<=1)
+  df.dom02 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID)  %>% 
+    dplyr::filter(row_number()<=2)
+  df.dom03 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID) %>% 
+    dplyr::filter(row_number()<=3)
+  df.dom04 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID) %>% 
+    dplyr::filter(row_number()<=4)  
+  df.dom05 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID) %>% 
+    dplyr::filter(row_number()<=5) 
+  df.dom06 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID) %>% 
+    dplyr::filter(row_number()<=6)
+  df.dom07 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID) %>% 
+    dplyr::filter(row_number()<=7)
+  df.dom08 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID) %>%  
+    dplyr::filter(row_number()<=8)
+  df.dom09 <- dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID) %>%
+    dplyr::filter(row_number()<=9)   
+  df.dom10 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
+    dplyr::group_by(SAMPLEID)  %>% 
+    dplyr::filter(row_number()<=10) 
+  df.dom02_NonClump_BCG_att456 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>%
+    dplyr::group_by(SAMPLEID) %>%
+    dplyr::filter((GENUS == NA | GENUS!="Juga" | GENUS!="Rissoidea")
+                  & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")) %>% 
+    dplyr::filter(row_number()<=2) 
   
-  met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, INDEX_NAME, SITETYPE)
+  # Summarise Top N
+  df.dom01.sum <- dplyr::summarise(dplyr::group_by(df.dom01, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom01=sum(N_TAXA))
+  df.dom02.sum <- dplyr::summarise(dplyr::group_by(df.dom02, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom02=sum(N_TAXA))
+  df.dom03.sum <- dplyr::summarise(dplyr::group_by(df.dom03, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom03=sum(N_TAXA))
+  df.dom04.sum <- dplyr::summarise(dplyr::group_by(df.dom04, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom04=sum(N_TAXA))
+  df.dom05.sum <- dplyr::summarise(dplyr::group_by(df.dom05, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom05=sum(N_TAXA))
+  df.dom06.sum <- dplyr::summarise(dplyr::group_by(df.dom06, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom06=sum(N_TAXA))
+  df.dom07.sum <- dplyr::summarise(dplyr::group_by(df.dom07, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom07=sum(N_TAXA))
+  df.dom08.sum <- dplyr::summarise(dplyr::group_by(df.dom08, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom08=sum(N_TAXA))
+  df.dom09.sum <- dplyr::summarise(dplyr::group_by(df.dom09, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom09=sum(N_TAXA))
+  df.dom10.sum <- dplyr::summarise(dplyr::group_by(df.dom10, SAMPLEID, INDEX_NAME, SITE_TYPE)
+                            , ni_dom10=sum(N_TAXA))
+  df.dom02_NonClump_BCG_att456.sum <- dplyr::summarise(dplyr::group_by(df.dom02_NonClump_BCG_att456
+                                                                       , SAMPLEID, INDEX_NAME, SITE_TYPE)
+                                                       , ni_dom02_NonClump_BCG_att456=sum(N_TAXA))
+  # Add column of domN to main DF
+  myDF <- merge(myDF, df.dom01.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom02.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom03.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom04.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom05.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom06.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom07.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom08.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom09.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom10.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom02_NonClump_BCG_att456.sum, all.x=TRUE)
+
+  # Metric Calc ####
+  met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, INDEX_NAME, SITE_TYPE)
+             #
+             # one metric per line
              #
              # individuals ####
              , ni_total=sum(N_TAXA)
@@ -342,11 +464,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
                                                 , na.rm=TRUE)/ni_total
              , pt_NonInsArachDecaClump_BCG_att456 = nt_NonInsArachDecaClump_BCG_att456/nt_total
              # dominant
-             , pi_dom02_BCG_att456_nonclump = max(N_TAXA)/ni_total
-             # placeholder
-             
-             
-          
+             , pi_dom02_BCG_att456_nonclump = max(ni_dom02_NonClump_BCG_att456)/ni_total
 
              
              # Thermal Indicators ####
@@ -366,6 +484,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              , pt_ti_cw = nt_ti_cw/nt_total
              , pt_ti_w = nt_ti_w/nt_total
              
+             
              # Density ####
              
              
@@ -377,7 +496,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              , pt_EPT = nt_EPT/nt_total
              , pt_Gast = nt_Gast/nt_total
              , pt_Isop = nt_Isop/nt_total
-             # , POET,,, NonIns, Toler
+             # , POET,,, NonIns,
 
              
              # tolerance ####
@@ -449,15 +568,24 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              , pt_volt_uni= nt_volt_uni/nt_total
              
              
-             # Indices ####
+             # Dominant N ####
+             ## uses previously defined values added to myDF
              ,pi_dom01=max(N_TAXA)/ni_total
+             ,pi_dom02=max(ni_dom02)/ni_total
+             ,pi_dom03=max(ni_dom03)/ni_total
+             ,pi_dom04=max(ni_dom04)/ni_total
+             ,pi_dom05=max(ni_dom05)/ni_total
+             ,pi_dom06=max(ni_dom06)/ni_total
+             ,pi_dom07=max(ni_dom07)/ni_total
+             ,pi_dom08=max(ni_dom08)/ni_total
+             ,pi_dom09=max(ni_dom09)/ni_total
+             ,pi_dom10=max(ni_dom10)/ni_total
+  
             # , pi_dom01alt= dplyr::top_n(N_TAXA, n=1)/ni_total
-             ## pi_dom01
-             ## pi_dom02
-             ## pi_dom05
-            
             #https://stackoverflow.com/questions/27766054/getting-the-top-values-by-group
-             
+            # top_n uses ties so can't use it
+            
+            # Indices ####
              #,x_Becks.CLASS1=n_distinct(N_TAXA[EXCLUDE!=TRUE & TolVal>=0 & TolVal<=2.5])
              #,x_Becks.CLASS2=n_distinct(N_TAXA[EXCLUDE!=TRUE & TolVal>=2.5 & TolVal<=4])
              , x_Becks = (2 * dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TOLVAL >= 0 & TOLVAL < 1.5], na.rm = TRUE)) + 
@@ -583,11 +711,11 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
 
 
   if (!is.null(MetricNames)) {
-    met.val <- met.val[, c("SAMPLEID", "SITETYPE", "INDEX_NAME", 
+    met.val <- met.val[, c("SAMPLEID", "SITE_TYPE", "INDEX_NAME", 
                            ni_total, MetricNames)]
   }
   # df to report back
-  return(met.val)
+  return(as.data.frame(met.val))
 }##FUNCTION.metric.values.bugs.END
 #
 #

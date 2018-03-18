@@ -39,5 +39,5 @@ df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
 df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 
 # Summarize Results
-table(df.flags[,"CheckName"], df.flags[,"Flag"])
+table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"])
 }
