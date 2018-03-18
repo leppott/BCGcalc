@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-18 18:57:29
+2018-03-18 19:05:46
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-18 18:57:30
+    #> Last Update: 2018-03-18 19:05:47
 
 # Future Possibile Features (Wish List)
 
@@ -44,6 +44,13 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## v0.1.0.9019
+
+2018-03-18
+
+  - Only metric value issues left to resolve with test data set. Rest of
+    the calculations are ok.
 
 ## v0.1.0.9019
 

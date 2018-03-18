@@ -52,6 +52,11 @@ cat(paste0("Last Update: ",Sys.time()))
 ## v0.1.0.9019
 2018-03-18
 
+* Only metric value issues left to resolve with test data set.  Rest of the calculations are ok.
+
+## v0.1.0.9019
+2018-03-18
+
 * Rules.xlsx
     + Fill in missing cells.
 * metric.values.R
