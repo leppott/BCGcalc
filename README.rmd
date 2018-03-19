@@ -49,17 +49,11 @@ chooseCRANmirror(ind=21)
 data.packages = c(                  
                   "devtools"        # install helper for non CRAN libraries
                   ,"installr"       # install helper
-                  ,"digest"         # caused error in R v3.2.3 without it
-                  ,"dataRetrieval"  # loads USGS data into R
                   ,"knitr"          # create documents in other formats (e.g., PDF or Word)
-                  ,"doBy"           # summary stats
-                  ,"zoo"            # z's ordered observations, use for rolling sd calc
-                  ,"htmltools"      # needed for knitr and doesn't always install properly with Pandoc
-                  ,"rmarkdown"      # needed for knitr and doesn't always install properly with Pandoc
-                  ,"htmltools"      # a dependency that is sometimes missed.
-                  ,"evaluate"       # a dependency that is sometimes missed.
-                  ,"highr"          # a dependency that is sometimes missed.
+                  ,"dplyr"          # summary stats
+                  ,"reshape2"       # convert wide to long format
                   ,"rmarkdown"      # a dependency that is sometimes missed.
+                  ,"readxl"         # for importing Excel data
                   )
                   
 lapply(data.packages,function(x) install.packages(x))
@@ -100,7 +94,7 @@ Every function has a help file with a working example.  There is also a vignette
 
 ```{r Help_Function, eval=FALSE}
 # To get help on a function
-# library(ContDataQC) # the library must be loaded before accessing help
+# library(BCGcalc) # the library must be loaded before accessing help
 ?BCGcalc
 ```
 
@@ -108,13 +102,13 @@ To see all available functions in the package use the command below.
 
 ```{r Help_Index, eval=FALSE}
 # To get index of help on all functions
-# library(ContDataQC) # the library must be loaded before accessing help
+# library(BCGcalc) # the library must be loaded before accessing help
 help(package="BCGcalc")
 ```
 
 The vignette file is located in the “doc” directory of the library in the R install folder.  Below is the path to the file on my PC.  But it is much easier to use the code below to call the vignette by name.  There is also be a link to the vignette at the top of the help index for the package.
 
-"C:\\Programs\\R\\R-3.4.3\\library\\ContDataQC\\doc\\ContDataQC_Vignette.html"
+"C:\\Programs\\R\\R-3.4.3\\library\\BCGcalc\\doc\\vignette_BCGcalc.html"
 
 ```{r Help_Vignette, eval=FALSE}
 vignette("vignette_BCGcalc", package="BCGcalc")

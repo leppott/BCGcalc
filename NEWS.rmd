@@ -49,7 +49,16 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
-## v0.1.0.9019
+## v1.0.0.9001
+2018-03-18
+
+* Metric.values
+    + Fix non-clumpy metrics.
+    + Remove extra data frames for dominance metrics.  Slight speed improvement.  Issue #5.
+* Fix version numbers in NEWS.
+* Updated ReadMe with only the relevant packages.  Issue #4.
+
+## v1.0.0.0000
 2018-03-18
 
 * Only metric value issues left to resolve with test data set.  Rest of the calculations are ok.

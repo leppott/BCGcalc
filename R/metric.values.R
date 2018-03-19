@@ -302,7 +302,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
     dplyr::filter(row_number()<=10) 
   df.dom02_NonClump_BCG_att456 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>%
     dplyr::group_by(SAMPLEID) %>%
-    dplyr::filter((GENUS == NA | GENUS!="Juga" | GENUS!="Rissoidea")
+    dplyr::filter((GENUS == NA | (GENUS!="Juga" & GENUS!="Rissoidea"))
                   & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")) %>% 
     dplyr::filter(row_number()<=2) 
   
@@ -342,6 +342,30 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   myDF <- merge(myDF, df.dom09.sum, all.x=TRUE)
   myDF <- merge(myDF, df.dom10.sum, all.x=TRUE)
   myDF <- merge(myDF, df.dom02_NonClump_BCG_att456.sum, all.x=TRUE)
+  
+  # Clean up extra Dom data frames
+  rm(df.dom01)
+  rm(df.dom02)
+  rm(df.dom03)
+  rm(df.dom04)
+  rm(df.dom05)
+  rm(df.dom06)
+  rm(df.dom07)
+  rm(df.dom08)
+  rm(df.dom09)
+  rm(df.dom10)
+  rm(df.dom02_NonClump_BCG_att456)
+  rm(df.dom01.sum)
+  rm(df.dom02.sum)
+  rm(df.dom03.sum)
+  rm(df.dom04.sum)
+  rm(df.dom05.sum)
+  rm(df.dom06.sum)
+  rm(df.dom07.sum)
+  rm(df.dom08.sum)
+  rm(df.dom09.sum)
+  rm(df.dom10.sum)
+  rm(df.dom02_NonClump_BCG_att456.sum)
 
   # Metric Calc ####
   met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, INDEX_NAME, SITE_TYPE)
@@ -453,13 +477,13 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
                                                 & (CLASS == NA | CLASS != "Insecta")
                                                 & (CLASS == NA | CLASS != "Arachnida")
                                                 & (ORDER == NA | ORDER != "Decapoda")
-                                                & (GENUS == NA | GENUS!="Juga" | GENUS!="Rissoidea")
+                                                & (GENUS == NA | (GENUS!="Juga" & GENUS!="Rissoidea"))
                                                 & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
                                                 , na.rm = TRUE)
              , pi_NonInsArachDecaClump_BCG_att456 = sum(N_TAXA[(CLASS == NA | CLASS != "Insecta") 
                                                 & (CLASS == NA | CLASS != "Arachnida")
                                                 & (ORDER == NA | ORDER != "Decapoda")
-                                                & (GENUS == NA | GENUS!="Juga" | GENUS!="Rissoidea")          
+                                                & (GENUS == NA | (GENUS!="Juga" & GENUS!="Rissoidea"))          
                                                 & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
                                                 , na.rm=TRUE)/ni_total
              , pt_NonInsArachDecaClump_BCG_att456 = nt_NonInsArachDecaClump_BCG_att456/nt_total

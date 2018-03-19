@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-15 15:00:24
+2018-03-18 19:13:34
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-15 15:00:24
+    #> Last Update: 2018-03-18 19:13:34
 
 # BCGcalc
 
@@ -102,7 +102,7 @@ vignette with descriptions and examples of all functions in the
 
 ``` r
 # To get help on a function
-# library(ContDataQC) # the library must be loaded before accessing help
+# library(BCGcalc) # the library must be loaded before accessing help
 ?BCGcalc
 ```
 
@@ -110,7 +110,7 @@ To see all available functions in the package use the command below.
 
 ``` r
 # To get index of help on all functions
-# library(ContDataQC) # the library must be loaded before accessing help
+# library(BCGcalc) # the library must be loaded before accessing help
 help(package="BCGcalc")
 ```
 
@@ -120,7 +120,7 @@ much easier to use the code below to call the vignette by name. There is
 also be a link to the vignette at the top of the help index for the
 package.
 
-“C:\\Programs\\R\\R-3.4.3\\library\\ContDataQC\\doc\\ContDataQC\_Vignette.html”
+“C:\\Programs\\R\\R-3.4.3\\library\\BCGcalc\\doc\\vignette\_BCGcalc.html”
 
 ``` r
 vignette("vignette_BCGcalc", package="BCGcalc")

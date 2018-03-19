@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-18 19:05:46
+2018-03-18 21:16:35
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-18 19:05:47
+    #> Last Update: 2018-03-18 21:16:35
 
 # Future Possibile Features (Wish List)
 
@@ -45,7 +45,18 @@ BCGcalc-NEWS
 
 # Version History
 
-## v0.1.0.9019
+## v1.0.0.9001
+
+2018-03-18
+
+  - Metric.values
+      - Fix non-clumpy metrics.
+      - Remove extra data frames for dominance metrics. Slight speed
+        improvement. Issue \#5.
+  - Fix version numbers in NEWS.
+  - Updated ReadMe with only the relevant packages. Issue \#4.
+
+## v1.0.0.0000
 
 2018-03-18
 
