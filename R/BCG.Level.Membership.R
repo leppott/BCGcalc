@@ -8,7 +8,7 @@
 #' * 1- sum of previous levels
 #' * Rule0 memberships
 #' * max of Alt1 rules (and min of Alt2 rules)
-#' That is in this order:
+#' That is, perform calculations in this order:
 #' 1. Min of Alt2 metric memberships
 #' 2. Max of Alt2 rules and the above result.
 #' 3. Min of Rule0, the above result, and the sum of previous levels.
@@ -48,7 +48,7 @@
 # QC
 # library(BCGcalc)
 # library(readxl)
-# Calculate Metrics
+# #  Calculate Metrics
 # df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 #                                         , package="BCGcalc"))
 # myDF <- df.samps.bugs
@@ -61,6 +61,67 @@
 # df.metric.membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
 # #
 # input.shape <- "long"
+# df.Level.Membership <- BCG.Level.Membership(df.metric.membership, df.rules)
+# # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# df.metric.membership <- as.data.frame(df.metric.membership)
+# df.rules <- as.data.frame(df.rules)
+# 
+# # Convert names to upper case
+# names(df.metric.membership) <- toupper(names(df.metric.membership))
+# names(df.rules) <- toupper(names(df.rules))
+# 
+# # SITE_TYPE to lowercase
+# df.metric.membership[,"SITE_TYPE"] <- tolower(df.metric.membership[,"SITE_TYPE"])
+# df.rules[,"SITE_TYPE"] <- tolower(df.rules[,"SITE_TYPE"])
+# 
+# # Drop extra columns from df.metric.membership
+# # (otherwise duplicates in merge)
+# col.drop <- c("NUMERIC_RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION")
+# col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% col.drop)]
+# 
+# # merge metrics and rules
+# df.merge <- merge(df.metric.membership[,col.keep], df.rules
+#                   , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE")
+#                   , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE"))
+# 
+# 
+# df.merge <- df.merge[df.merge$SAMPLEID=="06029CSR_Bug_2006-09-27_0", ]
+# 
+# 
+# df.lev <- dplyr::summarise(dplyr::group_by(df.merge, SAMPLEID, INDEX_NAME
+#                                            , SITE_TYPE, LEVEL)
+#                            #
+#                            # Min of Alt2
+#                            , MembCalc_Alt2_min=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
+#                            # Max of Alt1
+#                            , MembCalc_Alt1_max=max(MEMBERSHIP[RULE_TYPE == "Alt1"], na.rm=TRUE)
+#                            # Min of Rule0 (with alt above)
+#                            , MembCalc_Rule0_min=min(MEMBERSHIP[RULE_TYPE == "Rule0"], na.rm=TRUE)
+# )
+# View(df.merge)
+# View(df.lev)
+# 
+# # convert from tibble to df
+# df.lev <- as.data.frame(df.lev)
+# # replace Inf and -Inf with NA
+# df.lev[!is.finite(df.lev[,"MembCalc_Alt2_min"]), "MembCalc_Alt2_min"] <- NA
+# df.lev[!is.finite(df.lev[,"MembCalc_Alt1_max"]), "MembCalc_Alt1_max"] <- NA
+# # this one shouldn't happen.  Use zero just in case.
+# df.lev[!is.finite(df.lev[,"MembCalc_Rule0_min"]), "MembCalc_Rule0_min"] <- 0
+# 
+# View(df.lev)
+# 
+# df.lev[,"MembCalc_Alt12_max"] <- apply(df.lev[,c("MembCalc_Alt2_min", "MembCalc_Alt1_max")]
+#                                        , 1, max, na.rm=TRUE)
+# View(df.lev)
+# 
+# df.lev[!is.finite(df.lev[,"MembCalc_Alt12_max"]), "MembCalc_Alt12_max"] <- NA
+# View(df.lev)
+# 
+# df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Alt12_max", "MembCalc_Rule0_min")]
+#                                      , 1, min, na.rm=TRUE)
+# View(df.lev)
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.START
@@ -88,13 +149,13 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   
   # Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
-  col.drop <- c("NUMERIC_RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION", "RULE_TYPE")
+  col.drop <- c("NUMERIC_RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION")
   col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% col.drop)]
   
   # merge metrics and rules
   df.merge <- merge(df.metric.membership[,col.keep], df.rules
-                    , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME")
-                    , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME"))
+                    , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE")
+                    , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE"))
   
   # Min of Alt2
   # Max of Alt1 (with Min of Alt2)
@@ -106,44 +167,44 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
                                                  , SITE_TYPE, LEVEL)
                               #
                               # Min of Alt2
-                              , MembCalc1_Alt2=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
+                              , MembCalc_Alt2_min=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
                               # Max of Alt1
-                              , MembCalc2_Alt1=max(MEMBERSHIP[RULE_TYPE == "Alt1"], na.rm=TRUE)
+                              , MembCalc_Alt1_max=max(MEMBERSHIP[RULE_TYPE == "Alt1"], na.rm=TRUE)
                               # Min of Rule0 (with alt above)
-                              , MembCalc3_Rule0=min(MEMBERSHIP[RULE_TYPE == "Rule0"], na.rm=TRUE)
+                              , MembCalc_Rule0_min=min(MEMBERSHIP[RULE_TYPE == "Rule0"], na.rm=TRUE)
 
   ))
 
   # convert from tibble to df
   df.lev <- as.data.frame(df.lev)
   # replace Inf and -Inf with NA
-  df.lev[!is.finite(df.lev[,"MembCalc1_Alt2"]), "MembCalc1_Alt2"] <- NA
-  df.lev[!is.finite(df.lev[,"MembCalc2_Alt1"]), "MembCalc2_Alt1"] <- NA
+  df.lev[!is.finite(df.lev[,"MembCalc_Alt2_min"]), "MembCalc_Alt2_min"] <- NA
+  df.lev[!is.finite(df.lev[,"MembCalc_Alt1_max"]), "MembCalc_Alt1_max"] <- NA
   # this one shouldn't happen.  Use zero just in case.
-  df.lev[!is.finite(df.lev[,"MembCalc3_Rule0"]), "MembCalc3_Rule0"] <- 0
+  df.lev[!is.finite(df.lev[,"MembCalc_Rule0_min"]), "MembCalc_Rule0_min"] <- 0
   
   
   # Have to do outside of dplyr to get rid of Inf and -Inf
   
   # Need to suppress warnings again
   suppressWarnings(
-    df.lev[,"MembCalc4_Max12"] <- apply(df.lev[,c("MembCalc1_Alt2", "MembCalc2_Alt1")]
+    df.lev[,"MembCalc_Alt12_max"] <- apply(df.lev[,c("MembCalc_Alt2_min", "MembCalc_Alt1_max")]
                                           , 1, max, na.rm=TRUE)
   )
   # replace Inf with NA
-  df.lev[!is.finite(df.lev[,"MembCalc4_Max12"]), "MembCalc4_Max12"] <- NA
+  df.lev[!is.finite(df.lev[,"MembCalc_Alt12_max"]), "MembCalc_Alt12_max"] <- NA
   
   # Final Calc
-  # df.lev[,"Level.Membership"] <- min(df.lev[,"MembCalc4_Max12"]
-  #                                      , df.lev[,"MembCalc3_Rule0"], na.rm=TRUE)
+  # df.lev[,"Level.Membership"] <- min(df.lev[,"MembCalc_Alt12_max"]
+  #                                      , df.lev[,"MembCalc_Rule0_min"], na.rm=TRUE)
   
   
-  df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc4_Max12", "MembCalc3_Rule0")]
+  df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Alt12_max", "MembCalc_Rule0_min")]
                                          , 1, min, na.rm=TRUE)
   # add extra to "Level"
   df.lev[,"LEVEL"] <- paste0("L", df.lev[,"LEVEL"])
   
-  df.lev.wide <- reshape2::dcast(df.lev, SAMPLEID + INDEX_NAME + SITE_TYPE 
+  df.lev.wide <- reshape2::dcast(df.lev, SAMPLEID + INDEX_NAME + SITE_TYPE
                                  ~ LEVEL, value.var="Level.Membership"
                                  )
   # Add missing Levels and sort L1:L6

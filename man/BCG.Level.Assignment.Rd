@@ -25,13 +25,13 @@ Add QC Checks.
 \examples{
 
 # construct a dummy dataset
-L1 <- rep(0, 10)
-L2 <- c(0.4, 0, 0.4, rep(0,7))
-L3 <- c(0.6, 0, 0.6, 0, 0.42, 0, 1, 1, 0.22, 0.33)
-L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67)
-L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4))
-L6 <- rep(0, 10)
-SampleID <- LETTERS[1:10]
+L1 <- c(rep(0, 10), 0, 0)
+L2 <- c(0.4, 0, 0.4, rep(0,7), 0, 0)
+L3 <- c(0.6, 0, 0.6, 0, 0.42, 0, 1, 1, 0.22, 0.33, 0.5, 0)
+L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67, 0.5, 0)
+L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4), 0, 1)
+L6 <- c(rep(0, 10), 0, 0)
+SampleID <- LETTERS[1:length(L1)]
 df.Level.Membership <- as.data.frame(SampleID, stringsAsFactors=FALSE)
 df.Level.Membership[,"L1"] <- L1
 df.Level.Membership[,"L2"] <- L2

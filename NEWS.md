@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-18 21:16:35
+2018-03-19 20:59:24
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-18 21:16:35
+    #> Last Update: 2018-03-19 20:59:24
 
 # Future Possibile Features (Wish List)
 
@@ -44,6 +44,24 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## v1.0.0.9002
+
+2018-03-19
+
+  - Metric.values
+      - Fix metrics with *not equal* functions.
+      - Ensure use is.na(x)==TRUE rather than x==NA
+      - When have more than one condition for a data column need to be
+        in the same statement.
+      - Better define clumpy taxa for 2 metrics.
+  - BCG.Level.Membership
+      - Fixed combination of rules by level. Missed a column and was
+        getting duplicates for alt rules that changed the outcome.
+  - BCG.Level.Assignment
+      - Replace For loop with apply.
+      - Add special conditions for ties (2 levels with 0.5) and primary
+        level is 1 (no 2nd level).
 
 ## v1.0.0.9001
 
