@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-19 20:59:24
+2018-03-19 21:12:25
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-19 20:59:24
+    #> Last Update: 2018-03-19 21:12:25
 
 # Future Possibile Features (Wish List)
 
@@ -44,6 +44,12 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## v1.1.0.0000
+
+2018-03-19
+
+  - Release new and fully QCed version.
 
 ## v1.0.0.9002
 
