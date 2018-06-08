@@ -52,6 +52,10 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.1.0.9004 (2018-06-08)
+
+* Update extdata/Rules.xlsx; Issue #7
+
 ## Changes in Version 1.1.0.9003 (2018-06-08)
 
 * metric.values dd nt, pi, and pt metrics; Issue #7
