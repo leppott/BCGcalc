@@ -379,7 +379,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   df.dom10 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID)  %>% 
     dplyr::filter(row_number()<=10) 
-  df.dom02_NonClump_BCG_att456 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>%
+  df.dom02_NoJugaRiss_BCG_att456 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>%
     dplyr::group_by(SAMPLEID) %>%
     dplyr::filter((is.na(GENUS) == TRUE | GENUS!="Juga")
                   & (is.na(ORDER)==TRUE | ORDER!="Rissooidea")
@@ -407,9 +407,9 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
                             , ni_dom09=sum(N_TAXA))
   df.dom10.sum <- dplyr::summarise(dplyr::group_by(df.dom10, SAMPLEID, INDEX_NAME, SITE_TYPE)
                             , ni_dom10=sum(N_TAXA))
-  df.dom02_NonClump_BCG_att456.sum <- dplyr::summarise(dplyr::group_by(df.dom02_NonClump_BCG_att456
+  df.dom02_NoJugaRiss_BCG_att456.sum <- dplyr::summarise(dplyr::group_by(df.dom02_NoJugaRiss_BCG_att456
                                                                        , SAMPLEID, INDEX_NAME, SITE_TYPE)
-                                                       , ni_dom02_NonClump_BCG_att456=sum(N_TAXA))
+                                                       , ni_dom02_NoJugaRiss_BCG_att456=sum(N_TAXA))
   # Add column of domN to main DF
   myDF <- merge(myDF, df.dom01.sum, all.x=TRUE)
   myDF <- merge(myDF, df.dom02.sum, all.x=TRUE)
@@ -421,7 +421,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   myDF <- merge(myDF, df.dom08.sum, all.x=TRUE)
   myDF <- merge(myDF, df.dom09.sum, all.x=TRUE)
   myDF <- merge(myDF, df.dom10.sum, all.x=TRUE)
-  myDF <- merge(myDF, df.dom02_NonClump_BCG_att456.sum, all.x=TRUE)
+  myDF <- merge(myDF, df.dom02_NoJugaRiss_BCG_att456.sum, all.x=TRUE)
   
   # Clean up extra Dom data frames
   rm(df.dom01)
@@ -434,7 +434,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   rm(df.dom08)
   rm(df.dom09)
   rm(df.dom10)
-  rm(df.dom02_NonClump_BCG_att456)
+  rm(df.dom02_NoJugaRiss_BCG_att456)
   rm(df.dom01.sum)
   rm(df.dom02.sum)
   rm(df.dom03.sum)
@@ -445,7 +445,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   rm(df.dom08.sum)
   rm(df.dom09.sum)
   rm(df.dom10.sum)
-  rm(df.dom02_NonClump_BCG_att456.sum)
+  rm(df.dom02_NoJugaRiss_BCG_att456.sum)
 
   # Metric Calc ####
   met.val <- dplyr::summarise(dplyr::group_by(myDF, SAMPLEID, INDEX_NAME, SITE_TYPE)
@@ -553,21 +553,21 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              # above but also non-clumpy
              #clumpy' taxa (Juga [genus] and Rissooidea [superfamily as Order] in PacNW);
              #and it only includes Attribute IV, V, VI taxa. 
-             , nt_NonInsArachDecaClump_BCG_att456 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
+             , nt_NonInsArachDecaJugaRiss_BCG_att456 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
                                       & (is.na(CLASS)==TRUE | (CLASS != "Insecta" & CLASS != "Arachnida"))
                                       & (is.na(ORDER) == TRUE | (ORDER != "Decapoda" & ORDER!="Rissooidea"))
                                       & (is.na(GENUS) == TRUE | GENUS!="Juga")
                                       & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
                                       , na.rm = TRUE)
-             , pi_NonInsArachDecaClump_BCG_att456 = sum(N_TAXA[ 
+             , pi_NonInsArachDecaJugaRiss_BCG_att456 = sum(N_TAXA[ 
                                      (is.na(CLASS)==TRUE | (CLASS != "Insecta" & CLASS != "Arachnida"))
                                      & (is.na(ORDER) == TRUE | (ORDER != "Decapoda" & ORDER!="Rissooidea"))
                                      & (is.na(GENUS) == TRUE | GENUS!="Juga")
                                      & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
                                     , na.rm=TRUE)/ni_total
-             , pt_NonInsArachDecaClump_BCG_att456 = nt_NonInsArachDecaClump_BCG_att456/nt_total
+             , pt_NonInsArachDecaJugaRiss_BCG_att456 = nt_NonInsArachDecaJugaRiss_BCG_att456/nt_total
              # dominant
-             , pi_dom02_BCG_att456_nonclump = max(ni_dom02_NonClump_BCG_att456)/ni_total
+             , pi_dom02_BCG_att456_NoJugaRiss = max(ni_dom02_NoJugaRiss_BCG_att456)/ni_total
 
              
              # Thermal Indicators ####

@@ -49,6 +49,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## v1.1.0.9001
+2018-06-08
+
+* metric.values
+    + Update metrics from NonClump to NoJugaRiss.
+
+
 ## v1.1.0.0000
 2018-03-19
 

@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-03-19 21:12:25
+2018-06-08 11:50:45
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-03-19 21:12:25
+    #> Last Update: 2018-06-08 11:50:46
 
 # Future Possibile Features (Wish List)
 
@@ -44,6 +44,13 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## v1.1.0.9001
+
+2018-06-08
+
+  - metric.values
+      - Update metrics from NonClump to NoJugaRiss.
 
 ## v1.1.0.0000
 
