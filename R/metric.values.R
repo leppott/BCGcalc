@@ -351,40 +351,40 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
   #
   df.dom01 <- dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>%
                             dplyr::group_by(SAMPLEID)  %>% 
-                                dplyr::filter(row_number()<=1)
+                                dplyr::filter(dplyr::row_number()<=1)
   df.dom02 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID)  %>% 
-    dplyr::filter(row_number()<=2)
+    dplyr::filter(dplyr::row_number()<=2)
   df.dom03 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID) %>% 
-    dplyr::filter(row_number()<=3)
+    dplyr::filter(dplyr::row_number()<=3)
   df.dom04 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID) %>% 
-    dplyr::filter(row_number()<=4)  
+    dplyr::filter(dplyr::row_number()<=4)  
   df.dom05 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID) %>% 
-    dplyr::filter(row_number()<=5) 
+    dplyr::filter(dplyr::row_number()<=5) 
   df.dom06 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID) %>% 
-    dplyr::filter(row_number()<=6)
+    dplyr::filter(dplyr::row_number()<=6)
   df.dom07 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID) %>% 
-    dplyr::filter(row_number()<=7)
+    dplyr::filter(dplyr::row_number()<=7)
   df.dom08 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID) %>%  
-    dplyr::filter(row_number()<=8)
+    dplyr::filter(dplyr::row_number()<=8)
   df.dom09 <- dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID) %>%
-    dplyr::filter(row_number()<=9)   
+    dplyr::filter(dplyr::row_number()<=9)   
   df.dom10 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>% 
     dplyr::group_by(SAMPLEID)  %>% 
-    dplyr::filter(row_number()<=10) 
+    dplyr::filter(dplyr::row_number()<=10) 
   df.dom02_NoJugaRiss_BCG_att456 <-  dplyr::arrange(myDF, SAMPLEID, desc(N_TAXA)) %>%
     dplyr::group_by(SAMPLEID) %>%
     dplyr::filter((is.na(GENUS) == TRUE | GENUS!="Juga")
                   & (is.na(ORDER)==TRUE | ORDER!="Rissooidea")
                   & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")) %>% 
-    dplyr::filter(row_number()<=2) 
+    dplyr::filter(dplyr::row_number()<=2) 
   
   # Summarise Top N
   df.dom01.sum <- dplyr::summarise(dplyr::group_by(df.dom01, SAMPLEID, INDEX_NAME, SITE_TYPE)
