@@ -1,27 +1,31 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-08 13:31:03
+2018-06-08 14:17:02
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-08 13:31:03
+    #> Last Update: 2018-06-08 14:17:02
 
 # Future Possibile Features (Wish List)
 
-  - Add excluded taxa flag to samples based on levels of taxonomy. Will
-    not be completely accurate. Will have many false positives and false
-    negatives. That is, if there are only organisms at the higher level
-    in a sample it will fail. And if there are no organisms of the
-    target group it will pass.
-    
-      - Pass, Fail on each. And overall flag
-      - Chiro (tribe and family)
-      - Oligo
-      - trombidiformes
-
   - Flags, would prefer to have flags attached to final Level
     assignments.
+    
+      - Transform format of qc.checks output
+      - Add Number of “fail” flags
+      - Merge with output of level.assignment
+
+  - ~~Add excluded taxa flag to samples based on levels of taxonomy.
+    Will not be completely accurate. Will have many false positives and
+    false negatives. That is, if there are only organisms at the higher
+    level in a sample it will fail. And if there are no organisms of the
+    target group it will pass.~~
+    
+      - ~~Pass, Fail on each. And overall flag~~
+      - ~~Chiro (tribe and family)~~
+      - ~~Oligo~~
+      - ~~Trombidiformes~~
 
   - Hi/Lo models.
     
@@ -44,6 +48,12 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.1.0.9003 (2018-06-08)
+
+  - metric.values dd nt, pi, and pt metrics; Issue \#7
+      - NonIns\_BCG\_attr456
+      - NonInsJugaRiss\_BCG\_attr456
 
 ## Changes in Version 1.1.0.9002 (2018-06-08)
 

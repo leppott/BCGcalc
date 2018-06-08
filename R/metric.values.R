@@ -526,7 +526,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              # subfamily = chironominae
              
              
-             # Special ####
+             # SPECIAL ####
              # oddball or specialized metrics
              # , ni_NonIns = sum(N_TAXA[CLASS==NA | CLASS!="Insecta"], na.rm=TRUE)
              # , ni_NonArach = sum(N_TAXA[CLASS==NA | CLASS!="Arachnida"], na.rm=TRUE)
@@ -568,7 +568,32 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
              , pt_NonInsArachDecaJugaRiss_BCG_att456 = nt_NonInsArachDecaJugaRiss_BCG_att456/nt_total
              # dominant
              , pi_dom02_BCG_att456_NoJugaRiss = max(ni_dom02_NoJugaRiss_BCG_att456)/ni_total
-
+             #
+             # 20180608, rework PacNW
+             # NonInsecta, Attribute 456
+             , nt_NonIns_BCG_att456 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
+                                     & (is.na(CLASS)==TRUE | CLASS != "Insecta")
+                                     & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                     , na.rm = TRUE)
+             , pi_NonIns_BCG_att456 = sum(N_TAXA[
+                                     (is.na(CLASS)==TRUE | CLASS != "Insecta")
+                                     & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                     , na.rm=TRUE)/ni_total
+             , pt_NonIns_BCG_att456 = nt_NonIns_BCG_att456/nt_total
+             # NonInsectaJugaRiss, Attribute 456
+             , nt_NonInsJugaRiss_BCG_att456 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
+                                     & (is.na(CLASS)==TRUE | CLASS != "Insecta")
+                                     & (is.na(ORDER) == TRUE | ORDER!="Rissooidea")
+                                     & (is.na(GENUS) == TRUE | GENUS!="Juga")
+                                     & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                     , na.rm = TRUE)
+             , pi_NonInsJugaRiss_BCG_att456 = sum(N_TAXA[ 
+                                     (is.na(CLASS)==TRUE | CLASS != "Insecta")
+                                     & (is.na(ORDER) == TRUE | ORDER!="Rissooidea")
+                                     & (is.na(GENUS) == TRUE | GENUS!="Juga")
+                                     & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
+                                     , na.rm=TRUE)/ni_total
+             , pt_NonInsJugaRiss_BCG_att456 = nt_NonInsJugaRiss_BCG_att456/nt_total
              
              # Thermal Indicators ####
              ## nt_ti
