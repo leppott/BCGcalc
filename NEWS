@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-11 10:25:07
+2018-06-12 19:33:28
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-11 10:25:08
+    #> Last Update: 2018-06-12 19:33:28
 
 # Future Possibile Features (Wish List)
 
@@ -48,6 +48,14 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.1.0.9006 (2018-06-12)
+
+  - Update metric.values.
+      - Add “cols2keep” to allow for extra fields in output.
+      - Need extra fields for qc.checks
+  - Update qc.checks.
+      - Update example with cols2keep from metric.values example.
 
 ## Changes in Version 1.1.0.9005 (2018-06-11)
 

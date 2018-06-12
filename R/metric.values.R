@@ -36,11 +36,19 @@
 #' 
 #' Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 #' 
+#' Columns to keep are additional fields in the input file that the user wants retained
+#' in the output.  Fields need to be those that are unique per sample and not associated with the taxa.
+#' For example, the fields used in qc.check(); Area_mi2, SurfaceArea, Density_m2, and Density_ft2. 
+#' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.DF Data frame of taxa (list required fields)
 #' @param fun.Community Community name for which to calculate metric values (bugs, fish, or algae)
-#' @param fun.MetricNames Optional vector of metric names to be returned.  If none are supplied then all will be returned.
-#' @param boo.Adjust Optional boolean value on whether to perform adjustments of values prior to scoring.  Default = FALSE but will always be TRUE for fish metrics.
+#' @param fun.MetricNames Optional vector of metric names to be returned.  
+#' If none are supplied then all will be returned.
+#' @param boo.Adjust Optional boolean value on whether to perform adjustments of 
+#' values prior to scoring.  Default = FALSE but will always be TRUE for fish metrics.
+#' @param fun.cols2keep Column names of fun.DF to retain in the output.  Uses column names.
+#' 
 #' @return data frame of SampleID and metric values
 #' @examples
 #' # PACIFIC NW BCG
@@ -51,14 +59,18 @@
 #'                                        , package="BCGcalc"))
 #' myDF <- df.samps.bugs
 #' 
+#' # Columns to keep
+#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+#' 
 #' # Run Function
-#' df.metric.values.bugs <- metric.values(myDF, "bugs")
+#' df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)
 #' 
 #' # View Results
 #' View(df.metric.values.bugs)
 #' 
 #' # Get data in long format so can QC results more easily
-#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME"
+#'                                                  , "SITE_TYPE", toupper(myCols))
 #'                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 #' # Save Results
 #' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
@@ -263,12 +275,14 @@
 # fun.MetricNames <- myMetrics.Fish
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
-metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.START
+metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjust=FALSE, fun.cols2keep=NULL){##FUNCTION.metric.values.START
   # Data Munging (common to all data types)
   # Convert to data.frame.  Code breaks if myDF is a tibble.
   fun.DF <- as.data.frame(fun.DF)
   # convert Field Names to UPPER CASE
   names(fun.DF) <- toupper(names(fun.DF))
+  # convert cols2keep to UPPER CASE
+  cols2keep <- toupper(fun.cols2keep)
   # Remove Count = 0 taxa
   fun.DF <- fun.DF[fun.DF[,"N_TAXA"]>0, ]
   # Remove non-target taxa (only if have the field)
@@ -284,9 +298,9 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
   fun.Community <- tolower(fun.Community)
   # run the proper sub function
   if (fun.Community=="bugs") {##IF.START
-    metric.values.bugs(fun.DF, fun.MetricNames, boo.Adjust)
+    metric.values.bugs(fun.DF, fun.MetricNames, boo.Adjust, cols2keep)
   } else if(fun.Community=="fish"){
-    metric.values.fish(fun.DF, fun.MetricNames, boo.Adjust)
+    metric.values.fish(fun.DF, fun.MetricNames, boo.Adjust, cols2keep)
   # } else if(fun.Community=="algae"){
   #   metric.values.algae(fun.DF, fun.MetricNames, boo.Adjust)
   }##IF.END
@@ -294,7 +308,7 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
 #
 #
 #' @export
-metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.bugs.START
+metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2keep=NULL){##FUNCTION.metric.values.bugs.START
   # Data Munging ####
   # Convert values to upper case (FFG, Habit, Life_Cycle)
   myDF[, "HABIT"] <- toupper(myDF[, "HABIT"])
@@ -842,13 +856,27 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCT
     met.val <- met.val[, c("SAMPLEID", "SITE_TYPE", "INDEX_NAME", 
                            ni_total, MetricNames)]
   }
+  
+  # Add extra fields
+  if(is.null(cols2keep)){##IF.is.null.cols2keep.START
+    df.return <- as.data.frame(met.val)
+  } else {
+    # create df with grouped fields
+    myDF.cols2keep <- myDF %>% dplyr::group_by_(.dots=c("SAMPLEID", cols2keep)) %>% 
+      dplyr::summarize(col.drop=sum(N_TAXA))
+    col.drop <- ncol(myDF.cols2keep)
+    myDF.cols2keep <- myDF.cols2keep[,-col.drop]
+    # merge
+    df.return <- merge(as.data.frame(myDF.cols2keep), as.data.frame(met.val), by="SAMPLEID")  
+  }##IF.is.null.cols2keep.END
+  
   # df to report back
-  return(as.data.frame(met.val))
+  return(df.return)
 }##FUNCTION.metric.values.bugs.END
 #
 #
 #' @export
-metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.fish.START
+metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust=FALSE, cols2keep=NULL){##FUNCTION.metric.values.fish.START
   # Remove Non-Target Taxa
   #myDF <- myDF[myDF[,"NonTarget"]==0,]
   # set case on fields
@@ -991,7 +1019,7 @@ metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust=FALS
 #
 #
 #' @export
-metric.values.algae <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE){##FUNCTION.metric.values.algae.START
+metric.values.algae <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2keep=NULL){##FUNCTION.metric.values.algae.START
   # Calculate Metrics (could have used pipe, %>%)
     met.val <- dplyr::summarise(dplyr::group_by(myDF, SampleID, "Index_Name", "Index_Type")
                 #

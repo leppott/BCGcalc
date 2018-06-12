@@ -52,6 +52,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.1.0.9006 (2018-06-12)
+
+* Update metric.values.
+    + Add "cols2keep" to allow for extra fields in output.
+    + Need extra fields for qc.checks
+* Update qc.checks.
+    + Update example with cols2keep from metric.values example.
+
 ## Changes in Version 1.1.0.9005 (2018-06-11)
 
 * Update bio data to be used for the model; Issue #7

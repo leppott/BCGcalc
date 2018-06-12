@@ -16,12 +16,26 @@
 #' # Calculate Metrics
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 #'                                         , package="BCGcalc"))
+#'                                         
+#' # Columns to keep
+#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+#' 
+#' # Run Function
 #' myDF <- df.samps.bugs
-#' df.metric.values.bugs <- metric.values(myDF, "bugs")
+#' df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)                                       
+#' 
+#' # Rename UPPER CASE myCols in metric.values output
+#' for (i in myCols){##IF.i.START
+#'   i.match <- match(toupper(i), names(df.metric.values.bugs))
+#'   if(!is.na(i.match)){##IF.is.na.START
+#'       names(df.metric.values.bugs)[i.match] <- i
+#'    }##IF.is.na.END
+#' }##IF.i.END
 #' 
 #' # Import Checks
 #' df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
 #'                                           , package="BCGcalc"), sheet="Flags") 
+#'                                           
 #' 
 #' # Run Function
 #' df.flags <- qc.checks(df.metric.values.bugs, df.checks)
