@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-13 11:14:29
+2018-06-13 12:29:26
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-13 11:14:30
+    #> Last Update: 2018-06-13 12:29:26
 
 # Future Possibile Features (Wish List)
 
@@ -49,7 +49,16 @@ BCGcalc-NEWS
 
 # Version History
 
-## Changes in Version 1.1.0.9008 (2018-06-12)
+## Changes in Version 1.1.0.9009 (2018-06-13)
+
+  - BCG.Level.Membership.R
+      - Added “round” to 8 places when determining level membership.
+      - Floating point error resulted in the occassional value of
+        1.1E-16 when the previous level was “1”.
+      - This resulted in the sample getting a split level assignment,
+        e.g., 3:4 when it was 100% 3.
+
+## Changes in Version 1.1.0.9008 (2018-06-13)
 
   - metric.values.R
       - Add additional metrics

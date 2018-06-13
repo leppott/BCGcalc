@@ -225,18 +225,20 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   df.subtotal[,"L1"] <- df.subtotal[,"L1.Sub"]
   
   df.subtotal[,"L2"] <- apply(df.subtotal[,c("L1", "L2.Sub")], 1
-                              , function(x) min(1-x[1], x[2], na.rm=TRUE))
+                              , function(x) min(round(1-x[1], 8), x[2], na.rm=TRUE))
   df.subtotal[,"L3"] <- apply(df.subtotal[,c("L1", "L2", "L3.Sub")], 1
-                              , function(x) min(1-sum(x[1], x[2], na.rm=TRUE)
+                              , function(x) min(round(1-sum(x[1], x[2], na.rm=TRUE), 8)
                                                 , x[3], na.rm=TRUE))
   df.subtotal[,"L4"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4.Sub")], 1
-                              , function(x) min(1-sum(x[1], x[2], x[3], na.rm=TRUE)
+                              , function(x) min(round(1-sum(x[1], x[2], x[3], na.rm=TRUE), 8)
                                                 , x[4], na.rm=TRUE))
   df.subtotal[,"L5"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5.Sub")], 1
-                              , function(x) min(1-sum(x[1], x[2], x[3], x[4], na.rm=TRUE)
+                              , function(x) min(round(1-sum(x[1], x[2], x[3], x[4], na.rm=TRUE), 8)
                                                 , x[5], na.rm=TRUE))
   df.subtotal[,"L6"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5")], 1
-                              , function(x) 1-sum(x[1], x[2], x[3], x[4], x[5], na.rm=TRUE))
+                              , function(x) round(1-sum(x[1], x[2], x[3], x[4], x[5], na.rm=TRUE), 8))
+  # 20180613, added "round" 8 for floating point error (e.g., a value of 1.1E-16).
+  #
   # Return RESULTS ####
   # Remove sub fields
   df.results <- df.subtotal[,!(names(df.subtotal) %in% col.sub)]
