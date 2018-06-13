@@ -1,20 +1,13 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-13 13:16:59
+2018-06-13 13:29:53
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-13 13:17:00
+    #> Last Update: 2018-06-13 13:29:53
 
 # Future Possibile Features (Wish List)
-
-  - Flags, would prefer to have flags attached to final Level
-    assignments.
-    
-      - Transform format of qc.checks output
-      - Add Number of “fail” flags
-      - Merge with output of level.assignment
 
   - ~~Add excluded taxa flag to samples based on levels of taxonomy.
     Will not be completely accurate. Will have many false positives and
@@ -48,6 +41,11 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.2.0 (2018-06-13)
+
+  - Release version for Pacific Northwest BCG workgroup with updated
+    model.
 
 ## Changes in Version 1.1.0.9010 (2018-06-13)
 

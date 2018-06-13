@@ -23,11 +23,6 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Future Possibile Features (Wish List)
 
-* Flags, would prefer to have flags attached to final Level assignments.
-    + Transform format of qc.checks output
-    + Add Number of "fail" flags
-    + Merge with output of level.assignment
-
 * ~~Add excluded taxa flag to samples based on levels of taxonomy.  Will not be completely accurate.  Will have many false positives and false negatives.  That is, if there are only organisms at the higher level in a sample it will fail.  And if there are no organisms of the target group it will pass.~~
     + ~~Pass, Fail on each. And overall flag~~
     + ~~Chiro (tribe and family)~~
@@ -51,6 +46,10 @@ cat(paste0("Last Update: ",Sys.time()))
 * Update For loop in BCG.Level.Assignment to apply function (similar to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.2.0 (2018-06-13)
+
+* Release version for Pacific Northwest BCG workgroup with updated model.
 
 ## Changes in Version 1.1.0.9010 (2018-06-13)
 
