@@ -318,6 +318,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
   # Add extra columns for FFG and Habit 
   # (need unique values for functions in summarise)
   # each will be TRUE or FALSE
+  # finds any match so CN, CB is both CN and CB
   myDF[, "HABIT_BU"] <- grepl("BU", myDF[, "HABIT"])
   myDF[, "HABIT_CB"] <- grepl("CB", myDF[, "HABIT"])
   myDF[, "HABIT_CN"] <- grepl("CN", myDF[, "HABIT"])
@@ -331,10 +332,11 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
   myDF[, "LC_MULTI"] <- grepl("MULTI", myDF[, "LIFE_CYCLE"])
   myDF[, "LC_SEMI"]  <- grepl("SEMI", myDF[, "LIFE_CYCLE"])
   myDF[, "LC_UNI"]   <- grepl("UNI", myDF[, "LIFE_CYCLE"])
-  myDF[, "TI_COLD"] <- grepl("COLD", myDF[, "THERMAL_INDICATOR"])
-  myDF[, "TI_COLDCOOL"]   <- grepl("COLD_COOL", myDF[, "THERMAL_INDICATOR"])
-  myDF[, "TI_COOLWARM"]   <- grepl("COOL_WARM", myDF[, "THERMAL_INDICATOR"])
-  myDF[, "TI_WARM"]   <- grepl("WARM", myDF[, "THERMAL_INDICATOR"])
+  # exact matches only
+  myDF[, "TI_COLD"]     <- "COLD"      == myDF[, "THERMAL_INDICATOR"]
+  myDF[, "TI_COLDCOOL"] <- "COLD_COOL" == myDF[, "THERMAL_INDICATOR"]
+  myDF[, "TI_COOLWARM"] <- "COOL_WARM" == myDF[, "THERMAL_INDICATOR"]
+  myDF[, "TI_WARM"]     <- "WARM"      == myDF[, "THERMAL_INDICATOR"]
   #
   # Calculate Metrics (could have used pipe, %>%)
   # met.val <- myDF %>% 
@@ -756,6 +758,8 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              # 5i, 5m, 5t
              # 6i, 6m, 6t
             ## nt_BCG
+            , nt_BCG_att1i = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & BCG_ATTR == "1i"], na.rm = TRUE)
+            , nt_BCG_att1m = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & BCG_ATTR == "1m"], na.rm = TRUE)
             , nt_BCG_att12 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "1" | BCG_ATTR == "2")], na.rm = TRUE)
             , nt_BCG_att1i2 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "1i" | BCG_ATTR == "2")], na.rm = TRUE)
             , nt_BCG_att123 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & 
@@ -765,6 +769,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
             , nt_BCG_att2 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "2")], na.rm = TRUE)
             , nt_BCG_att23 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm = TRUE)
             , nt_BCG_att234 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "2" | BCG_ATTR == "3" | BCG_ATTR == "4")], na.rm = TRUE)
+            , nt_BCG_att3 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "3")], na.rm = TRUE)
             , nt_BCG_att4 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "4")], na.rm = TRUE)
             , nt_BCG_att45 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "4" | BCG_ATTR == "5")], na.rm = TRUE)
             , nt_BCG_att5 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (BCG_ATTR == "5")], na.rm = TRUE)
@@ -776,12 +781,16 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
             , nt_EPT_BCG_att1i23 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & (ORDER == "Ephemeroptera" | ORDER == "Trichoptera" | ORDER == "Plecoptera") 
                                                            & (BCG_ATTR == "1i" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm = TRUE)
             ## pi_BCG
+            , pi_BCG_att1i = sum(N_TAXA[(BCG_ATTR == "1i")], na.rm=TRUE)/ni_total
+            , pi_BCG_att1m = sum(N_TAXA[(BCG_ATTR == "1m")], na.rm=TRUE)/ni_total
             , pi_BCG_att12 = sum(N_TAXA[(BCG_ATTR == "1" | BCG_ATTR == "2")], na.rm=TRUE)/ni_total
             , pi_BCG_att1i2 = sum(N_TAXA[(BCG_ATTR == "1i" | BCG_ATTR == "2")], na.rm=TRUE)/ni_total
             , pi_BCG_att123 = sum(N_TAXA[(BCG_ATTR == "1" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
             , pi_BCG_att1i23 = sum(N_TAXA[(BCG_ATTR == "1i" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
+            , pi_BCG_att2 = sum(N_TAXA[(BCG_ATTR == "2")], na.rm=TRUE)/ni_total
             , pi_BCG_att23 = sum(N_TAXA[(BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
             , pi_BCG_att234 = sum(N_TAXA[(BCG_ATTR == "2" | BCG_ATTR == "3" | BCG_ATTR == "4")], na.rm=TRUE)/ni_total
+            , pi_BCG_att3 = sum(N_TAXA[(BCG_ATTR == "3")], na.rm=TRUE)/ni_total
             , pi_BCG_att4 = sum(N_TAXA[(BCG_ATTR == "4")], na.rm=TRUE)/ni_total
             , pi_BCG_att45 = sum(N_TAXA[(BCG_ATTR == "4" | BCG_ATTR == "5")], na.rm=TRUE)/ni_total
             , pi_BCG_att5 = sum(N_TAXA[(BCG_ATTR == "5")], na.rm=TRUE)/ni_total
@@ -790,7 +799,9 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
             ## EPT
             , pi_EPT_BCG_att123 = sum(N_TAXA[(ORDER == "Ephemeroptera" | ORDER == "Trichoptera" | ORDER == "Plecoptera") 
                                              & (BCG_ATTR == "1" | BCG_ATTR == "2" | BCG_ATTR == "3")], na.rm=TRUE)/ni_total
-            ## pt_BCG  
+            ## pt_BCG
+            , pt_BCG_att1i = nt_BCG_att1i/nt_total 
+            , pt_BCG_att1m = nt_BCG_att1m/nt_total
             , pt_BCG_att12 = nt_BCG_att12/nt_total 
             , pt_BCG_att1i2 = nt_BCG_att1i2/nt_total 
             , pt_BCG_att123 = nt_BCG_att123/nt_total
@@ -798,6 +809,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
             , pt_BCG_att2 = nt_BCG_att2/nt_total 
             , pt_BCG_att23 = nt_BCG_att23/nt_total
             , pt_BCG_att234 = nt_BCG_att234/nt_total 
+            , pt_BCG_att3 = nt_BCG_att3/nt_total
             , pt_BCG_att4 = nt_BCG_att4/nt_total
             , pt_BCG_att45 = nt_BCG_att45/nt_total
             , pt_BCG_att5 = nt_BCG_att5/nt_total

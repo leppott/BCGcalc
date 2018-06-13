@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-12 20:25:30
+2018-06-13 11:14:29
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-12 20:25:31
+    #> Last Update: 2018-06-13 11:14:30
 
 # Future Possibile Features (Wish List)
 
@@ -48,6 +48,17 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.1.0.9008 (2018-06-12)
+
+  - metric.values.R
+      - Add additional metrics
+      - nt; BCG\_att; 1i, 1m, 3
+      - pt; BCG\_att; 1i, 1m, 3
+      - pi; BCG\_att; 1i, 1m, 2, 3
+      - thermal indicator metrics
+      - modify grepl to == because COLD was matching COLD and
+        COLD\_COOL. Only want exact match.
 
 ## Changes in Version 1.1.0.9007 (2018-06-12)
 
