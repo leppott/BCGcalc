@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-12 19:33:28
+2018-06-12 20:25:30
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-12 19:33:28
+    #> Last Update: 2018-06-12 20:25:31
 
 # Future Possibile Features (Wish List)
 
@@ -48,6 +48,12 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.1.0.9007 (2018-06-12)
+
+  - Update Rules.xlsx.
+      - Level 3 (Hi and Lo), pi\_BCG\_att56 changed to pt\_BCG\_att1i23.
+      - Change involved both direction and thresholds.
 
 ## Changes in Version 1.1.0.9006 (2018-06-12)
 

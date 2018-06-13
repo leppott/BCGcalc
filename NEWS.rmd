@@ -52,6 +52,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.1.0.9007 (2018-06-12)
+
+* Update Rules.xlsx.
+    + Level 3 (Hi and Lo), pi_BCG_att56 changed to pt_BCG_att1i23.
+    + Change involved both direction and thresholds.
+
 ## Changes in Version 1.1.0.9006 (2018-06-12)
 
 * Update metric.values.
