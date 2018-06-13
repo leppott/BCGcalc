@@ -47,6 +47,15 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.0.9001 (2018-06-13)
+
+* BCG.Level.Assignment.R
+    + Membership QC (sum===1) add "round" 8 to avoid too many samples being flagged as "FAIL".
+    + Example changes:
+    + Changed terminology from PASS/FAIL to NA/flag in flag fields.
+    + Changed "NumFlagFAIL" to "NumFlags".
+    + Reordered columns so "NumFlags" is before the flag fields.
+
 ## Changes in Version 1.2.0 (2018-06-13)
 
 * Release version for Pacific Northwest BCG workgroup with updated model.

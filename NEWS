@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-13 13:29:53
+2018-06-13 15:20:05
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-13 13:29:53
+    #> Last Update: 2018-06-13 15:20:05
 
 # Future Possibile Features (Wish List)
 
@@ -41,6 +41,16 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.2.0.9001 (2018-06-13)
+
+  - BCG.Level.Assignment.R
+      - Membership QC (sum===1) add “round” 8 to avoid too many samples
+        being flagged as “FAIL”.
+      - Example changes:
+      - Changed terminology from PASS/FAIL to NA/flag in flag fields.
+      - Changed “NumFlagFAIL” to “NumFlags”.
+      - Reordered columns so “NumFlags” is before the flag fields.
 
 ## Changes in Version 1.2.0 (2018-06-13)
 

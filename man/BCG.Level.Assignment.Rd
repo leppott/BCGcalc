@@ -82,10 +82,17 @@ df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
                                           , package="BCGcalc"), sheet="Flags") 
 # Run Function
 df.flags <- qc.checks(df.metric.values.bugs, df.checks)
+# Change terminology; PASS/FAIL to NA/flag
+df.flags[df.flags[,"FLAG"]=="FAIL", "FLAG"] <- "flag"
+df.flags[df.flags[,"FLAG"]=="PASS", "FLAG"] <- NA
+
 # long to wide format
 df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
-# Calc number of "FAILS" by row.
-df.flags.wide$NumFlagFail <- rowSums(df.flags.wide=="FAIL")
+# Calc number of "flag"s by row.
+df.flags.wide$NumFlags <- rowSums(df.flags.wide=="flag", na.rm=TRUE)
+# Rearrange columns
+NumCols <- ncol(df.flags.wide)
+df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
 
 # Merge Levels and Flags
 df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
