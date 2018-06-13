@@ -47,6 +47,10 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.1 (2018-06-13)
+
+* New release version.
+
 ## Changes in Version 1.2.0.9001 (2018-06-13)
 
 * BCG.Level.Assignment.R
