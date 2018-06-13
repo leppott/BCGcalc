@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-13 12:29:26
+2018-06-13 13:16:59
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-13 12:29:26
+    #> Last Update: 2018-06-13 13:17:00
 
 # Future Possibile Features (Wish List)
 
@@ -48,6 +48,14 @@ BCGcalc-NEWS
     to BCG.Level.Membership).
 
 # Version History
+
+## Changes in Version 1.1.0.9010 (2018-06-13)
+
+  - BCG.Level.Assignment.R
+      - Example code to match up with qc.checks output.
+      - Includes export to file.
+  - qc.checks.R
+      - Remove example modfying column names.
 
 ## Changes in Version 1.1.0.9009 (2018-06-13)
 

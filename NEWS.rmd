@@ -52,6 +52,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.1.0.9010 (2018-06-13)
+
+* BCG.Level.Assignment.R
+    + Example code to match up with qc.checks output.
+    + Includes export to file.
+* qc.checks.R
+    + Remove example modfying column names.
+
 ## Changes in Version 1.1.0.9009 (2018-06-13)
 
 * BCG.Level.Membership.R

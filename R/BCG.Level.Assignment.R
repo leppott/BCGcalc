@@ -39,6 +39,53 @@
 #' # Save Results
 #' write.table(df.Levels, "Levels.tsv"
 #'             , row.names=FALSE, col.names=TRUE, sep="\t")
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~
+#' # Example Data
+#' 
+#' library(readxl)
+#' library(reshape2)
+#' 
+#' # Calculate Metrics
+#' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+#'                                         , package="BCGcalc"))
+#' myDF <- df.samps.bugs
+#' df.metric.values.bugs <- metric.values(myDF, "bugs")
+#' 
+#' # Import Rules
+#' df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
+#'                              , package="BCGcalc"), sheet="BCG_PacNW_2018") 
+#' 
+#' # Calculate Metric Memberships
+#' df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
+#' 
+#' # Calculate Level Memberships
+#' df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+#' 
+#' # Run Function
+#' df.Levels <- BCG.Level.Assignment(df.Level.Membership)
+#' 
+#' # QC Checks (flags)
+#' #
+#' # Import Checks
+#' df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+#'                                           , package="BCGcalc"), sheet="Flags") 
+#' # Run Function
+#' df.flags <- qc.checks(df.metric.values.bugs, df.checks)
+#' # long to wide format
+#' df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
+#' # Calc number of "FAILS" by row.
+#' df.flags.wide$NumFlagFail <- rowSums(df.flags.wide=="FAIL")
+#' 
+#' # Merge Levels and Flags
+#' df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
+#' 
+#' # Show Results
+#' View(df.Levels.Flags)
+#' 
+#' # Save Results
+#' write.table(df.Levels.Flags, "Levels.Flags.tsv"
+#'             , row.names=FALSE, col.names=TRUE, sep="\t")
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
