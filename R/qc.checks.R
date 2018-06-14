@@ -27,13 +27,12 @@
 #' # Import Checks
 #' df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
 #'                                           , package="BCGcalc"), sheet="Flags") 
-#'                                           
 #' 
 #' # Run Function
 #' df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 #' 
 #' # Summarize Results
-#' table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"])
+#' table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # Rename UPPER CASE myCols in metric.values output
 # for (i in myCols){##IF.i.START
@@ -55,17 +54,41 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   df.metrics <- as.data.frame(df.metrics)
   df.checks <- as.data.frame(df.checks)
   #
+  # Names to Upper Case
+  names(df.metrics) <- toupper(names(df.metrics))
+  names(df.checks) <- toupper(names(df.checks))
+  #
+  # # upper case metrics
+  # df.checks$METRIC_NAME <- toupper(df.checks$METRIC_NAME)
+  # #
+  # # metrics to check
+  # checks.metrics <- unique(df.checks$Metric_Name)
+  
+  
+  #
   # Metrics to long
   if (input.shape=="wide") {##IF.input.shape.START
     df.long <- reshape2::melt(df.metrics, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
                              , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
+    # # compare to input
+    # checks.metrics.input.col <- checks.metrics[checks.metrics %in% toupper(names(df.metrics))]
+    # # add to df.long
+    # #df.metrics.long <- reshape2::melt(df.metrics)
+    
   } else {
     df.long <- df.metrics
   }##IF.input.shape.END
   #
-  # Names to Upper Case
-  names(df.long) <- toupper(names(df.long))
-  names(df.checks) <- toupper(names(df.checks))
+  
+  # upper case metrics
+  df.long$METRIC_NAME <- tolower(df.long$METRIC_NAME)
+  df.checks$METRIC_NAME <- tolower(df.checks$METRIC_NAME)
+  
+  
+  
+  
+  
+
   #
   df.long[,"SITE_TYPE"] <- tolower(df.long[,"SITE_TYPE"])
   df.checks[,"SITE_TYPE"] <- tolower(df.checks[,"SITE_TYPE"])
@@ -100,10 +123,14 @@ qc.checks <- function(df.metrics, df.checks, input.shape="wide"){##FUNCTION.STAR
   # deparse etc
   
   ## default to NA
-  df.merge[,"FLAG"] <- NA
+  df.merge[,"FLAG"] <- as.character(NA)
+  #df.merge[df.merge[,"EVAL"]==FALSE, "FLAG"] <- "PASS"
+  #df.merge[df.merge[,"EVAL"]==TRUE,  "FLAG"] <- "FAIL"
+  df.merge[,"FLAG"][df.merge[,"EVAL"]==FALSE] <- "PASS"
+  df.merge[,"FLAG"][df.merge[,"EVAL"]==TRUE] <- "FAIL"
   
-  df.merge[df.merge[,"EVAL"]==FALSE, "FLAG"] <- "PASS"
-  df.merge[df.merge[,"EVAL"]==TRUE,  "FLAG"] <- "FAIL"
+  # QC
+  #table(df.merge$FLAG, df.merge$EVAL, useNA="always")
   
   #
   # create output

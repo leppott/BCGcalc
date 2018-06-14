@@ -49,8 +49,10 @@
 #' # Calculate Metrics
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 #'                                         , package="BCGcalc"))
+#'                                         
+#' # Run Function
 #' myDF <- df.samps.bugs
-#' df.metric.values.bugs <- metric.values(myDF, "bugs")
+#' df.metric.values.bugs <- metric.values(myDF, "bugs") 
 #' 
 #' # Import Rules
 #' df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
@@ -70,11 +72,16 @@
 #' # Import Checks
 #' df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
 #'                                           , package="BCGcalc"), sheet="Flags") 
+#' # Rerun metrics including extra columns
+#' myDF <- df.samps.bugs
+#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+#' df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)                                         
+#'
 #' # Run Function
 #' df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 #' # Change terminology; PASS/FAIL to NA/flag
-#' df.flags[df.flags[,"FLAG"]=="FAIL", "FLAG"] <- "flag"
-#' df.flags[df.flags[,"FLAG"]=="PASS", "FLAG"] <- NA
+#' df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
+#' df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
 #' 
 #' # long to wide format
 #' df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
@@ -93,6 +100,9 @@
 #' # Save Results
 #' write.table(df.Levels.Flags, "Levels.Flags.tsv"
 #'             , row.names=FALSE, col.names=TRUE, sep="\t")
+#'             
+#' # Summarize Results
+#' table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC

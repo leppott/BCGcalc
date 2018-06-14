@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-13 15:22:14
+2018-06-14 08:58:35
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-13 15:22:14
+    #> Last Update: 2018-06-14 08:58:36
 
 # Future Possibile Features (Wish List)
 
@@ -40,7 +40,17 @@ BCGcalc-NEWS
   - Update For loop in BCG.Level.Assignment to apply function (similar
     to BCG.Level.Membership).
 
+  - Any issues as reported on GitHub.
+    
+      - <https://github.com/leppott/BCGcalc/issues>
+
 # Version History
+
+## Changes in Version 1.2.1.9001 (2018-06-14)
+
+  - qc.checks.R
+      - Modification to use metric names as lower case. Issue \#12.
+      - Example table; useNA=“ifany”.
 
 ## Changes in Version 1.2.1 (2018-06-13)
 

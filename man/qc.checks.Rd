@@ -39,11 +39,10 @@ df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)
 # Import Checks
 df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
                                           , package="BCGcalc"), sheet="Flags") 
-                                          
 
 # Run Function
 df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 
 # Summarize Results
-table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"])
+table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
 }

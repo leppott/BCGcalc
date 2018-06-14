@@ -45,7 +45,16 @@ cat(paste0("Last Update: ",Sys.time()))
 
 * Update For loop in BCG.Level.Assignment to apply function (similar to BCG.Level.Membership).
 
+* Any issues as reported on GitHub.  
+    + https://github.com/leppott/BCGcalc/issues
+
 # Version History
+
+## Changes in Version 1.2.1.9001 (2018-06-14)
+
+* qc.checks.R
+    + Modification to use metric names as lower case.  Issue #12.
+    + Example table; useNA="ifany".
 
 ## Changes in Version 1.2.1 (2018-06-13)
 
