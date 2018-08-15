@@ -610,6 +610,10 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
                                      & (BCG_ATTR == "4" | BCG_ATTR == "5" | BCG_ATTR == "6")]
                                      , na.rm=TRUE)/ni_total
              , pt_NonInsJugaRiss_BCG_att456 = nt_NonInsJugaRiss_BCG_att456/nt_total
+             # 20180815, Percent Baetis tricaudatus complex + Simuliidae individual
+             , pi_SimBtri = (sum(N_TAXA[FAMILY == "Simuliidae"], na.rm=TRUE) 
+                            + sum(N_TAXA[TAXAID == "Baetis tricaudatus complex"]
+                              , na.rm=TRUE))/ni_total
              
              # Thermal Indicators ####
              ## nt_ti

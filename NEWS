@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-06-14 09:03:42
+2018-08-15 13:28:33
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-06-14 09:03:43
+    #> Last Update: 2018-08-15 13:28:34
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9001 (2018-08-15)
+
+  - metric.values
+      - Added metric Percent Baetis tricaudatus complex + Simuliidae
+        individuals (pi\_SimBtri). Issue \#16.
 
 ## Changes in Version 1.2.2 (2018-06-14)
 
