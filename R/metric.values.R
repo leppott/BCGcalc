@@ -5,12 +5,18 @@
 #' (see below for required fields by community).  The dplyr package is used to generate the metric values.
 #'
 #' @details No manipulations of the taxa are performed by this routine.  
-#' All benthic macroinvertebrate taxa should be identified to 
-#' the appropriate operational taxonomic unit (OTU).  
+#' All benthic macroinvertebrate taxa should be identified to the appropriate 
+#' operational taxonomic unit (OTU).  
 #' Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
-#' These taxa will be excluded from taxa richness metrics (but will count for all others).  
+#' These taxa will be excluded from taxa richness metrics (but will count for 
+#' all others).  
 #' Any non-target taxa should be identified in the "NonTarget" field as "TRUE".  
 #' These taxa will be removed prior to any calculations.
+#' There are a number of required fields (see below) for metric to calculation.  
+#' If any fields are missing the user will be prompted as to which are missing 
+#' and if the user wants to continue or quit.  If the user continues the missing 
+#' fields will be added but will be filled with zero or NA (as appropriate).  
+#' Any metrics based on the missing fields will not be valid.
 #' 
 #' Required Fields:
 #' 
@@ -22,13 +28,15 @@
 #' 
 #' * EXCLUDE (valid values are TRUE and FALSE)
 #' 
+#' * INDEX_NAME
+#' 
 #' * SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are "hi" or "lo")
 #' 
 #' * NONTARGET (valid values are TRUE and FALSE)
 #' 
-#' * PHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, GENUS
+#' * PHYLUM, SUBPHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, TRIBE, GENUS
 #' 
-#' * FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR
+#' * FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR, THERMAL_INDICATOR
 #' 
 #' Valid values for FFG: CG, CF, PR, SC, SH
 #'
@@ -36,9 +44,12 @@
 #' 
 #' Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 #' 
-#' Columns to keep are additional fields in the input file that the user wants retained
-#' in the output.  Fields need to be those that are unique per sample and not associated with the taxa.
-#' For example, the fields used in qc.check(); Area_mi2, SurfaceArea, Density_m2, and Density_ft2. 
+#' Valid values for THERMAL_INDICATOR: COLD, COLD_COOL, COOL_WARM, WARM
+#' 
+#' Columns to keep are additional fields in the input file that the user wants 
+#' retained in the output.  Fields need to be those that are unique per sample 
+#' and not associated with the taxa.  For example, the fields used in qc.check();
+#' Area_mi2, SurfaceArea, Density_m2, and Density_ft2. 
 #' 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param fun.DF Data frame of taxa (list required fields)
@@ -309,7 +320,38 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
 #
 #' @export
 metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2keep=NULL){##FUNCTION.metric.values.bugs.START
-  # Data Munging ####
+  # QC Require Fields ####
+  col.req <- c("SAMPLEID", "TAXAID", "N_TAXA", "EXCLUDE", "INDEX_NAME"
+              , "SITE_TYPE", "NONTARGET", "PHYLUM", "SUBPHYLUM", "CLASS"
+              , "ORDER", "FAMILY", "SUBFAMILY", "TRIBE", "GENUS", "FFG", "HABIT"
+              , "LIFE_CYCLE", "TOLVAL", "BCG_ATTR", "THERMAL_INDICATOR")
+  col.req.missing <- col.req[!(col.req %in% toupper(names(myDF)))]
+  num.col.req.missing <- length(col.req.missing)
+  # Trigger prompt if any missing fields (and session is interactive)
+  if(num.col.req.missing!=0 & interactive()==TRUE){##IF.num.col.req.missing.START
+    myPrompt.01 <- paste0("There are ",num.col.req.missing," missing fields in the data.")
+    myPrompt.02 <- col.req.missing
+    myPrompt.03 <- "If you continue the metrics associated with these fields will be invalid."
+    myPrompt.04 <- "For example, if the HABIT field is missing all habit related metrics will not be correct."
+    myPrompt.05 <- "Do you wish to continue (YES or NO)?"
+    
+    myPrompt <- paste(myPrompt.01, myPrompt.02, myPrompt.03, myPrompt.04
+                      , myPrompt.05, sep="\n")
+    #user.input <- readline(prompt=myPrompt)
+    user.input <- NA
+    user.input <- utils::menu(c("YES", "NO"), title=myPrompt)
+    # any answer other than "YES" will stop the function.
+    if(user.input!=1){##IF.user.input.START
+      stop(paste("The user chose *not* to continue due to missing fields; "
+                  , col.req.missing,sep="\n"))
+    }##IF.user.input.END
+    # Add missing fields
+    myDF[,col.req.missing] <- NA
+    warning(paste("Metrics related to the following fields are invalid;"
+                  , col.req.missing, sep="\n"))
+  }##IF.num.col.req.missing.END
+
+   # Data Munging ####
   # Convert values to upper case (FFG, Habit, Life_Cycle)
   myDF[, "HABIT"] <- toupper(myDF[, "HABIT"])
   myDF[, "FFG"] <- toupper(myDF[, "FFG"])

@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.2.9002 (2018-08-28)
+
+* metric.values.  Issue #13
+    + Add required fields (columns) to help file.
+    + Add QC check in function.  Prompt user to continue or stop.
+
 ## Changes in Version 1.2.2.9001 (2018-08-15)
 
 * metric.values

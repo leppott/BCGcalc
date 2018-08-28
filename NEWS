@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-08-15 13:28:33
+2018-08-28 16:01:50
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-08-15 13:28:34
+    #> Last Update: 2018-08-28 16:01:51
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9002 (2018-08-28)
+
+  - metric.values. Issue \#13
+      - Add required fields (columns) to help file.
+      - Add QC check in function. Prompt user to continue or stop.
 
 ## Changes in Version 1.2.2.9001 (2018-08-15)
 

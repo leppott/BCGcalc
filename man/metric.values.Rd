@@ -30,12 +30,18 @@ Inputs are a data frame with SampleID and taxa with phylogenetic and autecologic
 }
 \details{
 No manipulations of the taxa are performed by this routine.  
-All benthic macroinvertebrate taxa should be identified to 
-the appropriate operational taxonomic unit (OTU).  
+All benthic macroinvertebrate taxa should be identified to the appropriate 
+operational taxonomic unit (OTU).  
 Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
-These taxa will be excluded from taxa richness metrics (but will count for all others).  
+These taxa will be excluded from taxa richness metrics (but will count for 
+all others).  
 Any non-target taxa should be identified in the "NonTarget" field as "TRUE".  
 These taxa will be removed prior to any calculations.
+There are a number of required fields (see below) for metric to calculation.  
+If any fields are missing the user will be prompted as to which are missing 
+and if the user wants to continue or quit.  If the user continues the missing 
+fields will be added but will be filled with zero or NA (as appropriate).  
+Any metrics based on the missing fields will not be valid.
 
 Required Fields:
 
@@ -47,13 +53,15 @@ Required Fields:
 
 * EXCLUDE (valid values are TRUE and FALSE)
 
+* INDEX_NAME
+
 * SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are "hi" or "lo")
 
 * NONTARGET (valid values are TRUE and FALSE)
 
-* PHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, GENUS
+* PHYLUM, SUBPHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, TRIBE, GENUS
 
-* FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR
+* FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR, THERMAL_INDICATOR
 
 Valid values for FFG: CG, CF, PR, SC, SH
 
@@ -61,9 +69,12 @@ Valid values for HABIT: BU, CB, CN, SP, SW
 
 Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 
-Columns to keep are additional fields in the input file that the user wants retained
-in the output.  Fields need to be those that are unique per sample and not associated with the taxa.
-For example, the fields used in qc.check(); Area_mi2, SurfaceArea, Density_m2, and Density_ft2.
+Valid values for THERMAL_INDICATOR: COLD, COLD_COOL, COOL_WARM, WARM
+
+Columns to keep are additional fields in the input file that the user wants 
+retained in the output.  Fields need to be those that are unique per sample 
+and not associated with the taxa.  For example, the fields used in qc.check();
+Area_mi2, SurfaceArea, Density_m2, and Density_ft2.
 }
 \examples{
 # PACIFIC NW BCG
