@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-08-28 16:01:50
+2018-09-04 15:07:55
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-08-28 16:01:51
+    #> Last Update: 2018-09-04 15:07:55
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9003 (2018-09-04)
+
+  - metric.values. Issue \#16
+      - Added QC worksheet to extdata\_BCG\_PacNW.xlsx
 
 ## Changes in Version 1.2.2.9002 (2018-08-28)
 

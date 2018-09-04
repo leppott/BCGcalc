@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.2.9003 (2018-09-04)
+
+* metric.values.  Issue #16
+    + Added QC worksheet to extdata\Data_BCG_PacNW.xlsx
+
 ## Changes in Version 1.2.2.9002 (2018-08-28)
 
 * metric.values.  Issue #13
