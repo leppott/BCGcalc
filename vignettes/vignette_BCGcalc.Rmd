@@ -36,13 +36,25 @@ The `BCGcalc` package includes some example that will be used in this example.
 
 The funtion metric.values generates 160+ different metrics for multi-metric indices as well as BCG specific metrics.  All metrics are calculated and reported back to the user in a data frame.
 
-No manipulations of the taxa are performed by this routine. 
-All benthic macroinvertebrate taxa should be identified to 
-the appropriate operational taxonomic unit (OTU).  
-ny non-count taxa should be identified in the "Exclude" field as "TRUE". 
-These taxa will be excluded from taxa richness metrics (but will count for all others).  
-Any non-target taxa should be identified in the "NonTarget" field as "TRUE".  
-These taxa will be removed prior to any calculations.
+No manipulations of the taxa are performed by this routine.  
+All benthic macroinvertebrate taxa should be identified to the appropriate 
+operational taxonomic unit (OTU).  
+Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
+These taxa will be excluded from taxa richness metrics (but will count for 
+all others).  Excluded taxa are ambiguous taxa (on a sample basis), i.e., 
+the parent taxa when child taxa are present.  For example, the parent taxa 
+Chironomidae would be xcluded when the child taxa Tanytarsini is present.  
+Both would be excluded when Tanytarsus is present.
+Any non-target taxa should be identified in the "NonTarget" field as "TRUE". 
+Non-target taxa are those that are not part of your intended capture list; 
+e.g., fish,  herps, water column taxa, or water surface taxa in a benthic sample.
+The target list will vary by program.
+The non-target taxa will be removed prior to any calculations.
+There are a number of required fields (see below) for metric to calculation.  
+If any fields are missing the user will be prompted as to which are missing 
+and if the user wants to continue or quit.  If the user continues the missing 
+fields will be added but will be filled with zero or NA (as appropriate).  
+Any metrics based on the missing fields will not be valid.
 
 Required Fields:
 
@@ -54,19 +66,28 @@ Required Fields:
 
 * EXCLUDE (valid values are TRUE and FALSE)
 
+* INDEX_NAME
+
 * SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are "hi" or "lo")
 
 * NONTARGET (valid values are TRUE and FALSE)
 
-* PHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, GENUS
+* PHYLUM, SUBPHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, TRIBE, GENUS
 
-* FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR
+* FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR, THERMAL_INDICATOR
 
 Valid values for FFG: CG, CF, PR, SC, SH
 
 Valid values for HABIT: BU, CB, CN, SP, SW
 
 Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
+
+Valid values for THERMAL_INDICATOR: COLD, COLD_COOL, COOL_WARM, WARM
+
+Columns to keep are additional fields in the input file that the user wants 
+retained in the output.  Fields need to be those that are unique per sample 
+and not associated with the taxa.  For example, the fields used in qc.check();
+Area_mi2, SurfaceArea, Density_m2, and Density_ft2. 
 
 ```{r MetricValues_Calc, eval=FALSE}
 # Metrics, BCG, Bugs
@@ -291,4 +312,134 @@ tbl.results.caption <- "QC Check Results"
 kable(tbl.results, caption = tbl.results.caption)
 ```
 
+### Unformated Data
+The flexibility of R allows the user to get data from a multitude of sources and then manipulate (munge) it to fit the format needed for the functions in `BCGcalc`.  The example below shows how to import a file, add slope from a 2nd file, and to make a few changes to the data in order to use it with the package.  When the data source is fixed this routine can be modified and then used on all future datasets to prepare them for use with `BCGcalc`.
+
+```{r DataMunge}
+# Setup
+library(readxl)
+library(dplyr)
+library(BCGcalc)
+library(knitr)
+
+# Read File
+## FileName
+fn.data <- system.file("./extdata/ExampleMunge_UnformatedData.xlsx"
+                       , package="BCGcalc")
+## Worksheet
+sh.data <- "SamplesWithBioticAttributesAndR"
+## Import
+### set "guess" to a large number to avoid type being wrong
+df.data <- read_excel(fn.data, sheet = sh.data, guess_max=12000)
+dim(df.data)
+kable(head(df.data), caption = "Unformatted Data")
+
+# Munge
+## Col Names
+### convert to upper case
+names(df.data) <- toupper(names(df.data))
+### Rename Columns (base R) [dplyr::rename not working]
+names(df.data)[names(df.data)=="SAMPLE ID"] <- "SAMPLEID"
+names(df.data)[names(df.data)=="TAXON"] <- "TAXAID"
+names(df.data)[names(df.data)=="SAMPLE ID"] <- "SAMPLEID"
+names(df.data)[names(df.data)=="QUANTITY SUBSAMPLING"] <- "N_TAXA"
+#names(df.data)[names(df.data)=="HILSENHOFF BIOTIC TOLERANCE INDEX"] <- "TOLVAL"
+# df.data <- df.data %>% rename("SAMPLEID"="SAMPLE ID"
+#                              , "TAXAID"="TAXON"
+#                              , "N_TAXA"="QUANTITY SUBSAMPLING"
+#                              , "TOLVAL"="HILSENHOFF BIOTIC TOLERANCE INDEX"
+#                              )
+### Create columns
+df.data$EXCLUDE    <- !df.data$UNIQUE
+df.data$NONTARGET  <- df.data$`OUTSIDE PROTOCOL`
+# df.data$FFG        <- NA
+# df.data$FFG[df.data$PREDATOR==TRUE]  <- "PR"
+# df.data$HABIT      <- NA
+# df.data$HABIT[df.data$CLINGER==TRUE] <- "CN"
+# df.data$LIFE_CYCLE <- NA
+df.data$SITE_TYPE  <- NA
+# df.data$BCG_ATTR   <- NA
+# df.data$THERMAL_INDICATOR <- NA
+df.data$INDEX_NAME <- "BCG_PacNW_2018"
+df.data$SURFACEAREA <- df.data$`SURFACE AREA`
+df.data$AREA_MI2 <- NA
+df.data$DENSITY_M2 <- NA
+df.data$DENSITY_FT2 <- NA
+
+
+# Add slope (and then gradient for SiteType) from NHD+ v2
+fn.slope <- system.file("./extdata/ExampleMunge_Slope.xlsx", package="BCGcalc")
+df.slope <- read_excel(fn.slope)
+names(df.slope) <- toupper(names(df.slope))
+# merge files
+df.comb.slope <- merge(df.data, df.slope, by.x="SITE CODE", by.y="SITE_CODE", all.x=TRUE)
+# QC (rows)
+dim(df.data)
+dim(df.comb.slope)
+nrow(df.data) == nrow(df.comb.slope)
+df.comb.slope$SITE_TYPE <- df.comb.slope$`SLOPE CATEGORY`
+
+
+# Update Taxa Attributes from Master Taxa List in Package
+df.taxamaster <- TaxaMaster_Ben_BCG_PacNW
+names(df.taxamaster) <- toupper(names(df.taxamaster))
+## Assume phylogenetic information is correct.
+col.auteco <- c("TAXAID", "BCG_ATTR", "THERMAL_INDICATOR", "LONG_LIVED", "FFG"
+                , "HABIT", "LIFE_CYCLE", "TOLVAL")
+df.comb.slope.auteco <- merge(df.comb.slope, df.taxamaster[, col.auteco]
+                              , by.x="TAXAID", by.y="TAXAID", all.x=TRUE)
+nrow(df.comb.slope) == nrow(df.comb.slope.auteco)
+
+
+# Create Anlaysis File
+col2keep <- c("SAMPLEID", "INDEX_NAME", "SITE_TYPE"
+              , "AREA_MI2", "SURFACEAREA", "DENSITY_M2", "DENSITY_FT2"
+              , "TAXAID", "N_TAXA", "EXCLUDE", "NONTARGET"
+              , "PHYLUM", "SUBPHYLUM", "CLASS", "ORDER", "FAMILY", "SUBFAMILY"
+              , "TRIBE", "GENUS"
+              , "FFG", "HABIT", "LIFE_CYCLE", "TOLVAL", "BCG_ATTR", "THERMAL_INDICATOR")
+df.analysis <- as.data.frame(df.comb.slope.auteco[, col2keep ])
+
+
+# Calculate metrics
+cols2keep <- c("AREA_MI2", "SURFACEAREA", "DENSITY_M2", "DENSITY_FT2")
+df.metval <- metric.values(df.analysis, "bugs", fun.cols2keep = cols2keep)
+kable(head(df.metval), caption = "BCGcalc metric.values")
+
+```
+
+### Saving Specific Metrics
+At times the user may want to save only specific metrics.  The code below demonstrates  
+how to select and save only certain metrics.  This could be done in a separate R notebook.  
+For more detail on using R Notebooks see https://bookdown.org/yihui/rmarkdown/notebook.html
+
+```{r SelectMetrics}
+library(BCGcalc)
+library(readxl)
+library(knitr)
+# Load Data
+df.data <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                       , package="BCGcalc"))
+# Columns to keep
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+# Run Function
+df.metval <- metric.values(df.data, "bugs", fun.cols2keep=myCols)
+# View Results
+#View(df.metval)
+# Metrics of Interest
+## thermal indicator (_ti_)
+#names(df.metval)[grepl("_ti_", names(df.metval))]
+col.met2keep <- c("ni_total", "nt_total", "nt_ti_c", "nt_ti_cc", "nt_ti_cw"
+                , "nt_ti_w", "pi_ti_c", "pi_ti_cc", "pi_ti_cw", "pi_ti_w"
+                , "pt_ti_c", "pt_ti_cc", "pt_ti_cw", "pt_ti_w")
+col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
+# Ouput
+df.metval.ci <- df.metval[, c(col.ID, col.met2keep)]
+# RMD table
+kable(df.metval.ci[1:10, ], caption = "Select Metrics")
+
+# Save (commented out)
+# write.table(df.metval.ci, "metrics.thermalindicators.tsv"
+#             , col.names=TRUE, row.names=FALSE, sep="\t")
+```
 

@@ -50,6 +50,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.2.9004 (2018-09-05)
+
+* Update Vignette.  
+    + Add data munging example.  Issue #14
+    + Update metric.values section for required fields.  Issue #13.
+    + Added section demonstrating saving only select metrics.  Issue #15
+* Update text in metric.values.
+
 ## Changes in Version 1.2.2.9003 (2018-09-04)
 
 * metric.values.  Issue #16

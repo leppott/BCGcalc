@@ -9,9 +9,15 @@
 #' operational taxonomic unit (OTU).  
 #' Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
 #' These taxa will be excluded from taxa richness metrics (but will count for 
-#' all others).  
-#' Any non-target taxa should be identified in the "NonTarget" field as "TRUE".  
-#' These taxa will be removed prior to any calculations.
+#' all others).  Excluded taxa are ambiguous taxa (on a sample basis), i.e., 
+#' the parent taxa when child taxa are present.  For example, the parent taxa 
+#' Chironomidae would be xcluded when the child taxa Tanytarsini is present.  
+#' Both would be excluded when Tanytarsus is present.
+#' Any non-target taxa should be identified in the "NonTarget" field as "TRUE". 
+#' Non-target taxa are those that are not part of your intended capture list; 
+#' e.g., fish,  herps, water column taxa, or water surface taxa in a benthic sample.
+#' The target list will vary by program.
+#' The non-target taxa will be removed prior to any calculations.
 #' There are a number of required fields (see below) for metric to calculation.  
 #' If any fields are missing the user will be prompted as to which are missing 
 #' and if the user wants to continue or quit.  If the user continues the missing 
