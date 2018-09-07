@@ -188,7 +188,7 @@
 # # 5 taxa and 202 ind.
 # 
 # met.val <- dplyr::summarise(dplyr::group_by(x, SAMPLEID, INDEX_NAME, SITE_TYPE)
-#                  # individuals ####
+#                  # individuals #
 #                  , ni_total=sum(N_TAXA)
 #                  #
 #                  , nt_NonInsArachDecaClump_BCG_att456 = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
@@ -289,7 +289,15 @@
 # fun.DF <- myDF.Fish
 # fun.SampID <- "SampleID"
 # fun.Community <- "fish"
-# fun.MetricNames <- myMetrics.Fish
+# fun.MetricNames <- myMetrics.Fish"
+#~~~~~~
+# fun.DF <- myDF
+# fun.Community <- "bugs"
+# fun.MetricNames <- c("nt_total", "nt_EPT")
+# boo.Adjust <- FALSE
+# fun.cols2keep=NULL
+# MetricNames <- fun.MetricNames
+# cols2keep <- fun.cols2keep
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjust=FALSE, fun.cols2keep=NULL){##FUNCTION.metric.values.START
@@ -326,6 +334,10 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
 #
 #' @export
 metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2keep=NULL){##FUNCTION.metric.values.bugs.START
+  #
+  names(myDF) <- toupper(names(myDF))
+  # not carrying over from previous?!
+  #
   # QC ####
   # QC, Required Fields
   col.req <- c("SAMPLEID", "TAXAID", "N_TAXA", "EXCLUDE", "INDEX_NAME"
@@ -370,7 +382,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
     warning("NONTARGET column does not have any FALSE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
   }##IF.Exclude.T.END
 
-   # Data Munging ####
+  # Data Munging ####
   # Convert values to upper case (FFG, Habit, Life_Cycle)
   myDF[, "HABIT"] <- toupper(myDF[, "HABIT"])
   myDF[, "FFG"] <- toupper(myDF[, "FFG"])
@@ -398,6 +410,28 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
   myDF[, "TI_COLDCOOL"] <- "COLD_COOL" == myDF[, "THERMAL_INDICATOR"]
   myDF[, "TI_COOLWARM"] <- "COOL_WARM" == myDF[, "THERMAL_INDICATOR"]
   myDF[, "TI_WARM"]     <- "WARM"      == myDF[, "THERMAL_INDICATOR"]
+  # 
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # skip above in testing
+  # myDF[, "HABIT_BU"] <- FALSE
+  # myDF[, "HABIT_CB"] <- FALSE
+  # myDF[, "HABIT_CN"] <- FALSE
+  # myDF[, "HABIT_SP"] <- FALSE
+  # myDF[, "HABIT_SW"] <- FALSE
+  # myDF[, "FFG_COL"]  <- FALSE
+  # myDF[, "FFG_FIL"]  <- FALSE
+  # myDF[, "FFG_PRE"]  <- FALSE
+  # myDF[, "FFG_SCR"]  <- FALSE
+  # myDF[, "FFG_SHR"]  <- FALSE
+  # myDF[, "LC_MULTI"] <- FALSE
+  # myDF[, "LC_SEMI"]  <- FALSE
+  # myDF[, "LC_UNI"]   <- FALSE
+  # # exact matches only
+  # myDF[, "TI_COLD"]     <- FALSE
+  # myDF[, "TI_COLDCOOL"] <- FALSE
+  # myDF[, "TI_COOLWARM"] <- FALSE
+  # myDF[, "TI_WARM"]     <- FALSE
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #
   # Calculate Metrics (could have used pipe, %>%)
   # met.val <- myDF %>% 
@@ -918,6 +952,8 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
 
              #
           )## met.val.END
+  #
+  # Clean Up ####
   # replace NA with 0
   met.val[is.na(met.val)] <- 0
   # # subset to only metrics specified by user
@@ -930,8 +966,10 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
 
 
   if (!is.null(MetricNames)) {
+    met2include <- MetricNames[!(MetricNames %in% "ni_total")]
+    # remove ni_total if included as will always include it
     met.val <- met.val[, c("SAMPLEID", "SITE_TYPE", "INDEX_NAME", 
-                           ni_total, MetricNames)]
+                           "ni_total", met2include)]
   }
   
   # Add extra fields

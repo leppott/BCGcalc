@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.2.9007 (2018-09-07)
+
+* metric.values
+    + Fixed included metrics (fun.MetricNames)
+
 ## Changes in Version 1.2.2.9006 (2018-09-07)
 
 * metric.values
