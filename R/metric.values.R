@@ -326,7 +326,8 @@ metric.values <- function(fun.DF, fun.Community, fun.MetricNames=NULL, boo.Adjus
 #
 #' @export
 metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2keep=NULL){##FUNCTION.metric.values.bugs.START
-  # QC Require Fields ####
+  # QC ####
+  # QC, Required Fields
   col.req <- c("SAMPLEID", "TAXAID", "N_TAXA", "EXCLUDE", "INDEX_NAME"
               , "SITE_TYPE", "NONTARGET", "PHYLUM", "SUBPHYLUM", "CLASS"
               , "ORDER", "FAMILY", "SUBFAMILY", "TRIBE", "GENUS", "FFG", "HABIT"
@@ -357,10 +358,16 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
                   , col.req.missing, sep="\n"))
   }##IF.num.col.req.missing.END
   
-  # QC, Exclude as T/F
-  Exclude.T <- sum(myDF$Exclude==TRUE, na.rm=TRUE)
+  # QC, Exclude as TRUE/FALSE
+  Exclude.T <- sum(myDF$EXCLUDE==TRUE, na.rm=TRUE)
   if(Exclude.T==0){##IF.Exclude.T.START
-    warning("Exclude column does not have any TRUE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
+    warning("EXCLUDE column does not have any TRUE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
+  }##IF.Exclude.T.END
+  
+  # QC, NonTarget as TRUE/FALSE
+  NonTarget.F <- sum(myDF$NONTARGET==FALSE, na.rm=TRUE)
+  if(NonTarget.F==0){##IF.Exclude.T.START
+    warning("NONTARGET column does not have any FALSE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
   }##IF.Exclude.T.END
 
    # Data Munging ####

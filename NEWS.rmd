@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.2.9006 (2018-09-07)
+
+* metric.values
+    + Added QC check for NonTarget==FALSE.  
+    + Give a warning if have zero FALSE values.
+
 ## Changes in Version 1.2.2.9005 (2018-09-07)
 
 * metric.values
