@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-05 10:06:24
+2018-09-07 09:01:06
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-05 10:06:24
+    #> Last Update: 2018-09-07 09:01:06
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9005 (2018-09-07)
+
+  - metric.values
+      - Added QC check for Exclude==TRUE.  
+      - Give a warning if have zero TRUE values.
 
 ## Changes in Version 1.2.2.9004 (2018-09-05)
 

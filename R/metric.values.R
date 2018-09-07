@@ -356,6 +356,12 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
     warning(paste("Metrics related to the following fields are invalid;"
                   , col.req.missing, sep="\n"))
   }##IF.num.col.req.missing.END
+  
+  # QC, Exclude as T/F
+  Exclude.T <- sum(myDF$Exclude==TRUE, na.rm=TRUE)
+  if(Exclude.T==0){##IF.Exclude.T.START
+    warning("Exclude column does not have any TRUE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
+  }##IF.Exclude.T.END
 
    # Data Munging ####
   # Convert values to upper case (FFG, Habit, Life_Cycle)
