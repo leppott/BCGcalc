@@ -1,9 +1,11 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, calculator
-Version: 1.2.2.9007
-Author: c(
-	person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com",role=c("aut","cre")))
+Version: 1.2.2.9008
+Date: 2018-09-12
+Authors@R: c(
+  person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre")), 
+  person("Jen", "Stamp", email="Jen.Stamp@tetratech.com", role="ctb"))
 Maintainer: Erik W. Leppo <Erik.Leppo@tetratech.com>
 Description: Biological Condition Gradient helper functions.
 License: MIT

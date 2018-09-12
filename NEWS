@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-07 10:35:33
+2018-09-12 09:26:13
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-07 10:35:33
+    #> Last Update: 2018-09-12 09:26:13
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,13 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9008 (2018-09-12)
+
+  - DESCRIPTION
+      - Add date.
+      - Add Jen Stamp as contributor
+  - Citation still gives error but is more complete now. Issue \#23
 
 ## Changes in Version 1.2.2.9007 (2018-09-07)
 

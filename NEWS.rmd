@@ -50,6 +50,13 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.2.2.9008 (2018-09-12)
+
+* DESCRIPTION
+    + Add date.
+    + Add Jen Stamp as contributor
+* Citation still gives error but is more complete now.  Issue #23
+
 ## Changes in Version 1.2.2.9007 (2018-09-07)
 
 * metric.values
