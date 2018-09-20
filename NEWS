@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-20 13:00:47
+2018-09-20 13:41:01
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-20 13:00:47
+    #> Last Update: 2018-09-20 13:41:01
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9011 (2018-09-20)
+
+  - Metric Names metadata Issue \#18
+      - Update extdata.xlsx
+      - Add PDF version to docs.
 
 ## Changes in Version 1.2.2.9010 (2018-09-20)
 

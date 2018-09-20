@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9011 (2018-09-20)
+
+* Metric Names metadata  Issue #18
+    + Update extdata\MetricNames.xlsx
+    + Add PDF version to docs.
+
 ## Changes in Version 1.2.2.9010 (2018-09-20)
 
 * More Indiana files.  Issue #24
