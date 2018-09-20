@@ -97,39 +97,39 @@
 #' create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
 #' create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
 #' 
-#' #~~~~~~~~~~~~~~~~~~~~~~~
-#' # INDIANA BCG
-#' 
-#' library(readxl)
-#' 
-#' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_Indiana.xlsx"
-#'                            , package="BCGcalc"), sheet="R_Input")
-#' dim(df.samps.bugs) 
-#' # rename some fields 
-#' names(df.samps.bugs)
-#' names(df.samps.bugs)[names(df.samps.bugs)=="VisitNum"] <- "SampleID"
-#' names(df.samps.bugs)[names(df.samps.bugs)=="FinalID"] <- "TaxaID"
-#' names(df.samps.bugs)[names(df.samps.bugs)=="Count"] <- "N_Taxa"
-#' # Add field
-#' df.samps.bugs[, "INDEX_NAME"] <- "BCG.IN"
-#' #
-#' # Run Function
-#' myDF <- df.samps.bugs
-#' df.metric.values.bugs <- metric.values(myDF, "bugs")
-#' 
-#' # View Results
-#' View(df.metric.values.bugs)
-#' 
-#' # Get data in long format so can QC results more easily
-#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
-#'                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
-#' # Save Results
-#' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
-#' 
-#' # DataExplorer Report
-#' library(DataExplorer)
-#' create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
-#' create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
+# #~~~~~~~~~~~~~~~~~~~~~~~
+# # INDIANA BCG
+# 
+# library(readxl)
+# 
+# df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_Indiana.xlsx"
+#                            , package="BCGcalc"), sheet="R_Input")
+# dim(df.samps.bugs)
+# # rename some fields
+# names(df.samps.bugs)
+# names(df.samps.bugs)[names(df.samps.bugs)=="VisitNum"] <- "SampleID"
+# names(df.samps.bugs)[names(df.samps.bugs)=="FinalID"] <- "TaxaID"
+# names(df.samps.bugs)[names(df.samps.bugs)=="Count"] <- "N_Taxa"
+# # Add field
+# df.samps.bugs[, "INDEX_NAME"] <- "BCG.IN"
+# #
+# # Run Function
+# myDF <- df.samps.bugs
+# df.metric.values.bugs <- metric.values(myDF, "bugs")
+# 
+# # View Results
+# View(df.metric.values.bugs)
+# 
+# # Get data in long format so can QC results more easily
+# df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+#                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
+# # Save Results
+# write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+# 
+# # DataExplorer Report
+# library(DataExplorer)
+# create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
+# create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC 20180319
 #

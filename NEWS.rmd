@@ -47,8 +47,15 @@ cat(paste0("Last Update: ",Sys.time()))
 
 * Any issues as reported on GitHub.  
     + https://github.com/leppott/BCGcalc/issues
-
+    
 # Version History
+
+## Changes in Version 1.2.2.9009 (2018-09-20)
+
+* Remove Indiana references.  Issue #24.
+    + Delete extdata Indiana file (Data_BCG_Indiana.xlsx).
+    + Delete data-raw Indiana database (BCG_Model_Calc (IN 20170301).mdb.  Already excluded from package build.
+    + Delete example in metric.values function.
 
 ## Changes in Version 1.2.2.9008 (2018-09-12)
 
