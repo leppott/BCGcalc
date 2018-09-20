@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9010 (2018-09-20)
+
+* More Indiana files.  Issue #24
+    + extdata\QC_IN_BCG_Bugs_20170203.xlsm
+    + extdata\QC_Metrics_Bugs_IN.xlsx
+
 ## Changes in Version 1.2.2.9009 (2018-09-20)
 
 * Remove Indiana references.  Issue #24.
