@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-25 08:46:47
+2018-09-25 08:53:28
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-25 08:46:47
+    #> Last Update: 2018-09-25 08:53:28
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9013 (2018-09-25)
+
+  - Function rafify. Issue \#19
+      - Remove keywords.
 
 ## Changes in Version 1.2.2.9012 (2018-09-25)
 

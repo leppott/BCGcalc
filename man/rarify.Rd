@@ -57,5 +57,3 @@ View(df.compare)
 # save the data
 #write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\\t")
 }
-\keyword{rarify,}
-\keyword{subsample}

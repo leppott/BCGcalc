@@ -19,7 +19,6 @@
 #' @param subsiz Target subsample size for each sample.
 #' @param mySeed Seed for random number generator.  If provided the results with the same inbug file will produce the same results. Defaut = NA (random seed will be used.)
 #' @return Returns a data frame with the same three columns but the abund field has been modified so the total count for each sample is no longer above the target (subsiz).
-#' @keywords rarify, subsample
 #' @examples
 #' # Subsample to 200 organisms for a single sample from MS.
 #' 
