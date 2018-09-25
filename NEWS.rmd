@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9012 (2018-09-25)
+
+* Function rafify.  Issue #19
+    + Fix typo in @param mySeed.  Remove extra period.
+    
+
 ## Changes in Version 1.2.2.9011 (2018-09-20)
 
 * Metric Names metadata  Issue #18
