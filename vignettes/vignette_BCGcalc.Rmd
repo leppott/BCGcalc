@@ -186,37 +186,79 @@ View(df.Level.Membership)
 The level assignments are done according the values of the rules and metric level memberships.  The maximum level is designated as the primary level and the next highest value is assigned as the secondary level.
 
 There is some QC to ensure the total membership equals 1 and a field to note if the assigned nears are a tie or close.
-```{r LevelAssignment, eval=TRUE, echo=TRUE}
+
+The user can also append the "flags" to the final results.  The code below changes all "FAIL" qc checks to "flag" and all "PASS" to NA before the append statement.
+
+```{r LevelAssignment2, eval=TRUE, echo=TRUE}
+# Example Data
 library(BCGcalc)
+library(readxl)
+library(reshape2)
 library(knitr)
 
-# construct a dummy dataset
-L1 <- rep(0, 10)
-L2 <- c(0.4, 0, 0.4, rep(0,7))
-L3 <- c(0.6, 0, 0.6, 0, 0.42, 0, 1, 1, 0.22, 0.33)
-L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67)
-L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4))
-L6 <- rep(0, 10)
-SampleID <- LETTERS[1:10]
-df.Level.Membership <- as.data.frame(SampleID, stringsAsFactors=FALSE)
-df.Level.Membership[,"L1"] <- L1
-df.Level.Membership[,"L2"] <- L2
-df.Level.Membership[,"L3"] <- L3
-df.Level.Membership[,"L4"] <- L4
-df.Level.Membership[,"L5"] <- L5
-df.Level.Membership[,"L6"] <- L6
+# Calculate Metrics
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                        , package="BCGcalc"))
+                                        
+# Run Function
+myDF <- df.samps.bugs
+df.metric.values.bugs <- metric.values(myDF, "bugs") 
+
+# Import Rules
+df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
+                             , package="BCGcalc"), sheet="BCG_PacNW_2018") 
+
+# Calculate Metric Memberships
+df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
+
+# Calculate Level Memberships
+df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
 
 # Run Function
 df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 
-# # Show Results
-# View(df.Levels)
-# 
-# # Save Results
-# write.table(df.Levels, "Levels.tsv"
-#             , row.names=FALSE, col.names=TRUE, sep="\t")
+# QC Checks (flags)
+#
+# Import Checks
+df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+                                          , package="BCGcalc"), sheet="Flags") 
+# Show QC checks table
+tbl.checks <- df.checks
+tbl.checks.caption <- "QC Checks"
+kable(tbl.checks, caption = tbl.checks.caption)
 
-kable(df.Levels, caption="BCG Tier Assignments.")
+# Rerun metrics including extra columns
+myDF <- df.samps.bugs
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)                                         
+# Run Function (qc.checks)
+df.flags <- qc.checks(df.metric.values.bugs, df.checks)
+# Change terminology; PASS/FAIL to NA/flag
+df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
+df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
+
+# long to wide format
+df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
+# Calc number of "flag"s by row.
+df.flags.wide$NumFlags <- rowSums(df.flags.wide=="flag", na.rm=TRUE)
+# Rearrange columns
+NumCols <- ncol(df.flags.wide)
+df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
+
+# Merge Levels and Flags
+df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
+
+# Show Results
+tbl.Levels.Flags.caption = "Levels and Flags."
+kable(head(df.Levels.Flags), caption = tbl.Levels.Flags.caption)
+
+# Save Results
+# write.table(df.Levels.Flags, "Levels.Flags.tsv"
+#             , row.names=FALSE, col.names=TRUE, sep="\t")
+            
+# Summarize Results
+tbl.flags.caption = "Flag Summary."
+kable(table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany"), caption = tbl.flags.caption)
 ```
 
 
@@ -275,13 +317,13 @@ kable(tbl.compare, caption=tbl.compare.caption)
 
 ```
 
-### QC Checks
+### Flags
 Specific to some programs there are QC checks on the samples that should be performed.  For example, minimum and maximum number of organisms to be a valid sample.
 
-This function uses an imported data frame to compare calcualted metrics and gives a Pass or Fail evaluation.
+This function uses an imported data frame to compare calcualted metrics and gives a Pass or Fail evaluation to "flag" the sample for the user.
 
 The QC checks are matched against the data on Index Name, Region, and Metric Name.  Only those that match are evaluated.  Valid symbols are those used by R; <, >, <=, >=, ==, and !=.
-```{r Other_QCCheck, eval=TRUE, echo=TRUE}
+```{r Other_Flags, eval=TRUE, echo=TRUE}
 library(readxl)
 library(BCGcalc)
 library(knitr)
@@ -302,13 +344,11 @@ df.flags <- qc.checks(df.metric.values.bugs, df.checks)
 # Show QC checks table
 tbl.checks <- df.checks
 tbl.checks.caption <- "QC Checks"
-
 kable(tbl.checks, caption = tbl.checks.caption)
 
 # Show results summary
-tbl.results <- table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"])
+tbl.results <- table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
 tbl.results.caption <- "QC Check Results"
-
 kable(tbl.results, caption = tbl.results.caption)
 ```
 

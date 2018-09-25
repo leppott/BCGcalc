@@ -1,6 +1,8 @@
 #' @title QC checks on metric values
 #' 
-#' @description Long Description
+#' @description Apply "QC checks" on calculated metrics and station/sample attributes to "flag" samples for the user.
+#' Examples include watershed size or total number of individuals.  Can have checks for both high and low values.
+#' Checks are stored in separate file.  For structure see df.checks in example.
 #' 
 #' @details used reshape2 package
 #' 
@@ -27,6 +29,8 @@
 #' # Import Checks
 #' df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
 #'                                           , package="BCGcalc"), sheet="Flags") 
+#' # View Checks
+#' View(df.checks)
 #' 
 #' # Run Function
 #' df.flags <- qc.checks(df.metric.values.bugs, df.checks)

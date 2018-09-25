@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-25 08:53:28
+2018-09-25 09:59:59
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-25 08:53:28
+    #> Last Update: 2018-09-25 09:59:59
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,15 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9014 (2018-09-25)
+
+  - qc.checks. Issue \#25.
+      - Update Description.
+      - Add View for imported checks file.
+      - Vignette. Change section title from QC Checks to Flags.
+      - Update Level Assignment example in Vignette with real data and
+        append flags.
 
 ## Changes in Version 1.2.2.9013 (2018-09-25)
 

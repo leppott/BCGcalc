@@ -17,7 +17,9 @@ qc.checks(df.metrics, df.checks, input.shape = "wide")
 Returns a data frame of SampleID checks and results; Pass and Fail.
 }
 \description{
-Long Description
+Apply "QC checks" on calculated metrics and station/sample attributes to "flag" samples for the user.
+Examples include watershed size or total number of individuals.  Can have checks for both high and low values.
+Checks are stored in separate file.  For structure see df.checks in example.
 }
 \details{
 used reshape2 package
@@ -39,6 +41,8 @@ df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)
 # Import Checks
 df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
                                           , package="BCGcalc"), sheet="Flags") 
+# View Checks
+View(df.checks)
 
 # Run Function
 df.flags <- qc.checks(df.metric.values.bugs, df.checks)
