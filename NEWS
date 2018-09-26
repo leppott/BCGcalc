@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-25 09:59:59
+2018-09-26 11:16:53
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-25 09:59:59
+    #> Last Update: 2018-09-26 11:16:53
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,27 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9015 (2018-09-26)
+
+  - extdata.xlsx. Issue \#26
+      - Added NOTES worksheet.
+      - Added MetricMetadata from MetricNames.xlsx.
+      - Added NOTES worksheet to MetricNames.xlsx.
+      - Renamed worksheet “BCG\_PacNW\_2018” to “BCG\_PacNW\_v1\_500ct”.
+      - Renamed Index\_Name from “BCG\_PacNW\_2018” to
+        “BCG\_PacNW\_v1\_500ct”.
+      - Added worksheet “BCG\_PacNW\_v1\_300ct”.
+  - Revised code references to Rules.xlsx (worksheet and Index\_Name).
+    Mostly examples.
+  - extdata\_BCG\_PacNW.xlsx
+      - Renamed Index\_Name from “BCG\_PacNW\_2018” to
+        “BCG\_PacNW\_v1\_500ct”.
+  - extdata.xlsx
+      - Renamed Index\_Name from “BCG\_PacNW\_2018” to
+        “BCG\_PacNW\_v1\_500ct”.
+      - Added Index\_Name “BCG\_PacNW\_v1\_300ct”. Adjust some flags
+        based on 500 vs. 300 count.
 
 ## Changes in Version 1.2.2.9014 (2018-09-25)
 

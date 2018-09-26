@@ -50,6 +50,22 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9015 (2018-09-26)
+
+* extdata\Rules.xlsx.  Issue #26
+    + Added NOTES worksheet.
+    + Added MetricMetadata from MetricNames.xlsx.
+    + Added NOTES worksheet to MetricNames.xlsx.
+    + Renamed worksheet "BCG_PacNW_2018" to "BCG_PacNW_v1_500ct".
+    + Renamed Index_Name from "BCG_PacNW_2018" to "BCG_PacNW_v1_500ct".
+    + Added worksheet "BCG_PacNW_v1_300ct".
+* Revised code references to Rules.xlsx (worksheet and Index_Name).  Mostly examples.
+* extdata\Data_BCG_PacNW.xlsx 
+    + Renamed Index_Name from "BCG_PacNW_2018" to "BCG_PacNW_v1_500ct".
+* extdata\MetricFlags.xlsx 
+    + Renamed Index_Name from "BCG_PacNW_2018" to "BCG_PacNW_v1_500ct".
+    + Added Index_Name "BCG_PacNW_v1_300ct".  Adjust some flags based on 500 vs. 300 count.
+
 ## Changes in Version 1.2.2.9014 (2018-09-25)
 
 * qc.checks.  Issue #25.
