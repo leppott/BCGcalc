@@ -20,6 +20,8 @@ The `BCGcalc` package was created to enable users to implement a model created B
 
 This vignette will cover the basics going from raw data to model results.
 
+No files are exported in the examples in the vignette.  All "write" statements have been commented out.  Several different "write" functions were used.  This was intentional such that intermediate files are output at TSV (tab-separated values) files and final results are output as CSV (comma-separated values) files.  Both formats will open in Excel.
+
 # Tasks
 1. Metric calculation
 

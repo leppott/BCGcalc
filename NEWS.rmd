@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9019 (2018-09-26)
+
+* File formats.  Issue #28
+    + Add statement about file formats to Vignette.
+
 ## Changes in Version 1.2.2.9018 (2018-09-26)
 
 * rarify data.  Issue #19
