@@ -1,7 +1,9 @@
 # Prepare data for example for rarify()
 #
 # Erik.Leppo@tetratech.com
-# 20170912
+# 20170926
+# Replace MS example with USGS 500 to 300 count data for PacNW BCG
+# Use only a few samples for smaller file size
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # 0. Prep####
@@ -14,7 +16,7 @@ wd <- getwd() # assume is package directory
 
 # 1. Get data and process#####
 # 1.1. Import Data
-myFile <- "data_bio2rarify.txt"
+myFile <- "500count.tsv"
 df <- read.delim(file.path(wd,"data-raw",myFile))
 
 

@@ -50,10 +50,21 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9018 (2018-09-26)
+
+* rarify data.  Issue #19
+  + Use USGS 500 to 300 count data instead of MS 200 count.
+  + Change raw data process script.
+  + Replace data_bio2rarify.
+  + Modify rarify example.
+  + Modified rarify example in Vignette.
+
 ## Changes in Version 1.2.2.9017 (2018-09-26)
 
 * BCG PacNW primer.  Issue #29
     + BCGcalc_README_20180918.pdf to \extdata\doc so shows up in package help.
+* MetricFlags.xlsx
+    + Last line, Index_Name updated for 300 count model.
 
 ## Changes in Version 1.2.2.9016 (2018-09-26)
 
