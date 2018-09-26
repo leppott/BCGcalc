@@ -40,9 +40,11 @@
 #' # Compare pre- and post- subsample counts
 #' df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampRep", "tax"))
 #' View(df.compare)
-#'  
+#' 
+#' \dontrun{ 
 #' # save the data
-#' #write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
+#' write.table(bugs.mysize, paste("bugs",mySize,"txt",sep="."),sep="\t")
+#' }
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 rarify<-function(inbug, sample.ID, abund, subsiz, mySeed=NA){##FUNCTION.rarify.START

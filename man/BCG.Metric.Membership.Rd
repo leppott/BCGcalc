@@ -41,8 +41,9 @@ df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
 # Show Results
 View(df.Metric.Membership)
 
+\dontrun{
 # Save Results
 write.table(df.Metric.Membership, "Metric.Membership.tsv"
-            , row.names=FALSE, col.names=TRUE, sep="\\t")
-
+              , row.names=FALSE, col.names=TRUE, sep="\\t")
+}
 }

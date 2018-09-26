@@ -51,8 +51,9 @@ df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
 # Show results
 View(df.Level.Membership)
 
+\dontrun{
 # Save Results
 write.table(df.Level.Membership, "Level.Membership.tsv"
-            , row.names=FALSE, col.names=TRUE, sep="\\t")
-
+             , row.names=FALSE, col.names=TRUE, sep="\\t")
+}
 }

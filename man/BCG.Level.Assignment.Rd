@@ -106,12 +106,12 @@ df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
 
 # Show Results
 View(df.Levels.Flags)
-
-# Save Results
-write.table(df.Levels.Flags, "Levels.Flags.tsv"
-            , row.names=FALSE, col.names=TRUE, sep="\\t")
-            
+             
 # Summarize Results
 table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
 
+\dontrun{
+# Save Results
+write.csv(df.Levels.Flags, "Levels.Flags.csv")
+}
 }

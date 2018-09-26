@@ -50,6 +50,19 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9016 (2018-09-26)
+
+* Example "write" statements as "dontrun".  Issue #27
+    + BCG.Level.Assignment; also moved write statement to end
+    + BCG.Level.Membership
+    + BCG.Metric.Membership
+    + metric.values; included write and DataExplorer
+    + qc.checks; no write statement.
+    + rarify; Changed from commented out to donotrun
+    + Vignette; leave "as is".  Write statements all commented out.
+* BCG.Level.Assignment
+    + Change write.table(tsv) to write.csv.  Issue #28
+
 ## Changes in Version 1.2.2.9015 (2018-09-26)
 
 * extdata\Rules.xlsx.  Issue #26

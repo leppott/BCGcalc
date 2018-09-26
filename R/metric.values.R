@@ -89,6 +89,8 @@
 #' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME"
 #'                                                  , "SITE_TYPE", toupper(myCols))
 #'                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
+#' 
+#'\dontrun{                           
 #' # Save Results
 #' write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
 #' 
@@ -96,7 +98,7 @@
 #' library(DataExplorer)
 #' create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
 #' create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
-#' 
+#' }
 # #~~~~~~~~~~~~~~~~~~~~~~~
 # # INDIANA BCG
 # 

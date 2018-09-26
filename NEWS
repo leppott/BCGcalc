@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-26 11:16:53
+2018-09-26 11:39:00
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-26 11:16:53
+    #> Last Update: 2018-09-26 11:39:00
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,19 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9016 (2018-09-26)
+
+  - Example “write” statements as “dontrun”. Issue \#27
+      - BCG.Level.Assignment; also moved write statement to end
+      - BCG.Level.Membership
+      - BCG.Metric.Membership
+      - metric.values; included write and DataExplorer
+      - qc.checks; no write statement.
+      - rarify; Changed from commented out to donotrun
+      - Vignette; leave “as is”. Write statements all commented out.
+  - BCG.Level.Assignment
+      - Change write.table(tsv) to write.csv. Issue \#28
 
 ## Changes in Version 1.2.2.9015 (2018-09-26)
 
