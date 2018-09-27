@@ -50,6 +50,19 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9023 (2018-09-27)
+
+* extdata
+    + TaxaMaster_Bug_BCG_PacNW_v1.xlsx; rename worksheet to match previous version.
+* data-raw
+    + Remove data_bio2rarify.txt
+    + Recreate TaxaMaster_Ben_BCG_PacNW using revised XLSX file.
+    + Update 500count.tsv thermal column name.
+* data.R
+    + Update entries for TaxaMaster_Ben_BCG_PacNW and data_bio2rarify
+* Vignette
+    + Start on updates.
+
 ## Changes in Version 1.2.2.9022 (2018-09-27)
 
 * Update Data_BCG_PacNW.xlsx.  Issue #32

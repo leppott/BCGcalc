@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-27 11:05:03
+2018-09-27 14:37:30
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-27 11:05:03
+    #> Last Update: 2018-09-27 14:37:30
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,21 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9023 (2018-09-27)
+
+  - extdata
+      - TaxaMaster\_Bug\_BCG\_PacNW\_v1.xlsx; rename worksheet to match
+        previous version.
+  - data-raw
+      - Remove data\_bio2rarify.txt
+      - Recreate TaxaMaster\_Ben\_BCG\_PacNW using revised XLSX file.
+      - Update 500count.tsv thermal column name.
+  - data.R
+      - Update entries for TaxaMaster\_Ben\_BCG\_PacNW and
+        data\_bio2rarify
+  - Vignette
+      - Start on updates.
 
 ## Changes in Version 1.2.2.9022 (2018-09-27)
 

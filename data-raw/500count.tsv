@@ -1,4 +1,4 @@
-SampleID	SampID	Type_pSLOPE	NHD_pSLOPE	Site_Type	Area_mi2	SurfaceArea	TaxaID	N_taxa	Exclude	NonTarget	BCG_Attr	FFG	Thremal_Indicator	Phylum	SubPhylum	Class	SubClass	Order	Family	SubFamily	Tribe	Genus	SubGenus	Species	Habit	Life_Cycle	TolVal
+SampleID	SampID	Type_pSLOPE	NHD_pSLOPE	Site_Type	Area_mi2	SurfaceArea	TaxaID	N_taxa	Exclude	NonTarget	BCG_Attr	FFG	Thermal_Indicator	Phylum	SubPhylum	Class	SubClass	Order	Family	SubFamily	Tribe	Genus	SubGenus	Species	Habit	Life_Cycle	TolVal
 Samp0001	09MID1374__2015-08-05	trans_eros	4.331	Hi	1.098420335	8	Baetis tricaudatus complex	70	FALSE	FALSE	4	GC	cool_warm	Arthropoda	Hexapoda	Insecta	Pterygota	Ephemeroptera	Baetidae			Baetis		tricaudatus complex	CN	Uni	7
 Samp0001	09MID1374__2015-08-05	trans_eros	4.331	Hi	1.098420335	8	Brillia	14	FALSE	FALSE	4	SH	cold_cool	Arthropoda	Hexapoda	Insecta	Pterygota	Diptera	Chironomidae	Orthocladiinae		Brillia			CN	Uni	7
 Samp0001	09MID1374__2015-08-05	trans_eros	4.331	Hi	1.098420335	8	Calineuria californica	1	FALSE	FALSE	2	PR	cool_warm	Arthropoda	Hexapoda	Insecta	Pterygota	Plecoptera	Perlidae	Acroneuriinae	Acroneuriini	Calineuria		californica	CN	Uni	7

@@ -1,13 +1,39 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @title rarify example data
 #' 
-#' @description A dataset with example benthic macroinvertebrate data to be used with the rarify function.
+#' @description A dataset with example benthic macroinvertebrate data (500 count) 
+#' to be used with the rarify function.
 #' 
-#' @format A data frame with 74 rows and 3 variables:
+#' @format A data frame with 223 rows and 28 variables:
 #' \describe{
-#'    \item{SampRep}{Station code}
-#'    \item{tax}{taxonomic identifier}
-#'    \item{count}{number of individuals}
+#'    \item{SampleID}{Sample ID}
+#'    \item{SampID}{SampID}
+#'    \item{Type_pSlope}{slope}
+#'    \item{NHD_pSLOPE}{slope from NHD+}
+#'    \item{Site_Type}{type of site; hi or lo}
+#'    \item{Area_mi2}{watershed area, square miles}
+#'    \item{SurfaceArea}{surface area of sample collected}
+#'    \item{TaxaID}{unique taxonomic identifier}
+#'    \item{N_taxa}{number of individuals in sample}
+#'    \item{Exclude}{Taxa to remove from taxa richness metrics}
+#'    \item{NonTarget}{Non-Target True/False, e.g., a fish in a bug sample}
+#'    \item{BCG_Attr}{BCG Attribute}
+#'    \item{FFG}{Function Feeding Group}
+#'    \item{Thermal_Indicator}{thermal tolerance indicator}
+#'    \item{Phylum}{Taxonomic rank, Phylum}
+#'    \item{SubPhylum}{Taxonomic rank, SubPhylum}
+#'    \item{Class}{Taxonomic rank, Class}
+#'    \item{SubClass}{Taxonomic rank, SubClass}
+#'    \item{Class}{Taxonomic rank, Class}
+#'    \item{Order}{Taxonomic rank, Order}
+#'    \item{Family}{Taxonomic rank, Family}
+#'    \item{Tribe}{Taxonomic rank, Tribe}
+#'    \item{Genus}{Taxonomic rank, Genus}
+#'    \item{SubGenus}{Taxonomic rank, SubGenus}
+#'    \item{Species}{Taxonomic rank, Species}
+#'    \item{Habit}{Habit}
+#'    \item{Life_Cycle}{Voltinism}
+#'    \item{TolVal}{Tolerance Value}
 #' }
 #' @source example data
 "data_bio2rarify"
@@ -15,7 +41,7 @@
 #' @title Benthic Master Taxa List, BCG Pacific Northwest
 #' 
 #' @description Master taxa list for BCG model for Pacific Northwest; 
-#' current as of 2018-03-14.
+#' current as of 2018-09-27.
 #' 
 #' @details To export to file use the code below.
 #' 

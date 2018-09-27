@@ -32,7 +32,7 @@ TaxaMaster_Ben_BCG_PacNW
 }
 \description{
 Master taxa list for BCG model for Pacific Northwest; 
-current as of 2018-03-14.
+current as of 2018-09-27.
 }
 \details{
 To export to file use the code below.

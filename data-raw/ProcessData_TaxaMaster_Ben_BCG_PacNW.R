@@ -15,7 +15,7 @@ library(readxl)
 
 # 1. Get data and process#####
 # 1.1. Import Data
-myFile <- "Data_BCG_PacNW.xlsx"
+myFile <- "TaxaMaster_Bug_BCG_PacNW_v1.xlsx"
 ws <- "TaxaMaster_Ben_BCG_PacNW"
 df <- as.data.frame(read_excel(file.path(wd,myFile), sheet = ws))
 
