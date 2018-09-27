@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-27 08:46:02
+2018-09-27 11:05:03
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-27 08:46:02
+    #> Last Update: 2018-09-27 11:05:03
 
 # Future Possibile Features (Wish List)
 
@@ -46,11 +46,21 @@ BCGcalc-NEWS
 
 # Version History
 
-## Changes in Version 1.2.2.9021 (2018-09-26)
+## Changes in Version 1.2.2.9022 (2018-09-27)
+
+  - Update Data\_BCG\_PacNW.xlsx. Issue \#32
+      - Remove unecessary worksheets.
+      - Rename single remaining worksheet.
+      - Update phylogenetic columns.
+      - Rearrange columns into required and optional.
+  - Add master taxa list file to external docs.
+  - Add thermal indicators file to external docs.
+
+## Changes in Version 1.2.2.9021 (2018-09-27)
 
   - update ReadMe. Issue \#31
 
-## Changes in Version 1.2.2.9020 (2018-09-26)
+## Changes in Version 1.2.2.9020 (2018-09-27)
 
   - Ensure reshape2 package references are consistent. Issue \#30
       - Ensure functions use reshape2::melt (or dcast)
