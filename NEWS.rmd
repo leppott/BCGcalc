@@ -52,6 +52,12 @@ cat(paste0("Last Update: ",Sys.time()))
 
 ## Changes in Version 1.2.2.9019 (2018-09-26)
 
+* Ensure reshape2 package references are consistent.  Issue #30
+    + Ensure functions use reshape2::melt (or dcast)
+    + Ensure examples (and vignette) use library(reshape) and melt or dcast.
+
+## Changes in Version 1.2.2.9019 (2018-09-26)
+
 * File formats.  Issue #28
     + Add statement about file formats to Vignette.
 

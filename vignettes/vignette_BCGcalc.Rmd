@@ -115,7 +115,7 @@ library(reshape2)
 library(DataExplorer)
 
 # Convert to long format
-df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+df.long <- melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 # Export for QC
 write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")

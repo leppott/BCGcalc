@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-26 13:15:16
+2018-09-27 08:14:36
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-26 13:15:16
+    #> Last Update: 2018-09-27 08:14:36
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,13 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9019 (2018-09-26)
+
+  - Ensure reshape2 package references are consistent. Issue \#30
+      - Ensure functions use reshape2::melt (or dcast)
+      - Ensure examples (and vignette) use library(reshape) and melt or
+        dcast.
 
 ## Changes in Version 1.2.2.9019 (2018-09-26)
 

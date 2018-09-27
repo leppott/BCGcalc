@@ -71,6 +71,7 @@
 #' # PACIFIC NW BCG
 #' 
 #' library(readxl)
+#' library(reshape2)
 #'
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 #'                                        , package="BCGcalc"))
@@ -86,7 +87,7 @@
 #' View(df.metric.values.bugs)
 #' 
 #' # Get data in long format so can QC results more easily
-#' df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME"
+#' df.long <- melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME"
 #'                                                  , "SITE_TYPE", toupper(myCols))
 #'                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 #' 
@@ -103,6 +104,7 @@
 # # INDIANA BCG
 # 
 # library(readxl)
+# library(reshape2)
 # 
 # df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_Indiana.xlsx"
 #                            , package="BCGcalc"), sheet="R_Input")
@@ -123,7 +125,7 @@
 # View(df.metric.values.bugs)
 # 
 # # Get data in long format so can QC results more easily
-# df.long <- reshape2::melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
+# df.long <- melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
 #                           , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
 # # Save Results
 # write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
