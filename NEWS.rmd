@@ -50,7 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
-## Changes in Version 1.2.2.9019 (2018-09-26)
+## Changes in Version 1.2.2.9021 (2018-09-26)
+
+* update ReadMe.  Issue #31
+
+## Changes in Version 1.2.2.9020 (2018-09-26)
 
 * Ensure reshape2 package references are consistent.  Issue #30
     + Ensure functions use reshape2::melt (or dcast)
