@@ -4,7 +4,7 @@ author: "Erik.Leppo@tetratech.com"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette, QW}
+  %\VignetteIndexEntry{Vignette, BCGcalc}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -46,13 +46,13 @@ When applying the BCG, users should keep in mind that they can run any data thro
 
 Results should be interpreted with caution if they are flagged for any of the criteria listed in Appendix A (e.g., brackish influence, extreme dominance by one or two taxa).
 
-## Input file
+## Input File
 The user must generate the input file to run through the BCGcalc R tool (which then calculates metric values, metric membership values, BCG level membership and BCG level assignments). The R code references the required fields (see Table 1) in the input file when making these calculations (note: when creating column headings in the input file, the user should utilize the naming scheme in the first column of Table 1). The BCG workgroup went through a lengthy process to reach consensus on the BCG attribute assignments (BCG_Attr) for the Puget Lowlands and Willamette Valley (Stamp and Gerritsen 2018). Several of the BCG rules are based on BCG attribute metrics. Thus, for the BCG model results to be accurate and valid, users should make sure the BCG attributes in their input file match with those that are in the Excel file titled ‘TaxaMaster_Bug_BCG_PacNW_v1.’ If the input file contains taxa that are not on this list, the user should enter the appropriate phylogenetic information and a ‘NA’ in the ‘BCG_Attr’ field.
 
-## Metric calculations
+## Metric Calculations
 The BCGcalc R tool can be used to calculate a multitude of metrics (beyond the 12 that are used in the BCG model), including thermal indicator, FFG, habit, tolerance value and life cycle metrics. The BCG workgroup went through a lengthy process to reach consensus on the thermal indicator designations for the Puget Lowlands and Willamette Valley (Stamp and Gerritsen 2018) but did not address the other attributes at a regional scale. If the FFG, habit, tolerance value and life cycle attribute fields are utilized, those designations need to come from each entity. Users can calculate the full suite of metrics or adapt the code so that the output only includes a subset of metrics (for example, you may want to limit the output to only the 12 metrics used in the BCG model). Examples of R code that can be used to pull subsets of metrics can be found in the ‘Saving Specific Metrics’ section of the vignette.
 
-## Key files
+## Key Files
 
 *	vignette_BCGcalc – html file that covers the basics going from raw data to BCG model results
 
@@ -105,19 +105,31 @@ Both would be excluded when Tanytarsus is present. Any non-target taxa should be
 
 Required Fields:
 
-*	SAMPLEID (character or number, must be unique)
+*	SAMPLEID
 
-*	TAXAID (character or number, must be unique)
+    + character or number, must be unique
+
+*	TAXAID
+
+    + character or number, must be unique
 
 *	N_TAXA
 
-*	EXCLUDE (valid values are TRUE and FALSE)
+*	EXCLUDE
 
-*	INDEX_NAME (must match INDEX_NAME in Rules and Flags)
+    + valid values are TRUE and FALSE
 
-*	SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are “hi” or “lo”)
+*	INDEX_NAME
 
-*	NONTARGET (valid values are TRUE and FALSE)
+    + must match INDEX_NAME in Rules and Flags
+
+*	SITE_TYPE
+
+    + BCG or MMI site category; e.g., for BCG PacNW valid values are “hi” or “lo”
+
+*	NONTARGET
+
+    + valid values are TRUE and FALSE
 
 *	PHYLUM, SUBPHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, TRIBE, GENUS
 
@@ -165,34 +177,24 @@ The suite of functions in the `BCGcalc` package are presented int two sections. 
 
 1. BCG Core Functions
 
-    A. Metric calculation
+    A. Metric Calculation
     
-    B. Metric scoring (membership)
+    B. Metric Membership (Scoring)
 
-    C. Level membership
+    C. Level Membership
 
-    D. Level assignment
+    D. Level Assignment
 
-    E. Add flags
+    E. Add Flags
     
 2. Additional (Optional) Functions
 
-    A. Rarify (subsampling)
+    A. Subsample (Rarify)
     
-    B. Saving selected metrics
+    B. Metric Calculation, Save Specific Metrics
 
-    C. Summary of flagged samples
+    C. Flags
 
-    D. Writing code to format new data files
-
-    E. Other formatting options
-    
-    F. BCG level 1 signal (to be developed)
-    
-    G. 300-count model ()
-    
-    H. Exclude taxa assignment (to be developed)
-    
 ## BCGcalc Core Functions
 Once your input file is formatted and ready to go, the next step is to run it through the R code. The R code generates BCG level assignments for each sample. Along the way it calculates the following: metric values, metric membership values, BCG level membership and BCG level assignments. It also adds flags to the BCG level assignment file. 
 
@@ -200,9 +202,12 @@ Below are two examples of R code that can be used to generate BCG model outputs.
 
 The first example below is for test data that is automatically downloaded onto your computer when you install the BCGcalc R package. If it’s your first time running this code, and you are a novice R user, we recommend trying this code first (you can follow it verbatim, no edits needed, and it should generate the desired output).
 
-The second example is for an ‘outside’ data file (to simulate you running the R code on your own data). Before running this on your own data, you will need to update the directories, the name of the input file and potentially a few other fields. In this example, the input file is called ‘ExampleDataFile.xlsx’.   Remember - when you type in your working directory (in this example, E:\\BCG_R10\\R_tool\\Example), remember that you either need two backslashes \\ or one forward slash /. If you copy and paste the directory from your Windows File Explorer window, it comes in as one backslash so you will need to manually correct this.
+The second example is for an ‘new’ data file (to simulate you running the R code on your own data). 
 
-If you decide to run the example below, the following five files will appear in your working directory (note: file names will differ depending on which set of code you run – this is for example #1)
+### Example, Test Data
+The code below uses the test data that is contained in the package and is already of the proper format.
+
+If you decide to run the example below, the following five files will appear in your working directory.
 
 *	metrics.values.Test.tsv
 
@@ -212,10 +217,7 @@ If you decide to run the example below, the following five files will appear in 
 
 *	Levels.Flags.Test.csv
 
-### Example, Test Data
-The code below uses the test data that is contained in the package and is already of the proper format.
-
-```{r Core_Test, eval=FALSE}
+```{r CoreFun_TestData, eval=FALSE}
 # Packages
 library(BCGcalc)
 library(readxl)
@@ -266,17 +268,16 @@ write.table(df.Level.Membership, "Level.Membership.Test.tsv"
 # 1.D. Level Membership
 # Run Function
 df.Levels <- BCG.Level.Assignment(df.Level.Membership)
-# QC Checks (flags)
-#
-# Import Checks
+
+# 1.E. Flags
+# Import QC Checks
 df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
                                           , package="BCGcalc"), sheet="Flags") 
 # Run Function
-df.flags <- qc.checks(df.metric.values.bugs, df.checks)
+df.flags <- qc.checks(df.metrics, df.checks)
 # Change terminology; PASS/FAIL to NA/flag
 df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
 df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
-
 # long to wide format
 df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
 # Calc number of "flag"s by row.
@@ -292,468 +293,32 @@ View(df.Levels.Flags)
 table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
 # Save Results
 write.csv(df.Levels.Flags, "Levels.Flags.Test.csv")
-
 ```
-
 
 ### Example, New Data
-The code below uses an example data set that is not properly formated.  The code goes through the steps of formatting the data.  This code simulates getting code from a database and the steps needed to prepare it for use with the `BCGcalc` package.
-
-```{r Core_New, eval=FALSE}
-
-```
-
-
-
-
-
-
-
-
-
-----
-old version
----
-
-
-## Core Functions
-
-
-### Metric Calculation
-The `BCGcalc` package includes some example that will be used in this example.
-
-The funtion metric.values generates 160+ different metrics for multi-metric indices as well as BCG specific metrics.  All metrics are calculated and reported back to the user in a data frame.
-
-No manipulations of the taxa are performed by this routine.  
-All benthic macroinvertebrate taxa should be identified to the appropriate 
-operational taxonomic unit (OTU).  
-Any non-count taxa should be identified in the "Exclude" field as "TRUE". 
-These taxa will be excluded from taxa richness metrics (but will count for 
-all others).  Excluded taxa are ambiguous taxa (on a sample basis), i.e., 
-the parent taxa when child taxa are present.  For example, the parent taxa 
-Chironomidae would be xcluded when the child taxa Tanytarsini is present.  
-Both would be excluded when Tanytarsus is present.
-Any non-target taxa should be identified in the "NonTarget" field as "TRUE". 
-Non-target taxa are those that are not part of your intended capture list; 
-e.g., fish,  herps, water column taxa, or water surface taxa in a benthic sample.
-The target list will vary by program.
-The non-target taxa will be removed prior to any calculations.
-There are a number of required fields (see below) for metric to calculation.  
-If any fields are missing the user will be prompted as to which are missing 
-and if the user wants to continue or quit.  If the user continues the missing 
-fields will be added but will be filled with zero or NA (as appropriate).  
-Any metrics based on the missing fields will not be valid.
-
-Required Fields:
-
-* SAMPLEID (character or number, must be unique)
-
-* TAXAID (character or number, must be unique)
-
-* N_TAXA
-
-* EXCLUDE (valid values are TRUE and FALSE)
-
-* INDEX_NAME
-
-* SITE_TYPE (BCG or MMI site category; e.g., for BCG PacNW valid values are "hi" or "lo")
-
-* NONTARGET (valid values are TRUE and FALSE)
-
-* PHYLUM, SUBPHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, TRIBE, GENUS
-
-* FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR, THERMAL_INDICATOR
-
-Valid values for FFG: CG, CF, PR, SC, SH
-
-Valid values for HABIT: BU, CB, CN, SP, SW
-
-Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
-
-Valid values for THERMAL_INDICATOR: COLD, COLD_COOL, COOL_WARM, WARM
-
-Columns to keep are additional fields in the input file that the user wants 
-retained in the output.  Fields need to be those that are unique per sample 
-and not associated with the taxa.  For example, the fields used in qc.check();
-Area_mi2, SurfaceArea, Density_m2, and Density_ft2. 
-
-```{r MetricValues_Calc, eval=FALSE}
-# Metrics, BCG, Bugs
-library(BCGcalc)
-library(readxl)
-
-# PACIFIC NW
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                       , package="BCGcalc"))
-myDF <- df.samps.bugs
-
-# calculate
-df.metric.values.bugs <- metric.values(myDF, "bugs")
-View(df.metric.values.bugs)
-
-```
-
-Other tasks can be performed on the data once it is returned as a data frame.
-
-```{r MetricValues_Extra, eval=FALSE}
-library(BCGcalc)
-library(reshape2)
-library(DataExplorer)
-
-# Convert to long format
-df.long <- melt(df.metric.values.bugs, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
-                          , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
-# Export for QC
-write.table(df.long, "metric.values.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
-
-# DataExplorer Report
-create_report(df.metric.values.bugs, "DataExplorer_Report_MetricValues.html")
-create_report(df.samps.bugs, "DataExplorer_Report_BugSamples.html")
-```
-
-### Metric Scoring (Membership)
-Metrics are scored according to a user defined table.  The membership scoring is BCG specific and results in a score in the range of 0 to 1.
-
-The results are returned in a data frame in the long format.
-
-```{r Import, eval=FALSE, echo=TRUE}
-library(BCGcalc)
-library(readxl)
-library(knitr)
-
-# Calculate Metrics
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc"))
-myDF <- df.samps.bugs
-df.metric.values.bugs <- metric.values(myDF, "bugs")
-
-# Import Rules
-df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
-
-# Run function
-df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules.PacNW)
-
-# show results
-#View(df.Metric.Membership)
-
-tbl.rules <- df.rules
-tbl.rules.caption <- "Membership rules."
-
-kable(tbl.rules, caption=tbl.rules.caption)
-
-```
-
-### Level Membership
-The levels are determined according to the rules for a specific BCG model (e.g., Pacific Northwest low gradient).  The rules assign values (0-1) based on metric values.
-
-```{r LevelMembership, eval=FALSE}
-library(readxl)
-
-# Calculate Metrics
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc"))
-myDF <- df.samps.bugs
-df.metric.values.bugs <- metric.values(myDF, "bugs")
-
-# Import Rules
-df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
-
-# Calculate Metric Memberships
-df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
-
-# Calculate Level Memberships
-df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
-
-# Show results
-View(df.Level.Membership)
-```
-
-### Level Assignment
-The level assignments are done according the values of the rules and metric level memberships.  The maximum level is designated as the primary level and the next highest value is assigned as the secondary level.
-
-There is some QC to ensure the total membership equals 1 and a field to note if the assigned nears are a tie or close.
-
-The user can also append the "flags" to the final results.  The code below changes all "FAIL" qc checks to "flag" and all "PASS" to NA before the append statement.
-
-```{r LevelAssignment2, eval=TRUE, echo=TRUE}
-# Example Data
-library(BCGcalc)
-library(readxl)
-library(reshape2)
-library(knitr)
-
-# Calculate Metrics
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc"))
-                                        
-# Run Function
-myDF <- df.samps.bugs
-df.metric.values.bugs <- metric.values(myDF, "bugs") 
-
-# Import Rules
-df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
-
-# Calculate Metric Memberships
-df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
-
-# Calculate Level Memberships
-df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
-
-# Run Function
-df.Levels <- BCG.Level.Assignment(df.Level.Membership)
-
-# QC Checks (flags)
-#
-# Import Checks
-df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
-                                          , package="BCGcalc"), sheet="Flags") 
-# Show QC checks table
-tbl.checks <- df.checks
-tbl.checks.caption <- "QC Checks"
-kable(tbl.checks, caption = tbl.checks.caption)
-
-# Rerun metrics including extra columns
-myDF <- df.samps.bugs
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
-df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)                                         
-# Run Function (qc.checks)
-df.flags <- qc.checks(df.metric.values.bugs, df.checks)
-# Change terminology; PASS/FAIL to NA/flag
-df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
-df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
-
-# long to wide format
-df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
-# Calc number of "flag"s by row.
-df.flags.wide$NumFlags <- rowSums(df.flags.wide=="flag", na.rm=TRUE)
-# Rearrange columns
-NumCols <- ncol(df.flags.wide)
-df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
-
-# Merge Levels and Flags
-df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
-
-# Show Results
-tbl.Levels.Flags.caption = "Levels and Flags."
-kable(head(df.Levels.Flags), caption = tbl.Levels.Flags.caption)
-
-# Save Results
-# write.table(df.Levels.Flags, "Levels.Flags.tsv"
-#             , row.names=FALSE, col.names=TRUE, sep="\t")
-            
-# Summarize Results
-tbl.flags.caption = "Flag Summary."
-kable(table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany"), caption = tbl.flags.caption)
-```
-
-### Flags
-Specific to some programs there are QC checks on the samples that should be performed.  For example, minimum and maximum number of organisms to be a valid sample.
-
-This function uses an imported data frame to compare calcualted metrics and gives a Pass or Fail evaluation to "flag" the sample for the user.
-
-The QC checks are matched against the data on Index Name, Region, and Metric Name.  Only those that match are evaluated.  Valid symbols are those used by R; <, >, <=, >=, ==, and !=.
-```{r Other_Flags, eval=TRUE, echo=TRUE}
-library(readxl)
-library(BCGcalc)
-library(knitr)
-
-# Calculate Metrics
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc"))
-myDF <- df.samps.bugs
-df.metric.values.bugs <- metric.values(myDF, "bugs")
-
-# Import Checks
-df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
-                                          , package="BCGcalc"), sheet="Flags") 
-
-# Run function
-df.flags <- qc.checks(df.metric.values.bugs, df.checks)
-
-# Show QC checks table
-tbl.checks <- df.checks
-tbl.checks.caption <- "QC Checks"
-kable(tbl.checks, caption = tbl.checks.caption)
-
-# Show results summary
-tbl.results <- table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
-tbl.results.caption <- "QC Check Results"
-kable(tbl.results, caption = tbl.results.caption)
-```
-
-## Additional (Optional) Functions
-There are some ancillary tasks that can be completed with the data that are a necessary part of data analysis and are included in the `BCGcalc` package for convenience.
-
-### Subsample (rarify)
-The `rarify` function subsamples count data to a fixed count per sample.  It takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.  The names of the columns does not matter as they are specified in the code.  Any non-count taxa (e.g., fish in a bug sample) should be removed prior to using the `rarify` function.  The function code is from USEPA Corvallis John Van Sickle R code for RIVPACS (v1.0, 2005-06-10) and was tweaked for addition of user provided seed so repeatable results can be obtained.
-
-The other inputs are subsample size (target number of organisms in each sample) and seed. The seed is given so the results can be reproduced from the same input file. If no seed is given a random seed is used.  An easy seed to remember is the date of admission to the Union for each state (e.g., Washinton is 18891111).  These values can be found on Wikipedia on the right sidebar.
-
-If you are running the 500-count BCG model and any of your samples have more than 600 organisms (the upper limit for the model), you should randomly subsample your data to 600 (600 is +20% of the 500-count target). This is done to make richness metrics comparable across the 500-count samples. You can do this with the Rarify routine.
-
-Save the input file.  The example uses CSV but other data types could be used.
-
-Before you run the code below on your own data, you’ll need to update the directories, the name of the input file and potentially a few other fields. In this example, the input file is called ‘ExampleOrigto600.xlsx’. 
-
-After you are done with the subsampling, bring the updated N_Taxa field into your input file (see example file titled ‘ExampleDataFile’; we retained the original data in an optional field called N_Taxa_orig). 
-
-Then run your data file through the BCGcalc example code described previously in this document.
-
-
-
-
-
-
-
-```{r Other_Rarify, eval=TRUE, echo=TRUE}
-library(BCGcalc)
-library(knitr)
-
-# load bio data
-DF.biodata <- data_bio2rarify
-#dim(DF.biodata)
-#View(DF.biodata)
-
-# subsample
-mySize <- 300
-Seed.OR <- 18590214
-Seed.WA <- 18891111
-Seed.US <- 17760704
-bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampID"
-                     ,abund="N_taxa",subsiz=mySize, mySeed=Seed.US)
-#dim(bugs.mysize)
-#View(bugs.mysize)
-
-# Compare pre- and post- subsample counts
-df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampID", "TaxaID")
-                    , suffixes = c("_500","_300"))
-df.compare <- df.compare[,c("SampID", "TaxaID", "N_taxa_500", "N_taxa_300")]
-#View(df.compare)
-
-tbl.compare <- head(df.compare)
-tbl.compare.caption <- "First few rows of original and rarified data."
-kable(tbl.compare, caption=tbl.compare.caption)
-
-tbl.totals <- aggregate(cbind(N_taxa_500, N_taxa_300) ~ SampID, df.compare, sum)
-tbl.totals.caption <- "Comparison of total individuals per sample."
-kable(tbl.totals, caption=tbl.totals.caption)
-
-# save the data
-#write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
-
-```
-
-# Metric Calculation, Saving Specific Metrics
-You can adapt the code so that the metric calculation output only includes a subset of the metrics.
-
-For example, you may only want to view the metrics that go into the BCG model calculation. Below are two examples of code for saving specific metrics -
-
-*	BCG – this output is limited to the 12 metrics that go into the BCG model calculation
-
-*	Thermal indicator metrics (ti) – this has richness and percent composition metrics for thermal indicator taxa (c=cold, cc = cold/cool, cw = cool/warm, w= warm)
-
-You can do this one of two ways.
-
-1. Knowing the names of the metrics use them as input in the `metric.values` function.
-
-2. Examine the results file and select certain metrics to keep.
-
-```{r MetricValues_Keep1}
-library(BCGcalc)
-library(readxl)
-library(knitr)
-# Load Data
-df.data <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                       , package="BCGcalc"))
-# Columns to keep
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
-# Run Function
-df.metval <- metric.values(df.data, "bugs", fun.cols2keep=myCols)
-# View Results
-#View(df.metval)
-# Metrics of Interest
-## thermal indicator (_ti_)
-#names(df.metval)[grepl("_ti_", names(df.metval))]
-col.met2keep <- c("ni_total", "nt_total", "nt_ti_c", "nt_ti_cc", "nt_ti_cw"
-                , "nt_ti_w", "pi_ti_c", "pi_ti_cc", "pi_ti_cw", "pi_ti_w"
-                , "pt_ti_c", "pt_ti_cc", "pt_ti_cw", "pt_ti_w")
-col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
-# Ouput
-df.metval.ci <- df.metval[, c(col.ID, col.met2keep)]
-# RMD table
-kable(df.metval.ci[1:10, ], caption = "Select Metrics")
-
-# Save (commented out)
-# write.table(df.metval.ci, "metrics.thermalindicators.tsv"
-#             , col.names=TRUE, row.names=FALSE, sep="\t")
-```
-
-
-```{r MetricValues_Keep2}
-library(BCGcalc)
-library(readxl)
-library(knitr)
-# Load Data
-df.data <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                       , package="BCGcalc"))
-# Columns to keep
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
-# Run Function
-df.metval <- metric.values(df.data, "bugs", fun.cols2keep=myCols)
-# View Results
-#View(df.metval)
-# Metrics of Interest
-## thermal indicator (_ti_)
-#names(df.metval)[grepl("_ti_", names(df.metval))]
-col.met2keep <- c("ni_total", "nt_total", "nt_ti_c", "nt_ti_cc", "nt_ti_cw"
-                , "nt_ti_w", "pi_ti_c", "pi_ti_cc", "pi_ti_cw", "pi_ti_w"
-                , "pt_ti_c", "pt_ti_cc", "pt_ti_cw", "pt_ti_w")
-col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
-# Ouput
-df.metval.ci <- df.metval[, c(col.ID, col.met2keep)]
-# RMD table
-kable(df.metval.ci[1:10, ], caption = "Select Metrics")
-
-# Save (commented out)
-# write.table(df.metval.ci, "metrics.thermalindicators.tsv"
-#             , col.names=TRUE, row.names=FALSE, sep="\t")
-```
-
-# Flags
-
-Results should be interpreted with caution if they are flagged for any of the criteria listed below. If you run the BCGcalc code above, columns with flags will be added into the file with the Level Assignments.
-Below is example code. If you use this code, your input data file should include the following three columns: 
-
-```{r Flags}
-
-```
-
-# Writing code to format new data files
-
-### Unformated Data
 The flexibility of R allows the user to get data from a multitude of sources and then manipulate (munge) it to fit the format needed for the functions in `BCGcalc`.  The example below shows how to import a file, add slope from a 2nd file, and to make a few changes to the data in order to use it with the package.  When the data source is fixed this routine can be modified and then used on all future datasets to prepare them for use with `BCGcalc`.
 
-```{r DataMunge}
+Before running this on your own data, you will need to update the directories, the name of the input file and potentially a few other fields. In this example, the input file is called ‘ExampleDataFile.xlsx’. Remember - when you type in your working directory (in this example, E:\\BCG_R10\\R_tool\\Example) that you either need two backslashes \\ or one forward slash /. If you copy and paste the directory from your Windows File Explorer window, it comes in as one backslash so you will need to manually correct this for the code to work.
+
+```{r CoreFun_NewData, eval=FALSE}
 # Setup
 library(readxl)
 library(dplyr)
 library(BCGcalc)
-library(knitr)
 
 # Read File
 ## FileName
 fn.data <- system.file("./extdata/ExampleMunge_UnformatedData.xlsx"
                        , package="BCGcalc")
+# wd <- "F:\\myDocs"
+# fn.data <- file.path(wd, "ExampleMunge_UnformatedData.xlsx")
+
 ## Worksheet
 sh.data <- "SamplesWithBioticAttributesAndR"
 ## Import
 ### set "guess" to a large number to avoid type being wrong
 df.data <- read_excel(fn.data, sheet = sh.data, guess_max=12000)
 dim(df.data)
-kable(head(df.data), caption = "Unformatted Data")
 
 # Munge
 ## Col Names
@@ -787,9 +352,9 @@ df.data$AREA_MI2 <- NA
 df.data$DENSITY_M2 <- NA
 df.data$DENSITY_FT2 <- NA
 
-
 # Add slope (and then gradient for SiteType) from NHD+ v2
 fn.slope <- system.file("./extdata/ExampleMunge_Slope.xlsx", package="BCGcalc")
+# fn.slope <- file.path(wd, "ExampleMunge_Slope.xlsx")
 df.slope <- read_excel(fn.slope)
 names(df.slope) <- toupper(names(df.slope))
 # merge files
@@ -799,7 +364,6 @@ dim(df.data)
 dim(df.comb.slope)
 nrow(df.data) == nrow(df.comb.slope)
 df.comb.slope$SITE_TYPE <- df.comb.slope$`SLOPE CATEGORY`
-
 
 # Update Taxa Attributes from Master Taxa List in Package
 df.taxamaster <- TaxaMaster_Ben_BCG_PacNW
@@ -811,7 +375,6 @@ df.comb.slope.auteco <- merge(df.comb.slope, df.taxamaster[, col.auteco]
                               , by.x="TAXAID", by.y="TAXAID", all.x=TRUE)
 nrow(df.comb.slope) == nrow(df.comb.slope.auteco)
 
-
 # Create Anlaysis File
 col2keep <- c("SAMPLEID", "INDEX_NAME", "SITE_TYPE"
               , "AREA_MI2", "SURFACEAREA", "DENSITY_M2", "DENSITY_FT2"
@@ -819,25 +382,306 @@ col2keep <- c("SAMPLEID", "INDEX_NAME", "SITE_TYPE"
               , "PHYLUM", "SUBPHYLUM", "CLASS", "ORDER", "FAMILY", "SUBFAMILY"
               , "TRIBE", "GENUS"
               , "FFG", "HABIT", "LIFE_CYCLE", "TOLVAL", "BCG_ATTR", "THERMAL_INDICATOR")
-df.analysis <- as.data.frame(df.comb.slope.auteco[, col2keep ])
+df.samps.bugs <- as.data.frame(df.comb.slope.auteco[, col2keep ])
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Repeat code from previous example
+# (with minor edits)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Calculate metrics
-cols2keep <- c("AREA_MI2", "SURFACEAREA", "DENSITY_M2", "DENSITY_FT2")
-df.metval <- metric.values(df.analysis, "bugs", fun.cols2keep = cols2keep)
-kable(head(df.metval), caption = "BCGcalc metric.values")
+# QC for TRUE/FALSE (both ok) 
+# Exclude to TRUE/FALSE
+table(df.samps.bugs$EXCLUDE)
+# NonTarget to TRUE/FALSE
+table(df.samps.bugs$NONTARGET)
+
+# 1.A. Calculate Metrics
+# Extra columns to keep in results
+keep.cols <- toupper(c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"))
+# Run Function
+df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
+# QC
+dim(df.metrics)
+View(df.metrics)
+# Save
+write.table(df.metrics, "Metric.Values.New.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+
+# 1.B. Metric Membership
+# Import Rules
+df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
+                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+# Run function
+df.Metric.Membership <- BCG.Metric.Membership(df.metrics, df.rules)
+# Show Results
+View(df.Metric.Membership)
+# Save Results
+write.table(df.Metric.Membership, "Metric.Membership.New.tsv"
+              , row.names=FALSE, col.names=TRUE, sep="\t")
+
+# 1.C. Level Assignment
+# Run Function
+df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+# Show results
+View(df.Level.Membership)
+# Save Results
+write.table(df.Level.Membership, "Level.Membership.New.tsv"
+             , row.names=FALSE, col.names=TRUE, sep="\t")
+
+# 1.D. Level Membership
+# Run Function
+df.Levels <- BCG.Level.Assignment(df.Level.Membership)
+
+# 1.E. Flags
+# Import QC Checks
+df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+                                          , package="BCGcalc"), sheet="Flags") 
+# Run Function
+df.flags <- qc.checks(df.metrics, df.checks)
+# Change terminology; PASS/FAIL to NA/flag
+df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
+df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
+# long to wide format
+df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
+# Calc number of "flag"s by row.
+df.flags.wide$NumFlags <- rowSums(df.flags.wide=="flag", na.rm=TRUE)
+# Rearrange columns
+NumCols <- ncol(df.flags.wide)
+df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
+# Merge Levels and Flags
+df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
+# Show Results
+View(df.Levels.Flags)
+# Summarize Results
+table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
+# Save Results
+write.csv(df.Levels.Flags, "Levels.Flags.New.csv")
+```
+
+## Additional (Optional) Functions
+There are some ancillary tasks that can be completed with the data that are a necessary part of data analysis and are included in the `BCGcalc` package for convenience.
+
+### Subsample (Rarify)
+The `rarify` function subsamples count data to a fixed count per sample.  It takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.  The names of the columns does not matter as they are specified in the code.  Any non-count taxa (e.g., fish in a bug sample) should be removed prior to using the `rarify` function.  The function code is from USEPA Corvallis John Van Sickle's R code for RIVPACS (v1.0, 2005-06-10) and was tweaked for the addition of a user provided seed so repeatable results can be obtained.
+
+The other function inputs are subsample size (target number of organisms in each sample) and seed. The seed is given so the results can be reproduced from the same input file. If no seed is given a random seed is used.  An example seed is the date of admission to the Union for each state where the data is collected (e.g., Washinton is 18891111).  These values can be found on Wikipedia on the right sidebar for each State.
+
+If you are running the 500-count BCG model and any of your samples have more than 600 organisms (the upper limit for the model), you should randomly subsample your data to 600 (600 is +20% of the 500-count target). This is done to make richness metrics comparable across the 500-count samples. You can do this with the Rarify routine.
+
+Before you run the code below on your own data, you’ll need to update the directories, the name of the input file and potentially a few other fields. In this example, the input file is called ‘ExampleMunge_UnformatedData.xlsx’. 
+
+After you are done with the subsampling, bring the updated N_Taxa field into your input file (see example file titled ‘ExampleDataFile’; we retained the original data in an optional field called N_Taxa_orig). Then run your data file through the BCGcalc example code described previously in this document.
+
+```{r Other_Rarify, eval=TRUE, echo=TRUE}
+library(BCGcalc)
+library(knitr)
+
+## FileName
+fn.data <- data_bio2rarify
+# wd <- "F:\\myDocs"
+# fn.data <- file.path(wd, "ExampleMunge_UnformatedData.xlsx")
+# df.data <- read.csv(fn.data)
+#
+DF.biodata <- fn.data
+#dim(DF.biodata)
+#View(DF.biodata)
+
+# subsample
+mySize <- 300
+Seed.OR <- 18590214
+Seed.WA <- 18891111
+Seed.US <- 17760704
+bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampID"
+                     ,abund="N_taxa",subsiz=mySize, mySeed=Seed.US)
+#dim(bugs.mysize)
+#View(bugs.mysize)
+
+# Compare pre- and post- subsample counts
+df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampID", "TaxaID")
+                    , suffixes = c("_500","_300"))
+df.compare <- df.compare[,c("SampID", "TaxaID", "N_taxa_500", "N_taxa_300")]
+#View(df.compare)
+
+tbl.compare <- head(df.compare)
+tbl.compare.caption <- "First few rows of original and rarified data."
+kable(tbl.compare, caption=tbl.compare.caption)
+
+tbl.totals <- aggregate(cbind(N_taxa_500, N_taxa_300) ~ SampID, df.compare, sum)
+tbl.totals.caption <- "Comparison of total individuals per sample."
+kable(tbl.totals, caption=tbl.totals.caption)
+
+# save the data
+#write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
 
 ```
 
+### Metric Calculation, Save Specific Metrics
+You can adapt the code so that the metric calculation output only includes a subset of the metrics.
 
-# Other formatting options
+For example, you may only want to view the metrics that go into the BCG model calculation. Below are two examples of code for saving specific metrics -
 
-# BCG level 1 signal
+*	BCG – this output is limited to the 12 metrics that go into the BCG model calculation
 
-# 300 count model
+*	Thermal indicator metrics (ti) – this has richness and percent composition metrics for thermal indicator taxa (c=cold, cc = cold/cool, cw = cool/warm, w= warm)
 
-# Exclude
+You can do this one of two ways.
 
-----
+1. Knowing the names of the metrics use them as input in the `metric.values` function.
+
+```{r MetricValues_Keep1}
+# Packages
+library(BCGcalc)
+library(readxl)
+library(knitr)
+# Load Data
+df.data <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                       , package="BCGcalc"))
+# Columns to keep
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+# Metrics of Interest (BCG)
+col.met2keep <- c("ni_total", "nt_total", "nt_BCG_att1i2", "pt_BCG_att1i23"
+                  , "pi_BCG_att1i23", "pt_BCG_att56", "pi_BCG_att56"
+                  , "nt_EPT_BCG_att1i23", "pi_NonInsJugaRiss_BCG_att456"
+                  , "pt_NonIns_BCG_att456", "nt_EPT", "pi_NonIns_BCG_att456")
+# Run Function
+df.metval <- metric.values(df.data, "bugs"
+                           , fun.cols2keep=myCols, fun.MetricNames = col.met2keep)
+
+# Select columns
+col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
+# Ouput
+df.metval.bcg12 <- df.metval[, c(col.ID, col.met2keep)]
+# RMD table
+kable(head(df.metval.bcg12), caption = "Select Metrics, Method 1")
+```
+
+2. Examine the results file and select certain metrics to keep.
+
+```{r MetricValues_Keep2}
+# Packages
+library(BCGcalc)
+library(readxl)
+library(knitr)
+# Load Data
+df.data <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                       , package="BCGcalc"))
+# Columns to keep
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+
+# Run Function
+df.metval <- metric.values(df.data, "bugs", fun.cols2keep=myCols)
+# Metrics of Interest
+## thermal indicator (_ti_)
+#names(df.metval)[grepl("_ti_", names(df.metval))]
+col.met2keep <- c("ni_total", "nt_total", "nt_ti_c", "nt_ti_cc", "nt_ti_cw"
+                , "nt_ti_w", "pi_ti_c", "pi_ti_cc", "pi_ti_cw", "pi_ti_w"
+                , "pt_ti_c", "pt_ti_cc", "pt_ti_cw", "pt_ti_w")
+col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
+# Ouput
+df.metval.ci <- df.metval[, c(col.ID, col.met2keep)]
+# RMD table
+kable(head(df.metval.ci), caption = "Select Metrics, Method 2")
+```
+
+### Flags
+Results should be interpreted with caution if they are flagged for any of the criteria listed below. If you run the BCGcalc code on the Test data above, columns with flags will be added into the file with the Level Assignments.
+
+The checks for hi and lo gradient are the same so only one set of checks is shown below.
+
+```{r Flags, echo=FALSE, eval=TRUE}
+# Packages
+library(BCGcalc)
+library(readxl)
+library(reshape2)
+library(knitr)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Need to run some code to get results for display tables.
+# Repeat code from CoreFun_TestData
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Import
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                        , package="BCGcalc"))
+
+# 1.A. Calculate Metrics
+# Extra columns to keep in results
+keep.cols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+# Run Function
+df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
+# # QC
+# dim(df.metrics)
+# View(df.metrics)
+# # Save
+# write.table(df.metrics, "Metric.Values.Test.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+
+# 1.B. Metric Membership
+# Import Rules
+df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
+                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+# Run function
+df.Metric.Membership <- BCG.Metric.Membership(df.metrics, df.rules)
+# # Show Results
+# View(df.Metric.Membership)
+# # Save Results
+# write.table(df.Metric.Membership, "Metric.Membership.Test.tsv"
+#               , row.names=FALSE, col.names=TRUE, sep="\t")
+
+# 1.C. Level Assignment
+# Run Function
+df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+# # Show results
+# View(df.Level.Membership)
+# # Save Results
+# write.table(df.Level.Membership, "Level.Membership.Test.tsv"
+#              , row.names=FALSE, col.names=TRUE, sep="\t")
+
+# 1.D. Level Membership
+# Run Function
+df.Levels <- BCG.Level.Assignment(df.Level.Membership)
+
+# 1.E. Flags
+# Import QC Checks
+df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+                                          , package="BCGcalc"), sheet="Flags") 
+# Run Function
+df.flags <- qc.checks(df.metrics, df.checks)
+# Change terminology; PASS/FAIL to NA/flag
+df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
+df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
+# long to wide format
+df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
+# Calc number of "flag"s by row.
+df.flags.wide$NumFlags <- rowSums(df.flags.wide=="flag", na.rm=TRUE)
+# Rearrange columns
+NumCols <- ncol(df.flags.wide)
+df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
+# Merge Levels and Flags
+df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
+# # Show Results
+# View(df.Levels.Flags)
+# # Summarize Results
+# table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
+# # Save Results
+# write.csv(df.Levels.Flags, "Levels.Flags.Test.csv")
 
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# Flags
+# Filter for "hi"
+tbl.checks.hi <- df.checks[df.checks[,"Site_Type"]=="Hi", ]
+# Display
+tbl.checks.caption <- "Flags, Hi Gradient"
+kable(tbl.checks.hi, caption = tbl.checks.caption)
+
+# Levels and Flags
+tbl.Levels.Flags.caption = "Levels and Flags."
+kable(head(df.Levels.Flags), caption = tbl.Levels.Flags.caption)
+
+# Flags
+tbl.flags.caption = "Flag Summary."
+kable(table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany"), caption = tbl.flags.caption)
+
+
+```

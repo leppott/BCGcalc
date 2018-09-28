@@ -50,6 +50,10 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9026 (2018-09-28)
+
+* Finish updates to Vignette.
+
 ## Changes in Version 1.2.2.9025 (2018-09-28)
 
 * Level.Assignment.  Issue #11
