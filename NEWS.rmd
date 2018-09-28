@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9024 (2018-09-27)
+
+* Vignette updates (incomplete).
+* Metric.Membership.  Issue #11
+    + Non numeric extra columns caused errors.  Fixed.
+
 ## Changes in Version 1.2.2.9023 (2018-09-27)
 
 * extdata

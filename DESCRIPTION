@@ -1,8 +1,8 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, calculator
-Version: 1.2.2.9023
-Date: 2018-09-27
+Version: 1.2.2.9024
+Date: 2018-09-28
 Authors@R: c(
   person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre")), 
   person("Jen", "Stamp", email="Jen.Stamp@tetratech.com", role="ctb"))

@@ -67,6 +67,9 @@ BCG.Metric.Membership <- function(df.metrics, df.rules, input.shape="wide"){##FU
   df.long[,"SITE_TYPE"] <- tolower(df.long[,"SITE_TYPE"])
   df.rules[,"SITE_TYPE"] <- tolower(df.rules[,"SITE_TYPE"])
   #
+  # Extra columns may have text (convert to numeric)
+  suppressWarnings(df.long[,"METRIC_VALUE"] <- as.numeric(df.long[,"METRIC_VALUE"]))
+  #
   # Check for Missing Metrics (only for index provided in metric df)
   ## ignore site type for checking
   index.data <- unique(df.long[, "INDEX_NAME"])
