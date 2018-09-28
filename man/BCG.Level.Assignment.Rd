@@ -62,7 +62,8 @@ df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
                                         
 # Run Function
 myDF <- df.samps.bugs
-df.metric.values.bugs <- metric.values(myDF, "bugs") 
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols) 
 
 # Import Rules
 df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
@@ -82,10 +83,6 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 # Import Checks
 df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
                                           , package="BCGcalc"), sheet="Flags") 
-# Rerun metrics including extra columns
-myDF <- df.samps.bugs
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
-df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)                                         
 
 # Run Function
 df.flags <- qc.checks(df.metric.values.bugs, df.checks)
