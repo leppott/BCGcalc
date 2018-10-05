@@ -33,7 +33,7 @@ rarify function:
  Version 1.0, 06/10/05;
 }
 \examples{
-# Subsample to 300 organisms (from 500 organisms) for six samples.
+# Subsample to 500 organisms (from over 500 organisms) for 12 samples.
 
 # load bio data
 DF.biodata <- data_bio2rarify
@@ -41,25 +41,25 @@ dim(DF.biodata)
 View(DF.biodata)
 
 # subsample
-mySize <- 300
+mySize <- 500
 Seed.OR <- 18590214
 Seed.WA <- 18891111
 Seed.US <- 17760704
-bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampID"
-                     ,abund="N_taxa",subsiz=mySize, mySeed=Seed.US)
+bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampleID"
+                     ,abund="N_Taxa",subsiz=mySize, mySeed=Seed.US)
                      
 # view results
 dim(bugs.mysize)
 View(bugs.mysize)
 
 # Compare pre- and post- subsample counts
-df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampID", "TaxaID")
-                    , suffixes = c("_500","_300"))
-df.compare <- df.compare[,c("SampID", "TaxaID", "N_taxa_500", "N_taxa_300")]
+df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampleID", "TaxaID")
+                    , suffixes = c("_Orig","_500"))
+df.compare <- df.compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_500")]
 View(df.compare)
 
 # compare totals
-tbl.totals <- aggregate(cbind(N_taxa_500, N_taxa_300) ~ SampID, df.compare, sum)
+tbl.totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_500) ~ SampleID, df.compare, sum)
 View(tbl.totals)
 
 \dontrun{ 

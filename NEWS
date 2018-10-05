@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-10-05 15:44:22
+2018-10-05 16:25:13
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-10-05 15:44:22
+    #> Last Update: 2018-10-05 16:25:13
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,14 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.2.2.9029 (2018-10-05)
+
+  - Updated rarify data; data\_bio2rarify
+      - Replace fully qualified 500 count data with 3 column 600 count.
+      - Update data.R entry.
+      - Update rarify function example.
+      - Update vignette example.
 
 ## Changes in Version 1.2.2.9028 (2018-10-05)
 

@@ -16,9 +16,9 @@ wd <- getwd() # assume is package directory
 
 # 1. Get data and process#####
 # 1.1. Import Data
-myFile <- "500count.tsv"
+#myFile <- "data_bio2rarify_500.tsv"
+myFile <- "data_bio2rarify_3col_600.tsv"
 df <- read.delim(file.path(wd,"data-raw",myFile))
-
 
 # 1.2. Process Data
 View(df)

@@ -50,6 +50,14 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9029 (2018-10-05)
+
+* Updated rarify data; data_bio2rarify
+    + Replace fully qualified 500 count data with 3 column 600 count.
+    + Update data.R entry.
+    + Update rarify function example.
+    + Update vignette example.
+
 ## Changes in Version 1.2.2.9028 (2018-10-05)
 
 * Updated docs.
