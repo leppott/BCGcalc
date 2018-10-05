@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9028 (2018-10-05)
+
+* Updated docs.
+    + extdata/ExampleDataFile.xlsx
+    + docs/BCGcalc_README_20180919.pdf
+
 ## Changes in Version 1.2.2.9027 (2018-10-05)
 
 * Updated Rules.xlsx file in extdata.
