@@ -84,7 +84,7 @@ of Water, Office of Science and Technology and US EPA Region 10.
 
 # Installation
 The package is hosted on GitHub (https://github.com/leppott/BCGcalc) and can be 
-installed using the following lines of code. It is necssary to install the 
+installed using the following lines of code. It is necessary to install the 
 `devtools` package.
 
 ```{r Pkg_Install, eval=FALSE}
@@ -237,7 +237,7 @@ Required Fields:
     
         - Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 
-        - Life cyle designations need to come from the user (the BCG workgroup did 
+        - Life cycle designations need to come from the user (the BCG workgroup did 
         not attempt to reach regional consensus/reconcile differences across entities).
     
     + THERMAL_INDICATOR
@@ -263,7 +263,7 @@ consensus on the BCG attribute assignments (BCG_Attr) for the Puget Lowlands and
 Willamette Valley (for more details, see Stamp and Gerritsen 2018). 
 
 *	Site type: the designations in the BCG calibration dataset were based on the 
-NHDPlus v2 flowline slope but users can also base their gradient designations on 
+NHD+ v2 flowline slope but users can also base their gradient designations on 
 other sources (such as reach-scale measurements). The 1% threshold should be 
 regarded as a fuzzy versus distinct line, as it represents a transitional zone 
 where streams likely share characteristics of both low and high gradient stream 
@@ -279,7 +279,7 @@ for mites, which should be collapsed to the Order-level (Trombidiformes).
 500-count samples (+/- 20%). If any of your samples have more than 600 organisms, run your 
 dataset through the Rarify (subsampling) routine (600 is +20% of the 500-count 
 target), which is described below. The subsampling is done to make richness 
-metrics comparable across the 500-count samples.   Samples with leass an 400 organisms 
+metrics comparable across the 500-count samples.   Samples with less an 400 organisms 
 will be flagged for small sample size and should be investigated further before 
 accepting the model output.
 
@@ -633,7 +633,7 @@ The other function inputs are subsample size (target number of organisms in each
 sample) and seed. The seed is given so the results can be reproduced from the 
 same input file. If no seed is given a random seed is used.  An example seed is 
 the date of admission to the Union for each state where the data is collected 
-(e.g., Washinton is 18891111).  These values can be found on Wikipedia on the 
+(e.g., Washington is 18891111).  These values can be found on Wikipedia on the 
 right sidebar for each State.
 
 If you are running the 500-count BCG model and any of your samples have more 
@@ -717,8 +717,8 @@ You can select specific metrics one of two ways:
 1. If you know the names of the metrics, write them into the `metric.values`  function 
 R code as shown in Example #1 below; or 
 
-2. Run the ‘normal’ `metrics.values` R code for to generate an output that i
-ncludes the full set of metrics, then examine the results and run additional 
+2. Run the ‘normal’ `metrics.values` R code for to generate an output that 
+includes the full set of metrics, then examine the results and run additional 
 code as shown in Example # 2 to limit the output to the desired metrics.  
 
 #### Example 1
