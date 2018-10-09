@@ -353,7 +353,7 @@ on your own data).
 The code below uses the test data that is contained in the package and is already 
 of the proper format.
 
-If you decide to run the example below, the following five files will appear in 
+If you decide to run the example below, the following four files will appear in 
 your working directory.
 
 *	metrics.values.Test.tsv
@@ -655,20 +655,25 @@ the BCGcalc example code described previously in this document.
 library(BCGcalc)
 library(knitr)
 
-# Subsample to 500 organisms (from over 500 organisms) for 12 samples.
+# Subsample to 600 organisms (from over 600 organisms) for 12 samples.
 
 ## FileName
-fn.data <- data_bio2rarify
+### Package example
+df.data <- data_bio2rarify
+### Excel
 # wd <- "F:\\myDocs"
 # fn.data <- file.path(wd, "ExampleMunge_UnformatedData.xlsx")
+# readxl::read_excel(fn.data)
+### CSV
+# fn.data <- 
 # df.data <- read.csv(fn.data)
 #
-DF.biodata <- fn.data
+DF.biodata <- df.data
 #dim(DF.biodata)
 #View(DF.biodata)
 
 # subsample
-mySize <- 500
+mySize <- 600
 Seed.OR <- 18590214
 Seed.WA <- 18891111
 Seed.US <- 17760704
@@ -679,19 +684,19 @@ bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampleID"
 
 # Compare pre- and post- subsample counts
 df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampleID", "TaxaID")
-                    , suffixes = c("_Orig","_500"))
-df.compare <- df.compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_500")]
+                    , suffixes = c("_Orig","_600"))
+df.compare <- df.compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_600")]
 #View(df.compare)
 
 # compare totals
-tbl.totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_500) ~ SampleID, df.compare, sum)
+tbl.totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID, df.compare, sum)
 #View(tbl.totals)
 
 tbl.compare <- head(df.compare)
 tbl.compare.caption <- "First few rows of original and rarified data."
 kable(tbl.compare, caption=tbl.compare.caption)
 
-tbl.totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_500) ~ SampleID, df.compare, sum)
+tbl.totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID, df.compare, sum)
 tbl.totals.caption <- "Comparison of total individuals per sample."
 kable(tbl.totals, caption=tbl.totals.caption)
 

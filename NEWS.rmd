@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9033 (2018-10-09)
+
+* Update Vignette.
+    + Rarify section to 600.
+
 ## Changes in Version 1.2.2.9032 (2018-10-09)
 
 * Update Vignette.
