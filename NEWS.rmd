@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.2.2.9031 (2018-10-09)
+
+* Vignette Rules.xlsx.
+    + 300 count model edits.
+
 ## Changes in Version 1.2.2.9030 (2018-10-09)
 
 * Vignette updates.
