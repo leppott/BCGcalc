@@ -16,71 +16,76 @@ knitr::opts_chunk$set(
 )
 ```
 # Purpose
-The `BCGcalc` package was created to enable users to implement a model created Biological Condition Gradient and apply it to their data.  This vignette will cover the basics going from raw data to model results.
+The `BCGcalc` package was created to enable users to generate Biological Condition 
+Gradient (BCG) model outputs for macroinvertebrate data from freshwater wadeable 
+streams in the Puget Lowlands and Willamette Valley ecoregions (Stamp and 
+Gerritsen 2018). With modification, this R code can be used to generate outputs 
+for other BCG models as well. 
 
-Any of the code in this Vignette can be copy and pasted to an R session and it will produce the same results as shown here.  Each section of code (gray box) is independant such that no other code needs to be run except what is in that section.  Thus, there is some repetition of steps between sections.
+This vignette covers the basics going from raw data to model results. Any of the 
+code in this Vignette can be copied and pasted to an R session and it will produce 
+the same results as shown here. Each section of code (gray box) is independent 
+such that no other code needs to be run except what is in that section. Thus, 
+there is some repetition of steps between sections.
 
-No files are exported in the examples in the vignette.  All "write" statements have been commented out.  If you wish to save the output remove the "#" from before each line of code.  Several different "write" functions were used in the examples.  This was intentional such that intermediate files are output at TSV (tab-separated values) files and final results are output as CSV (comma-separated values) files.  Both formats will open in Excel.
+No files are exported in the examples in the vignette. All “write” statements 
+have been commented out. If you wish to save the output remove the “#” from 
+before each line of code. Several different “write” functions were used in the 
+examples. This was intentional such that intermediate files are output as TSV 
+(tab-separated values) files and final results are output as CSV (comma-separated 
+values) files. Both formats will open in Excel.
 
 # Background
-When applying the BCG, users should keep in mind that they can run any data through the model and get a result. However, if samples do not meet the criteria below, results should be interpreted with caution because they are outside the experience of the BCG model. 
+When applying the BCG, users should keep in mind that they can run any data 
+through the model and get a result. However, if samples for the Puget Lowlands 
+and Willamette Valley macroinvertebrate BCG model do not meet the criteria below, 
+results should be interpreted with caution because they are outside the 
+experience of this particular BCG model.
 
 ## Criteria
 *	Size: wadeable streams with drainage areas ranging from 1 to 100 mi2 
 
-*	Geographic area: Puget Lowlands (eco code 2) and Willamette Valley (eco code 3) EPA level3 ecoregions
+*	Geographic area: Puget Lowlands (eco code 2) and Willamette Valley (eco code 3) 
+EPA level3 ecoregions
 
-*	Stream type: freshwater, perennial; no unique habitats (such as springs and seeps)
+*	Stream type: freshwater, perennial; no unique habitats (such as springs and 
+seeps)
 
-*	Target number of organisms: 500-count (subsampled to 600 total individuals where needed)
+*	Target number of organisms: 500-count (subsampled to 600 total individuals 
+where needed)
 
 *	Sampling area: ≥8 ft2
 
-*	Level of taxonomic resolution: lowest practical level except for mites, which should be collapsed to the Order-level (Trombidiformes)
+*	Level of taxonomic resolution: lowest practical level except for mites, which 
+should be collapsed to the Order-level (Trombidiformes)
 
 *	Collection gear: D-Frame kick-nets with 500-micrometer net mesh
 
-*	Collection method: a targeted “riffle only” sampling scheme (like those used by King County and ODEQ) or WA ECY’s multi-habitat, ‘reach-wide’ sampling scheme
+*	Collection method: a targeted “riffle only” sampling scheme (like those used 
+by King County and ODEQ) or WA ECY’s multi-habitat, ‘reach-wide’ sampling scheme
 
 *	Collection period: July through October
 
-Results should be interpreted with caution if they are flagged for any of the criteria listed in Appendix A (e.g., brackish influence, extreme dominance by one or two taxa).
-
-## Input File
-The user must generate the input file to run through the BCGcalc R tool (which then calculates metric values, metric membership values, BCG level membership and BCG level assignments). The R code references the required fields (see Table 1) in the input file when making these calculations (note: when creating column headings in the input file, the user should utilize the naming scheme in the first column of Table 1). The BCG workgroup went through a lengthy process to reach consensus on the BCG attribute assignments (BCG_Attr) for the Puget Lowlands and Willamette Valley (Stamp and Gerritsen 2018). Several of the BCG rules are based on BCG attribute metrics. Thus, for the BCG model results to be accurate and valid, users should make sure the BCG attributes in their input file match with those that are in the Excel file titled ‘TaxaMaster_Bug_BCG_PacNW_v1.’ If the input file contains taxa that are not on this list, the user should enter the appropriate phylogenetic information and a ‘NA’ in the ‘BCG_Attr’ field.
-
-## Metric Calculations
-The BCGcalc R tool can be used to calculate a multitude of metrics (beyond the 12 that are used in the BCG model), including thermal indicator, FFG, habit, tolerance value and life cycle metrics. The BCG workgroup went through a lengthy process to reach consensus on the thermal indicator designations for the Puget Lowlands and Willamette Valley (Stamp and Gerritsen 2018) but did not address the other attributes at a regional scale. If the FFG, habit, tolerance value and life cycle attribute fields are utilized, those designations need to come from each entity. Users can calculate the full suite of metrics or adapt the code so that the output only includes a subset of metrics (for example, you may want to limit the output to only the 12 metrics used in the BCG model). Examples of R code that can be used to pull subsets of metrics can be found in the ‘Saving Specific Metrics’ section of the vignette.
-
-## Key Files
-
-*	vignette_BCGcalc – html file that covers the basics going from raw data to BCG model results
-
-*	TaxaMaster_Bug_BCG_PacNW_v1 – Excel file that is not referenced by the R code; rather its purpose is to help users create their input data files. The file contains the taxa list from the Puget Lowlands and Willamette Valley BCG project, and associated attribute information (NonTarget, BCG attribute, Thermal_Indicator, FFG, Habit, LifeCycle, TolVal). Important notes:
- 
-    +	When users create input files, they should make sure the BCG attribute assignments match with the designations in this file. 
-
-    +	Thermal_Indicator assignments were based on temperature tolerance analyses and expert elicitation for the Puget Lowlands and Willamette Valley.
-	For detailed information on how these designations were made, see the Excel file titled ‘PL_WV_ThermalIndicator_20180326’
-
-    +	Functional feeding group (FFG) assignments were compiled from ODEQ, WA ECY and the EPA National Aquatic Resource Surveys (NARS) (using majority rules; the BCG work group did not try to reach consensus on these)
-
-    +	The Habit, LifeCycle & TolVal fields (highlighted in red) have placeholders (the BCG work group did not try to reach consensus on these; if a user wants to generate metrics based on these fields, they will need to use their own data to populate these fields)
-
-*	MetricNames – Excel file that contains a list of all the potential metrics that can be calculated with the BCGcalc R tool. This file is not referenced by the R code.
-
-*	Rules - Excel file that contains worksheets with the BCG rules that the R code references; the worksheet titled ‘BCG_PacNW_v1_500ct’ is used for the 500-count model. 
-
-*	Data_BCG_PacNW – Excel file that is automatically uploaded to ‘extdata’ folder when you install the R package (on my computer, it is located here: C:\Programs\R\R-3.4.1\library\BCGcalc\extdata). It is an example of an input file (it contains data for the 678 samples that were in the BCG calibration dataset). You can use it as a template when you prepare your own input data for the R code. Column headings for required fields are highlighted in green.
+Results should be interpreted with caution if they are flagged for any of the 
+criteria listed in the ‘Flags’ section at the end of the vignette (e.g., 
+brackish influence, extreme dominance by one or two taxa).
 
 ## Disclaimer
-Version 1 of the BCG model has known limitations and will need further testing in coming years. The models should be regarded as beta versions, with potential for refinement over time as the models are used with new data.
+Version 1 of the Puget Lowlands and Willamette Valley macroinvertebrate BCG 
+model has known limitations and will need further testing in coming years. The 
+model should be regarded as a beta version, with potential for refinement over 
+time as the model is used with new data.
 
 ## Literature cited
-Stamp, J. and J. Gerritsen. 2018. Calibration of the Biological Condition Gradient (BCG) for Macroinvertebrate Assemblages in Puget Lowland/Willamette Valley Freshwater Wadeable Streams. Prepared by Tetra Tech for the US EPA Office of Water, Office of Science and Technology and US EPA Region 10
+Stamp, J. and J. Gerritsen. 2018. Calibration of the Biological Condition 
+Gradient (BCG) for Macroinvertebrate Assemblages in Puget Lowland/Willamette 
+Valley Freshwater Wadeable Streams. Prepared by Tetra Tech for the US EPA Office 
+of Water, Office of Science and Technology and US EPA Region 10.
 
-# Installing BCGcalc
-The package is hosted on GitHub (https://github.com/leppott/BCGcalc) and can be installed using the following lines of code.  It is necssary to install the `devtools` package.  
+# Installation
+The package is hosted on GitHub (https://github.com/leppott/BCGcalc) and can be 
+installed using the following lines of code. It is necssary to install the 
+`devtools` package.
 
 ```{r Pkg_Install, eval=FALSE}
 # Installing the BCGcalc library (with the vignette) from GitHub
@@ -89,73 +94,197 @@ install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
 # Help
-After the BCGcalc package has been installed running the following line of code will open the help file.
+After the BCGcalc package has been installed running the following line of code 
+will open the help file with links to all functions.
 ```{r Pkg_Help, eval=FALSE}
 help(package="BCGcalc")
 ```
 
+# ‘extdata’ files
+When you install the BCGcalc R package, the following files are contained in the 
+‘extdata’ folder in the BCGcalc library folder:
+
+* TaxaMaster_Bug_BCG_PacNW_v1 – this Excel file contains the master taxa list 
+from the Puget Lowlands and Willamette Valley BCG project, and associated 
+attribute information (NonTarget, BCG attribute, Thermal_Indicator, FFG, Habit, 
+LifeCycle, TolVal). This file is not referenced by the R code; rather its 
+purpose is to help users create their own input data files. 
+
+*	Rules - Excel file that contains worksheets with the BCG rules that the R code 
+references; the worksheet titled ‘BCG_PacNW_v1_500ct’ is used for the 500-count 
+model. The worksheet titled ‘BCG_PacNW_v1_300ct’ is used for the (preliminary) 
+300-count model.
+
+*	Data_BCG_PacNW – Excel file that can be used as a template for your input file. 
+It contains data for the 678 samples that were in the Puget Lowlands and 
+Willamette Valley BCG calibration dataset. Column headings for required fields 
+are highlighted in green.
+
+*	MetricNames – Excel file that contains a list of all the potential metrics 
+that can be calculated with the BCGcalc R tool. This file is not referenced by 
+the R code.
+
+*	MetricFlags - if any of these criteria are not met, the sample is flagged to 
+alerts users that the sample is unusual (e.g., brackish water, too few organisms, 
+reduced sampling effort). Results for flagged samples should be interpreted with 
+caution.
+
+*	PL_WV_ThermalIndicator_20180326 – detailed information on how the thermal 
+indicator designations were made for the Puget Lowlands and Willamette Valley, 
+using temperature tolerance analyses and expert elicitation. 
+
+*	ExampleMunge_Slope – see Example, New Data section below
+
+*	ExampleMunge_UnformatedData -  see Example, New Data section below
+
 # Data Preparation
-The user must generate the input file. The R code references the required fields (see Table 1 in the README file) in the input file when making these calculations. The BCG workgroup went through a lengthy process to reach consensus on the BCG attribute assignments (BCG_Attr) for the Puget Lowlands and Willamette Valley (Stamp and Gerritsen 2018). Several of the BCG rules are based on BCG attribute metrics. Thus, for the BCG model results to be accurate and valid, users should make sure the BCG attributes in their input file match with those that are in the Excel file titled ‘TaxaMaster_Bug_BCG_PacNW_v1.’ If the input file contains taxa that are not on this list, the user should enter the appropriate phylogenetic information and a ‘NA’ in the ‘BCG_Attr’ field
-
-The BCG model was calibrated for 500-count samples. If any of your samples have more than 600 organisms, run your dataset through the Rarify (subsampling) routine (600 is +20% of the 500-count target). This is done to make richness metrics comparable across the 500-count samples. A 300-count model is being developed as well.
-
-All benthic macroinvertebrate taxa should be identified to the appropriate operational taxonomic unit (OTU).  For example, all water mites should be only identified to order.  Any non-count taxa should be identified in the “Exclude” field as “TRUE”. These taxa will be excluded from taxa richness metrics (but will count for all others). Excluded taxa are ambiguous taxa (on a sample basis), i.e., the parent taxa when child taxa are present. For example, the parent taxa Chironomidae would be xcluded when the child taxa Tanytarsini is present.
-
-Both would be excluded when Tanytarsus is present. Any non-target taxa should be identified in the “NonTarget” field as “TRUE”. Non-target taxa are those that are not part of your intended capture list; e.g., fish, herps, water column taxa, or water surface taxa in a benthic sample. The target list will vary by program. The non-target taxa will be removed prior to any calculations. There are a number of required fields (see below) for metric to calculation.  If any fields are missing the user will be prompted as to which are missing and if the user wants to continue or quit. If the user continues the missing fields will be added but will be filled with zero or NA (as appropriate).  Any metrics based on the missing fields will not be valid.
+There are a number of required fields for the input file. If any fields are 
+missing the user will be prompted as to which are missing and the user can decide 
+whether to continue or quit. If the user continues, the missing fields will be 
+added but will be filled with zero or NA (as appropriate). Any metrics based on 
+the missing fields will not be valid.
 
 Required Fields:
 
 *	SAMPLEID
 
-    + character or number, must be unique
+    +	Unique sample identifier
+
+    +	Valid entries: character or number, must be unique
 
 *	TAXAID
 
-    + character or number, must be unique
+    +	Unique taxa identifier
+
+    + Valid entries: character or number, must be unique
 
 *	N_TAXA
 
+    + Number of individuals
+
+    + Valid entries: number
+
 *	EXCLUDE
 
-    + valid values are TRUE and FALSE
+    + Non-unique/non-distinct taxa are excluded from richness metric calculations 
+    but are counted in the other metrics. Appendix B of the ‘BCGcalc_README_20180919’ 
+    Word document describes the Excluded Taxa Decision Criteria that was used during 
+    BCG model calibration. 
 
-*	INDEX_NAME
+    + Valid entries: TRUE or FALSE 
 
-    + must match INDEX_NAME in Rules and Flags
-
-*	SITE_TYPE
-
-    + BCG or MMI site category; e.g., for BCG PacNW valid values are “hi” or “lo”
+    +	Non-unique/non-distinct taxa should be entered as "TRUE"
 
 *	NONTARGET
 
-    + valid values are TRUE and FALSE
+    +	Non-target taxa are not part of the intended capture list; e.g., fish, herps,
+    water column taxa.  They are excluded from all metric calculations.
+
+    +	Valid entries: TRUE or FALSE.
+    
+    + NonTarget taxa should be entered as "TRUE"
+
+*	INDEX_NAME
+
+    +	Name of the BCG rules worksheet in the ‘Rules’ file (in the ‘extdata’ folder) 
+    that the R code is referencing.
+
+    +	Valid entries for the Puget Lowlands/Willamette Valley model: 
+    BCG_PacNW_v1_500ct or BCG_PacNW_v1_300ct.
+
+*	SITE_TYPE
+
+    +	Select which BCG model to apply: Low (lo) gradient (<1% NHD+ v2 flowline 
+    slope) or high (hi) gradient (≥ 1% NHD+ v2 flowline slope).
+
+    +	Valid entries: “hi” or “lo”.
 
 *	PHYLUM, SUBPHYLUM, CLASS, ORDER, FAMILY, SUBFAMILY, TRIBE, GENUS
 
-*	FFG, HABIT, LIFE_CYCLE, TOLVAL, BCG_ATTR, THERMAL_INDICATOR
-
-    + Valid values for FFG: CG, CF, PR, SC, SH
+    +	Phylogeny (see source file ‘TaxaMaster_Bug_BCG_PacNW_v1’; note: this may 
+    not cover all of the taxa in your input file).
     
-    + Valid values for HABIT: BU, CB, CN, SP, SW
+    + Other phylogenetic rankings (e.g., SubOrder or SuperFamily) can be included 
+    but are not used in the current metric calculations.
+
+    +	Valid entries: text
+
+*	BCG_Attr
+
+    +	BCG attribute assignments for the Puget Lowlands and Willamette Valley 
+    (Stamp and Gerritsen 2018).
+
+    +	Valid entries: 1i, 1m, 2, 3, 4, 5, 6; if not available, leave blank or enter ‘NA’.
+
+*	FFG, HABIT, LIFE_CYCLE, TOLVAL, THERMAL_INDICATOR
+
+    +	FFG
     
-    + Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
+        - Valid values for FFG: CG, CF, PR, SC, SH
     
-    + Valid values for THERMAL_INDICATOR: COLD, COLD_COOL, COOL_WARM, WARM
+        - Function feeding group  entries in the ‘TaxaMaster_Bug_BCG_PacNW_v1’ 
+        file were compiled from ODEQ, WA ECY and the EPA National Aquatic Resource 
+        Surveys (NARS) but the BCG workgroup did not try to reach consensus.
+
+    +	HABIT
     
-Columns to keep are additional fields in the input file that the user wants retained in the output. Fields need to be those that are unique per sample and not associated with the taxa. For example, the fields used in qc.check(); Area_mi2, SurfaceArea, Density_m2, and Density_ft2.
+        - Valid values for HABIT: BU, CB, CN, SP, SW
+    
+        - Habit designations need to come from the user (the BCG workgroup did 
+        not attempt to reach regional consensus/reconcile differences across entities).
 
-It is recommended that the user reviews the following files when preparing their data: 
+    +	LIFE_CYLCE
+    
+        - Valid values for LIFE_CYCLE: UNI, SEMI, MULTI
 
-*	BCGcalc_README_20180919 (Word doc)
+        - Life cyle designations need to come from the user (the BCG workgroup did 
+        not attempt to reach regional consensus/reconcile differences across entities).
+    
+    + THERMAL_INDICATOR
+    
+        - Valid values for THERMAL_INDICATOR: COLD, COLD_COOL, COOL_WARM, WARM
+
+        - Specific to the Puget Lowlands and Willamette Valley. Detailed information 
+        on how the designations were made can be found in the 
+        PL_WV_ThermalIndicator_20180326 file in the ‘extdata’ folder.
 
-*	TaxaMaster_Bug_BCG_PacNW_v1 (Excel file) – make sure your BCG attribute assignments match these 
+Fields that are optional but encouraged: Area_mi2, SurfaceArea, Density_m2, 
+Density_ft2.  These fields are used for flagging unusual samples (see Flag 
+section below). The R code can be adapted to include these fields in the output 
+(see examples below). 
 
-*	Data_BCG_PacNW (Excel file) – could potentially be used as a template (green column headings are required fields)
+*Important!* 
 
-These files can be found in the ‘extdata’ folder after installing the package.
+* BCG_Attr: For the BCG model results to be accurate and valid, users should make 
+sure the BCG attributes in their input file match with those that are in the Excel 
+file titled ‘TaxaMaster_Bug_BCG_PacNW_v1.’ Several of the BCG rules are based on 
+BCG attribute metrics.The BCG workgroup went through a lengthy process to reach 
+consensus on the BCG attribute assignments (BCG_Attr) for the Puget Lowlands and 
+Willamette Valley (for more details, see Stamp and Gerritsen 2018). 
 
-The master taxa list is a data object in the package.  It can be viewed or saved with the code below.  
+*	Site type: the designations in the BCG calibration dataset were based on the 
+NHDPlus v2 flowline slope but users can also base their gradient designations on 
+other sources (such as reach-scale measurements). The 1% threshold should be 
+regarded as a fuzzy versus distinct line, as it represents a transitional zone 
+where streams likely share characteristics of both low and high gradient stream 
+types. Because of this, we recommend that users run sites with 0.5% to 1.5% slope 
+through both BCG models and report both sets of results. 
+
+*	Operational taxonomic units (OTUs): All benthic macroinvertebrate taxa should 
+be identified to the appropriate operational taxonomic unit (OTU). For the Puget 
+Lowlands/Willamette Valley BCG model, this is the lowest practical level except 
+for mites, which should be collapsed to the Order-level (Trombidiformes).
+
+*	Subsampling: The Puget Lowlands/Willamette Valley BCG model was calibrated for 
+500-count samples (+/- 20%). If any of your samples have more than 600 organisms, run your 
+dataset through the Rarify (subsampling) routine (600 is +20% of the 500-count 
+target), which is described below. The subsampling is done to make richness 
+metrics comparable across the 500-count samples.   Samples with leass an 400 organisms 
+will be flagged for small sample size and should be investigated further before 
+accepting the model output.
+
+The master taxa list is a data object in the package. It can be viewed or saved 
+with the code below.
 ```{r View_TaxaMaster, eval=FALSE}
 library(BCGcalc)
 
@@ -166,14 +295,19 @@ View(TaxaMaster_Ben_BCG_PacNW)
 ```
 
 The first few lines are also displayed below.
-```{r head_TaxaMaster, echo=FALSE, eval=TRUE}
+```{r Head_TaxaMaster, echo=FALSE, eval=TRUE}
 library(BCGcalc)
 library(knitr)
 kable(head(TaxaMaster_Ben_BCG_PacNW), caption="PacNW BCG Master Taxa")
 ```
 
+
 # Package Functions
-The suite of functions in the `BCGcalc` package are presented int two sections.  The first section will cover the core functions from metric calculation to model results.  The example will cover all steps in a single example.  Additional functions will be covered individually and each function will have its own self contained example.
+The suite of functions in the `BCGcalc` package are presented in two sections.  
+The first section will cover the core functions from metric calculation to model 
+results.  The example will cover all steps in a single example.  Additional 
+functions will be covered individually and each function will have its own self 
+contained example.
 
 1. BCG Core Functions
 
@@ -195,19 +329,32 @@ The suite of functions in the `BCGcalc` package are presented int two sections. 
 
     C. Flags
 
-## BCGcalc Core Functions
-Once your input file is formatted and ready to go, the next step is to run it through the R code. The R code generates BCG level assignments for each sample. Along the way it calculates the following: metric values, metric membership values, BCG level membership and BCG level assignments. It also adds flags to the BCG level assignment file. 
+## Core Functions
+Once your input file is formatted and ready to go, the next step is to run it 
+through the R code. The R code generates BCG level assignments for each sample. 
+Along the way it calculates the following: metric values, metric membership values, 
+BCG level membership and BCG level assignments. It also adds flags to the BCG 
+level assignment file. 
 
-Below are two examples of R code that can be used to generate BCG model outputs. This code is written for **500**-count samples (which is what the PacNW BCG model is calibrated for). 
+Below are two examples of R code that can be used to generate BCG model outputs. 
+This code is written for **500**-count samples (which is what the PacNW BCG model 
+is calibrated for). 
 
-The first example below is for test data that is automatically downloaded onto your computer when you install the BCGcalc R package. If it’s your first time running this code, and you are a novice R user, we recommend trying this code first (you can follow it verbatim, no edits needed, and it should generate the desired output).
+The first example below is for test data that is automatically downloaded onto 
+your computer when you install the BCGcalc R package. If it’s your first time 
+running this code, and you are a novice R user, we recommend trying this code 
+first (you can follow it verbatim, no edits needed, and it should generate the 
+desired output).
 
-The second example is for an ‘new’ data file (to simulate you running the R code on your own data). 
+The second example is for a ‘new’ data file (to simulate you running the R code 
+on your own data). 
 
 ### Example, Test Data
-The code below uses the test data that is contained in the package and is already of the proper format.
+The code below uses the test data that is contained in the package and is already 
+of the proper format.
 
-If you decide to run the example below, the following five files will appear in your working directory.
+If you decide to run the example below, the following five files will appear in 
+your working directory.
 
 *	metrics.values.Test.tsv
 
@@ -296,9 +443,20 @@ write.csv(df.Levels.Flags, "Levels.Flags.Test.csv")
 ```
 
 ### Example, New Data
-The flexibility of R allows the user to get data from a multitude of sources and then manipulate (munge) it to fit the format needed for the functions in `BCGcalc`.  The example below shows how to import a file, add slope from a 2nd file, and to make a few changes to the data in order to use it with the package.  When the data source is fixed this routine can be modified and then used on all future datasets to prepare them for use with `BCGcalc`.
+The flexibility of R allows the user to get data from a multitude of sources and 
+then manipulate (munge) it to fit the format needed for the functions in `BCGcalc`.  
+The example below shows how to import a file, add slope from a 2nd file, and to 
+make a few changes to the data in order to use it with the package.  When the 
+data source is fixed this routine can be modified and then used on all future 
+datasets to prepare them for use with `BCGcalc`.
 
-Before running this on your own data, you will need to update the directories, the name of the input file and potentially a few other fields. In this example, the input file is called ‘ExampleDataFile.xlsx’. Remember - when you type in your working directory (in this example, E:\\BCG_R10\\R_tool\\Example) that you either need two backslashes \\ or one forward slash /. If you copy and paste the directory from your Windows File Explorer window, it comes in as one backslash so you will need to manually correct this for the code to work.
+Before running this on your own data, you will need to update the directories, 
+the name of the input file and potentially a few other fields. In this example, 
+the input file is called ‘ExampleMunge_UnformatedData.xlsx’. Remember - when you type in 
+your working directory that you either need two backslashes "\\" or one forward 
+slash "/". If you copy and paste the directory from Windows File Explorer , it 
+comes in as one backslash so you will need to manually correct this for the code 
+to work.
 
 ```{r CoreFun_NewData, eval=FALSE}
 # Setup
@@ -458,18 +616,40 @@ write.csv(df.Levels.Flags, "Levels.Flags.New.csv")
 ```
 
 ## Additional (Optional) Functions
-There are some ancillary tasks that can be completed with the data that are a necessary part of data analysis and are included in the `BCGcalc` package for convenience.
+There are some ancillary tasks that are included in the `BCGcalc` package for 
+convenience.
 
 ### Subsample (Rarify)
-The `rarify` function subsamples count data to a fixed count per sample.  It takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a similar dataframe with revised Counts.  The names of the columns does not matter as they are specified in the code.  Any non-count taxa (e.g., fish in a bug sample) should be removed prior to using the `rarify` function.  The function code is from USEPA Corvallis John Van Sickle's R code for RIVPACS (v1.0, 2005-06-10) and was tweaked for the addition of a user provided seed so repeatable results can be obtained.
+The `rarify` function subsamples count data to a fixed count per sample.  It 
+takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a 
+similar dataframe with revised Counts.  The names of the columns does not matter 
+as they are specified in the code.  Any non-count taxa (e.g., fish in a bug sample) 
+should be removed prior to using the `rarify` function.  The function code is 
+from USEPA Corvallis John Van Sickle's R code for RIVPACS (v1.0, 2005-06-10) and 
+was tweaked for the addition of a user provided seed so repeatable results can 
+be obtained.
 
-The other function inputs are subsample size (target number of organisms in each sample) and seed. The seed is given so the results can be reproduced from the same input file. If no seed is given a random seed is used.  An example seed is the date of admission to the Union for each state where the data is collected (e.g., Washinton is 18891111).  These values can be found on Wikipedia on the right sidebar for each State.
+The other function inputs are subsample size (target number of organisms in each 
+sample) and seed. The seed is given so the results can be reproduced from the 
+same input file. If no seed is given a random seed is used.  An example seed is 
+the date of admission to the Union for each state where the data is collected 
+(e.g., Washinton is 18891111).  These values can be found on Wikipedia on the 
+right sidebar for each State.
 
-If you are running the 500-count BCG model and any of your samples have more than 600 organisms (the upper limit for the model), you should randomly subsample your data to 600 (600 is +20% of the 500-count target). This is done to make richness metrics comparable across the 500-count samples. You can do this with the Rarify routine.
+If you are running the 500-count BCG model and any of your samples have more 
+than 600 organisms (the upper limit for the model), you should randomly subsample 
+your data to 600 (600 is +20% of the 500-count target). This is done to make 
+richness metrics comparable across the 500-count samples. You can do this with 
+the Rarify routine.
 
-Before you run the code below on your own data, you’ll need to update the directories, the name of the input file and potentially a few other fields. In this example, the input file is called ‘ExampleMunge_UnformatedData.xlsx’. 
+Before you run the code below on your own data, you’ll need to update the 
+directories, the name of the input file and potentially a few other fields. In 
+this example, the input file is called ‘ExampleMunge_UnformatedData.xlsx’. 
 
-After you are done with the subsampling, bring the updated N_Taxa field into your input file (see example file titled ‘ExampleDataFile’; we retained the original data in an optional field called N_Taxa_orig). Then run your data file through the BCGcalc example code described previously in this document.
+After you are done with the subsampling, bring the updated N_Taxa field into your 
+input file (see example file titled ‘ExampleDataFile’; we retained the original 
+data in an optional field called N_Taxa_orig). Then run your data file through 
+the BCGcalc example code described previously in this document.
 
 ```{r Other_Rarify, eval=TRUE, echo=TRUE}
 library(BCGcalc)
@@ -521,17 +701,28 @@ kable(tbl.totals, caption=tbl.totals.caption)
 ```
 
 ### Metric Calculation, Save Specific Metrics
-You can adapt the code so that the metric calculation output only includes a subset of the metrics.
+You can adapt the code so that the metric calculation output only includes a 
+subset of the metrics.
 
-For example, you may only want to view the metrics that go into the BCG model calculation. Below are two examples of code for saving specific metrics -
+For example, you may only want to view the following metrics;
 
-*	BCG – this output is limited to the 12 metrics that go into the BCG model calculation
+* Metrics that go into the BCG model calculation (there are 12).  See example #1 
+below.
 
-*	Thermal indicator metrics (ti) – this has richness and percent composition metrics for thermal indicator taxa (c=cold, cc = cold/cool, cw = cool/warm, w= warm)
+* Thermal indicator metrics (ti), c=cold, cc = cold/cool, cw = cool/warm, w= warm.  
+See example #2 below.
 
-You can do this one of two ways.
+You can select specific metrics one of two ways: 
 
-1. Knowing the names of the metrics use them as input in the `metric.values` function.
+1. If you know the names of the metrics, write them into the `metric.values`  function 
+R code as shown in Example #1 below; or 
+
+2. Run the ‘normal’ `metrics.values` R code for to generate an output that i
+ncludes the full set of metrics, then examine the results and run additional 
+code as shown in Example # 2 to limit the output to the desired metrics.  
+
+#### Example 1
+Knowing the names of the metrics, use them as input in the metric.values function.
 
 ```{r MetricValues_Keep1}
 # Packages
@@ -557,10 +748,11 @@ col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
 # Ouput
 df.metval.bcg12 <- df.metval[, c(col.ID, col.met2keep)]
 # RMD table
-kable(head(df.metval.bcg12), caption = "Select Metrics, Method 1")
+kable(head(df.metval.bcg12), caption = "Select Metrics, Example 1")
 ```
 
-2. Examine the results file and select certain metrics to keep.
+#### Example 2
+Examine the results file and select certain metrics to keep.
 
 ```{r MetricValues_Keep2}
 # Packages
@@ -585,11 +777,13 @@ col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
 # Ouput
 df.metval.ci <- df.metval[, c(col.ID, col.met2keep)]
 # RMD table
-kable(head(df.metval.ci), caption = "Select Metrics, Method 2")
+kable(head(df.metval.ci), caption = "Select Metrics, Example 2")
 ```
 
 ### Flags
-Results should be interpreted with caution if they are flagged for any of the criteria listed below. If you run the BCGcalc code on the Test data above, columns with flags will be added into the file with the Level Assignments.
+Results should be interpreted with caution if they are flagged for any of the 
+criteria listed below. If you run the BCGcalc code on the Test data above, 
+columns with flags will be added into the file with the Level Assignments.
 
 The checks for hi and lo gradient are the same so only one set of checks is shown below.
 
