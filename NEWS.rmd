@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.0.9001 (2018-10-10)
+
+* Rules.xlsx
+    + Fix typos in "Numeric_Rules" field.  
+        - No impact on calculations.
+
 ## Changes in Version 1.3.0 (2018-10-09)
 
 * Release version.
