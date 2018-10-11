@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.1.9001 (2018-10-11)
+
+* Master Taxa List
+    + Turbellaria BCG Attribute.
+        - Change from "x" to "4" to match its synonym Trepaxonemata.
+
 ## Changes in Version 1.3.1 (2018-10-10)
 
 * Release version.
