@@ -1,0 +1,82 @@
+---
+title: "BCGcalc Map Results"
+author: "Erik.Leppo@tetratech.com"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette, BCGcalc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+<!-- Data is in vignettes\data folder  -->
+```{r rmd_setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Purpose
+Demonstrate how to create a map of model output.
+
+# Map
+Use `ggplot` to create a map from the example data included in `BCGcalc`.
+
+The example data only includes data from Washington.
+```{r BCGmap, results='asis', fig.height=6.5, fig.width=6.5}
+# Packages
+library(BCGcalc)
+library(ggplot2)
+library(readxl)
+
+
+# Calculate BCG model
+## Calculate Metrics
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                        , package="BCGcalc"))
+## Run Function
+myDF <- df.samps.bugs
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols) 
+## Import Rules
+df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
+                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+## Calculate Metric Memberships
+df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
+## Calculate Level Memberships
+df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+## Run Function
+df.Levels <- BCG.Level.Assignment(df.Level.Membership)
+
+
+# Add Lat-Long
+## Get unique stations
+df.stations <- as.data.frame(unique(df.samps.bugs[,c("SampleID", "Latitude", "Longitude")]))
+## Merge
+df.map <- merge(df.Levels, df.stations, by.x="SAMPLEID", by.y="SampleID", all.x=TRUE)
+## Level1 Name to Character
+df.map$Lev.1.Name <- as.character(df.map$Lev.1.Name)
+
+
+# Map
+## Map of OR and WA
+m1 <- ggplot(data = subset(map_data("state"), region %in% c("washington"))) + 
+            geom_polygon(aes(x=long, y=lat, group=group), fill="light gray", color="black") +
+            coord_fixed(1.3) + theme_void()
+
+## Add Points
+m1 <- m1 + geom_point(data=df.map
+                      , aes(Longitude, Latitude, shape=SITE_TYPE, color=Lev.1.Name))
+## Change shape
+m1 <- m1 + scale_shape_manual(name="Site Type", values=c(17,16))
+## Change colors
+m1 <- m1 + scale_colour_manual(name="Level 1 Assignment",values=c("green", "cyan", "blue", "orange", "red") )
+
+## Map Title
+m1 <- m1 + labs(title="Pacific Northwest BCG", subtitle="Example Samples, WA only")
+m1 <- m1 + theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust=0.5))
+
+## Display Map
+m1
+```
+
+

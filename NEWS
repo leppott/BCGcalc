@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-10-11 07:28:52
+2018-10-12 14:06:11
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-10-11 07:28:52
+    #> Last Update: 2018-10-12 14:06:11
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,15 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.2.9001 (2018-10-12)
+
+  - Mapping Vignette. Issue \#34.
+      - DESCRIPTION
+          - Add ggplot2 to Suggests
+      - extdata\_BCG\_PacNW.xlsx
+          - Add Latitude, Longitude, and COMID
+      - Create Vignette for mapping
 
 ## Changes in Version 1.3.2 (2018-10-11)
 
