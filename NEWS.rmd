@@ -50,6 +50,19 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.2.9002 (2018-10-12)
+
+* Add 8 additional metrics to metric.values
+    + MS DEQ, MBISQ 2015
+        _ pi_Hydro
+        - nt_NonIns
+        - pt_NonIns 
+        - pi_Tanyp 
+        - pt_tv_intol
+        - pt_tv_toler   
+        - pi_Colesens
+        - pi_COC2Chi
+
 ## Changes in Version 1.3.2.9001 (2018-10-12)
 
 * Mapping Vignette.  Issue #34.

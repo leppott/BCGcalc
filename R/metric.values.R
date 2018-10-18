@@ -586,6 +586,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , pi_EPT = sum(N_TAXA[ORDER == "Ephemeroptera" | 
                                      ORDER == "Trichoptera" | ORDER == "Plecoptera"], na.rm=TRUE)/ni_total
              , pi_Gast = sum(N_TAXA[CLASS == "Gastropoda"], na.rm=TRUE)/ni_total
+             , pi_Hydro = sum(N_TAXA[FAMILY = "Hydropsychidae"], na.rm=TRUE)/ni_total
              , pi_Iso = sum(N_TAXA[ORDER == "Isopoda"], na.rm=TRUE)/ni_total
              , pi_NonIns = sum(N_TAXA[CLASS != "Insecta" | is.na(CLASS)], na.rm=TRUE)/ni_total
              , pi_Odon = sum(N_TAXA[ORDER == "Odonata"], na.rm=TRUE)/ni_total
@@ -594,7 +595,6 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , pi_Trich = sum(N_TAXA[ORDER == "Trichoptera"], na.rm=TRUE)/ni_total
              #, pi_Tubif = sum(N_TAXA[FAMILY == "Tubificidae"], na.rm=TRUE)/ni_total
              # Cole2Odon,
-             # Colesensitive
              #CruMol
              #Crus
              #EphemNoCaen
@@ -618,6 +618,8 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , nt_Insect = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & CLASS == "Insecta"], na.rm = TRUE)
              , nt_Isop = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Isopoda"], na.rm = TRUE)
              , nt_Oligo = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & CLASS == "Oligochaeta"], na.rm = TRUE)
+             , nt_NonIns = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
+                            & (CLASS != "Insecta" | is.na(CLASS))], na.rm = TRUE)
              , nt_Pleco = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Plecoptera"], na.rm = TRUE)
              , nt_Ptero = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & GENUS == "Pteronarcys"], na.rm = TRUE)
              , nt_Trich = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Trichoptera"], na.rm = TRUE)
@@ -628,13 +630,20 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , nt_Chiro = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & FAMILY == "Chironomidae"], na.rm = TRUE)
              , pi_Chiro = ni_Chiro/ni_total
              , pi_Tanyt = sum(N_TAXA[TRIBE == "Tanytarsini"], na.rm=TRUE)/ni_total
+             , pi_Tanyp = sum(N_TAXA[SUBFAMILY == "Tanypondinae"], na.rm=TRUE)/ni_total
+             # 20181018, MS, not the best but need to get it working
+             , pi_COC2Chi = sum(N_TAXA[GENUS == "Chironomus" 
+                                       | GENUS=="Cricotopus" 
+                                       | GENUS=="Cricotopus/Orthocladius" 
+                                       | GENUS=="Orthocladius/Cricotopus" 
+                                       | GENUS=="Orthocladius"], na.rm=TRUE)/ni_Chiro
+             
              #,pi_CrCh2Chi  - cricotopus + chrionominus
              #,pi_Orth2Chi
              #,nt_Ortho
              #MB_pi_OrthocladiinaeCricotopusChironomus2Chironomidae
              #,pi-Tnyt2Chi,
-             # COC2Chi
-             # tanyp
+             # COC2Chi (Cricotopus, Orthocladius, Chironomus) [done 20181018]
              # tanyp2Chir
              # subfamily = Orthocladiinae
              # subfamily= tanypodinae
@@ -713,6 +722,10 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , pi_SimBtri = (sum(N_TAXA[FAMILY == "Simuliidae"], na.rm=TRUE) 
                             + sum(N_TAXA[TAXAID == "Baetis tricaudatus complex"]
                               , na.rm=TRUE))/ni_total
+             # 20181018, MS, sensitive Coleoptera & (Family is Null or not Hydrophyilidae)
+             , pi_Colesens = sum(N_TAXA[ORDER == "Coleoptera" 
+                             & (FAMILY!="Hydrophilidae" | is.na(FAMILY)==FALSE)], na.rm=TRUE)/ni_total
+        
              
              # Thermal Indicators ####
              ## nt_ti
@@ -743,12 +756,15 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , pt_EPT = nt_EPT/nt_total
              , pt_Gast = nt_Gast/nt_total
              , pt_Isop = nt_Isop/nt_total
+             , pt_NonIns = nt_NonIns/nt_total
              # , POET,,, NonIns,
 
              
              # tolerance ####
              , nt_tv_intol=dplyr::n_distinct(TAXAID[EXCLUDE!=TRUE & TOLVAL<=3], na.rm=TRUE)
-             , nt_tv_toler=dplyr::n_distinct(TAXAID[EXCLUDE!=TRUE & TOLVAL>=7], na.rm=TRUE)            
+             , nt_tv_toler=dplyr::n_distinct(TAXAID[EXCLUDE!=TRUE & TOLVAL>=7], na.rm=TRUE) 
+             , pt_tv_intol = nt_tv_intol/nt_total
+             , pt_tv_toler = nt_tv_toler/nt_total
              #,nt_tvfam_intol = dplyr::n_distinct(TAXAID[EXCLUDE!=TRUE & FAM_TV<=3 & !is.na(FAM_TV)])
              #,pi_tv_intolurb=sum(N_TAXA[TOLVAL<=3 & !is.na(TOLVAL)])/sum(N_TAXA[!is.na(TOLVAL)])
              
