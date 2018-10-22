@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-10-22 13:48:21
+2018-10-22 14:17:20
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-10-22 13:48:21
+    #> Last Update: 2018-10-22 14:17:20
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.2.9006 (2018-10-22)
+
+  - Metric calculation;
+      - pi\_Hydro
+          - Equal sign missing in equation (“=” instead of “==”).
 
 ## Changes in Version 1.3.2.9005 (2018-10-22)
 

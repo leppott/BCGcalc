@@ -586,7 +586,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , pi_EPT = sum(N_TAXA[ORDER == "Ephemeroptera" | 
                                      ORDER == "Trichoptera" | ORDER == "Plecoptera"], na.rm=TRUE)/ni_total
              , pi_Gast = sum(N_TAXA[CLASS == "Gastropoda"], na.rm=TRUE)/ni_total
-             , pi_Hydro = sum(N_TAXA[FAMILY = "Hydropsychidae"], na.rm=TRUE)/ni_total
+             , pi_Hydro = sum(N_TAXA[FAMILY == "Hydropsychidae"], na.rm=TRUE)/ni_total
              , pi_Iso = sum(N_TAXA[ORDER == "Isopoda"], na.rm=TRUE)/ni_total
              , pi_NonIns = sum(N_TAXA[CLASS != "Insecta" | is.na(CLASS)], na.rm=TRUE)/ni_total
              , pi_Odon = sum(N_TAXA[ORDER == "Odonata"], na.rm=TRUE)/ni_total
