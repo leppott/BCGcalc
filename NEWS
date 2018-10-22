@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-10-18 14:14:30
+2018-10-22 11:22:10
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-10-18 14:14:30
+    #> Last Update: 2018-10-22 11:22:10
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,21 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.2.9003 (2018-10-22)
+
+  - Fix metric calculation; na.rm=TRUE for sum. Issue \#37
+      - x\_HBI \_ If had any NA values for TolVal the final value was
+        NA.
+          - Added na.rm=TRUE to sum function for numerator.
+          - Denominator already included na.rm=TRUE.
+      - x\_D
+          - No effect as no records should be NA for count
+      - dominant calculation intermediate columns
+          - No effect as no records should be NA for count
+      - ni\_total
+          - No effect as no records should be NA for count
+      - All fish metrics (with “sum”)
 
 ## Changes in Version 1.3.2.9002 (2018-10-12)
 

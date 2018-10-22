@@ -503,25 +503,25 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
   
   # Summarise Top N
   df.dom01.sum <- dplyr::summarise(dplyr::group_by(df.dom01, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom01=sum(N_TAXA))
+                            , ni_dom01=sum(N_TAXA, na.rm = TRUE))
   df.dom02.sum <- dplyr::summarise(dplyr::group_by(df.dom02, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom02=sum(N_TAXA))
+                            , ni_dom02=sum(N_TAXA, na.rm = TRUE))
   df.dom03.sum <- dplyr::summarise(dplyr::group_by(df.dom03, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom03=sum(N_TAXA))
+                            , ni_dom03=sum(N_TAXA, na.rm = TRUE))
   df.dom04.sum <- dplyr::summarise(dplyr::group_by(df.dom04, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom04=sum(N_TAXA))
+                            , ni_dom04=sum(N_TAXA, na.rm = TRUE))
   df.dom05.sum <- dplyr::summarise(dplyr::group_by(df.dom05, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom05=sum(N_TAXA))
+                            , ni_dom05=sum(N_TAXA, na.rm = TRUE))
   df.dom06.sum <- dplyr::summarise(dplyr::group_by(df.dom06, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom06=sum(N_TAXA))
+                            , ni_dom06=sum(N_TAXA, na.rm = TRUE))
   df.dom07.sum <- dplyr::summarise(dplyr::group_by(df.dom07, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom07=sum(N_TAXA))
+                            , ni_dom07=sum(N_TAXA, na.rm = TRUE))
   df.dom08.sum <- dplyr::summarise(dplyr::group_by(df.dom08, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom08=sum(N_TAXA))
+                            , ni_dom08=sum(N_TAXA, na.rm = TRUE))
   df.dom09.sum <- dplyr::summarise(dplyr::group_by(df.dom09, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom09=sum(N_TAXA))
+                            , ni_dom09=sum(N_TAXA, na.rm = TRUE))
   df.dom10.sum <- dplyr::summarise(dplyr::group_by(df.dom10, SAMPLEID, INDEX_NAME, SITE_TYPE)
-                            , ni_dom10=sum(N_TAXA))
+                            , ni_dom10=sum(N_TAXA, na.rm = TRUE))
   df.dom02_NoJugaRiss_BCG_att456.sum <- dplyr::summarise(dplyr::group_by(df.dom02_NoJugaRiss_BCG_att456
                                                                        , SAMPLEID, INDEX_NAME, SITE_TYPE)
                                                        , ni_dom02_NoJugaRiss_BCG_att456=sum(N_TAXA))
@@ -568,7 +568,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              # one metric per line
              #
              # individuals ####
-             , ni_total=sum(N_TAXA)
+             , ni_total=sum(N_TAXA, na.rm = TRUE)
              , ni_Americo = sum(N_TAXA[GENUS == "Americorophium"], na.rm=TRUE)
              , ni_Gnorimo = sum(N_TAXA[GENUS == "Gnorimosphaeroma"], na.rm=TRUE)
              , ni_brackish= ni_Americo + ni_Gnorimo
@@ -855,14 +855,14 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
                           (1 * dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TOLVAL >= 1.5 & TOLVAL <= 4], na.rm = TRUE))
              #,x_HBI_num=sum(N_TAXA*TolVal)
              #,x_HBI_denom=sum(N_TAXA[!is.na(TolVal) & TolVal>0])
-             , x_HBI = -sum(N_TAXA * TOLVAL)/sum(N_TAXA[!is.na(TOLVAL) & TOLVAL > 0], na.rm=TRUE)
+             , x_HBI = -sum(N_TAXA * TOLVAL, na.rm=TRUE)/sum(N_TAXA[!is.na(TOLVAL) & TOLVAL > 0], na.rm=TRUE)
              # Shannon-Weiner
              , x_Shan_Num= sum(N_TAXA/log(ni_total), na.rm=TRUE)
              , x_Shan_e=x_Shan_Num/log(exp(1))
              , x_Shan_2=x_Shan_Num/log(2)
              , x_Shan_10=x_Shan_Num/log(10)
              #, x_D Simpson
-             , x_D=1-sum((N_TAXA/log(ni_total))^2)
+             , x_D=1-sum((N_TAXA/log(ni_total))^2, na.rm = TRUE)
              #, x_Hbe
              #, x_D_Mg Margalef
              #, x_H (Shannon)
@@ -1031,17 +1031,17 @@ metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust=FALS
                        # (can do metrics as one step but MBSS output has numerator so will get that as well)
                        #
                        # individuals, total
-                       ,ni_total=sum(TOTAL)
+                       ,ni_total=sum(TOTAL, na.rm = TRUE)
                        #
                        # percent individuals
                        # % RBS
-                       ,ni_rbs=sum(TOTAL[TYPE=="SUCKER" & PTOLR!="T"])
+                       ,ni_rbs=sum(TOTAL[TYPE=="SUCKER" & PTOLR!="T"], na.rm = TRUE)
                        ,pi_rbs=ni_rbs/ni_total
                        # Pct Brook Trout
-                       ,ni_brooktrout=sum(TOTAL[SPECIES=="BROOK TROUT"])
+                       ,ni_brooktrout=sum(TOTAL[SPECIES=="BROOK TROUT"], na.rm = TRUE)
                        ,pi_brooktrout=ni_brooktrout/ni_total
                        # Pct Sculpins
-                       ,ni_sculpin=sum(TOTAL[TYPE=="SCULPIN"])
+                       ,ni_sculpin=sum(TOTAL[TYPE=="SCULPIN"], na.rm = TRUE)
                        ,pi_sculpin=ni_sculpin/ni_total
                         #
                        # number of taxa
@@ -1050,17 +1050,17 @@ metric.values.fish <- function(myDF, SampleID, MetricNames=NULL, boo.Adjust=FALS
                       #
                        # Feeding
                        # % Lithophilic spawners
-                       ,ni_lithophil=sum(TOTAL[SILT=="Y"])
+                       ,ni_lithophil=sum(TOTAL[SILT=="Y"], na.rm = TRUE)
                        ,pi_lithophil=ni_lithophil/ni_total
                        # % gen, omn, invert
-                       , ni_genomninvrt=sum(TOTAL[TROPHIC_MBSS=="GE" | TROPHIC_MBSS=="OM" | TROPHIC_MBSS=="IV"])
+                       , ni_genomninvrt=sum(TOTAL[TROPHIC_MBSS=="GE" | TROPHIC_MBSS=="OM" | TROPHIC_MBSS=="IV"], na.rm = TRUE)
                        ,pi_genomninvrt=ni_genomninvrt / ni_total
                        # % insectivore
-                      ,ni_insectivore=sum(TOTAL[TROPHIC_MBSS=="IS"])
+                      ,ni_insectivore=sum(TOTAL[TROPHIC_MBSS=="IS"], na.rm = TRUE)
                        ,pi_insectivore= ni_insectivore/ ni_total
                       #
                       # Tolerance
-                      , ni_tv_toler= sum(TOTAL[PTOLR=="T"])
+                      , ni_tv_toler= sum(TOTAL[PTOLR=="T"], na.rm = TRUE)
                       , pi_tv_toler= ni_tv_toler/ni_total
                       #
                        # indices
