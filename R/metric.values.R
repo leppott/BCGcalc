@@ -855,14 +855,15 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
                           (1 * dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TOLVAL >= 1.5 & TOLVAL <= 4], na.rm = TRUE))
              #,x_HBI_num=sum(N_TAXA*TolVal)
              #,x_HBI_denom=sum(N_TAXA[!is.na(TolVal) & TolVal>0])
-             , x_HBI = -sum(N_TAXA * TOLVAL, na.rm=TRUE)/sum(N_TAXA[!is.na(TOLVAL) & TOLVAL > 0], na.rm=TRUE)
+             , x_HBI = sum(N_TAXA * TOLVAL, na.rm=TRUE)/sum(N_TAXA[!is.na(TOLVAL) & TOLVAL > 0], na.rm=TRUE)
              # Shannon-Weiner
-             , x_Shan_Num= sum(N_TAXA/log(ni_total), na.rm=TRUE)
-             , x_Shan_e=x_Shan_Num/log(exp(1))
-             , x_Shan_2=x_Shan_Num/log(2)
-             , x_Shan_10=x_Shan_Num/log(10)
+             #, x_Shan_Num= -sum(log(N_TAXA/ni_total)), na.rm=TRUE)
+             #, x_Shan_e=x_Shan_Num/log(exp(1))
+            , x_Shan_e = -sum((N_TAXA/ni_total)*log((N_TAXA/ni_total)), na.rm=TRUE)
+             , x_Shan_2=x_Shan_e/log(2)
+             , x_Shan_10=x_Shan_e/log(10)
              #, x_D Simpson
-             , x_D=1-sum((N_TAXA/log(ni_total))^2, na.rm = TRUE)
+             , x_D=1-sum((N_TAXA/ni_total)^2, na.rm = TRUE)
              #, x_Hbe
              #, x_D_Mg Margalef
              #, x_H (Shannon)

@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-10-22 11:22:10
+2018-10-22 12:17:04
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-10-22 11:22:10
+    #> Last Update: 2018-10-22 12:17:04
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,18 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.2.9004 (2018-10-22)
+
+  - Metric calculations;
+      - x\_HBI
+          - Remove negative sign. Issue \#37
+      - x\_Shan\_e, x\_Shan\_2, x\_Shan\_10
+          - Fix equation. Not properly calculating proportions.
+          - Drop use of x\_Shan\_Num. Use x\_Shan\_e then convert for
+            other log bases.
+      - x\_D
+          - Fix equation.
 
 ## Changes in Version 1.3.2.9003 (2018-10-22)
 

@@ -50,6 +50,17 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.2.9004 (2018-10-22)
+
+* Metric calculations; 
+    + x_HBI
+        - Remove negative sign.  Issue #37
+    + x_Shan_e, x_Shan_2, x_Shan_10
+        - Fix equation.  Not properly calculating proportions.
+        - Drop use of x_Shan_Num.  Use x_Shan_e then convert for other log bases.
+    + x_D
+        - Fix equation.
+
 ## Changes in Version 1.3.2.9003 (2018-10-22)
 
 * Fix metric calculation; na.rm=TRUE for sum.  Issue #37
