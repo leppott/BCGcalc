@@ -630,7 +630,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , nt_Chiro = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & FAMILY == "Chironomidae"], na.rm = TRUE)
              , pi_Chiro = ni_Chiro/ni_total
              , pi_Tanyt = sum(N_TAXA[TRIBE == "Tanytarsini"], na.rm=TRUE)/ni_total
-             , pi_Tanyp = sum(N_TAXA[SUBFAMILY == "Tanypondinae"], na.rm=TRUE)/ni_total
+             , pi_Tanyp = sum(N_TAXA[SUBFAMILY == "Tanypodinae"], na.rm=TRUE)/ni_total
              # 20181018, MS, not the best but need to get it working
              , pi_COC2Chi = sum(N_TAXA[GENUS == "Chironomus" 
                                        | GENUS=="Cricotopus" 
