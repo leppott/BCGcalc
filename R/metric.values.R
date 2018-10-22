@@ -724,7 +724,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
                               , na.rm=TRUE))/ni_total
              # 20181018, MS, sensitive Coleoptera & (Family is Null or not Hydrophyilidae)
              , pi_Colesens = sum(N_TAXA[ORDER == "Coleoptera" 
-                             & (FAMILY!="Hydrophilidae" | is.na(FAMILY)==FALSE)], na.rm=TRUE)/ni_total
+                             & (FAMILY!="Hydrophilidae" | is.na(FAMILY)==TRUE)], na.rm=TRUE)/ni_total
         
              
              # Thermal Indicators ####
