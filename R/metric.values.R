@@ -797,22 +797,22 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              #(need to be wild card)
              ## nt_habit
              , nt_habit_burrow = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_BU == TRUE], na.rm = TRUE)
-             , nt_habit_clmbrs = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_CB == TRUE], na.rm = TRUE)
-             , nt_habit_clngrs = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_CN == TRUE], na.rm = TRUE)
+             , nt_habit_climb = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_CB == TRUE], na.rm = TRUE)
+             , nt_habit_cling = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_CN == TRUE], na.rm = TRUE)
              , nt_habit_sprawl = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_SP == TRUE], na.rm = TRUE)
              , nt_habit_swmmrs = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_SW == TRUE], na.rm = TRUE)
              ## pi_habit
              , pi_habit_burrow = sum(N_TAXA[HABIT_BU == TRUE], na.rm=TRUE)/ni_total
-             , pi_habit_clmbrs = sum(N_TAXA[HABIT_CB == TRUE], na.rm=TRUE)/ni_total
-             , pi_habit_clngrs = sum(N_TAXA[HABIT_CN == TRUE], na.rm=TRUE)/ni_total
+             , pi_habit_climb = sum(N_TAXA[HABIT_CB == TRUE], na.rm=TRUE)/ni_total
+             , pi_habit_cling = sum(N_TAXA[HABIT_CN == TRUE], na.rm=TRUE)/ni_total
              , pi_habit_sprawl = sum(N_TAXA[HABIT_SP == TRUE], na.rm=TRUE)/ni_total
-             , pi_habit_swmmrs = sum(N_TAXA[HABIT_SW == TRUE], na.rm=TRUE)/ni_total
+             , pi_habit_swim = sum(N_TAXA[HABIT_SW == TRUE], na.rm=TRUE)/ni_total
               # pt for each
              , pt_habit_burrow = nt_habit_burrow/ni_total
-             , pt_habit_clmbrs = nt_habit_clmbrs/ni_total
-             , pt_habit_clngrs = nt_habit_clngrs/ni_total
+             , pt_habit_climb = nt_habit_clmbrs/ni_total
+             , pt_habit_cling = nt_habit_clngrs/ni_total
              , pt_habit_sprawl = nt_habit_sprawl/ni_total
-             , pt_habit_swmmrs = nt_habit_swmmrs/ni_total
+             , pt_habit_swim = nt_habit_swmmrs/ni_total
      
             
              # Life Cycle ####
@@ -853,9 +853,9 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              #,x_Becks.CLASS2=n_distinct(N_TAXA[EXCLUDE!=TRUE & TolVal>=2.5 & TolVal<=4])
              , x_Becks = (2 * dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TOLVAL >= 0 & TOLVAL < 1.5], na.rm = TRUE)) + 
                           (1 * dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & TOLVAL >= 1.5 & TOLVAL <= 4], na.rm = TRUE))
-             #,x_HBI_num=sum(N_TAXA*TolVal)
-             #,x_HBI_denom=sum(N_TAXA[!is.na(TolVal) & TolVal>0])
-             , x_HBI = sum(N_TAXA * TOLVAL, na.rm=TRUE)/sum(N_TAXA[!is.na(TOLVAL) & TOLVAL > 0], na.rm=TRUE)
+             #,x_HBI_numer=sum(N_TAXA*TOLVAL, na.rm=TRUE)
+             #,x_HBI_denom=sum(N_TAXA[!is.na(TOLVAL) & TOLVAL>=0], na.rm=TRUE)
+             , x_HBI = sum(N_TAXA * TOLVAL, na.rm=TRUE)/sum(N_TAXA[!is.na(TOLVAL) & TOLVAL >= 0], na.rm=TRUE)
              # Shannon-Weiner
              #, x_Shan_Num= -sum(log(N_TAXA/ni_total)), na.rm=TRUE)
              #, x_Shan_e=x_Shan_Num/log(exp(1))
