@@ -50,6 +50,21 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.2.9010 (2018-11-07)
+
+* Metric calculations, additional metrics.
+    + metric.values.R
+        - nt_Ephemerellidae
+        - nt_Heptageniidae
+        - nt_Nemouridae
+        - nt_Perlidae
+        - nt_Rhyacophila
+        - nt_Tipulidae
+    + MetricNames.xlsx
+* Fix error with habit metric names.
+    + metric.values.R
+    + MetricNames.xlsx
+
 ## Changes in Version 1.3.2.9009 (2018-10-23)
 
 * Metric calculation;

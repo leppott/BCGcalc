@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-10-23 10:00:10
+2018-11-07 13:36:22
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-10-23 10:00:10
+    #> Last Update: 2018-11-07 13:36:22
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,21 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.2.9010 (2018-11-07)
+
+  - Metric calculations, additional metrics.
+      - metric.values.R
+          - nt\_Ephemerellidae
+          - nt\_Heptageniidae
+          - nt\_Nemouridae
+          - nt\_Perlidae
+          - nt\_Rhyacophila
+          - nt\_Tipulidae
+      - MetricNames.xlsx
+  - Fix error with habit metric names.
+      - metric.values.R
+      - MetricNames.xlsx
 
 ## Changes in Version 1.3.2.9009 (2018-10-23)
 

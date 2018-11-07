@@ -612,18 +612,25 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , nt_Deca = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Decapoda"], na.rm = TRUE)
              , nt_Dipt = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Diptera"], na.rm = TRUE)
              , nt_Ephem = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Ephemeroptera"], na.rm = TRUE)
+             , nt_Ephemerellid = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & FAMILY == "Ephemerellidae"], na.rm = TRUE)
              , nt_EPT = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
                         & (ORDER == "Ephemeroptera" | ORDER == "Trichoptera" | ORDER == "Plecoptera")], na.rm = TRUE)
              , nt_Gast = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & CLASS == "Gastropoda"], na.rm = TRUE)
+             , nt_Hepta = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & FAMILY == "Heptageniidae"], na.rm = TRUE)
              , nt_Insect = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & CLASS == "Insecta"], na.rm = TRUE)
              , nt_Isop = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Isopoda"], na.rm = TRUE)
-             , nt_Oligo = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & CLASS == "Oligochaeta"], na.rm = TRUE)
+             , nt_Nemour = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & FAMILY == "Nemouridae"], na.rm = TRUE)
              , nt_NonIns = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE 
                             & (CLASS != "Insecta" | is.na(CLASS))], na.rm = TRUE)
+             , nt_Oligo = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & CLASS == "Oligochaeta"], na.rm = TRUE)
+             , nt_Perlid = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & FAMILY == "Perlidae"], na.rm = TRUE)
              , nt_Pleco = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Plecoptera"], na.rm = TRUE)
              , nt_Ptero = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & GENUS == "Pteronarcys"], na.rm = TRUE)
+             , nt_Rhya = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & GENUS == "Rhyacophila"], na.rm = TRUE)
+             , nt_Tipulid= dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & FAMILY == "Tipulidae"], na.rm = TRUE)
              , nt_Trich = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & ORDER == "Trichoptera"], na.rm = TRUE)
              # ,intolMol, , POET, Tubif
+             
              
              # Midges ####
              , ni_Chiro = sum(N_TAXA[FAMILY == "Chironomidae"], na.rm=TRUE)
@@ -800,7 +807,7 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , nt_habit_climb = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_CB == TRUE], na.rm = TRUE)
              , nt_habit_cling = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_CN == TRUE], na.rm = TRUE)
              , nt_habit_sprawl = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_SP == TRUE], na.rm = TRUE)
-             , nt_habit_swmmrs = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_SW == TRUE], na.rm = TRUE)
+             , nt_habit_swim = dplyr::n_distinct(TAXAID[EXCLUDE != TRUE & HABIT_SW == TRUE], na.rm = TRUE)
              ## pi_habit
              , pi_habit_burrow = sum(N_TAXA[HABIT_BU == TRUE], na.rm=TRUE)/ni_total
              , pi_habit_climb = sum(N_TAXA[HABIT_CB == TRUE], na.rm=TRUE)/ni_total
@@ -809,10 +816,10 @@ metric.values.bugs <- function(myDF, MetricNames=NULL, boo.Adjust=FALSE, cols2ke
              , pi_habit_swim = sum(N_TAXA[HABIT_SW == TRUE], na.rm=TRUE)/ni_total
               # pt for each
              , pt_habit_burrow = nt_habit_burrow/ni_total
-             , pt_habit_climb = nt_habit_clmbrs/ni_total
-             , pt_habit_cling = nt_habit_clngrs/ni_total
+             , pt_habit_climb = nt_habit_climb/ni_total
+             , pt_habit_cling = nt_habit_cling/ni_total
              , pt_habit_sprawl = nt_habit_sprawl/ni_total
-             , pt_habit_swim = nt_habit_swmmrs/ni_total
+             , pt_habit_swim = nt_habit_swim/ni_total
      
             
              # Life Cycle ####
