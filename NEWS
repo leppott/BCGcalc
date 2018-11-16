@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-11-07 13:36:22
+2018-11-16 15:57:32
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-11-07 13:36:22
+    #> Last Update: 2018-11-16 15:57:32
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,27 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.2.9011 (2018-11-15)
+
+  - rarify, move to another package, Issue \#40
+      - Moved to separate package.  
+        \_ <https://github.com/leppott/BioMonTools>
+          - BioMonTools is for bioassessment and biomonitoring.
+          - ContDataQC should stay focused on continuous data.
+      - DESCRIPTION
+          - Add Remote: leppott/BioMonTools
+          - Remove Jon van Sickles as contributor since removed rarify
+            function.
+      - Vignette
+          - rarify section updated.
+      - R/data.R
+          - Remove reference to data\_bio2rarify
+      - Remove
+          - R/rarify.R
+          - data-raw/ProcessData\_rarify.R
+          - data-raw/ 3 data files
+          - data/data\_bio2rarify.rda
 
 ## Changes in Version 1.3.2.9010 (2018-11-07)
 

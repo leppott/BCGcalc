@@ -627,7 +627,7 @@ as they are specified in the code.  Any non-count taxa (e.g., fish in a bug samp
 should be removed prior to using the `rarify` function.  The function code is 
 from USEPA Corvallis John Van Sickle's R code for RIVPACS (v1.0, 2005-06-10) and 
 was tweaked for the addition of a user provided seed so repeatable results can 
-be obtained.
+be obtained.  It is inlcuded in the package BioMonTools (https://github.com/leppott/BioMonTools).
 
 The other function inputs are subsample size (target number of organisms in each 
 sample) and seed. The seed is given so the results can be reproduced from the 
@@ -654,51 +654,49 @@ the BCGcalc example code described previously in this document.
 ```{r Other_Rarify, eval=TRUE, echo=TRUE}
 library(BCGcalc)
 library(knitr)
+library(BioMonTools)
 
 # Subsample to 600 organisms (from over 600 organisms) for 12 samples.
 
 ## FileName
 ### Package example
-df.data <- data_bio2rarify
+df_data <- BioMonTools::data_bio2rarify
 ### Excel
 # wd <- "F:\\myDocs"
-# fn.data <- file.path(wd, "ExampleMunge_UnformatedData.xlsx")
+# fn_data <- file.path(wd, "ExampleMunge_UnformatedData.xlsx")
 # readxl::read_excel(fn.data)
 ### CSV
-# fn.data <- 
-# df.data <- read.csv(fn.data)
+# fn_data <- 
+# df_data <- read.csv(fn_data)
 #
-DF.biodata <- df.data
-#dim(DF.biodata)
-#View(DF.biodata)
+df_biodata <- df_data
+#dim(df_biodata)
+#View(df_biodata)
 
 # subsample
 mySize <- 600
-Seed.OR <- 18590214
-Seed.WA <- 18891111
-Seed.US <- 17760704
-bugs.mysize <- rarify(inbug=DF.biodata, sample.ID="SampleID"
-                     ,abund="N_Taxa",subsiz=mySize, mySeed=Seed.US)
+Seed_OR <- 18590214
+Seed_WA <- 18891111
+Seed_US <- 17760704
+bugs_mysize <- BioMonTools::rarify(inbug=df_biodata, sample.ID="SampleID"
+                     ,abund="N_Taxa",subsiz=mySize, mySeed=Seed_US)
 #dim(bugs.mysize)
 #View(bugs.mysize)
 
 # Compare pre- and post- subsample counts
-df.compare <- merge(DF.biodata, bugs.mysize, by=c("SampleID", "TaxaID")
+df_compare <- merge(df_biodata, bugs_mysize, by=c("SampleID", "TaxaID")
                     , suffixes = c("_Orig","_600"))
-df.compare <- df.compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_600")]
+df_compare <- df_compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_600")]
 #View(df.compare)
 
 # compare totals
-tbl.totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID, df.compare, sum)
-#View(tbl.totals)
+tbl_compare <- head(df_compare)
+tbl_compare_caption <- "First few rows of original and rarified data."
+kable(tbl_compare, caption=tbl_compare_caption)
 
-tbl.compare <- head(df.compare)
-tbl.compare.caption <- "First few rows of original and rarified data."
-kable(tbl.compare, caption=tbl.compare.caption)
-
-tbl.totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID, df.compare, sum)
-tbl.totals.caption <- "Comparison of total individuals per sample."
-kable(tbl.totals, caption=tbl.totals.caption)
+tbl_totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID, df_compare, sum)
+tbl_totals_caption <- "Comparison of total individuals per sample."
+kable(tbl_totals, caption=tbl_totals_caption)
 
 # save the data
 #write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")

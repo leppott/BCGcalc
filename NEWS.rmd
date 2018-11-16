@@ -50,6 +50,26 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.2.9011 (2018-11-15)
+
+* rarify, move to another package, Issue #40
+    + Moved to separate package.  
+        _ https://github.com/leppott/BioMonTools
+        - BioMonTools is for bioassessment and biomonitoring.
+        - ContDataQC should stay focused on continuous data.
+    + DESCRIPTION
+        - Add Remote: leppott/BioMonTools
+        - Remove Jon van Sickles as contributor since removed rarify function.
+    + Vignette
+        - rarify section updated.
+    + R/data.R
+        - Remove reference to data_bio2rarify
+    + Remove
+        - R/rarify.R
+        - data-raw/ProcessData_rarify.R
+        - data-raw/ 3 data files
+        - data/data_bio2rarify.rda
+
 ## Changes in Version 1.3.2.9010 (2018-11-07)
 
 * Metric calculations, additional metrics.
