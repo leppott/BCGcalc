@@ -50,6 +50,10 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.3.9001 (2018-11-19)
+
+* Update ReadMe for BioMonTools::metric.values.  Issue #41.
+
 ## Changes in Version 1.3.3 (2018-11-19)
 
 * Update version have changes related to moving functions to the BioMonTools package.

@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2018-09-27 08:44:08
+2018-11-19 09:05:49
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-09-27 08:44:08
+    #> Last Update: 2018-11-19 09:05:49
 
 # BCGcalc
 
@@ -137,6 +137,7 @@ library(BCGcalc)
 library(readxl)
 library(reshape2)
 library(knitr)
+library(BioMonTools)
 
 df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
                                        , package="BCGcalc"))
