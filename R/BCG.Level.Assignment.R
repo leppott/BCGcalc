@@ -36,15 +36,19 @@
 #' # Show Results
 #' View(df.Levels)
 #' 
+#' \dontrun{
 #' # Save Results
 #' write.table(df.Levels, "Levels.tsv"
 #'             , row.names=FALSE, col.names=TRUE, sep="\t")
+#' }
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~
+#' 
 #' # Example Data
 #' 
 #' library(readxl)
-#' library(reshape2)
+#' library(reshape2) 
+#' library(BioMonTools)
 #' 
 #' # Calculate Metrics
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"

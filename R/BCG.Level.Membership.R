@@ -20,6 +20,7 @@
 #' 
 #' @examples
 #' library(readxl)
+#' library(BioMonTools)
 #' 
 #' # Calculate Metrics
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"

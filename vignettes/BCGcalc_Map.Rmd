@@ -27,7 +27,7 @@ The example data only includes data from Washington.
 library(BCGcalc)
 library(ggplot2)
 library(readxl)
-
+library(BioMonTools)
 
 # Calculate BCG model
 ## Calculate Metrics
@@ -56,6 +56,9 @@ df.map <- merge(df.Levels, df.stations, by.x="SAMPLEID", by.y="SampleID", all.x=
 ## Level1 Name to Character
 df.map$Lev.1.Name <- as.character(df.map$Lev.1.Name)
 
+# Palette, Color Blind
+## http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+pal_cb <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
 
 # Map
 ## Map of OR and WA
@@ -69,7 +72,9 @@ m1 <- m1 + geom_point(data=df.map
 ## Change shape
 m1 <- m1 + scale_shape_manual(name="Site Type", values=c(17,16))
 ## Change colors
-m1 <- m1 + scale_colour_manual(name="Level 1 Assignment",values=c("green", "cyan", "blue", "orange", "red") )
+m1 <- m1 + scale_colour_manual(name="Level 1 Assignment"
+                               #, values=c("green", "cyan", "blue", "orange", "red") )
+                               , values=pal_cb)
 
 ## Map Title
 m1 <- m1 + labs(title="Pacific Northwest BCG", subtitle="Example Samples, WA only")

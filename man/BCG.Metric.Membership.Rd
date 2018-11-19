@@ -20,10 +20,12 @@ Returns a data frame of results in the long format.
 Biological Condition Gradient fuzzy membership for metrics.
 }
 \details{
-used reshape2 package.....
+Converts metric values into BCG membership values.  
+Uses a rules table to define the metrics, scoring range, and direction for each named index.
 }
 \examples{
 library(readxl)
+library(BioMonTools)
 
 # Calculate Metrics
 df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"

@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-11-16 15:57:32
+2018-11-19 08:38:07
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-11-16 15:57:32
+    #> Last Update: 2018-11-19 08:38:07
 
 # Future Possibile Features (Wish List)
 
@@ -46,13 +46,40 @@ BCGcalc-NEWS
 
 # Version History
 
+## Changes in Version 1.3.2.9012 (2018-11-19)
+
+  - metric.values, move to another package, Issue \#40
+      - Moved to separate package. \_
+        <https://github.com/leppott/BioMonTools>
+          - BioMonTools is for bioassessment and biomonitoring.
+          - ContDataQC should stay focused on continuous data.  
+      - Vignette
+          - Updated each section with metric.values
+          - BCGcalc\_Map.rmd
+          - vignette\_BCGcalc.rmd
+      - R/data.R
+          - Keep example data since specific to BCG project
+      - Remove
+          - R/metric.values.R
+      - Update function examples.
+          - Add library(BioMonTools)
+          - qc.checks.R
+          - BCG.Metric.Membership.R
+          - BCG.Level.Membership.R
+          - BCG.Level.Assignment.R
+  - Update map colors, Issue \#35.
+  - BCG.Metric.Membership.R
+      - Update details.
+  - BCG.Level.Assignment.R
+      - Add don’t run to simple example for write.csv.
+
 ## Changes in Version 1.3.2.9011 (2018-11-15)
 
   - rarify, move to another package, Issue \#40
       - Moved to separate package.  
         \_ <https://github.com/leppott/BioMonTools>
           - BioMonTools is for bioassessment and biomonitoring.
-          - ContDataQC should stay focused on continuous data.
+          - BCGcalc should stay focused on BCG models.
       - DESCRIPTION
           - Add Remote: leppott/BioMonTools
           - Remove Jon van Sickles as contributor since removed rarify

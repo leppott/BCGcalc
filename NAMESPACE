@@ -3,8 +3,4 @@
 export(BCG.Level.Assignment)
 export(BCG.Level.Membership)
 export(BCG.Metric.Membership)
-export(metric.values)
-export(metric.values.algae)
-export(metric.values.bugs)
-export(metric.values.fish)
 export(qc.checks)

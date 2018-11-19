@@ -3,10 +3,8 @@
 #' @description Enables users to employ various tools and calculations related to BCG. 
 #' 
 #' @section BCGcal functions:
-#' metric.values
-#' qc.checks
-#' rarify
-#' ...
+#' #' qc.checks
+#' #' ...
 #'
 #' @docType package
 #' @name BCGcalc
