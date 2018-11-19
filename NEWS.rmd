@@ -50,6 +50,10 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.3 (2018-11-19)
+
+* Update version have changes related to moving functions to the BioMonTools package.
+
 ## Changes in Version 1.3.2.9012 (2018-11-19)
 
 * metric.values, move to another package, Issue #40
