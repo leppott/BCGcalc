@@ -50,6 +50,13 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.3.9002 (2018-11-19)
+
+* /extdata/Data_BCG_PacNW.xlsx
+    + Update Exclude column after QC with BioMonTools::markExcluded
+        - Change 6 FALSE to TRUE
+        - Change 1 TRUE to FALSE
+
 ## Changes in Version 1.3.3.9001 (2018-11-19)
 
 * Update ReadMe for BioMonTools::metric.values.  Issue #41.
