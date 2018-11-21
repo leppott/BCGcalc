@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-11-21 07:45:37
+2018-11-21 08:38:58
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-11-21 07:45:37
+    #> Last Update: 2018-11-21 08:38:58
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.3.9005 (2018-11-21)
+
+  - BioMonTools dependancy not installing.
+      - Move Remote up in listing in DESCRIPTION.
+      - Renamed Remote to Remotes.
 
 ## Changes in Version 1.3.3.9004 (2018-11-21)
 
