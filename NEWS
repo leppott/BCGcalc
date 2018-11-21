@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-11-20 14:57:31
+2018-11-21 07:45:37
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-11-20 14:57:31
+    #> Last Update: 2018-11-21 07:45:37
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.3.9004 (2018-11-21)
+
+  - Add BioMonTools to Imports so will auto install.
+      - Had removed at some point since don’t use the functions in any
+        BCGcalc functions.
 
 ## Changes in Version 1.3.3.9003 (2018-11-20)
 
