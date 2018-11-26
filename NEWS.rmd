@@ -50,11 +50,16 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9003 (2018-11-26)
+
+* Last update not complete before uploaded.
+
 ## Changes in Version 1.3.4.9002 (2018-11-26)
 
 * Move qc.checks to BioMonTools package.  Issue #44
     + Remove qc.checks.R
     + Update Vignette.
+* Update read_excel with guess_max=10^6 for bio data file.
 
 ## Changes in Version 1.3.4.9001 (2018-11-26)
 
