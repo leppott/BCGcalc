@@ -32,7 +32,8 @@ library(BioMonTools)
 # Calculate BCG model
 ## Calculate Metrics
 df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc"))
+                                        , package="BCGcalc")
+                            , guess_max = 10^6)
 ## Run Function
 myDF <- df.samps.bugs
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")

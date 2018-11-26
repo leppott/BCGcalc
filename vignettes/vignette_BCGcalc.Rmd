@@ -327,7 +327,7 @@ contained example.
     
     B. Metric Calculation, Save Specific Metrics
 
-    C. Flags
+    C. Flags (BioMonTools package)
 
 ## Core Functions
 Once your input file is formatted and ready to go, the next step is to run it 
@@ -373,7 +373,8 @@ library(BioMonTools)
 
 # Import
 df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc"))
+                                        , package="BCGcalc")
+                            , guess_max = 10^6)
 
 # QC for TRUE/FALSE (both ok) 
 # Exclude to TRUE/FALSE
@@ -395,7 +396,8 @@ write.table(df.metrics, "Metric.Values.Test.tsv", col.names=TRUE, row.names=FALS
 # 1.B. Metric Membership
 # Import Rules
 df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+                             , package="BCGcalc")
+                       , sheet="BCG_PacNW_v1_500ct") 
 # Run function
 df.Metric.Membership <- BCG.Metric.Membership(df.metrics, df.rules)
 # Show Results
@@ -420,7 +422,8 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 # 1.E. Flags
 # Import QC Checks
 df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
-                                          , package="BCGcalc"), sheet="Flags") 
+                                          , package="BCGcalc")
+                        , sheet="Flags") 
 # Run Function
 df.flags <- qc.checks(df.metrics, df.checks)
 # Change terminology; PASS/FAIL to NA/flag
@@ -569,7 +572,8 @@ write.table(df.metrics, "Metric.Values.New.tsv", col.names=TRUE, row.names=FALSE
 # 1.B. Metric Membership
 # Import Rules
 df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+                             , package="BCGcalc")
+                       , sheet="BCG_PacNW_v1_500ct") 
 # Run function
 df.Metric.Membership <- BCG.Metric.Membership(df.metrics, df.rules)
 # Show Results
@@ -594,7 +598,8 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 # 1.E. Flags
 # Import QC Checks
 df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
-                                          , package="BCGcalc"), sheet="Flags") 
+                                          , package="BCGcalc")
+                        , sheet="Flags") 
 # Run Function
 df.flags <- qc.checks(df.metrics, df.checks)
 # Change terminology; PASS/FAIL to NA/flag
@@ -738,7 +743,8 @@ library(BioMonTools)
 
 # Load Data
 df.data <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                       , package="BCGcalc"))
+                                       , package="BCGcalc")
+                      , guess_max = 10^6)
 # Columns to keep
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
 # Metrics of Interest (BCG)
@@ -770,7 +776,8 @@ library(BioMonTools)
 
 # Load Data
 df.data <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                       , package="BCGcalc"))
+                                       , package="BCGcalc")
+                      , guess_max = 10^6)
 # Columns to keep
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
 
@@ -811,7 +818,8 @@ library(BioMonTools)
 
 # Import
 df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc"))
+                                        , package="BCGcalc")
+                            , guess_max = 10^6)
 
 # 1.A. Calculate Metrics
 # Extra columns to keep in results
@@ -827,7 +835,8 @@ df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
 # 1.B. Metric Membership
 # Import Rules
 df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+                             , package="BCGcalc")
+                       , sheet="BCG_PacNW_v1_500ct") 
 # Run function
 df.Metric.Membership <- BCG.Metric.Membership(df.metrics, df.rules)
 # # Show Results
@@ -852,7 +861,8 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 # 1.E. Flags
 # Import QC Checks
 df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
-                                          , package="BCGcalc"), sheet="Flags") 
+                                    , package="BCGcalc")
+                        , sheet="Flags") 
 # Run Function
 df.flags <- qc.checks(df.metrics, df.checks)
 # Change terminology; PASS/FAIL to NA/flag

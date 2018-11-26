@@ -3,4 +3,3 @@
 export(BCG.Level.Assignment)
 export(BCG.Level.Membership)
 export(BCG.Metric.Membership)
-export(qc.checks)

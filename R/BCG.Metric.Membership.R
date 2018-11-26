@@ -17,7 +17,8 @@
 #' 
 #' # Calculate Metrics
 #' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-#'                                         , package="BCGcalc"))
+#'                                         , package="BCGcalc")
+#'                            , guess_max = 10^6)
 #' myDF <- df.samps.bugs
 #' df.metric.values.bugs <- metric.values(myDF, "bugs")
 #' 
