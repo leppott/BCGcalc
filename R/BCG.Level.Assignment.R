@@ -3,8 +3,8 @@
 #' @description Biological Condition Gradient level assignment (1st and 2nd) given Level memberships.
 #' 
 #' @details Input is L1 to L6 with membership values of 0 to 1.  
-#' Result is 1st (primary) and 2nd (secondary) Level.  
-#' Also give close.
+#' Result is 1st (primary) Level (Lev.1.Name) and 2nd (secondary) Level (Lev.2.Name).  
+#' Also give close (Lev.Memb.close) and a proportional Level assignment ("Lev.Prop").
 #' 
 #' Add QC Checks.
 #' 
@@ -196,6 +196,11 @@ BCG.Level.Assignment <- function(df.level.membership){##FUNCTION.START
   # df.result[,"Lev.Memb.close"] <- NA
   # df.result[df.result[,"Lev.Memb.Diff"]<0.2, "Lev.Memb.close"] <- "yes"
   # df.result[df.result[,"Lev.Memb.Diff"]<0.1, "Lev.Memb.close"] <- "tie"
+  
+  # Proportional Assignment
+  Lev.Col <- c(paste0("L",1:6))
+  df.result[,"Lev.Prop"] <- apply(t((1:6)*t(df.result[,Lev.Col])), 1, FUN=sum)
+  
 
   # create output
   return(df.result)
