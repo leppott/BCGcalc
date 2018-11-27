@@ -200,8 +200,8 @@ BCG.Level.Assignment <- function(df.level.membership){##FUNCTION.START
   
   # Proportional Assignment
   Lev.Col <- c(paste0("L",1:6))
-  df.result[,"Lev.Prop"] <- apply(t((1:6)*t(df.result[,Lev.Col])), 1, FUN=sum)
-  
+  #df.result[,"Lev.Prop"] <- apply(t((1:6)*t(df.result[,Lev.Col])), 1, FUN=sum)
+  df.result[,"Lev.Prop"] <- NA
 
   # create output
   return(df.result)

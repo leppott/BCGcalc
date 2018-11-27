@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9004 (2018-11-26)
+
+* Proportional Level Assignment.  Issue #43.
+    + Needs more polish for different conditions.
+    + Assign all to NA.
+
 ## Changes in Version 1.3.4.9003 (2018-11-26)
 
 * Last update not complete before uploaded.
