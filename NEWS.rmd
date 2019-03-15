@@ -50,6 +50,30 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9005 (2019-03-15)
+
+* MetricFlags.xlsx
+    + Percent metrics to 0-100.  Issues #45.
+    + Add field Index_Region
+* Data_BCG_PacNW.xlsx
+    + Add fields:  Issue #33.
+        - Index_Region
+        - LongLived
+        - NoteWorthy
+        - FFG2
+        - TolVal2
+* Rules.xlsx
+  + Add field Index_Region  Issue #33.
+  + Update percent metrics to 0-100.  Issue #45.
+* Vignette, modify for Site_Type to Index_Region
+    + BCGcalc_Map.RMD
+    + vignette_BCGcalc.RMD
+        - Add "Site_Type"" to columns to keep
+* Modify example for Site_Type to Index_Region  Issue #33.
+    + BCG.Level.Assignment.R
+    + BCG.Level.Membership.R
+    + BCG.Metric.Membership.R
+
 ## Changes in Version 1.3.4.9004 (2018-11-26)
 
 * Proportional Level Assignment.  Issue #43.

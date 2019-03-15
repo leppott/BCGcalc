@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2018-11-27 14:53:28
+2019-03-15 10:43:02
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2018-11-27 14:53:28
+    #> Last Update: 2019-03-15 10:43:02
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,30 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9005 (2019-03-15)
+
+  - MetricFlags.xlsx
+      - Percent metrics to 0-100. Issues \#45.
+      - Add field Index\_Region
+  - Data\_BCG\_PacNW.xlsx
+      - Add fields: Issue \#33.
+          - Index\_Region
+          - LongLived
+          - NoteWorthy
+          - FFG2
+          - TolVal2
+  - Rules.xlsx
+      - Add field Index\_Region Issue \#33.
+      - Update percent metrics to 0-100. Issue \#45.
+  - Vignette, modify for Site\_Type to Index\_Region
+      - BCGcalc\_Map.RMD
+      - vignette\_BCGcalc.RMD
+          - Add “Site\_Type”" to columns to keep
+  - Modify example for Site\_Type to Index\_Region Issue \#33.
+      - BCG.Level.Assignment.R
+      - BCG.Level.Membership.R
+      - BCG.Metric.Membership.R
 
 ## Changes in Version 1.3.4.9004 (2018-11-26)
 

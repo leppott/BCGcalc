@@ -38,7 +38,8 @@ df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
                                         , package="BCGcalc")
                            , guess_max = 10^6)
 myDF <- df.samps.bugs
-df.metric.values.bugs <- metric.values(myDF, "bugs")
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
+df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)
 
 # Import Rules
 df.rules <- read_excel(system.file("./extdata/Rules.xlsx"

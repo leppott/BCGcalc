@@ -57,7 +57,7 @@
 #'                                         
 #' # Run Function
 #' myDF <- df.samps.bugs
-#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
 #' df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols) 
 #' 
 #' # Import Rules

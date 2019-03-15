@@ -1,8 +1,8 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, calculator
-Version: 1.3.4.9004
-Date: 2018-11-27
+Version: 1.3.4.9005
+Date: 2019-03-15
 Authors@R: c(
   person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre")), 
   person("Jen", "Stamp", email="Jen.Stamp@tetratech.com", role="ctb"))
@@ -23,6 +23,5 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/leppott/BCGcalc
 BugReports: https://github.com/leppott/BCGcalc/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-
