@@ -50,6 +50,13 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9008 (2019-04-17)
+
+* Proportional BCG final scores.
+    + Issue #43
+    + Turn on features from v1.3.4.9004.
+    + Add proportional narrative (+/-).
+
 ## Changes in Version 1.3.4.9007 (2019-04-17)
 
 * extdata\MetricFlags.xlsx

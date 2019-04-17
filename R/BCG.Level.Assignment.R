@@ -198,10 +198,19 @@ BCG.Level.Assignment <- function(df.level.membership){##FUNCTION.START
   # df.result[df.result[,"Lev.Memb.Diff"]<0.2, "Lev.Memb.close"] <- "yes"
   # df.result[df.result[,"Lev.Memb.Diff"]<0.1, "Lev.Memb.close"] <- "tie"
   
-  # Proportional Assignment
+  # Proportional Assignment, Numeric
   Lev.Col <- c(paste0("L",1:6))
-  #df.result[,"Lev.Prop"] <- apply(t((1:6)*t(df.result[,Lev.Col])), 1, FUN=sum)
-  df.result[,"Lev.Prop"] <- NA
+  #df.result[,"Lev.Prop"] <- NA
+  df.result[,"Lev.Prop.Num"] <- apply(t((1:6)*t(df.result[,Lev.Col])), 1, FUN=sum)
+  
+  # Proportional Assignment, Narrative
+  df.result.prop <- df.result
+  df.result.prop[,"Lev.Prop.Num.Int"] <- round(df.result.prop[,"Lev.Prop.Num"], 0)
+  df.result.prop[,"Lev.Prop.Num.Rem"] <- df.result.prop[,"Lev.Prop.Num.Int"] - df.result.prop[,"Lev.Prop.Num"]
+  df.result.prop[,"Lev.Prop.Num.Sign"] <- sign(df.result.prop[,"Lev.Prop.Num.Rem"])
+  df.result.prop[,"Lev.Prop.Num.Sign.Nar"] <- ifelse(df.result.prop[,"Lev.Prop.Num.Sign"]==-1,"-",ifelse(df.result.prop[,"Lev.Prop.Num.Sign"]==1,"+",""))
+  df.result.prop[,"Lev.Prop.Nar"] <- paste0(df.result.prop[,"Lev.Prop.Num.Int"], df.result.prop[,"Lev.Prop.Num.Sign.Nar"])
+  df.result[,"Lev.Prop.Nar"] <- df.result.prop[,"Lev.Prop.Nar"]
 
   # create output
   return(df.result)
