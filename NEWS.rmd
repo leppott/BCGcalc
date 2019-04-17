@@ -50,6 +50,12 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9007 (2019-04-17)
+
+* extdata\MetricFlags.xlsx
+    + ni_total, Hi, to 450 from 400.
+        - Matches file in BioMonTools package.
+
 ## Changes in Version 1.3.4.9006 (2019-04-17)
 
 * Remove format Hoboware file from extdata folder.
