@@ -205,13 +205,16 @@ BCG.Level.Assignment <- function(df.level.membership){##FUNCTION.START
   
   # Proportional Assignment, Narrative
   df.result.prop <- df.result
-  df.result.prop[,"Lev.Prop.Num.Int"] <- round(df.result.prop[,"Lev.Prop.Num"], 0)
-  df.result.prop[,"Lev.Prop.Num.Rem"] <- df.result.prop[,"Lev.Prop.Num.Int"] - df.result.prop[,"Lev.Prop.Num"]
-  df.result.prop[,"Lev.Prop.Num.Sign"] <- sign(df.result.prop[,"Lev.Prop.Num.Rem"])
-  df.result.prop[,"Lev.Prop.Num.Sign.Nar"] <- ifelse(df.result.prop[,"Lev.Prop.Num.Sign"]==-1,"-",ifelse(df.result.prop[,"Lev.Prop.Num.Sign"]==1,"+",""))
-  df.result.prop[,"Lev.Prop.Nar"] <- paste0(df.result.prop[,"Lev.Prop.Num.Int"], df.result.prop[,"Lev.Prop.Num.Sign.Nar"])
+  df.result.prop[, "Lev.Prop.Num.Int"] <- round(df.result.prop[, "Lev.Prop.Num"], 0)
+  df.result.prop[, "Lev.Prop.Num.Rem"] <- df.result.prop[, "Lev.Prop.Num.Int"] - df.result.prop[, "Lev.Prop.Num"]
+  df.result.prop[, "Lev.Prop.Num.Sign"] <- sign(df.result.prop[, "Lev.Prop.Num.Rem"])
+  df.result.prop[, "Lev.Prop.Num.Sign.Nar"] <- ifelse(df.result.prop[, "Lev.Prop.Num.Sign"]==-1,"-",ifelse(df.result.prop[, "Lev.Prop.Num.Sign"]==1,"+",""))
+  df.result.prop[, "Lev.Prop.Nar"] <- paste0(df.result.prop[, "Lev.Prop.Num.Int"], df.result.prop[, "Lev.Prop.Num.Sign.Nar"])
+  df.result.prop[, "Lev.Prop.Nar.Tie"] <- ifelse(df.result.prop[, "Lev.Memb.close"]=="tie", paste0(df.result.prop[, "Lev.1.Name"], "/", df.result.prop[, "Lev.2.Name"]," tie"), NA)
+  df.result.prop[ !is.na(df.result.prop[, "Lev.Prop.Nar.Tie"]), "Lev.Prop.Nar"] <- df.result.prop[ !is.na(df.result.prop[, "Lev.Prop.Nar.Tie"]), "Lev.Prop.Nar.Tie"]
+  #
   df.result[,"Lev.Prop.Nar"] <- df.result.prop[,"Lev.Prop.Nar"]
-
+  
   # create output
   return(df.result)
   #
