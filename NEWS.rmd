@@ -50,6 +50,15 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9010 (2019-05-17)
+
+* Update for R v3.6.0, Issue #46
+    + README
+        - Add extra line for devtools::install_github to work properly
+* Added badges to README
+* Map Vignette
+    + Update title.
+
 ## Changes in Version 1.3.4.9009 (2019-04-18)
 
 * BCG.Level.Assignment

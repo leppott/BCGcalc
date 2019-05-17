@@ -23,11 +23,22 @@ cat(paste0("Last Update: ",Sys.time()))
 # BCGcalc
 Biological Condition Gradient (BCG) calculator.  Peform basic functions needed for metric calculation and model (level) assignments.
 
+Badges
+-----------
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/BCGcalc/graphs/commit-activity)
+[![GitHub license](https://img.shields.io/github/license/leppott/BCGcalc.svg)](https://github.com/leppott/BCGcalc/blob/master/LICENSE)
+[![Travis-CI Build Status](https://travis-ci.org/leppott/BCGcalc.svg?branch=master)](https://travis-ci.org/leppott/BCGcalc)
+[![GitHub issues](https://img.shields.io/github/issues/leppott/BCGcalc.svg)](https://GitHub.com/leppott/BCGcalc/issues/)
+
+[![GitHub release](https://img.shields.io/github/release/leppott/BCGcalc.svg)](https://GitHub.com/leppott/BCGcalc/releases/)
+[![Github all releases](https://img.shields.io/github/downloads/leppott/BCGcalc/total.svg)](https://GitHub.com/leppott/BCGcalc/releases/)
+
 Installation
 -----------------
 ```{r Install_Vignette, eval=FALSE}
 # Installing this library (with the vignette)
 library(devtools) 
+Sys.setenv("TAR" = "internal")  # needed for R v3.6.0 or higher
 install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
