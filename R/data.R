@@ -15,7 +15,6 @@
 #'    \item{SubPhylum}{Taxonomic rank, SubPhylum}
 #'    \item{Class}{Taxonomic rank, Class}
 #'    \item{SubClass}{Taxonomic rank, SubClass}
-#'    \item{Class}{Taxonomic rank, Class}
 #'    \item{Order}{Taxonomic rank, Order}
 #'    \item{Family}{Taxonomic rank, Family}
 #'    \item{Tribe}{Taxonomic rank, Tribe}
@@ -24,7 +23,7 @@
 #'    \item{Species}{Taxonomic rank, Species}
 #'    \item{BCG_Attr}{BCG Attribute}
 #'    \item{NonTarget}{Non-Target True/False}
-#'    \item{Thermal indicator}{thermal tolerance indicator}
+#'    \item{Thermal_Indicator}{thermal tolerance indicator}
 #'    \item{Long_Lived}{Long-lived indicator}
 #'    \item{FFG}{Function Feeding Group}
 #'    \item{Habit}{Habit}
@@ -49,86 +48,4 @@
 #'    \item{Name_Other}{}
 #' }
 "metrics_scoring"
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @title Example sample benthic taxa data, family-level
-#' 
-#' @description Long Description
-#' 
-#' @format A data frame with 2749 rows and 20 variables:
-#' \describe{
-#'    \item{Index.Name}{}
-#'    \item{SITE}{}
-#'    \item{DATE}{}
-#'    \item{TAXON}{}
-#'    \item{N_TAXA}{}
-#'    \item{N_GRIDS}{}
-#'    \item{EXCLUDE}{}
-#'    \item{strata_r}{}
-#'    \item{Phylum}{}
-#'    \item{Class}{}
-#'    \item{Order}{}
-#'    \item{Family}{}
-#'    \item{Genus}{}
-#'    \item{Other_Taxa}{}
-#'    \item{Tribe}{}
-#'    \item{FFG}{}
-#'    \item{FAM_TV}{}
-#'    \item{Habit}{}
-#'    \item{FinalTolVal07}{}
-#'    \item{FinalTolVal08}{}
-#' }
-"taxa_bugs_family"
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @title Example benthic taxa data, genus-level
-#' 
-#' @description Long Description
-#' 
-#' @format A data frame with 5066 rows and 20 variables:
-#' \describe{
-#'    \item{Index.Name}{}
-#'    \item{SITE}{}
-#'    \item{DATE}{}
-#'    \item{TAXON}{}
-#'    \item{N_TAXA}{}
-#'    \item{N_GRIDS}{}
-#'    \item{EXCLUDE}{}
-#'    \item{strata_r}{}
-#'    \item{Phylum}{}
-#'    \item{Class}{}
-#'    \item{Order}{}
-#'    \item{Family}{}
-#'    \item{Genus}{}
-#'    \item{Other_Taxa}{}
-#'    \item{Tribe}{}
-#'    \item{FFG}{}
-#'    \item{FAM_TV}{}
-#'    \item{Habit}{}
-#'    \item{FinalTolVal07}{}
-#'    \item{FinalTolVal08}{}
-#' }
-"taxa_bugs_genus"
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @title Example sample fish taxa data
-#' 
-#' @description Long Description
-#' 
-#' @format A data frame with 1693 rows and 15 variables:
-#' \describe{
-#'    \item{SITE}{}
-#'    \item{SPECIES}{}
-#'    \item{TOTAL}{}
-#'    \item{TYPE}{}
-#'    \item{PTOLR}{}
-#'    \item{NATIVE_MBSS}{}
-#'    \item{TROPHIC_MBSS}{}
-#'    \item{SILT}{}
-#'    \item{PIRHALLA}{}
-#'    \item{FIBISTRATA}{}
-#'    \item{ACREAGE}{}
-#'    \item{LEN_SAMP}{}
-#'    \item{AVWID}{}
-#'    \item{TOTBIOM}{}
-#'    \item{Index.Name}{}
-#' }
-"taxa_fish"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

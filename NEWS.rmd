@@ -50,6 +50,23 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9011(2019-06-26)
+
+* Build Check fixes.
+    + Move "View" in example to "do not run".
+        - BCG.Level.Assignment
+        - BCG.Level.Membership
+        - BCG.Metric.Membership
+    + Column names of TaxaMaster_Ben_BCG_PacNW
+        - Data.R
+    + Depends on R >= 2.10
+        - DESCRIPTION
+    + Add \.github to .Rbuildignore
+    + Remove unused data (data folder and data.R)
+        - taxa_fish
+        - taxa_bugs_family
+        - taxa_bugs_genus
+
 ## Changes in Version 1.3.4.9010 (2019-05-17)
 
 * Update for R v3.6.0, Issue #46

@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2019-05-17 10:31:20
+2019-06-26 14:06:13
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2019-05-17 10:31:20
+    #> Last Update: 2019-06-26 14:06:13
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,23 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9011(2019-06-26)
+
+  - Build Check fixes.
+      - Move “View” in example to “do not run”.
+          - BCG.Level.Assignment
+          - BCG.Level.Membership
+          - BCG.Metric.Membership
+      - Column names of TaxaMaster\_Ben\_BCG\_PacNW
+          - Data.R
+      - Depends on R \>= 2.10
+          - DESCRIPTION
+      - Add .github to .Rbuildignore
+      - Remove unused data (data folder and data.R)
+          - taxa\_fish
+          - taxa\_bugs\_family
+          - taxa\_bugs\_genus
 
 ## Changes in Version 1.3.4.9010 (2019-05-17)
 

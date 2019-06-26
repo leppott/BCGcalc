@@ -11,7 +11,6 @@
    \item{SubPhylum}{Taxonomic rank, SubPhylum}
    \item{Class}{Taxonomic rank, Class}
    \item{SubClass}{Taxonomic rank, SubClass}
-   \item{Class}{Taxonomic rank, Class}
    \item{Order}{Taxonomic rank, Order}
    \item{Family}{Taxonomic rank, Family}
    \item{Tribe}{Taxonomic rank, Tribe}
@@ -20,7 +19,7 @@
    \item{Species}{Taxonomic rank, Species}
    \item{BCG_Attr}{BCG Attribute}
    \item{NonTarget}{Non-Target True/False}
-   \item{Thermal indicator}{thermal tolerance indicator}
+   \item{Thermal_Indicator}{thermal tolerance indicator}
    \item{Long_Lived}{Long-lived indicator}
    \item{FFG}{Function Feeding Group}
    \item{Habit}{Habit}

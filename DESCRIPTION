@@ -1,14 +1,16 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, calculator
-Version: 1.3.4.9010
-Date: 2019-05-17
+Version: 1.3.4.9011
+Date: 2019-06-26
 Authors@R: c(
   person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre")), 
   person("Jen", "Stamp", email="Jen.Stamp@tetratech.com", role="ctb"))
 Maintainer: Erik W. Leppo <Erik.Leppo@tetratech.com>
 Description: Biological Condition Gradient helper functions.
 License: MIT
+Depends: 
+  R (>= 2.1.0)
 Imports:
   BioMonTools,
   dplyr, 

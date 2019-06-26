@@ -43,10 +43,10 @@ df.Level.Membership[,"L6"] <- L6
 # Run Function
 df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 
+\dontrun{
 # Show Results
 View(df.Levels)
 
-\dontrun{
 # Save Results
 write.table(df.Levels, "Levels.tsv"
             , row.names=FALSE, col.names=TRUE, sep="\\t")
@@ -105,14 +105,14 @@ df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
 
 # Merge Levels and Flags
 df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
-
-# Show Results
-View(df.Levels.Flags)
              
 # Summarize Results
 table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
 
 \dontrun{
+# Show Results
+View(df.Levels.Flags)
+
 # Save Results
 write.csv(df.Levels.Flags, "Levels.Flags.csv")
 }
