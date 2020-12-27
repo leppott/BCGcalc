@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+color: #333;
+font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+a {
+background-color: transparent;
+}
+a:active,
+a:hover {
+outline: 0;
+}
+strong {
+font-weight: bold;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border: 0;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+}
+pre {
+overflow: auto;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+input {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+html input[disabled] {
+cursor: default;
+}
+input {
+line-height: normal;
+}
+input[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+td,
+th {
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr:before {
+display: table;
+content: "";
+}
+hr:after {
+display: table;
+clear: both;
+content: "";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 15px;
+margin-bottom: 15px;
+line-height: 1.1;
+}
+h1 {
+font-size: 30px;
+}
+h2 {
+font-size: 21px;
+}
+h3 {
+font-size: 16px;
+}
+h4 {
+font-size: 14px;
+}
+h5 {
+font-size: 12px;
+}
+h6 {
+font-size: 11px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.select::-ms-expand {
+opacity: 0;
+}
+.octicon {
+font: normal normal normal 16px/1 octicons-link;
+display: inline-block;
+text-decoration: none;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.octicon-link:before {
+content: '\f05c';
+}
+.markdown-body:before {
+display: table;
+content: "";
+}
+.markdown-body:after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+display: inline-block;
+padding-right: 2px;
+margin-left: -18px;
+}
+.anchor:focus {
+outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 1em;
+margin-bottom: 16px;
+font-weight: bold;
+line-height: 1.4;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2.25em;
+line-height: 1.2;
+border-bottom: 1px solid #eee;
+}
+h1 .anchor {
+line-height: 1;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.75em;
+line-height: 1.225;
+border-bottom: 1px solid #eee;
+}
+h2 .anchor {
+line-height: 1;
+}
+h3 {
+font-size: 1.5em;
+line-height: 1.43;
+}
+h3 .anchor {
+line-height: 1.2;
+}
+h4 {
+font-size: 1.25em;
+}
+h4 .anchor {
+line-height: 1.2;
+}
+h5 {
+font-size: 1em;
+}
+h5 .anchor {
+line-height: 1.1;
+}
+h6 {
+font-size: 1em;
+color: #777;
+}
+h6 .anchor {
+line-height: 1.1;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 4px;
+padding: 0;
+margin: 16px 0;
+background-color: #e7e7e7;
+border: 0 none;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+blockquote {
+padding: 0 15px;
+color: #777;
+border-left: 4px solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+word-break: normal;
+word-break: keep-all;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code:before,
+code:after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+pre {
+word-wrap: normal;
+}
+pre code {
+display: inline;
+max-width: initial;
+padding: 0;
+margin: 0;
+overflow: initial;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code:before,
+pre code:after {
+content: normal;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-s .pl-s1,
+.pl-smi {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-pds,
+.pl-s,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sra,
+.pl-sr .pl-sre {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+background-color: #b52a1d;
+color: #f8f8f8;
+}
+.pl-sr .pl-cce {
+color: #63a35c;
+font-weight: bold;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+color: #1d3e81;
+font-weight: bold;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+color: #333;
+font-style: italic;
+}
+.pl-mb {
+color: #333;
+font-weight: bold;
+}
+.pl-md {
+background-color: #ffecec;
+color: #bd2c00;
+}
+.pl-mi1 {
+background-color: #eaffea;
+color: #55a532;
+}
+.pl-mdr {
+color: #795da3;
+font-weight: bold;
+}
+.pl-mo {
+color: #1d3e81;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.35em 0.25em -1.6em;
+vertical-align: middle;
+}
+:checked+.radio-label {
+z-index: 1;
+position: relative;
+border-color: #4078c0;
+}
+.sourceLine {
+display: inline-block;
+}
+code .kw { color: #000000; }
+code .dt { color: #ed6a43; }
+code .dv { color: #009999; }
+code .bn { color: #009999; }
+code .fl { color: #009999; }
+code .ch { color: #009999; }
+code .st { color: #183691; }
+code .co { color: #969896; }
+code .ot { color: #0086b3; }
+code .al { color: #a61717; }
+code .fu { color: #63a35c; }
+code .er { color: #a61717; background-color: #e3d2d2; }
+code .wa { color: #000000; }
+code .cn { color: #008080; }
+code .sc { color: #008080; }
+code .vs { color: #183691; }
+code .ss { color: #183691; }
+code .im { color: #000000; }
+code .va {color: #008080; }
+code .cf { color: #000000; }
+code .op { color: #000000; }
+code .bu { color: #000000; }
+code .ex { color: #000000; }
+code .pp { color: #999999; }
+code .at { color: #008080; }
+code .do { color: #969896; }
+code .an { color: #008080; }
+code .cv { color: #008080; }
+code .in { color: #008080; }
+</style>
+<style>
+body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+  padding-top: 0px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1 id="bcgcalc-news">BCGcalc-NEWS</h1>
+<p><a href="mailto:Erik.Leppo@tetratech.com">Erik.Leppo@tetratech.com</a> 2020-12-27 10:59:03</p>
+<!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
+
+<pre><code>#&gt; Last Update: 2020-12-27 10:59:03
+</code></pre>
+<h1 id="future-possibile-features-wish-list">Future Possibile Features (Wish List)</h1>
+<ul>
+<li><p><del>Add excluded taxa flag to samples based on levels of taxonomy. Will not be completely accurate. Will have many false positives and false negatives. That is, if there are only organisms at the higher level in a sample it will fail. And if there are no organisms of the target group it will pass.</del></p>
+<ul>
+<li><del>Pass, Fail on each. And overall flag</del></li>
+<li><del>Chiro (tribe and family)</del></li>
+<li><del>Oligo</del></li>
+<li><del>Trombidiformes</del></li>
+</ul></li>
+<li><p>Hi/Lo models.</p>
+<ul>
+<li><del>parameter to run “correct” model or all models for each site.</del></li>
+<li>Have a field for site type. So can override gradient.</li>
+</ul></li>
+<li><p><del>Report - QC, use DataExplorer.</del></p></li>
+<li><p><del>Table of metrics for each model with DataExplorer report.</del></p></li>
+<li><p>Include a master taxa list.</p>
+<ul>
+<li>Match data input and add information (phylo and auteco)</li>
+<li>Ability to report back unmatched</li>
+</ul></li>
+<li><p>Generate SiteType from data (gradient for PacNW)</p></li>
+<li><p>Update For loop in BCG.Level.Assignment to apply function (similar to BCG.Level.Membership).</p></li>
+<li><p>Any issues as reported on GitHub.</p>
+<ul>
+<li><a href="https://github.com/leppott/BCGcalc/issues">https://github.com/leppott/BCGcalc/issues</a></li>
+</ul></li>
+</ul>
+<h1 id="version-history">Version History</h1>
+<h2 id="changes-in-version-1349013-2020-12-27">Changes in Version 1.3.4.9013 (2020-12-27)</h2>
+<ul>
+<li>ci: Add GitHub Actions, continuous integration</li>
+<li>ci: Remove TravisCI</li>
+<li>docs: ReadMe, remove TravisCI badge</li>
+<li>docs: ReadMe, Add GitHub Actions CMD check badge</li>
+</ul>
+<h2 id="changes-in-version-1349012-2019-11-07">Changes in Version 1.3.4.9012 (2019-11-07)</h2>
+<ul>
+<li>Add pkgdown website.
+<ul>
+<li>Need to fix vignettes/BCGcalc_Map.Rmd.
+<ul>
+<li>INFRAORDER missing.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349011-2019-06-26">Changes in Version 1.3.4.9011 (2019-06-26)</h2>
+<ul>
+<li>Build Check fixes.
+<ul>
+<li>Move “View” in example to “do not run”.
+<ul>
+<li>BCG.Level.Assignment</li>
+<li>BCG.Level.Membership</li>
+<li>BCG.Metric.Membership</li>
+</ul></li>
+<li>Column names of TaxaMaster_Ben_BCG_PacNW
+<ul>
+<li>Data.R</li>
+</ul></li>
+<li>Depends on R &gt;= 2.10
+<ul>
+<li>DESCRIPTION</li>
+</ul></li>
+<li>Add .github to .Rbuildignore</li>
+<li>Remove unused data (data folder and data.R)
+<ul>
+<li>taxa_fish</li>
+<li>taxa_bugs_family</li>
+<li>taxa_bugs_genus</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349010-2019-05-17">Changes in Version 1.3.4.9010 (2019-05-17)</h2>
+<ul>
+<li>Update for R v3.6.0, Issue #46
+<ul>
+<li>README
+<ul>
+<li>Add extra line for devtools::install_github to work properly</li>
+</ul></li>
+</ul></li>
+<li>Added badges to README</li>
+<li>Map Vignette
+<ul>
+<li>Update title.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349009-2019-04-18">Changes in Version 1.3.4.9009 (2019-04-18)</h2>
+<ul>
+<li>BCG.Level.Assignment
+<ul>
+<li>Proportional BCG final scores, Issue #43.
+<ul>
+<li>Add “tie” to narrative.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349008-2019-04-17">Changes in Version 1.3.4.9008 (2019-04-17)</h2>
+<ul>
+<li>BCG.Level.Assignment
+<ul>
+<li>Proportional BCG final scores, Issue #43
+<ul>
+<li>Turn on features from v1.3.4.9004.</li>
+<li>Add proportional narrative (+/-).</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349007-2019-04-17">Changes in Version 1.3.4.9007 (2019-04-17)</h2>
+<ul>
+<li>extdata.xlsx
+<ul>
+<li>ni_total, Hi, to 450 from 400.
+<ul>
+<li>Matches file in BioMonTools package.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349006-2019-04-17">Changes in Version 1.3.4.9006 (2019-04-17)</h2>
+<ul>
+<li>Remove format Hoboware file from extdata folder.
+<ul>
+<li>From another package under development.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349005-2019-03-15">Changes in Version 1.3.4.9005 (2019-03-15)</h2>
+<ul>
+<li>MetricFlags.xlsx
+<ul>
+<li>Percent metrics to 0-100. Issues #45.</li>
+<li>Add field Index_Region</li>
+</ul></li>
+<li>Data_BCG_PacNW.xlsx
+<ul>
+<li>Add fields: Issue #33.
+<ul>
+<li>Index_Region</li>
+<li>LongLived</li>
+<li>NoteWorthy</li>
+<li>FFG2</li>
+<li>TolVal2</li>
+</ul></li>
+</ul></li>
+<li>Rules.xlsx
+<ul>
+<li>Add field Index_Region Issue #33.</li>
+<li>Update percent metrics to 0-100. Issue #45.</li>
+</ul></li>
+<li>Vignette, modify for Site_Type to Index_Region
+<ul>
+<li>BCGcalc_Map.RMD</li>
+<li>vignette_BCGcalc.RMD
+<ul>
+<li>Add “Site_Type”&quot; to columns to keep</li>
+</ul></li>
+</ul></li>
+<li>Modify example for Site_Type to Index_Region Issue #33.
+<ul>
+<li>BCG.Level.Assignment.R</li>
+<li>BCG.Level.Membership.R</li>
+<li>BCG.Metric.Membership.R</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349004-2018-11-26">Changes in Version 1.3.4.9004 (2018-11-26)</h2>
+<ul>
+<li>Proportional Level Assignment. Issue #43.
+<ul>
+<li>Needs more polish for different conditions.</li>
+<li>Assign all to NA.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1349003-2018-11-26">Changes in Version 1.3.4.9003 (2018-11-26)</h2>
+<ul>
+<li>Last update not complete before uploaded.</li>
+</ul>
+<h2 id="changes-in-version-1349002-2018-11-26">Changes in Version 1.3.4.9002 (2018-11-26)</h2>
+<ul>
+<li>Move qc.checks to BioMonTools package. Issue #44
+<ul>
+<li>Remove qc.checks.R</li>
+<li>Update Vignette.</li>
+</ul></li>
+<li>Update read_excel with guess_max=10^6 for bio data file.</li>
+</ul>
+<h2 id="changes-in-version-1349001-2018-11-26">Changes in Version 1.3.4.9001 (2018-11-26)</h2>
+<ul>
+<li>Add proportional Level Assignment. Issue #43.
+<ul>
+<li>BCG.Level.Assignment</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-134-2018-11-21">Changes in Version 1.3.4 (2018-11-21)</h2>
+<ul>
+<li>Update release version with Remote“s”&quot; fix.</li>
+</ul>
+<h2 id="changes-in-version-1339005-2018-11-21">Changes in Version 1.3.3.9005 (2018-11-21)</h2>
+<ul>
+<li>BioMonTools dependancy not installing.
+<ul>
+<li>Move Remote up in listing in DESCRIPTION.</li>
+<li>Renamed Remote to Remotes.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1339004-2018-11-21">Changes in Version 1.3.3.9004 (2018-11-21)</h2>
+<ul>
+<li>Add BioMonTools to Imports so will auto install.
+<ul>
+<li>Had removed at some point since don’t use the functions in any BCGcalc functions.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1339003-2018-11-20">Changes in Version 1.3.3.9003 (2018-11-20)</h2>
+<ul>
+<li>Update SuperFamily Tipuloidea
+<ul>
+<li>/extdata/Data_BCG_PacNW.xlsx</li>
+<li>/extdata/TaxaMaster_Bug_BCG_PacNW_v1.xlsx</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1339002-2018-11-19">Changes in Version 1.3.3.9002 (2018-11-19)</h2>
+<ul>
+<li>/extdata/Data_BCG_PacNW.xlsx
+<ul>
+<li>Update Exclude column after QC with BioMonTools::markExcluded
+<ul>
+<li>Change 6 FALSE to TRUE</li>
+<li>Change 1 TRUE to FALSE</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1339001-2018-11-19">Changes in Version 1.3.3.9001 (2018-11-19)</h2>
+<ul>
+<li>Update ReadMe for BioMonTools::metric.values. Issue #41.</li>
+</ul>
+<h2 id="changes-in-version-133-2018-11-19">Changes in Version 1.3.3 (2018-11-19)</h2>
+<ul>
+<li>Update version have changes related to moving functions to the BioMonTools package.</li>
+</ul>
+<h2 id="changes-in-version-1329012-2018-11-19">Changes in Version 1.3.2.9012 (2018-11-19)</h2>
+<ul>
+<li>metric.values, move to another package, Issue #40
+<ul>
+<li>Moved to separate package. _ <a href="https://github.com/leppott/BioMonTools">https://github.com/leppott/BioMonTools</a>
+<ul>
+<li>BioMonTools is for bioassessment and biomonitoring.</li>
+<li>ContDataQC should stay focused on continuous data.</li>
+</ul></li>
+<li>Vignette
+<ul>
+<li>Updated each section with metric.values</li>
+<li>BCGcalc_Map.rmd</li>
+<li>vignette_BCGcalc.rmd</li>
+</ul></li>
+<li>R/data.R
+<ul>
+<li>Keep example data since specific to BCG project</li>
+</ul></li>
+<li>Remove
+<ul>
+<li>R/metric.values.R</li>
+</ul></li>
+<li>Update function examples.
+<ul>
+<li>Add library(BioMonTools)</li>
+<li>qc.checks.R</li>
+<li>BCG.Metric.Membership.R</li>
+<li>BCG.Level.Membership.R</li>
+<li>BCG.Level.Assignment.R</li>
+</ul></li>
+</ul></li>
+<li>Update map colors, Issue #35.</li>
+<li>BCG.Metric.Membership.R
+<ul>
+<li>Update details.</li>
+</ul></li>
+<li>BCG.Level.Assignment.R
+<ul>
+<li>Add don’t run to simple example for write.csv.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329011-2018-11-15">Changes in Version 1.3.2.9011 (2018-11-15)</h2>
+<ul>
+<li>rarify, move to another package, Issue #40
+<ul>
+<li>Moved to separate package.<br />
+_ <a href="https://github.com/leppott/BioMonTools">https://github.com/leppott/BioMonTools</a>
+<ul>
+<li>BioMonTools is for bioassessment and biomonitoring.</li>
+<li>BCGcalc should stay focused on BCG models.</li>
+</ul></li>
+<li>DESCRIPTION
+<ul>
+<li>Add Remote: leppott/BioMonTools</li>
+<li>Remove Jon van Sickles as contributor since removed rarify function.</li>
+</ul></li>
+<li>Vignette
+<ul>
+<li>rarify section updated.</li>
+</ul></li>
+<li>R/data.R
+<ul>
+<li>Remove reference to data_bio2rarify</li>
+</ul></li>
+<li>Remove
+<ul>
+<li>R/rarify.R</li>
+<li>data-raw/ProcessData_rarify.R</li>
+<li>data-raw/ 3 data files</li>
+<li>data/data_bio2rarify.rda</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329010-2018-11-07">Changes in Version 1.3.2.9010 (2018-11-07)</h2>
+<ul>
+<li>Metric calculations, additional metrics.
+<ul>
+<li>metric.values.R
+<ul>
+<li>nt_Ephemerellidae</li>
+<li>nt_Heptageniidae</li>
+<li>nt_Nemouridae</li>
+<li>nt_Perlidae</li>
+<li>nt_Rhyacophila</li>
+<li>nt_Tipulidae</li>
+</ul></li>
+<li>MetricNames.xlsx</li>
+</ul></li>
+<li>Fix error with habit metric names.
+<ul>
+<li>metric.values.R</li>
+<li>MetricNames.xlsx</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329009-2018-10-23">Changes in Version 1.3.2.9009 (2018-10-23)</h2>
+<ul>
+<li>Metric calculation;
+<ul>
+<li>x_HBI. Issue #37
+<ul>
+<li>calculation use TOLVAL&gt;=0 rather than TOLVAL&gt;0 in denomiator.</li>
+</ul></li>
+<li>Consistent naming. Issue #38
+<ul>
+<li>habit_clmbrs to habit_climb</li>
+<li>habit_clngrs to habit_cling</li>
+<li>habit_swmmrs to habit_swim</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329008-2018-10-22">Changes in Version 1.3.2.9008 (2018-10-22)</h2>
+<ul>
+<li>Metric calculation;
+<ul>
+<li>Tolerance metrics
+<ul>
+<li>nt_tv_intol</li>
+<li>nt_tv_toler</li>
+<li>pt_tv_intol</li>
+<li>pt_tv_toler</li>
+<li>Added lower and upper limits for intol and toler</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329007-2018-10-22">Changes in Version 1.3.2.9007 (2018-10-22)</h2>
+<ul>
+<li>Metric calculation;
+<ul>
+<li>pi_Colesen
+<ul>
+<li>Change is.na(FAMILY) from FALSE to TRUE.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329006-2018-10-22">Changes in Version 1.3.2.9006 (2018-10-22)</h2>
+<ul>
+<li>Metric calculation;
+<ul>
+<li>pi_Hydro
+<ul>
+<li>Equal sign missing in equation (“=” instead of “==”).</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329005-2018-10-22">Changes in Version 1.3.2.9005 (2018-10-22)</h2>
+<ul>
+<li>Metric calculation;
+<ul>
+<li>pi_Tanyp
+<ul>
+<li>Mispelled Tanypodinae</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329004-2018-10-22">Changes in Version 1.3.2.9004 (2018-10-22)</h2>
+<ul>
+<li>Metric calculations;
+<ul>
+<li>x_HBI
+<ul>
+<li>Remove negative sign. Issue #37</li>
+</ul></li>
+<li>x_Shan_e, x_Shan_2, x_Shan_10
+<ul>
+<li>Fix equation. Not properly calculating proportions.</li>
+<li>Drop use of x_Shan_Num. Use x_Shan_e then convert for other log bases.</li>
+</ul></li>
+<li>x_D
+<ul>
+<li>Fix equation.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329003-2018-10-22">Changes in Version 1.3.2.9003 (2018-10-22)</h2>
+<ul>
+<li>Fix metric calculation; na.rm=TRUE for sum. Issue #37
+<ul>
+<li>x_HBI _ If had any NA values for TolVal the final value was NA.
+<ul>
+<li>Added na.rm=TRUE to sum function for numerator.</li>
+<li>Denominator already included na.rm=TRUE.</li>
+</ul></li>
+<li>x_D
+<ul>
+<li>No effect as no records should be NA for count</li>
+</ul></li>
+<li>dominant calculation intermediate columns
+<ul>
+<li>No effect as no records should be NA for count</li>
+</ul></li>
+<li>ni_total
+<ul>
+<li>No effect as no records should be NA for count</li>
+</ul></li>
+<li>All fish metrics (with “sum”)</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329002-2018-10-12">Changes in Version 1.3.2.9002 (2018-10-12)</h2>
+<ul>
+<li>Add 8 additional metrics to metric.values
+<ul>
+<li>MS DEQ, MBISQ 2015 _ pi_Hydro
+<ul>
+<li>nt_NonIns</li>
+<li>pt_NonIns</li>
+<li>pi_Tanyp</li>
+<li>pt_tv_intol</li>
+<li>pt_tv_toler</li>
+<li>pi_Colesens</li>
+<li>pi_COC2Chi</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1329001-2018-10-12">Changes in Version 1.3.2.9001 (2018-10-12)</h2>
+<ul>
+<li>Mapping Vignette. Issue #34.
+<ul>
+<li>DESCRIPTION
+<ul>
+<li>Add ggplot2 to Suggests</li>
+</ul></li>
+<li>extdata_BCG_PacNW.xlsx
+<ul>
+<li>Add Latitude, Longitude, and COMID</li>
+</ul></li>
+<li>Create Vignette for mapping</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-132-2018-10-11">Changes in Version 1.3.2 (2018-10-11)</h2>
+<ul>
+<li>Release version.</li>
+</ul>
+<h2 id="changes-in-version-1319001-2018-10-11">Changes in Version 1.3.1.9001 (2018-10-11)</h2>
+<ul>
+<li>Master Taxa List
+<ul>
+<li>Turbellaria BCG Attribute.
+<ul>
+<li>Change from “x” to “4” to match its synonym Trepaxonemata.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-131-2018-10-10">Changes in Version 1.3.1 (2018-10-10)</h2>
+<ul>
+<li>Release version.</li>
+</ul>
+<h2 id="changes-in-version-1309001-2018-10-10">Changes in Version 1.3.0.9001 (2018-10-10)</h2>
+<ul>
+<li>Rules.xlsx
+<ul>
+<li>Fix typos in “Numeric_Rules” field.
+<ul>
+<li>No impact on calculations.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-130-2018-10-09">Changes in Version 1.3.0 (2018-10-09)</h2>
+<ul>
+<li>Release version.</li>
+</ul>
+<h2 id="changes-in-version-1229033-2018-10-09">Changes in Version 1.2.2.9033 (2018-10-09)</h2>
+<ul>
+<li>Update Vignette.
+<ul>
+<li>Rarify section to 600.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229032-2018-10-09">Changes in Version 1.2.2.9032 (2018-10-09)</h2>
+<ul>
+<li>Update Vignette.
+<ul>
+<li>Fix a few typos.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229031-2018-10-09">Changes in Version 1.2.2.9031 (2018-10-09)</h2>
+<ul>
+<li>Update Rules.xlsx.
+<ul>
+<li>300 count model edits.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229030-2018-10-09">Changes in Version 1.2.2.9030 (2018-10-09)</h2>
+<ul>
+<li>Vignette updates.</li>
+</ul>
+<h2 id="changes-in-version-1229029-2018-10-05">Changes in Version 1.2.2.9029 (2018-10-05)</h2>
+<ul>
+<li>Updated rarify data; data_bio2rarify
+<ul>
+<li>Replace fully qualified 500 count data with 3 column 600 count.</li>
+<li>Update data.R entry.</li>
+<li>Update rarify function example.</li>
+<li>Update vignette example.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229028-2018-10-05">Changes in Version 1.2.2.9028 (2018-10-05)</h2>
+<ul>
+<li>Updated docs.
+<ul>
+<li>extdata/ExampleDataFile.xlsx</li>
+<li>docs/BCGcalc_README_20180919.pdf</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229027-2018-10-05">Changes in Version 1.2.2.9027 (2018-10-05)</h2>
+<ul>
+<li>Updated Rules.xlsx file in extdata.</li>
+</ul>
+<h2 id="changes-in-version-1229026-2018-09-28">Changes in Version 1.2.2.9026 (2018-09-28)</h2>
+<ul>
+<li>Finish updates to Vignette.</li>
+</ul>
+<h2 id="changes-in-version-1229025-2018-09-28">Changes in Version 1.2.2.9025 (2018-09-28)</h2>
+<ul>
+<li>Level.Assignment. Issue #11
+<ul>
+<li>Update example so don’t calculate metrics twice.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229024-2018-09-28">Changes in Version 1.2.2.9024 (2018-09-28)</h2>
+<ul>
+<li>Vignette updates (incomplete).</li>
+<li>Metric.Membership. Issue #11
+<ul>
+<li>Non numeric extra columns caused errors. Fixed.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229023-2018-09-27">Changes in Version 1.2.2.9023 (2018-09-27)</h2>
+<ul>
+<li>extdata
+<ul>
+<li>TaxaMaster_Bug_BCG_PacNW_v1.xlsx; rename worksheet to match previous version.</li>
+</ul></li>
+<li>data-raw
+<ul>
+<li>Remove data_bio2rarify.txt</li>
+<li>Recreate TaxaMaster_Ben_BCG_PacNW using revised XLSX file.</li>
+<li>Update 500count.tsv thermal column name.</li>
+</ul></li>
+<li>data.R
+<ul>
+<li>Update entries for TaxaMaster_Ben_BCG_PacNW and data_bio2rarify</li>
+</ul></li>
+<li>Vignette
+<ul>
+<li>Start on updates.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229022-2018-09-27">Changes in Version 1.2.2.9022 (2018-09-27)</h2>
+<ul>
+<li>Update Data_BCG_PacNW.xlsx. Issue #32
+<ul>
+<li>Remove unecessary worksheets.</li>
+<li>Rename single remaining worksheet.</li>
+<li>Update phylogenetic columns.</li>
+<li>Rearrange columns into required and optional.</li>
+</ul></li>
+<li>Add master taxa list file to external docs.</li>
+<li>Add thermal indicators file to external docs.</li>
+</ul>
+<h2 id="changes-in-version-1229021-2018-09-27">Changes in Version 1.2.2.9021 (2018-09-27)</h2>
+<ul>
+<li>update ReadMe. Issue #31</li>
+</ul>
+<h2 id="changes-in-version-1229020-2018-09-27">Changes in Version 1.2.2.9020 (2018-09-27)</h2>
+<ul>
+<li>Ensure reshape2 package references are consistent. Issue #30
+<ul>
+<li>Ensure functions use reshape2::melt (or dcast)</li>
+<li>Ensure examples (and vignette) use library(reshape) and melt or dcast.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229019-2018-09-26">Changes in Version 1.2.2.9019 (2018-09-26)</h2>
+<ul>
+<li>File formats. Issue #28
+<ul>
+<li>Add statement about file formats to Vignette.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229018-2018-09-26">Changes in Version 1.2.2.9018 (2018-09-26)</h2>
+<ul>
+<li>rarify data. Issue #19
+<ul>
+<li>Use USGS 500 to 300 count data instead of MS 200 count.</li>
+<li>Change raw data process script.</li>
+<li>Replace data_bio2rarify.</li>
+<li>Modify rarify example.</li>
+<li>Modified rarify example in Vignette.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229017-2018-09-26">Changes in Version 1.2.2.9017 (2018-09-26)</h2>
+<ul>
+<li>BCG PacNW primer. Issue #29
+<ul>
+<li>BCGcalc_README_20180918.pdf to so shows up in package help.</li>
+</ul></li>
+<li>MetricFlags.xlsx
+<ul>
+<li>Last line, Index_Name updated for 300 count model.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229016-2018-09-26">Changes in Version 1.2.2.9016 (2018-09-26)</h2>
+<ul>
+<li>Example “write” statements as “dontrun”. Issue #27
+<ul>
+<li>BCG.Level.Assignment; also moved write statement to end</li>
+<li>BCG.Level.Membership</li>
+<li>BCG.Metric.Membership</li>
+<li>metric.values; included write and DataExplorer</li>
+<li>qc.checks; no write statement.</li>
+<li>rarify; Changed from commented out to donotrun</li>
+<li>Vignette; leave “as is”. Write statements all commented out.</li>
+</ul></li>
+<li>BCG.Level.Assignment
+<ul>
+<li>Change write.table(tsv) to write.csv. Issue #28</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229015-2018-09-26">Changes in Version 1.2.2.9015 (2018-09-26)</h2>
+<ul>
+<li>extdata.xlsx. Issue #26
+<ul>
+<li>Added NOTES worksheet.</li>
+<li>Added MetricMetadata from MetricNames.xlsx.</li>
+<li>Added NOTES worksheet to MetricNames.xlsx.</li>
+<li>Renamed worksheet “BCG_PacNW_2018” to “BCG_PacNW_v1_500ct”.</li>
+<li>Renamed Index_Name from “BCG_PacNW_2018” to “BCG_PacNW_v1_500ct”.</li>
+<li>Added worksheet “BCG_PacNW_v1_300ct”.</li>
+</ul></li>
+<li>Revised code references to Rules.xlsx (worksheet and Index_Name). Mostly examples.</li>
+<li>extdata_BCG_PacNW.xlsx
+<ul>
+<li>Renamed Index_Name from “BCG_PacNW_2018” to “BCG_PacNW_v1_500ct”.</li>
+</ul></li>
+<li>extdata.xlsx
+<ul>
+<li>Renamed Index_Name from “BCG_PacNW_2018” to “BCG_PacNW_v1_500ct”.</li>
+<li>Added Index_Name “BCG_PacNW_v1_300ct”. Adjust some flags based on 500 vs. 300 count.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229014-2018-09-25">Changes in Version 1.2.2.9014 (2018-09-25)</h2>
+<ul>
+<li>qc.checks. Issue #25.
+<ul>
+<li>Update Description.</li>
+<li>Add View for imported checks file.</li>
+<li>Vignette. Change section title from QC Checks to Flags.</li>
+<li>Update Level Assignment example in Vignette with real data and append flags.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229013-2018-09-25">Changes in Version 1.2.2.9013 (2018-09-25)</h2>
+<ul>
+<li>Function rafify. Issue #19
+<ul>
+<li>Remove keywords.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229012-2018-09-25">Changes in Version 1.2.2.9012 (2018-09-25)</h2>
+<ul>
+<li>Function rafify. Issue #19
+<ul>
+<li>Fix typo in @param mySeed. Remove extra period.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229011-2018-09-20">Changes in Version 1.2.2.9011 (2018-09-20)</h2>
+<ul>
+<li>Metric Names metadata Issue #18
+<ul>
+<li>Update extdata.xlsx</li>
+<li>Add PDF version to docs.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229010-2018-09-20">Changes in Version 1.2.2.9010 (2018-09-20)</h2>
+<ul>
+<li>More Indiana files. Issue #24
+<ul>
+<li>extdata_IN_BCG_Bugs_20170203.xlsm</li>
+<li>extdata_Metrics_Bugs_IN.xlsx</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229009-2018-09-20">Changes in Version 1.2.2.9009 (2018-09-20)</h2>
+<ul>
+<li>Remove Indiana references. Issue #24.
+<ul>
+<li>Delete extdata Indiana file (Data_BCG_Indiana.xlsx).</li>
+<li>Delete data-raw Indiana database (BCG_Model_Calc (IN 20170301).mdb. Already excluded from package build.</li>
+<li>Delete example in metric.values function.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229008-2018-09-12">Changes in Version 1.2.2.9008 (2018-09-12)</h2>
+<ul>
+<li>DESCRIPTION
+<ul>
+<li>Add date.</li>
+<li>Add Jen Stamp as contributor</li>
+</ul></li>
+<li>Citation still gives error but is more complete now. Issue #23</li>
+</ul>
+<h2 id="changes-in-version-1229007-2018-09-07">Changes in Version 1.2.2.9007 (2018-09-07)</h2>
+<ul>
+<li>metric.values
+<ul>
+<li>Fixed included metrics (fun.MetricNames)</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229006-2018-09-07">Changes in Version 1.2.2.9006 (2018-09-07)</h2>
+<ul>
+<li>metric.values
+<ul>
+<li>Added QC check for NonTarget==FALSE.</li>
+<li>Give a warning if have zero FALSE values.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229005-2018-09-07">Changes in Version 1.2.2.9005 (2018-09-07)</h2>
+<ul>
+<li>metric.values
+<ul>
+<li>Added QC check for Exclude==TRUE.</li>
+<li>Give a warning if have zero TRUE values.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229004-2018-09-05">Changes in Version 1.2.2.9004 (2018-09-05)</h2>
+<ul>
+<li>Update Vignette.
+<ul>
+<li>Add data munging example. Issue #14</li>
+<li>Update metric.values section for required fields. Issue #13.</li>
+<li>Added section demonstrating saving only select metrics. Issue #15</li>
+</ul></li>
+<li>Update text in metric.values.</li>
+</ul>
+<h2 id="changes-in-version-1229003-2018-09-04">Changes in Version 1.2.2.9003 (2018-09-04)</h2>
+<ul>
+<li>metric.values. Issue #16
+<ul>
+<li>Added QC worksheet to extdata_BCG_PacNW.xlsx</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229002-2018-08-28">Changes in Version 1.2.2.9002 (2018-08-28)</h2>
+<ul>
+<li>metric.values. Issue #13
+<ul>
+<li>Add required fields (columns) to help file.</li>
+<li>Add QC check in function. Prompt user to continue or stop.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1229001-2018-08-15">Changes in Version 1.2.2.9001 (2018-08-15)</h2>
+<ul>
+<li>metric.values
+<ul>
+<li>Added metric Percent Baetis tricaudatus complex + Simuliidae individuals (pi_SimBtri). Issue #16.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-122-2018-06-14">Changes in Version 1.2.2 (2018-06-14)</h2>
+<ul>
+<li>New release version.</li>
+</ul>
+<h2 id="changes-in-version-1219001-2018-06-14">Changes in Version 1.2.1.9001 (2018-06-14)</h2>
+<ul>
+<li>qc.checks.R
+<ul>
+<li>Modification to use metric names as lower case. Issue #12.</li>
+<li>Example table; useNA=“ifany”.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-121-2018-06-13">Changes in Version 1.2.1 (2018-06-13)</h2>
+<ul>
+<li>New release version.</li>
+</ul>
+<h2 id="changes-in-version-1209001-2018-06-13">Changes in Version 1.2.0.9001 (2018-06-13)</h2>
+<ul>
+<li>BCG.Level.Assignment.R
+<ul>
+<li>Membership QC (sum===1) add “round” 8 to avoid too many samples being flagged as “FAIL”.</li>
+<li>Example changes:</li>
+<li>Changed terminology from PASS/FAIL to NA/flag in flag fields.</li>
+<li>Changed “NumFlagFAIL” to “NumFlags”.</li>
+<li>Reordered columns so “NumFlags” is before the flag fields.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-120-2018-06-13">Changes in Version 1.2.0 (2018-06-13)</h2>
+<ul>
+<li>Release version for Pacific Northwest BCG workgroup with updated model.</li>
+</ul>
+<h2 id="changes-in-version-1109010-2018-06-13">Changes in Version 1.1.0.9010 (2018-06-13)</h2>
+<ul>
+<li>BCG.Level.Assignment.R
+<ul>
+<li>Example code to match up with qc.checks output.</li>
+<li>Includes export to file.</li>
+</ul></li>
+<li>qc.checks.R
+<ul>
+<li>Remove example modfying column names.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1109009-2018-06-13">Changes in Version 1.1.0.9009 (2018-06-13)</h2>
+<ul>
+<li>BCG.Level.Membership.R
+<ul>
+<li>Added “round” to 8 places when determining level membership.</li>
+<li>Floating point error resulted in the occassional value of 1.1E-16 when the previous level was “1”.</li>
+<li>This resulted in the sample getting a split level assignment, e.g., 3:4 when it was 100% 3.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1109008-2018-06-13">Changes in Version 1.1.0.9008 (2018-06-13)</h2>
+<ul>
+<li>metric.values.R
+<ul>
+<li>Add additional metrics</li>
+<li>nt; BCG_att; 1i, 1m, 3</li>
+<li>pt; BCG_att; 1i, 1m, 3</li>
+<li>pi; BCG_att; 1i, 1m, 2, 3</li>
+<li>thermal indicator metrics</li>
+<li>modify grepl to == because COLD was matching COLD and COLD_COOL. Only want exact match.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1109007-2018-06-12">Changes in Version 1.1.0.9007 (2018-06-12)</h2>
+<ul>
+<li>Update Rules.xlsx.
+<ul>
+<li>Level 3 (Hi and Lo), pi_BCG_att56 changed to pt_BCG_att1i23.</li>
+<li>Change involved both direction and thresholds.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1109006-2018-06-12">Changes in Version 1.1.0.9006 (2018-06-12)</h2>
+<ul>
+<li>Update metric.values.
+<ul>
+<li>Add “cols2keep” to allow for extra fields in output.</li>
+<li>Need extra fields for qc.checks</li>
+</ul></li>
+<li>Update qc.checks.
+<ul>
+<li>Update example with cols2keep from metric.values example.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1109005-2018-06-11">Changes in Version 1.1.0.9005 (2018-06-11)</h2>
+<ul>
+<li>Update bio data to be used for the model; Issue #7
+<ul>
+<li>Collapse mites to Order.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1109004-2018-06-08">Changes in Version 1.1.0.9004 (2018-06-08)</h2>
+<ul>
+<li>Update extdata/Rules.xlsx; Issue #7</li>
+</ul>
+<h2 id="changes-in-version-1109003-2018-06-08">Changes in Version 1.1.0.9003 (2018-06-08)</h2>
+<ul>
+<li>metric.values dd nt, pi, and pt metrics; Issue #7
+<ul>
+<li>NonIns_BCG_attr456</li>
+<li>NonInsJugaRiss_BCG_attr456</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1109002-2018-06-08">Changes in Version 1.1.0.9002 (2018-06-08)</h2>
+<ul>
+<li>QC Flags, Add pi_dom02. Issue #7</li>
+<li>Update format of NEWS.</li>
+<li>metric.values, row_number to dplyr::row_number for dominant metrics.</li>
+</ul>
+<h2 id="changes-in-version-1109001-2018-06-08">Changes in Version 1.1.0.9001 (2018-06-08)</h2>
+<ul>
+<li>metric.values, Issue #7
+<ul>
+<li>Update metrics from NonClump to NoJugaRiss.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1100000-2018-03-19">Changes in Version 1.1.0.0000 (2018-03-19)</h2>
+<ul>
+<li>Release new and fully QCed version.</li>
+</ul>
+<h2 id="changes-in-version-1009002-2018-03-19">Changes in Version 1.0.0.9002 (2018-03-19)</h2>
+<ul>
+<li>Metric.values
+<ul>
+<li>Fix metrics with <em>not equal</em> functions.</li>
+<li>Ensure use is.na(x)==TRUE rather than x==NA</li>
+<li>When have more than one condition for a data column need to be in the same statement.</li>
+<li>Better define clumpy taxa for 2 metrics.</li>
+</ul></li>
+<li>BCG.Level.Membership
+<ul>
+<li>Fixed combination of rules by level. Missed a column and was getting duplicates for alt rules that changed the outcome.</li>
+</ul></li>
+<li>BCG.Level.Assignment
+<ul>
+<li>Replace For loop with apply.</li>
+<li>Add special conditions for ties (2 levels with 0.5) and primary level is 1 (no 2nd level).</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-1009001-2018-03-18">Changes in Version 1.0.0.9001 (2018-03-18)</h2>
+<ul>
+<li>Metric.values
+<ul>
+<li>Fix non-clumpy metrics.</li>
+<li>Remove extra data frames for dominance metrics. Slight speed improvement. Issue #5.</li>
+</ul></li>
+<li>Fix version numbers in NEWS.</li>
+<li>Updated ReadMe with only the relevant packages. Issue #4.</li>
+</ul>
+<h2 id="changes-in-version-1000000-2018-03-18">Changes in Version 1.0.0.0000 (2018-03-18)</h2>
+<ul>
+<li>Only metric value issues left to resolve with test data set. Rest of the calculations are ok.</li>
+</ul>
+<h2 id="changes-in-version-0109019-2018-03-18">Changes in Version 0.1.0.9019 (2018-03-18)</h2>
+<ul>
+<li>Rules.xlsx
+<ul>
+<li>Fill in missing cells.</li>
+</ul></li>
+<li>metric.values.R
+<ul>
+<li>Update FFG abbreviations to match example data.</li>
+<li>Dominant N and special Dominant N metrics.</li>
+<li>Define pipe as referncing dplyr. Slows down the functions but keeps dplyr from needing to be loaded.</li>
+</ul></li>
+<li>SiteType values to lowercase.
+<ul>
+<li>metric.values.R</li>
+<li>BCG.Metric.Membership.R</li>
+<li>BCG.Level.Membership.R</li>
+<li>BCG.Level.Assignment.R</li>
+</ul></li>
+<li>Consistent terminology; don’t mix “.”, &quot; “, and”<em>“. Use”</em>&quot;.
+<ul>
+<li>METRIC_NAMES</li>
+<li>METRIC_VALUES</li>
+<li>SITE_TYPE (and change from REGION)</li>
+<li>RULE_TYPE</li>
+<li>NUMERIC_RULES</li>
+<li>LIFE_CYCLE</li>
+<li>LONG_LIVED</li>
+<li>THERMAL_INDICATOR</li>
+<li>NAME_WIDE</li>
+</ul></li>
+<li>Rebuild PacNW master taxa list with changes.
+<ul>
+<li>Consistent names (columns and categories).</li>
+</ul></li>
+<li>Example PacNW data.
+<ul>
+<li>Consistent names (columns).</li>
+</ul></li>
+<li>QC Checks</li>
+<li>Update Vignette.</li>
+<li>All functions and examples seem to be generating the proper outputs. When QC only a few metrics are off. But enough that no final results are correct (that is, all levels, site types, and samples are affected but the remaning QC issues). Non-Insect and modified dominant 2 metrics are the 4 that have issues.</li>
+</ul>
+<h2 id="changes-in-version-0109018-2018-03-17">Changes in Version 0.1.0.9018 (2018-03-17)</h2>
+<ul>
+<li>BCG.Level.Membership.R
+<ul>
+<li>Correct function to consider preceeding levels when assigning membership scores.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-0109017-2018-03-16">Changes in Version 0.1.0.9017 (2018-03-16)</h2>
+<ul>
+<li>metric.values.R
+<ul>
+<li>Added Thermal Indicator (TI) metrics.</li>
+</ul></li>
+<li>Updates to PacNW bug data and rules files (xlsx).</li>
+</ul>
+<h2 id="changes-in-version-0109016-2018-03-16">Changes in Version 0.1.0.9016 (2018-03-16)</h2>
+<ul>
+<li>metric.values.R
+<ul>
+<li>Update pt_BCG_att1i2 and 1i23 metrics (numerator not capturing “i” taxa).</li>
+</ul></li>
+<li>Update Rules.xlsx</li>
+</ul>
+<h2 id="changes-in-version-0109015-2018-03-16">Changes in Version 0.1.0.9015 (2018-03-16)</h2>
+<ul>
+<li>Vignette didn’t update in previous version.</li>
+</ul>
+<h2 id="changes-in-version-0109014-2018-03-15">Changes in Version 0.1.0.9014 (2018-03-15)</h2>
+<ul>
+<li>Tweak “data.R”. Not complete!
+<ul>
+<li>Added example save code for master taxa list.</li>
+</ul></li>
+<li>Update BCG.Metric.Membership.
+<ul>
+<li>Add some error checking.</li>
+<li>Colnames to upper case.</li>
+</ul></li>
+<li>Updated Rules.xlsx
+<ul>
+<li>Percent metrics convered to 0-1 values to match metric.values calculations.</li>
+<li>Fixed Index Name for some records.</li>
+</ul></li>
+<li>metric.values.R
+<ul>
+<li>Updated examples, details, and description.</li>
+</ul></li>
+<li>Update BCGcalc Vignette.</li>
+<li>Update Readme.</li>
+<li>Update BCG.Level.Membership</li>
+</ul>
+<h2 id="changes-in-version-0109013-2018-03-14">Changes in Version 0.1.0.9013 (2018-03-14)</h2>
+<ul>
+<li>Added PacNW benthic master taxa list to data.</li>
+<li>Created “data.R”. Not complete!</li>
+</ul>
+<h2 id="changes-in-version-0109012-2018-03-08">Changes in Version 0.1.0.9012 (2018-03-08)</h2>
+<ul>
+<li>Update PacNW example data to use TRUE/FALSE for Excluded and NonTarget fields.</li>
+<li>Updated metric.values
+<ul>
+<li>Moved common data munging to earlier in function so applies to all communities.</li>
+<li>Enabled NonTarget exclusion. NonTarget column now required.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-0109011-2018-03-08">Changes in Version 0.1.0.9011 (2018-03-08)</h2>
+<ul>
+<li>Completed lingering edits for “Tier” to “Level”.</li>
+<li>Completed BCG.Level.Membership function.</li>
+</ul>
+<h2 id="changes-in-version-0109010-2018-03-07">Changes in Version 0.1.0.9010 (2018-03-07)</h2>
+<ul>
+<li>Remove “Tier” wording in package and rename some functions to better reflect usage.</li>
+<li>Include example code for saving results for each function.</li>
+<li>Change Region to SiteType in code and example data files.</li>
+</ul>
+<h2 id="changes-in-version-0109009-2018-03-05">Changes in Version 0.1.0.9009 (2018-03-05)</h2>
+<ul>
+<li>Dom02 special metric placeholder.</li>
+<li>Update Rule table for Level assignments.</li>
+<li>BCG.Levels function.</li>
+<li>Fixed error in sequencing in BCG.Membership function.</li>
+</ul>
+<h2 id="changes-in-version-0109008-2018-03-05">Changes in Version 0.1.0.9008 (2018-03-05)</h2>
+<ul>
+<li>Add last of the PacNW specific metrics to metric.values.</li>
+<li>Added Vignette.</li>
+</ul>
+<h2 id="changes-in-version-0109007-2018-03-05">Changes in Version 0.1.0.9007 (2018-03-05)</h2>
+<ul>
+<li>Check clean up.</li>
+<li>Convert data imports from development folder to pacakge folder with system.file.</li>
+<li>Add data for rarify function.</li>
+</ul>
+<h2 id="changes-in-version-0109006-2018-03-04">Changes in Version 0.1.0.9006 (2018-03-04)</h2>
+<ul>
+<li>BCG.Tiers function.</li>
+</ul>
+<h2 id="changes-in-version-0109005-2018-03-04">Changes in Version 0.1.0.9005 (2018-03-04)</h2>
+<ul>
+<li>Add BCG.Membership function. Return is in long format.
+<ul>
+<li>Not QCed but has some known issues.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-0109004-2018-03-03">Changes in Version 0.1.0.9004 (2018-03-03)</h2>
+<ul>
+<li>Add subtitles, date, author to YAML header to NEWS and README.</li>
+<li>Add “flags” Excel file to raw-data for QC checks. Used in qc.checks function (new).</li>
+<li>Added 4 new ni metrics to metric values to be used for QC checks (flags).</li>
+<li>qc.checks.R (incomplete but works).</li>
+<li>Add BCGcalc.R to describe the package.</li>
+<li>Update documentation headers in R files.</li>
+</ul>
+<h2 id="changes-in-version-0109003-2018-02-20">Changes in Version 0.1.0.9003 (2018-02-20)</h2>
+<ul>
+<li>metric.values.R, benthos
+<ul>
+<li>Added BCG attribute metrics.</li>
+<li>Added outlining for readability in code.</li>
+<li>More metrics and clean up of file.</li>
+<li>Prepare example data for metric calculation.</li>
+<li>Added na.rm=TRUE to n_distinct and sum in summarise.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-0109002-2018-02-16">Changes in Version 0.1.0.9002 (2018-02-16)</h2>
+<ul>
+<li>Add parts without any modification from <code>MBSStools</code> package.
+<ul>
+<li>rarify function</li>
+<li>metric.values function</li>
+<li>included data folder and files</li>
+<li>added Excel file to extdata with metric naming explanation</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-0109001-2018-02-16">Changes in Version 0.1.0.9001 (2018-02-16)</h2>
+<ul>
+<li>Updated files for package.
+<ul>
+<li>Readme, NEWS, DESCRIPTION</li>
+<li>Not complete.</li>
+</ul></li>
+</ul>
+<h2 id="changes-in-version-010-2018-02-16">Changes in Version 0.1.0 (2018-02-16)</h2>
+<ul>
+<li>Created GitHub repository</li>
+</ul>
+
+</body>
+</html>

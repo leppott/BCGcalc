@@ -57,6 +57,6 @@ View(df.Level.Membership)
 
 # Save Results
 write.table(df.Level.Membership, "Level.Membership.tsv"
-             , row.names=FALSE, col.names=TRUE, sep="\\t")
+             , row.names=FALSE, col.names=TRUE, sep="\t")
 }
 }

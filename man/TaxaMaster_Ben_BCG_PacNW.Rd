@@ -4,7 +4,8 @@
 \name{TaxaMaster_Ben_BCG_PacNW}
 \alias{TaxaMaster_Ben_BCG_PacNW}
 \title{Benthic Master Taxa List, BCG Pacific Northwest}
-\format{A data frame with 684 rows and 19 variables:
+\format{
+A data frame with 684 rows and 19 variables:
 \describe{
    \item{TaxaID}{unique taxonomic identifier}
    \item{Phylum}{Taxonomic rank, Phylum}
@@ -25,7 +26,8 @@
    \item{Habit}{Habit}
    \item{Life_Cycle}{Voltinism}
    \item{TolVal}{Tolerance Value}
-}}
+}
+}
 \usage{
 TaxaMaster_Ben_BCG_PacNW
 }

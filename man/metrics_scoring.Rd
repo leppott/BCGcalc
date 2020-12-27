@@ -4,7 +4,8 @@
 \name{metrics_scoring}
 \alias{metrics_scoring}
 \title{Metric Scoring}
-\format{A data frame with 69 rows and 8 variables:
+\format{
+A data frame with 69 rows and 8 variables:
 \describe{
    \item{Index.Name}{}
    \item{Index.Region}{}
@@ -14,7 +15,8 @@
    \item{Thresh.Hi}{}
    \item{ScoreRegime}{}
    \item{Name_Other}{}
-}}
+}
+}
 \usage{
 metrics_scoring
 }

@@ -48,6 +48,6 @@ df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
 
 # Save Results
 write.table(df.Metric.Membership, "Metric.Membership.tsv"
-              , row.names=FALSE, col.names=TRUE, sep="\\t")
+              , row.names=FALSE, col.names=TRUE, sep="\t")
 }
 }

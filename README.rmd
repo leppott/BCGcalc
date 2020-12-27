@@ -26,8 +26,12 @@ Biological Condition Gradient (BCG) calculator.  Peform basic functions needed f
 Badges
 -----------
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/BCGcalc/graphs/commit-activity)
+
 [![GitHub license](https://img.shields.io/github/license/leppott/BCGcalc.svg)](https://github.com/leppott/BCGcalc/blob/master/LICENSE)
-[![Travis-CI Build Status](https://travis-ci.org/leppott/BCGcalc.svg?branch=master)](https://travis-ci.org/leppott/BCGcalc)
+
+[![R-CMD-check](https://github.com/leppott/BCGcalc/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/BCGcalc/actions)
+
+
 [![GitHub issues](https://img.shields.io/github/issues/leppott/BCGcalc.svg)](https://GitHub.com/leppott/BCGcalc/issues/)
 
 [![GitHub release](https://img.shields.io/github/release/leppott/BCGcalc.svg)](https://GitHub.com/leppott/BCGcalc/releases/)
@@ -130,7 +134,7 @@ Example
 ------------
 A quick example showing the calculation of metrics on a dataset but returning only a select few (e.g., the 12 metrics used in the BCG model for the Pacific NW).  This functionality is built into the `metric.values` function as an optional parameter.
 
-```{r Metric_Select, eval=TRUE, echo=TRUE}
+```{r Metric_Select, eval=FALSE, echo=TRUE}
 library(BCGcalc)
 library(readxl)
 library(reshape2)

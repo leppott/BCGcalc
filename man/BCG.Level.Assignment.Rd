@@ -49,7 +49,7 @@ View(df.Levels)
 
 # Save Results
 write.table(df.Levels, "Levels.tsv"
-            , row.names=FALSE, col.names=TRUE, sep="\\t")
+            , row.names=FALSE, col.names=TRUE, sep="\t")
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~
