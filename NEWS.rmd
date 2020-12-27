@@ -50,6 +50,16 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9014 (2020-12-27)
+
+* ci: Add GitHub Action test coverage
+* ci: Add GitHub Action pkgdown
+* docs: ReadMe, add codecov badge
+* docs: ReadMe, add lifecycle badge
+* docs: ReadMe, add codefactor badge
+* docs: Remove docs folder from main branch for pkgdown
+* docs: Redirect GitHub repo for pkgdown to gh-pages branch
+
 ## Changes in Version 1.3.4.9013 (2020-12-27)
 
 * ci: Add GitHub Actions, continuous integration

@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2020-12-27 10:55:28
+2020-12-27 11:09:22
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-27 10:55:28
+    #> Last Update: 2020-12-27 11:09:22
 
 # BCGcalc
 
@@ -15,10 +15,13 @@ needed for metric calculation and model (level) assignments.
 ## Badges
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/BCGcalc/graphs/commit-activity)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 [![GitHub
 license](https://img.shields.io/github/license/leppott/BCGcalc.svg)](https://github.com/leppott/BCGcalc/blob/master/LICENSE)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/leppott/BCGcalc/badge)](https://www.codefactor.io/repository/github/leppott/BCGcalc)
+[![codecov](https://codecov.io/gh/leppott/BCGcalc/branch/master/graph/badge.svg)](https://codecov.io/gh/leppott/BCGcalc)
 [![R-CMD-check](https://github.com/leppott/BCGcalc/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/BCGcalc/actions)
 
 [![GitHub

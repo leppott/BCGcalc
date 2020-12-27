@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2020-12-27 10:59:03
+2020-12-27 11:11:31
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-27 10:59:03
+    #> Last Update: 2020-12-27 11:11:31
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,16 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9014 (2020-12-27)
+
+  - ci: Add GitHub Action test coverage
+  - ci: Add GitHub Action pkgdown
+  - docs: ReadMe, add codecov badge
+  - docs: ReadMe, add lifecycle badge
+  - docs: ReadMe, add codefactor badge
+  - docs: Remove docs folder from main branch for pkgdown
+  - docs: Redirect GitHub repo for pkgdown to gh-pages branch
 
 ## Changes in Version 1.3.4.9013 (2020-12-27)
 
