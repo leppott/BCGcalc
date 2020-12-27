@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2020-12-27 11:09:22
+2020-12-27 11:25:10
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-27 11:09:22
+    #> Last Update: 2020-12-27 11:25:10
 
 # BCGcalc
 

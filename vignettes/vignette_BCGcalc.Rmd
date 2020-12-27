@@ -734,7 +734,7 @@ code as shown in Example # 2 to limit the output to the desired metrics.
 #### Example 1
 Knowing the names of the metrics, use them as input in the metric.values function.
 
-```{r MetricValues_Keep1}
+```{r MetricValues_Keep1, eval = FALSE}
 # Packages
 library(BCGcalc)
 library(readxl)
@@ -755,6 +755,7 @@ col.met2keep <- c("ni_total", "nt_total", "nt_BCG_att1i2", "pt_BCG_att1i23"
 # Run Function
 df.metval <- metric.values(df.data, "bugs"
                            , fun.cols2keep=myCols, fun.MetricNames = col.met2keep)
+1 # YES
 
 # Select columns
 col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
