@@ -50,6 +50,18 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9016 (2021-01-18)
+
+* docs: Remove date from DESCRIPTION
+* tests: Add tests
+    + metric_membership
+    + level_membership
+    + level_assignment
+* feature: Create metrics_values dataset to use in tests
+* docs: Document metrics_values dataset
+* refactor: Replace undesireable function, library
+    + ProcessData_TaxaMaster_Ben_BCG_PacNW
+
 ## Changes in Version 1.3.4.9015 (2020-12-27)
 
 * test: set up test folder

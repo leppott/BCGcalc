@@ -21,6 +21,6 @@ A data frame with 69 rows and 8 variables:
 metrics_scoring
 }
 \description{
-Long Description
+Example metric scoring
 }
 \keyword{datasets}

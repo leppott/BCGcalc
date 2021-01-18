@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2020-12-27 11:41:16
+2021-01-18 16:15:14
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-27 11:41:16
+    #> Last Update: 2021-01-18 16:15:14
 
 # Future Possibile Features (Wish List)
 
@@ -45,6 +45,18 @@ BCGcalc-NEWS
       - <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9016 (2021-01-18)
+
+  - docs: Remove date from DESCRIPTION
+  - tests: Add tests
+      - metric\_membership
+      - level\_membership
+      - level\_assignment
+  - feature: Create metrics\_values dataset to use in tests
+  - docs: Document metrics\_values dataset
+  - refactor: Replace undesireable function, library
+      - ProcessData\_TaxaMaster\_Ben\_BCG\_PacNW
 
 ## Changes in Version 1.3.4.9015 (2020-12-27)
 
