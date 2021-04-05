@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-04-04 21:03:12
+2021-04-04 21:29:56
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-04 21:03:12
+    #> Last Update: 2021-04-04 21:29:56
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9018 (2021-04-04)
+
+-   feature: Add sticker
+    -   Create with hexSticker
 
 ## Changes in Version 1.3.4.9017 (2021-04-04)
 
