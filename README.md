@@ -1,15 +1,15 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2020-12-27 11:25:10
+2021-04-04 20:55:30
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-27 11:25:10
+    #> Last Update: 2021-04-04 20:55:30
 
 # BCGcalc
 
-Biological Condition Gradient (BCG) calculator. Peform basic functions
+Biological Condition Gradient (BCG) calculator. Perform basic functions
 needed for metric calculation and model (level) assignments.
 
 ## Badges
@@ -34,10 +34,13 @@ releases](https://img.shields.io/github/downloads/leppott/BCGcalc/total.svg)](ht
 
 ## Installation
 
+To install the current version use the code below to install from
+GitHub. The use of “force = TRUE” ensures the package is installed even
+if already present. If the package devtools is missing the code below
+will install it.
+
 ``` r
-# Installing this library (with the vignette)
-library(devtools) 
-Sys.setenv("TAR" = "internal")  # needed for R v3.6.0 or higher
+if(!require(remotes)){install.packages("remotes")}  #install if needed
 install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
@@ -46,7 +49,7 @@ with the basic `install_github` command. If you want the vignette
 install with the command above (or download the compressed file from
 GitHub and install from that file).
 
-All dependant libraries should install with the install\_github command
+All dependent libraries should install with the install\_github command
 but occassionally they do not. If you encounter issues the dependant
 libraries can be installed separately with the command below.
 
@@ -141,8 +144,8 @@ If the vignette fails to show on your computer. Run the code below to
 reinstall the package and specify the creation of the vignette.
 
 ``` r
-library(devtools)
-install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
+library(remotes)
+remotes::install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
 ## Example

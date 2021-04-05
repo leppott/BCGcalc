@@ -630,11 +630,12 @@ convenience.
 The `rarify` function subsamples count data to a fixed count per sample.  It 
 takes as an input a 3 column data frame (SampleID, TaxonID, Count) and returns a 
 similar dataframe with revised Counts.  The names of the columns does not matter 
-as they are specified in the code.  Any non-count taxa (e.g., fish in a bug sample) 
-should be removed prior to using the `rarify` function.  The function code is 
-from USEPA Corvallis John Van Sickle's R code for RIVPACS (v1.0, 2005-06-10) and 
-was tweaked for the addition of a user provided seed so repeatable results can 
-be obtained.  It is inlcuded in the package BioMonTools (https://github.com/leppott/BioMonTools).
+as they are specified in the code.  Any non-count taxa (e.g., fish in a bug 
+sample) should be removed prior to using the `rarify` function.  The function 
+code is from USEPA Corvallis John Van Sickle's R code for RIVPACS (v1.0, 
+2005-06-10) and was tweaked for the addition of a user provided seed so 
+repeatable results can be obtained.  It is included in the package BioMonTools 
+(https://github.com/leppott/BioMonTools).
 
 The other function inputs are subsample size (target number of organisms in each 
 sample) and seed. The seed is given so the results can be reproduced from the 

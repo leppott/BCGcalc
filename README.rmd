@@ -21,7 +21,7 @@ cat(paste0("Last Update: ",Sys.time()))
 
 
 # BCGcalc
-Biological Condition Gradient (BCG) calculator.  Peform basic functions needed for metric calculation and model (level) assignments.
+Biological Condition Gradient (BCG) calculator.  Perform basic functions needed for metric calculation and model (level) assignments.
 
 Badges
 -----------
@@ -42,16 +42,16 @@ Badges
 
 Installation
 -----------------
+To install the current version use the code below to install from GitHub. The use of “force = TRUE” ensures the package is installed even if already present. If the package devtools is missing the code below will install it.
+
 ```{r Install_Vignette, eval=FALSE}
-# Installing this library (with the vignette)
-library(devtools) 
-Sys.setenv("TAR" = "internal")  # needed for R v3.6.0 or higher
+if(!require(remotes)){install.packages("remotes")}  #install if needed
 install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
 The vignette (big help file) isn't created when installing from GitHub with the basic `install_github` command.  If you want the vignette install with the command above (or download the compressed file from GitHub and install from that file).
 
-All dependant libraries should install with the install_github command but occassionally they do not.  If you encounter issues the dependant libraries can be installed separately with the command below.
+All dependent libraries should install with the install_github command but occassionally they do not.  If you encounter issues the dependant libraries can be installed separately with the command below.
 
 ```{r Install_Libraries, eval=FALSE}
 # Choose a CRAN mirror (dowload site) first (can change number)
@@ -126,11 +126,12 @@ The vignette file is located in the “doc” directory of the library in the R 
 vignette("vignette_BCGcalc", package="BCGcalc")
 ```
 
-If the vignette fails to show on your computer.  Run the code below to reinstall the package and specify the creation of the vignette.
+If the vignette fails to show on your computer.  Run the code below to reinstall
+the package and specify the creation of the vignette.
 
 ```{r Install_Vignette2, eval=FALSE}
-library(devtools)
-install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
+library(remotes)
+remotes::install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
 Example
