@@ -1,13 +1,13 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2021-04-04 21:27:48
+2021-04-04 21:31:59
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-04 21:27:48
+    #> Last Update: 2021-04-04 21:31:59
 
-# BCGcalc <a href='https://https://github.com/leppott/BCGcalc'><img src='figures/logo.png' align="right" height="139" /></a>
+# BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
 
 Biological Condition Gradient (BCG) calculator. Perform basic functions
 needed for metric calculation and model (level) assignments.

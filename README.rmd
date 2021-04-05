@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE
 ```{r, echo = FALSE}
 cat(paste0("Last Update: ",Sys.time()))
 ```
-# BCGcalc 
+# BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
 Biological Condition Gradient (BCG) calculator.  Perform basic functions needed for metric calculation and model (level) assignments.
 
 Badges
