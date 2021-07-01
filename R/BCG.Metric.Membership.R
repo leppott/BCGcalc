@@ -25,7 +25,7 @@
 #' 
 #' # Import Rules
 #' df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-#'                              , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+#'                              , package="BCGcalc"), sheet="Rules") 
 #' 
 #' # Run function
 #' df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)

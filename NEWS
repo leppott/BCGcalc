@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-04-04 21:33:12
+2021-07-01 15:31:54
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-04 21:33:12
+    #> Last Update: 2021-07-01 15:31:54
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,25 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9022 (2021-07-01)
+
+-   docs: Update DESCRIPTION remotes to proper url
+-   refactor: Update `metric.membership()` example to use updated
+    Rules.xlsx, Issue \#48
+-   refactor: Update Rules.xlsx file, Issue \#48
+-   refactor: Update `level.membership()` example to use updated
+    Rules.xlsx, Issue \#48
+-   refactor: Update `level.assignment()` example to use updated
+    Rules.xlsx, Issue \#48
+
+## Changes in Version 1.3.4.9021 (2021-07-01)
+
+-   refactor: Merge pull request with updated rules, Issue \#52
+
+## Changes in Version 1.3.4.9020 (2021-06-22)
+
+-   refactor: Update model rules, Rules.xlsx, Issue \#48
 
 ## Changes in Version 1.3.4.9019 (2021-04-04)
 
