@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-07-01 15:31:54
+2021-07-23 10:55:26
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-07-01 15:31:54
+    #> Last Update: 2021-07-23 10:55:26
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9023 (2021-07-23)
+
+-   refactor: Update Rules.xlsx, Issue \#48
+    -   Change Index\_Name, Site\_Type, and Index\_Region
 
 ## Changes in Version 1.3.4.9022 (2021-07-01)
 
