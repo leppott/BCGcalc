@@ -4,7 +4,21 @@
 \alias{BCG.Metric.Membership}
 \title{BCG Metric Membership}
 \usage{
-BCG.Metric.Membership(df.metrics, df.rules, input.shape = "wide")
+BCG.Metric.Membership(
+  df.metrics,
+  df.rules,
+  input.shape = "wide",
+  col_SAMPLEID = "SAMPLEID",
+  col_INDEX_NAME = "INDEX_NAME",
+  col_SITE_TYPE = "SITE_TYPE",
+  col_LEVEL = "LEVEL",
+  col_METRIC_NAME = "METRIC_NAME",
+  col_RULE_TYPE = "RULE_TYPE",
+  col_LOWER = "LOWER",
+  col_UPPER = "UPPER",
+  col_METRIC_VALUE = "METRIC_VALUE",
+  col_INCREASE = "INCREASE"
+)
 }
 \arguments{
 \item{df.metrics}{Wide data frame with metric values to be evaluated.}
@@ -12,6 +26,30 @@ BCG.Metric.Membership(df.metrics, df.rules, input.shape = "wide")
 \item{df.rules}{Data frame of metric thresholds to check.}
 
 \item{input.shape}{Shape of df.metrics; wide or long.  Default is wide.}
+
+\item{col_SAMPLEID}{Column name for sample id.  Default = "SAMPLEID"}
+
+\item{col_INDEX_NAME}{Column name for index name. Default = "INDEX_NAME"}
+
+\item{col_SITE_TYPE}{Column name for site type  Default = "SITE_TYPE"
+Site Type is used over Index_Region for BCG calculations}
+
+\item{col_LEVEL}{Column name for level.  Default = "LEVEL"}
+
+\item{col_METRIC_NAME}{Column name for metric name.  Default = "METRIC_NAME"}
+
+\item{col_RULE_TYPE}{Column name for rule type (e.g., Rule0).
+Default = "RULE_TYPE"}
+
+\item{col_LOWER}{Column name for lower limit.  Default = "LOWER"}
+
+\item{col_UPPER}{Column name for upper limit.  Default = "UPPER"}
+
+\item{col_METRIC_VALUE}{Column name for metric value.
+Default = "METRIC_VALUE"}
+
+\item{col_INCREASE}{Column name for if the metric increases. 
+Default = "INCREASE"}
 }
 \value{
 Returns a data frame of results in the long format.
@@ -21,33 +59,43 @@ Biological Condition Gradient fuzzy membership for metrics.
 }
 \details{
 Converts metric values into BCG membership values.  
-Uses a rules table to define the metrics, scoring range, and direction for each named index.
+Uses a rules table to define the metrics, scoring range, and direction for 
+each named index.
 }
 \examples{
-library(readxl)
-library(BioMonTools)
+# library(readxl)
+# library(BioMonTools)
 
 # Calculate Metrics
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                        , package="BCGcalc")
+df_samps_bugs <- readxl::read_excel(
+                                 system.file("./extdata/Data_BCG_PacNW.xlsx"
+                                             , package="BCGcalc")
                            , guess_max = 10^6)
-myDF <- df.samps.bugs
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
-df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)
+myDF <- df_samps_bugs
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
+            , "Site_Type")
+# populate missing columns prior to metric calculation
+myDF[, c("INFRAORDER", "HABITAT")] <- NA 
+df_met_val_bugs <- BioMonTools::metric.values(myDF
+                                              , "bugs"
+                                              , fun.cols2keep = myCols)
+
 
 # Import Rules
-df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="Rules") 
+df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+                                           , package = "BCGcalc")
+                      , sheet="Rules") 
 
 # Run function
-df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
+df_met_memb <- BCG.Metric.Membership(df_met_val_bugs, df_rules)
 
-\dontrun{
 # Show Results
-#View(df.Metric.Membership)
+#View(df_met_memb)
 
 # Save Results
-write.table(df.Metric.Membership, "Metric.Membership.tsv"
-              , row.names=FALSE, col.names=TRUE, sep="\t")
-}
+write.table(df_met_memb
+            , file.path(tempdir(), "Metric_Membership.tsv")
+            , row.names = FALSE
+            , col.names = TRUE
+            , sep = "\t")
 }

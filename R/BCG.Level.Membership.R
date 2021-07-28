@@ -1,6 +1,7 @@
 #' @title BCG Level Membership
 #' 
-#' @description Biological Condition Gradient Level assignment given metric memberships.
+#' @description Biological Condition Gradient Level assignment given metric 
+#' memberships.
 #' 
 #' @details Input is metric memberships and a rules tables.  
 #' Output is a data frame with the membership for each row to each Level (1:6).
@@ -13,41 +14,58 @@
 #' 2. Max of Alt2 rules and the above result.
 #' 3. Min of Rule0, the above result, and the sum of previous levels.
 #' 
-#' @param df.metric.membership Data frame of metric memberships (long format, the same as the output of BCG.Membership).
+#' @param df.metric.membership Data frame of metric memberships 
+#' (long format, the same as the output of BCG.Metric.Membership).
 #' @param df.rules Data frame of BCG model rules.
+#' @param col_SAMPLEID column name for sample id.  Default = SAMPLEID
+#' @param col_INDEX_NAME column name for index name. Default = INDEX_NAME
+#' @param col_SITE_TYPE column name for site type  Default = SITE_TYPE
+#' @param col_LEVEL column name for level.  Default = LEVEL
+#' @param col_METRIC_NAME column name for metric name.  Default = METRIC_NAME
+#' @param col_RULE_TYPE column name for rule type (e.g., Rule0).
+#' Default = RULE_TYPE
 #'
 #' @return Returns a data frame of results in the wide format.
 #' 
 #' @examples
-#' library(readxl)
-#' library(BioMonTools)
+#' # library(readxl)
+#' # library(BioMonTools)
 #' 
 #' # Calculate Metrics
-#' df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-#'                                         , package="BCGcalc")
+#' df_samps_bugs <- readxl::read_excel(
+#'                                  system.file("./extdata/Data_BCG_PacNW.xlsx"
+#'                                              , package="BCGcalc")
 #'                            , guess_max = 10^6)
-#' myDF <- df.samps.bugs
-#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
-#' df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols)
+#' myDF <- df_samps_bugs
+#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
+#'             , "Site_Type")
+#' # populate missing columns prior to metric calculation
+#' myDF[, c("INFRAORDER", "HABITAT")] <- NA 
+#' df_met_val_bugs <- BioMonTools::metric.values(myDF
+#'                                               , "bugs"
+#'                                               , fun.cols2keep = myCols)
+#' 
 #' 
 #' # Import Rules
-#' df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-#'                              , package="BCGcalc"), sheet="Rules") 
+#' df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+#'                                            , package = "BCGcalc")
+#'                       , sheet="Rules") 
 #' 
 #' # Calculate Metric Memberships
-#' df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
+#' df_met_memb <- BCG.Metric.Membership(df_met_val_bugs, df_rules)
 #' 
 #' # Calculate Level Memberships
-#' df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+#' df_lev_memb <- BCG.Level.Membership(df_met_memb, df_rules)
 #' 
-#' \dontrun{
 #' # Show results
-#' View(df.Level.Membership)
+#' #View(df_lev_memb)
 #' 
 #' # Save Results
-#' write.table(df.Level.Membership, "Level.Membership.tsv"
-#'              , row.names=FALSE, col.names=TRUE, sep="\t")
-#' }
+#' write.table(df_lev_memb
+#'              , file.path(tempdir(), "Level_Membership.tsv")
+#'              , row.names = FALSE
+#'              , col.names = TRUE
+#'              , sep = "\t")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 # QC
 # library(BCGcalc)
@@ -57,7 +75,7 @@
 #                                         , package="BCGcalc")
 #                             , guess_max = 10^6)
 # myDF <- df.samps.bugs
-# df.metric.values.bugs <- metric.values(myDF, "bugs")
+# df.metric.values.bugs <- BioMonTools::metric.values(myDF, "bugs")
 # 
 # # Import Rules
 # df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
@@ -76,18 +94,21 @@
 # names(df.rules) <- toupper(names(df.rules))
 # 
 # # SITE_TYPE to lowercase
-# df.metric.membership[,"SITE_TYPE"] <- tolower(df.metric.membership[,"SITE_TYPE"])
+# df.metric.membership[,"SITE_TYPE"] <- tolower(df.metric.membership[
+#,"SITE_TYPE"])
 # df.rules[,"SITE_TYPE"] <- tolower(df.rules[,"SITE_TYPE"])
 # 
 # # Drop extra columns from df.metric.membership
 # # (otherwise duplicates in merge)
-# col.drop <- c("NUMERIC_RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION")
-# col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% col.drop)]
+# col.drop <- c("NUMERIC_RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE"
+#, "DESCRIPTION")
+# col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% 
+#col.drop)]
 # 
 # # merge metrics and rules
 # df.merge <- merge(df.metric.membership[,col.keep], df.rules
-#                   , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE")
-#                   , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE"))
+#       , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE")
+#     , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE"))
 # 
 # 
 # df.merge <- df.merge[df.merge$SAMPLEID=="06029CSR_Bug_2006-09-27_0", ]
@@ -97,11 +118,11 @@
 #                                            , SITE_TYPE, LEVEL)
 #                            #
 #                            # Min of Alt2
-#                            , MembCalc_Alt2_min=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
-#                            # Max of Alt1
-#                            , MembCalc_Alt1_max=max(MEMBERSHIP[RULE_TYPE == "Alt1"], na.rm=TRUE)
-#                            # Min of Rule0 (with alt above)
-#                            , MembCalc_Rule0_min=min(MEMBERSHIP[RULE_TYPE == "Rule0"], na.rm=TRUE)
+#         , MembCalc_Alt2_min=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
+#                          # Max of Alt1
+#          , MembCalc_Alt1_max=max(MEMBERSHIP[RULE_TYPE == "Alt1"], na.rm=TRUE)
+#                          # Min of Rule0 (with alt above)
+#        , MembCalc_Rule0_min=min(MEMBERSHIP[RULE_TYPE == "Rule0"], na.rm=TRUE)
 # )
 # View(df.merge)
 # View(df.lev)
@@ -116,26 +137,54 @@
 # 
 # View(df.lev)
 # 
-# df.lev[,"MembCalc_Alt12_max"] <- apply(df.lev[,c("MembCalc_Alt2_min", "MembCalc_Alt1_max")]
+# df.lev[,"MembCalc_Alt12_max"] <- apply(df.lev[,c("MembCalc_Alt2_min"
+# , "MembCalc_Alt1_max")]
 #                                        , 1, max, na.rm=TRUE)
 # View(df.lev)
 # 
 # df.lev[!is.finite(df.lev[,"MembCalc_Alt12_max"]), "MembCalc_Alt12_max"] <- NA
 # View(df.lev)
 # 
-# df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Alt12_max", "MembCalc_Rule0_min")]
+# df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Alt12_max"
+# , "MembCalc_Rule0_min")]
 #                                      , 1, min, na.rm=TRUE)
 # View(df.lev)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
-BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.START
+BCG.Level.Membership <- function(df.metric.membership
+                                 , df.rules
+                                 , col_SAMPLEID = "SAMPLEID"
+                                 , col_INDEX_NAME = "INDEX_NAME"
+                                 , col_SITE_TYPE = "SITE_TYPE"
+                                 , col_LEVEL = "LEVEL"
+                                 , col_METRIC_NAME = "METRIC_NAME"
+                                 , col_RULE_TYPE = "RULE_TYPE") {
   #
+  boo_QC <- FALSE
+  if(isTRUE(boo_QC)) {
+    df.metric.membership <- df_met_memb
+    df.rules <- df_rules
+    col_SAMPLEID = "SAMPLEID"
+    col_INDEX_NAME = "INDEX_NAME"
+    col_SITE_TYPE = "SITE_TYPE"
+    col_LEVEL = "LEVEL"
+    col_METRIC_NAME = "METRIC_NAME"
+    col_RULE_TYPE = "RULE_TYPE"
+    a <- c(col_INDEX_NAME
+           , col_SITE_TYPE
+           , col_LEVEL
+           , col_METRIC_NAME
+           , col_RULE_TYPE)
+  }## IF ~ boo_QC ~ END
+  
   # # convert membership to long format if provided
   # # Metrics to long
   # if (input.shape=="wide") {##IF.input.shape.START
-  #   df.long <- reshape2::melt(df.metric.membership, id.vars=c("SAMPLEID", "INDEX_NAME", "SITE_TYPE")
-  #                             , variable.name="METRIC_NAME", value.name="METRIC_VALUE")
+  #   df.long <- reshape2::melt(df.metric.membership, id.vars=c("SAMPLEID"
+  # , "INDEX_NAME", "SITE_TYPE")
+  #                             , variable.name="METRIC_NAME"
+  # , value.name="METRIC_VALUE")
   # } else {
   #   df.long <- df.metric.membership
   # }##IF.input.shape.END
@@ -148,70 +197,143 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   names(df.metric.membership) <- toupper(names(df.metric.membership))
   names(df.rules) <- toupper(names(df.rules))
   
+  # QC, Columns
+  # col_SAMPLEID
+  # col_INDEX_NAME
+  # col_SITE_TYPE
+  # col_LEVEL
+  # col_METRIC_NAME
+  # col_RULE_TYPE
+  
   # SITE_TYPE to lowercase
-  df.metric.membership[,"SITE_TYPE"] <- tolower(df.metric.membership[,"SITE_TYPE"])
-  df.rules[,"SITE_TYPE"] <- tolower(df.rules[,"SITE_TYPE"])
+  df.metric.membership[, col_SITE_TYPE] <- tolower(df.metric.membership[
+                                                               , col_SITE_TYPE])
+  df.rules[, col_SITE_TYPE] <- tolower(df.rules[, col_SITE_TYPE])
   
   # Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
-  col.drop <- c("NUMERIC_RULES", "SYMBOL", "LOWER", "UPPER", "INCREASE", "DESCRIPTION")
-  col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% col.drop)]
+  col.drop <- c("NUMERIC_RULES"
+                , "SYMBOL"
+                , "LOWER"
+                , "UPPER"
+                , "INCREASE"
+                , "DESCRIPTION")
+  col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% 
+                                                                      col.drop)]
   
   # merge metrics and rules
-  df.merge <- merge(df.metric.membership[,col.keep], df.rules
-                    , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE")
-                    , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE"))
+  df.merge <- merge(df.metric.membership[, col.keep]
+                    , df.rules
+                    , by.x = c(col_INDEX_NAME
+                               , col_SITE_TYPE
+                               , col_LEVEL
+                               , col_METRIC_NAME
+                               , col_RULE_TYPE)
+                    , by.y = c(col_INDEX_NAME
+                               , col_SITE_TYPE
+                               , col_LEVEL
+                               , col_METRIC_NAME
+                               , col_RULE_TYPE))
   
   # Min of Alt2
   # Max of Alt1 (with Min of Alt2)
   # Min of Rule0 (with alt above)
   
-  # Will get lots of warnings for the SampID that don't have alt 1 or alt 2 rules
+  # dplyr fix 1 ----
+  # Ensure have correct names for summarise(group_by))
+  names(df.merge)[names(df.merge) == col_SAMPLEID] <- "SAMPLEID"
+  names(df.merge)[names(df.merge) == col_INDEX_NAME] <- "INDEX_NAME"
+  names(df.merge)[names(df.merge) == col_SITE_TYPE] <- "SITE_TYPE"
+  names(df.merge)[names(df.merge) == col_LEVEL] <- "LEVEL"
+  names(df.merge)[names(df.merge) == col_RULE_TYPE] <- "RULE_TYPE"
+  
+  
+  # Will get lots of warnings, SampIDs without alt 1 or alt 2 rules
   suppressWarnings(
-    df.lev <- dplyr::summarise(dplyr::group_by(df.merge, SAMPLEID, INDEX_NAME
-                                                 , SITE_TYPE, LEVEL)
+    df.lev <- dplyr::summarise(dplyr::group_by(df.merge
+                                               , SAMPLEID
+                                               , INDEX_NAME
+                                               , SITE_TYPE
+                                               , LEVEL
+                                               )
+                               , .groups = "drop_last"
                               #
-                              # Min of Alt2
-                              , MembCalc_Alt2_min=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
-                              # Max of Alt1
-                              , MembCalc_Alt1_max=max(MEMBERSHIP[RULE_TYPE == "Alt1"], na.rm=TRUE)
-                              # Min of Rule0 (with alt above)
-                              , MembCalc_Rule0_min=min(MEMBERSHIP[RULE_TYPE == "Rule0"], na.rm=TRUE)
+                # Min of Alt2
+                , MembCalc_Alt2_min = min(MEMBERSHIP[RULE_TYPE == "Alt2"]
+                                        , na.rm=TRUE)
+                # Max of Alt1
+                , MembCalc_Alt1_max = max(MEMBERSHIP[RULE_TYPE == "Alt1"]
+                                          , na.rm=TRUE)
+                # Min of Rule0 (with alt above)
+                , MembCalc_Rule0_min = min(MEMBERSHIP[RULE_TYPE == "Rule0"]
+                                           , na.rm=TRUE)
 
-  ))
+    )## summarise ~ END
+  )## suppressWarnings ~ END
 
+  # dplyr fix 2 ----
+  # Change names back to variable inputs
+  names(df.lev)[names(df.lev) == "SAMPLEID"] <- toupper(col_SAMPLEID)
+  names(df.lev)[names(df.lev) == "INDEX_NAME"] <- toupper(col_INDEX_NAME)
+  names(df.lev)[names(df.lev) == "SITE_TYPE"] <- toupper(col_SITE_TYPE)
+  names(df.lev)[names(df.lev) == "LEVEL"] <- toupper(col_LEVEL)
+  names(df.lev)[names(df.lev) == "RULE_TYPE"] <- toupper(col_RULE_TYPE)
+  
   # convert from tibble to df
   df.lev <- as.data.frame(df.lev)
   # replace Inf and -Inf with NA
-  df.lev[!is.finite(df.lev[,"MembCalc_Alt2_min"]), "MembCalc_Alt2_min"] <- NA
-  df.lev[!is.finite(df.lev[,"MembCalc_Alt1_max"]), "MembCalc_Alt1_max"] <- NA
+  df.lev[!is.finite(df.lev[, "MembCalc_Alt2_min"]), "MembCalc_Alt2_min"] <- NA
+  df.lev[!is.finite(df.lev[, "MembCalc_Alt1_max"]), "MembCalc_Alt1_max"] <- NA
   # this one shouldn't happen.  Use zero just in case.
-  df.lev[!is.finite(df.lev[,"MembCalc_Rule0_min"]), "MembCalc_Rule0_min"] <- 0
+  df.lev[!is.finite(df.lev[, "MembCalc_Rule0_min"]), "MembCalc_Rule0_min"] <- 0
   
-  
+  # dplyr fix
   # Have to do outside of dplyr to get rid of Inf and -Inf
   
   # Need to suppress warnings again
   suppressWarnings(
-    df.lev[,"MembCalc_Alt12_max"] <- apply(df.lev[,c("MembCalc_Alt2_min", "MembCalc_Alt1_max")]
-                                          , 1, max, na.rm=TRUE)
+    df.lev[,"MembCalc_Alt12_max"] <- apply(df.lev[, c("MembCalc_Alt2_min"
+                                                      , "MembCalc_Alt1_max")]
+                                          , 1
+                                          , max
+                                          , na.rm=TRUE)
   )
   # replace Inf with NA
   df.lev[!is.finite(df.lev[,"MembCalc_Alt12_max"]), "MembCalc_Alt12_max"] <- NA
   
   # Final Calc
   # df.lev[,"Level.Membership"] <- min(df.lev[,"MembCalc_Alt12_max"]
-  #                                      , df.lev[,"MembCalc_Rule0_min"], na.rm=TRUE)
+  #                                      , df.lev[,"MembCalc_Rule0_min"]
+  #                                      , na.rm=TRUE)
   
   
-  df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Alt12_max", "MembCalc_Rule0_min")]
+  df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Alt12_max"
+                                                 , "MembCalc_Rule0_min")]
                                          , 1, min, na.rm=TRUE)
   # add extra to "Level"
-  df.lev[,"LEVEL"] <- paste0("L", df.lev[,"LEVEL"])
+  df.lev[, col_LEVEL] <- paste0("L", df.lev[, col_LEVEL])
   
-  df.lev.wide <- reshape2::dcast(df.lev, SAMPLEID + INDEX_NAME + SITE_TYPE
-                                 ~ LEVEL, value.var="Level.Membership"
+  # column fix
+  ## Ensure have expected values
+  names(df.lev)[names(df.lev) == col_SAMPLEID] <- "SAMPLEID"
+  names(df.lev)[names(df.lev) == col_INDEX_NAME] <- "INDEX_NAME"
+  names(df.lev)[names(df.lev) == col_SITE_TYPE] <- "SITE_TYPE"
+  names(df.lev)[names(df.lev) == col_LEVEL] <- "LEVEL"
+  
+  # Convert to wide format
+  df.lev.wide <- reshape2::dcast(df.lev
+                                 , SAMPLEID + INDEX_NAME + SITE_TYPE
+                                 ~ LEVEL
+                                 , value.var = "Level.Membership"
                                  )
+  
+  # Column fix
+  ## Return to input parameters
+  names(df.lev.wide)[names(df.lev.wide) == "SAMPLEID"] <- toupper(col_SAMPLEID)
+  names(df.lev.wide)[names(df.lev.wide) == "INDEX_NAME"] <- toupper(col_INDEX_NAME)
+  names(df.lev.wide)[names(df.lev.wide) == "SITE_TYPE"] <- toupper(col_SITE_TYPE)
+  names(df.lev.wide)[names(df.lev.wide) == "LEVEL"] <- toupper(col_LEVEL)
+  
   # Add missing Levels and sort L1:L6
   col.Levels <- c(paste0("L",1:6))
   col.Other <- names(df.lev.wide)[!(names(df.lev.wide) %in% col.Levels)]
@@ -227,22 +349,47 @@ BCG.Level.Membership <- function(df.metric.membership, df.rules){##FUNCTION.STAR
   names(df.subtotal)[col.rename] <- col.sub
   # Calculate Final scoring
   ## Need to consider other final scores (use apply)
-  df.subtotal[,"L1"] <- df.subtotal[,"L1.Sub"]
+  df.subtotal[, "L1"] <- df.subtotal[,"L1.Sub"]
   
-  df.subtotal[,"L2"] <- apply(df.subtotal[,c("L1", "L2.Sub")], 1
-                              , function(x) min(round(1-x[1], 8), x[2], na.rm=TRUE))
-  df.subtotal[,"L3"] <- apply(df.subtotal[,c("L1", "L2", "L3.Sub")], 1
-                              , function(x) min(round(1-sum(x[1], x[2], na.rm=TRUE), 8)
-                                                , x[3], na.rm=TRUE))
-  df.subtotal[,"L4"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4.Sub")], 1
-                              , function(x) min(round(1-sum(x[1], x[2], x[3], na.rm=TRUE), 8)
+  df.subtotal[, "L2"] <- apply(df.subtotal[,c("L1", "L2.Sub")], 1
+                              , function(x) min(round(1-x[1], 8)
+                                                , x[2]
+                                                , na.rm=TRUE))
+  df.subtotal[, "L3"] <- apply(df.subtotal[,c("L1", "L2", "L3.Sub")], 1
+                              , function(x) min(round(1-sum(x[1],
+                                                            x[2]
+                                                            , na.rm=TRUE)
+                                                      , 8)
+                                                , x[3]
+                                                , na.rm=TRUE))
+  df.subtotal[, "L4"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4.Sub")], 1
+                              , function(x) min(round(1-sum(x[1]
+                                                            , x[2]
+                                                            , x[3]
+                                                            , na.rm=TRUE)
+                                                      , 8)
                                                 , x[4], na.rm=TRUE))
-  df.subtotal[,"L5"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5.Sub")], 1
-                              , function(x) min(round(1-sum(x[1], x[2], x[3], x[4], na.rm=TRUE), 8)
+  df.subtotal[, "L5"] <- apply(df.subtotal[,c("L1"
+                                              , "L2"
+                                              , "L3"
+                                              , "L4"
+                                              , "L5.Sub")], 1
+                              , function(x) min(round(1-sum(x[1]
+                                                            , x[2]
+                                                            , x[3]
+                                                            , x[4]
+                                                            , na.rm=TRUE), 8)
                                                 , x[5], na.rm=TRUE))
-  df.subtotal[,"L6"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5")], 1
-                              , function(x) round(1-sum(x[1], x[2], x[3], x[4], x[5], na.rm=TRUE), 8))
-  # 20180613, added "round" 8 for floating point error (e.g., a value of 1.1E-16).
+  df.subtotal[, "L6"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5")], 1
+                              , function(x) round(1-sum(x[1]
+                                                        , x[2]
+                                                        , x[3]
+                                                        , x[4]
+                                                        , x[5]
+                                                        , na.rm=TRUE)
+                                                  , 8))
+  # 20180613, added "round" 8 for floating point error 
+  # (e.g., a value of 1.1E-16).
   #
   # Return RESULTS ####
   # Remove sub fields

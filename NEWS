@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-07-23 10:55:26
+2021-07-28 14:38:53
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-07-23 10:55:26
+    #> Last Update: 2021-07-28 14:38:53
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,45 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9024 (2021-07-28)
+
+-   refactor: Update BCG.Level.Assignment()
+    -   Add column name inputs and defaults
+    -   Update code to use inputs
+    -   Add tempdir() to save example
+    -   Update example to not have warning for
+        BioMonTools::metric.values()
+    -   Apply fixes for changes in dplyr
+-   refactor: Update BCG.Level.Membership()
+    -   Add column name inputs and defaults
+    -   Update code to use inputs
+    -   Add tempdir() to save example
+    -   Add QC in function to retain only the input columns
+    -   Update example to not have warning for
+        BioMonTools::metric.values()
+    -   Apply fixes for changes in dplyr
+-   refactor: Update BCG.Metric.Membership()
+    -   Add column name inputs and defaults
+    -   Update code to use inputs
+    -   Add tempdir() to save example
+    -   Update example to not have warning for
+        BioMonTools::metric.values()
+    -   Apply fixes for changes in dplyr
+-   style: Trim lines to 80 characters (partial)
+    -   BCG.Level.Assignment()
+    -   BCG.Level.Membership()
+    -   BCG.Metric.Membership()
+-   style: Update function examples to use "\_" instead of “.” in object
+    names
+    -   BCG.Level.Assignment()
+    -   BCG.Level.Membership()
+    -   BCG.Metric.Membership()
+-   style: Update function examples to use foo::fun() instead of
+    library(foo)
+    -   BCG.Level.Assignment()
+    -   BCG.Level.Membership()
+    -   BCG.Metric.Membership()
 
 ## Changes in Version 1.3.4.9023 (2021-07-23)
 
