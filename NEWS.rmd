@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9025 (2021-07-29)
+
+* refactor: Update Rules.xlsx to match BioMonTools::metric.values()
+    + Add "BCG" to BCG attribute metric names
+
 ## Changes in Version 1.3.4.9024 (2021-07-28)
 
 * refactor: Update BCG.Level.Assignment()

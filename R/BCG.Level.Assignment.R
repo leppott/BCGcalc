@@ -151,10 +151,15 @@ BCG.Level.Assignment <- function(df.level.membership
   #
   boo_QC <- FALSE
   if(isTRUE(boo_QC)) {
-    
+    df.level.membership <- df_Lev_Memb
+    col_SampleID = "SAMPLEID"
+    col_L1 = "L1"
+    col_L2 = "L2"
+    col_L3 = "L3"
+    col_L4 = "L4"
+    col_L5 = "L5"
+    col_L6 = "L6"
   }## IF ~ boo_QC ~ END
-  
-  
   
   # to data frame
   df.result <- as.data.frame(df.level.membership)
