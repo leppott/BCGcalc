@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-07-30 16:01:16
+2021-07-30 17:17:10
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-07-30 16:01:16
+    #> Last Update: 2021-07-30 17:17:10
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9028 (2021-07-30)
+
+-   refactor: Update Rules.xlsx for CT BCG benthos
+    -   pi\_BCG\_att5 to pi\_BCG\_att5extra
 
 ## Changes in Version 1.3.4.9027 (2021-07-30)
 
