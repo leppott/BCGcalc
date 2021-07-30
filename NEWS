@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-07-29 19:20:41
+2021-07-30 09:14:24
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-07-29 19:20:42
+    #> Last Update: 2021-07-30 09:14:24
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9026 (2021-07-30)
+
+-   refactor: Update Rules.xlsx to match BioMonTools::metric.values()
+    -   rename brook trout wild
 
 ## Changes in Version 1.3.4.9025 (2021-07-29)
 
