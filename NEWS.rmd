@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9027 (2021-07-30)
+
+* refactor: Update BCG.Level.Membership with stop message if unable to merge
+data frames
+
 ## Changes in Version 1.3.4.9026 (2021-07-30)
 
 * refactor: Update Rules.xlsx to match BioMonTools::metric.values()

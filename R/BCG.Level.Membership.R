@@ -239,6 +239,13 @@ BCG.Level.Membership <- function(df.metric.membership
   # Max of Alt1 (with Min of Alt2)
   # Min of Rule0 (with alt above)
   
+  # QC
+  if(nrow(df.merge) == 0){
+    msg <- "Merging of Metric Membership and Rules data frames failed.
+    Check columns col_INDEX_NAME, col_SITE_TYPE, col_LEVEL, col_METRIC_NAME, and col_RULE_TYPE."
+    stop(msg)
+  }## IF ~ nrow(df.merge) ~ END
+  
   # dplyr fix 1 ----
   # Ensure have correct names for summarise(group_by))
   names(df.merge)[names(df.merge) == col_SAMPLEID] <- "SAMPLEID"

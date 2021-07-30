@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-07-30 09:14:24
+2021-07-30 16:01:16
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-07-30 09:14:24
+    #> Last Update: 2021-07-30 16:01:16
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9027 (2021-07-30)
+
+-   refactor: Update BCG.Level.Membership with stop message if unable to
+    merge data frames
 
 ## Changes in Version 1.3.4.9026 (2021-07-30)
 
