@@ -143,10 +143,16 @@ BCG.Metric.Membership <- function(df.metrics
   df.merge[, "MEMBERSHIP"] <- NA
   #
   boo.score.0 <- df.merge[, col_METRIC_VALUE] < df.merge[, col_LOWER]
-  df.merge[boo.score.0, "MEMBERSHIP"] <- 0 
-  #
+  # 
   boo.score.1 <- df.merge[, col_METRIC_VALUE] > df.merge[, col_UPPER]
-  df.merge[boo.score.1, "MEMBERSHIP"] <- 1
+  #
+  # Use ifelse() to avoid errors with NA
+  df.merge[, "MEMBERSHIP"] <- ifelse(boo.score.0
+                                     , 0
+                                     , ifelse(boo.score.1
+                                              , 1
+                                              , NA)
+                                      )
   #
   boo.score.calc <- is.na(df.merge[,"MEMBERSHIP"])
   df.merge[boo.score.calc, "MEMBERSHIP"] <- df.merge[boo.score.calc, col_METRIC_VALUE] / 

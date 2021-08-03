@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-07-30 17:17:10
+2021-08-03 19:13:58
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-07-30 17:17:10
+    #> Last Update: 2021-08-03 19:13:58
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,12 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9029 (2021-08-03)
+
+-   fix: Update BCG.Metric.Membership() for calculating membership for
+    more than one Site\_Type at a time, Issue \#53
+    -   Allows for NA for metrics not common to all included Site Types
 
 ## Changes in Version 1.3.4.9028 (2021-07-30)
 
