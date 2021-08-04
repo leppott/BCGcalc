@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-08-03 19:13:58
+2021-08-04 12:15:49
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-08-03 19:13:58
+    #> Last Update: 2021-08-04 12:15:49
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,14 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9030 (2021-08-04)
+
+-   refactor: Update BCG.Metric.Membership() for lower and upper bounds
+    -   Per CT Access db (2013-08-09) use &lt;= and &gt;= instead of
+        &lt; and &gt;
+-   style: Wrap some lines more than 80 characters,
+    BCG.Level.Assignment()
 
 ## Changes in Version 1.3.4.9029 (2021-08-03)
 

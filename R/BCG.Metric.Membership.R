@@ -142,9 +142,9 @@ BCG.Metric.Membership <- function(df.metrics
   # need to apply only to select rows
   df.merge[, "MEMBERSHIP"] <- NA
   #
-  boo.score.0 <- df.merge[, col_METRIC_VALUE] < df.merge[, col_LOWER]
+  boo.score.0 <- df.merge[, col_METRIC_VALUE] <= df.merge[, col_LOWER]
   # 
-  boo.score.1 <- df.merge[, col_METRIC_VALUE] > df.merge[, col_UPPER]
+  boo.score.1 <- df.merge[, col_METRIC_VALUE] >= df.merge[, col_UPPER]
   #
   # Use ifelse() to avoid errors with NA
   df.merge[, "MEMBERSHIP"] <- ifelse(boo.score.0
@@ -163,6 +163,8 @@ BCG.Metric.Membership <- function(df.metrics
   boo.direction <- df.merge[, col_INCREASE]
   df.merge[!boo.direction, "MEMBERSHIP"] <- 1 - df.merge[!boo.direction, "MEMBERSHIP"]
       # can mess up 0 and 1
+  
+  # Access uses 2 different formulas
 
   # wide name
   df.merge[,"NAME_WIDE"] <- paste0(df.merge[, col_SITE_TYPE]

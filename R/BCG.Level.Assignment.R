@@ -209,34 +209,37 @@ BCG.Level.Assignment <- function(df.level.membership
   # should be able to redo with apply similar to Level Assignment
   #
   # Primary Level Value: Max Value
-  df.result[, "Lev.1.Memb"] <- apply(df.result[, c(paste0("L", 1:6))], 1, max, na.rm=TRUE)
+  df.result[, "Lev.1.Memb"] <- apply(df.result[, c(paste0("L", 1:6))]
+                                     , 1
+                                     , max
+                                     , na.rm = TRUE)
   # df.result[, "Lev.1.Name"] <- apply(df.result, 1, function(x) match(df.result[,"Lev.1.Memb"]
   #                                                                    , df.result[,paste0("L",1:6)]))
   # Primary Level Name; Max Value Name
-  df.result[, "Lev.1.Name"] <- apply(df.result[,c(paste0("L" ,1:6), "Lev.1.Memb")], 1
+  df.result[, "Lev.1.Name"] <- apply(df.result[,c(paste0("L", 1:6), "Lev.1.Memb")], 1
                                      , function(x) match(x[7], x[1:6]))
   # Secondary Level Value; 2nd Max
   df.result[, "Lev.2.Memb"] <- apply(df.result[,c(paste0("L", 1:6), "Lev.1.Name")], 1
                                      , function(x) max(x[1:6][-x[7]], na.rm=TRUE))
   # Force 2nd Value to be 0 if 1st is "1"
-  df.result[df.result[,"Lev.1.Memb"]==1, "Lev.2.Memb"] <- 0
+  df.result[df.result[,"Lev.1.Memb"] == 1, "Lev.2.Memb"] <- 0
   # Secondary Level Name; 2nd Max (but NA if Secondary Value is 0)
   df.result[df.result[, "Lev.2.Memb"]!=0, "Lev.2.Name"] <- apply(
     df.result[df.result[, "Lev.2.Memb"]!=0, c(paste0("L", 1:6), "Lev.2.Memb")]
     , 1
     , function(x) match(x[7], x[1:6]))
   ## need condition for 50/50 split (no other duplicate should occur)
-  df.result[df.result[, "Lev.2.Memb"]==0.5, "Lev.2.Name"] <- apply(
-    df.result[df.result[, "Lev.2.Memb"]==0.5, c(paste0("L", 1:6))]
+  df.result[df.result[, "Lev.2.Memb"] == 0.5, "Lev.2.Name"] <- apply(
+    df.result[df.result[, "Lev.2.Memb"] == 0.5, c(paste0("L", 1:6))]
       , 1
-      , function(x) which(x[1:6]==0.5)[2])
+      , function(x) which(x[1:6] == 0.5)[2])
 
   # Diff
-  df.result[, "Lev.Memb.Diff"] <- df.result[,"Lev.1.Memb"] - df.result[,"Lev.2.Memb"]
+  df.result[, "Lev.Memb.Diff"] <- df.result[, "Lev.1.Memb"] - df.result[, "Lev.2.Memb"]
   # Close
-  df.result[df.result[,"Lev.Memb.Diff"]<0.2, "Lev.Memb.close"] <- "yes"
+  df.result[df.result[,"Lev.Memb.Diff"] < 0.2, "Lev.Memb.close"] <- "yes"
   # Tie
-  df.result[df.result[,"Lev.Memb.Diff"]<0.1, "Lev.Memb.close"] <- "tie"
+  df.result[df.result[,"Lev.Memb.Diff"] < 0.1, "Lev.Memb.close"] <- "tie"
   
   
   # Close
@@ -248,7 +251,9 @@ BCG.Level.Assignment <- function(df.level.membership
   # Proportional Assignment, Numeric
   Lev.Col <- c(paste0("L",1:6))
   #df.result[,"Lev.Prop"] <- NA
-  df.result[,"Lev.Prop.Num"] <- apply(t((1:6)*t(df.result[,Lev.Col])), 1, FUN=sum)
+  df.result[,"Lev.Prop.Num"] <- apply(t((1:6)*t(df.result[,Lev.Col]))
+                                      , 1
+                                      , FUN = sum)
   
   # Proportional Assignment, Narrative
   df.result.prop <- df.result
