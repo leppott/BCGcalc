@@ -50,6 +50,11 @@ cat(paste0("Last Update: ",Sys.time()))
     
 # Version History
 
+## Changes in Version 1.3.4.9031 (2021-08-04)
+
+* fix: Update Rules.xlsx for CT BCG model, Issue #48
+    + Removed double entries for bug01 SiteType
+
 ## Changes in Version 1.3.4.9030 (2021-08-04)
 
 * refactor: Update BCG.Metric.Membership() for lower and upper bounds

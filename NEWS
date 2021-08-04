@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-08-04 12:15:49
+2021-08-04 13:12:33
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-08-04 12:15:49
+    #> Last Update: 2021-08-04 13:12:33
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,11 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9031 (2021-08-04)
+
+-   fix: Update Rules.xlsx for CT BCG model, Issue \#48
+    -   Removed double entries for bug01 SiteType
 
 ## Changes in Version 1.3.4.9030 (2021-08-04)
 
