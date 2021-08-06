@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-08-04 13:12:33
+2021-08-06 13:31:29
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-08-04 13:12:33
+    #> Last Update: 2021-08-06 13:31:29
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,17 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9033 (2021-08-06)
+
+-   fix: Update BCG.Metric.Membership() to use &lt;= and &gt;= when
+    checking for values below and above limits rather than &lt; and &gt;
+    due to rules in CT BCG using 0 as a lower AND upper limit
+
+## Changes in Version 1.3.4.9032 (2021-08-04)
+
+-   fix: Update Rules.xlsx for CT BCG model, Issue \#48
+    -   Removed double entries for fish01, fish02, and fish03 SiteType
 
 ## Changes in Version 1.3.4.9031 (2021-08-04)
 
