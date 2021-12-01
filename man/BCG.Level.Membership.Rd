@@ -12,7 +12,8 @@ BCG.Level.Membership(
   col_SITE_TYPE = "SITE_TYPE",
   col_LEVEL = "LEVEL",
   col_METRIC_NAME = "METRIC_NAME",
-  col_RULE_TYPE = "RULE_TYPE"
+  col_RULE_TYPE = "RULE_TYPE",
+  col_EXC_RULE = "EXC_RULE"
 )
 }
 \arguments{
@@ -31,8 +32,10 @@ BCG.Level.Membership(
 
 \item{col_METRIC_NAME}{column name for metric name.  Default = METRIC_NAME}
 
-\item{col_RULE_TYPE}{column name for rule type (e.g., Rule0).
+\item{col_RULE_TYPE}{column name for rule type (e.g., Rule0, Rule1, or Rule2)
 Default = RULE_TYPE}
+
+\item{col_EXC_RULE}{column name for exception rules}
 }
 \value{
 Returns a data frame of results in the wide format.
@@ -43,15 +46,36 @@ memberships.
 }
 \details{
 Input is metric memberships and a rules tables.  
+
 Output is a data frame with the membership for each row to each Level (1:6).
+
 Minimum of:
+
 * 1- sum of previous levels
+
 * Rule0 memberships
-* max of Alt1 rules (and min of Alt2 rules)
+
+* max of Rule1 (Alternate1) rules (and min of Rule2 (Alternate2) rules)
+
 That is, perform calculations in this order:
-1. Min of Alt2 metric memberships
-2. Max of Alt2 rules and the above result.
-3. Min of Rule0, the above result, and the sum of previous levels.
+
+1. Min of Rule2 (Alternate2) metric memberships
+
+2. Max of Rule1 (Alternate1) rules and the above result.
+
+3. Min of: Rule0, the above results, and 1 - the sum of previous levels.
+
+Some exceptions exist for particular models.
+
+|Index_Name |Site_Type|
+|:----------|:--------|
+|CT_BCG_2015|fish02   |
+|CT_BCG_2015|fish03   |
+
+
+These exceptions are mostly hard coded into the function but gather some 
+information with the parameter col_EXC_RULE from the rules table.  A future
+update may fully automate this process.
 }
 \examples{
 # library(readxl)

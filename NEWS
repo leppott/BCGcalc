@@ -1,11 +1,11 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-08-06 13:31:29
+2021-08-09 13:40:45
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-08-06 13:31:29
+    #> Last Update: 2021-08-09 13:40:45
 
 # Future Possible Features (Wish List)
 
@@ -45,6 +45,15 @@ BCGcalc-NEWS
     -   <https://github.com/leppott/BCGcalc/issues>
 
 # Version History
+
+## Changes in Version 1.3.4.9034 (2021-08-09)
+
+-   feat: Update BCG.Level.Membership() to account for special
+    conditions
+    -   Use Index\_Name and Site\_Type to allow for individual model
+        exceptions to the typical rules for level membership
+-   feat: Update Rules.xlsx for exceptions in level membership in
+    BCG.Level.Membership()
 
 ## Changes in Version 1.3.4.9033 (2021-08-06)
 

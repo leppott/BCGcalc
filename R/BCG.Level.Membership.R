@@ -4,15 +4,36 @@
 #' memberships.
 #' 
 #' @details Input is metric memberships and a rules tables.  
+#' 
 #' Output is a data frame with the membership for each row to each Level (1:6).
+#' 
 #' Minimum of:
+#' 
 #' * 1- sum of previous levels
+#' 
 #' * Rule0 memberships
-#' * max of Alt1 rules (and min of Alt2 rules)
+#' 
+#' * max of Rule1 (Alternate1) rules (and min of Rule2 (Alternate2) rules)
+#' 
 #' That is, perform calculations in this order:
-#' 1. Min of Alt2 metric memberships
-#' 2. Max of Alt2 rules and the above result.
-#' 3. Min of Rule0, the above result, and the sum of previous levels.
+#' 
+#' 1. Min of Rule2 (Alternate2) metric memberships
+#' 
+#' 2. Max of Rule1 (Alternate1) rules and the above result.
+#' 
+#' 3. Min of: Rule0, the above results, and 1 - the sum of previous levels.
+#' 
+#' Some exceptions exist for particular models.
+#' 
+#' |Index_Name |Site_Type|
+#' |:----------|:--------|
+#' |CT_BCG_2015|fish02   |
+#' |CT_BCG_2015|fish03   |
+#' 
+#' 
+#' These exceptions are mostly hard coded into the function but gather some 
+#' information with the parameter col_EXC_RULE from the rules table.  A future
+#' update may fully automate this process.
 #' 
 #' @param df.metric.membership Data frame of metric memberships 
 #' (long format, the same as the output of BCG.Metric.Membership).
@@ -22,8 +43,9 @@
 #' @param col_SITE_TYPE column name for site type  Default = SITE_TYPE
 #' @param col_LEVEL column name for level.  Default = LEVEL
 #' @param col_METRIC_NAME column name for metric name.  Default = METRIC_NAME
-#' @param col_RULE_TYPE column name for rule type (e.g., Rule0).
+#' @param col_RULE_TYPE column name for rule type (e.g., Rule0, Rule1, or Rule2)
 #' Default = RULE_TYPE
+#' @param col_EXC_RULE column name for exception rules
 #'
 #' @return Returns a data frame of results in the wide format.
 #' 
@@ -159,11 +181,12 @@ BCG.Level.Membership <- function(df.metric.membership
                                  , col_SITE_TYPE = "SITE_TYPE"
                                  , col_LEVEL = "LEVEL"
                                  , col_METRIC_NAME = "METRIC_NAME"
-                                 , col_RULE_TYPE = "RULE_TYPE") {
+                                 , col_RULE_TYPE = "RULE_TYPE"
+                                 , col_EXC_RULE = "EXC_RULE") {
   #
   boo_QC <- FALSE
   if(isTRUE(boo_QC)) {
-    df.metric.membership <- df_met_memb
+    df.metric.membership <- df_Met_Mem
     df.rules <- df_rules
     col_SAMPLEID = "SAMPLEID"
     col_INDEX_NAME = "INDEX_NAME"
@@ -171,11 +194,13 @@ BCG.Level.Membership <- function(df.metric.membership
     col_LEVEL = "LEVEL"
     col_METRIC_NAME = "METRIC_NAME"
     col_RULE_TYPE = "RULE_TYPE"
+    col_EXC_RULE = "EXC_RULE"
     a <- c(col_INDEX_NAME
            , col_SITE_TYPE
            , col_LEVEL
            , col_METRIC_NAME
-           , col_RULE_TYPE)
+           , col_RULE_TYPE
+           , col_EXC_RULE)
   }## IF ~ boo_QC ~ END
   
   # # convert membership to long format if provided
@@ -235,8 +260,8 @@ BCG.Level.Membership <- function(df.metric.membership
                                , col_METRIC_NAME
                                , col_RULE_TYPE))
   
-  # Min of Alt2
-  # Max of Alt1 (with Min of Alt2)
+  # Min of Rule2 (Alt2)
+  # Max of Rule1 (Alt1) (with Min of Rule2 (Alt2))
   # Min of Rule0 (with alt above)
   
   # QC
@@ -253,7 +278,8 @@ BCG.Level.Membership <- function(df.metric.membership
   names(df.merge)[names(df.merge) == col_SITE_TYPE] <- "SITE_TYPE"
   names(df.merge)[names(df.merge) == col_LEVEL] <- "LEVEL"
   names(df.merge)[names(df.merge) == col_RULE_TYPE] <- "RULE_TYPE"
-  
+  ## Exceptions
+  names(df.merge)[names(df.merge) == col_EXC_RULE] <- "EXC_RULE"
   
   # Will get lots of warnings, SampIDs without alt 1 or alt 2 rules
   suppressWarnings(
@@ -265,15 +291,23 @@ BCG.Level.Membership <- function(df.metric.membership
                                                )
                                , .groups = "drop_last"
                               #
-                # Min of Alt2
-                , MembCalc_Alt2_min = min(MEMBERSHIP[RULE_TYPE == "Alt2"]
+                # Min of Rule2 (Alt2)
+                , MembCalc_Rule2_min = min(MEMBERSHIP[RULE_TYPE == "Rule2"]
                                         , na.rm=TRUE)
-                # Max of Alt1
-                , MembCalc_Alt1_max = max(MEMBERSHIP[RULE_TYPE == "Alt1"]
+                # Max of Rule1 (Alt1)
+                , MembCalc_Rule1_max = max(MEMBERSHIP[RULE_TYPE == "Rule1"]
                                           , na.rm=TRUE)
                 # Min of Rule0 (with alt above)
                 , MembCalc_Rule0_min = min(MEMBERSHIP[RULE_TYPE == "Rule0"]
                                            , na.rm=TRUE)
+                # Exceptions for CT
+                , MembCalc_Exc0_min = min(MEMBERSHIP[EXC_RULE == "ExcMem0"]
+                                          , na.rm = TRUE)
+                , MembCalc_Exc1_max = max(MEMBERSHIP[EXC_RULE == "ExcMem1"]
+                                          , na.rm = TRUE)
+                , MembCalc_Exc2_min = min(MEMBERSHIP[EXC_RULE == "ExcMem2"]
+                                          , na.rm = TRUE)
+                
 
     )## summarise ~ END
   )## suppressWarnings ~ END
@@ -285,38 +319,83 @@ BCG.Level.Membership <- function(df.metric.membership
   names(df.lev)[names(df.lev) == "SITE_TYPE"] <- toupper(col_SITE_TYPE)
   names(df.lev)[names(df.lev) == "LEVEL"] <- toupper(col_LEVEL)
   names(df.lev)[names(df.lev) == "RULE_TYPE"] <- toupper(col_RULE_TYPE)
+  ## Exceptions
+  names(df.lev)[names(df.lev) == "EXC_RULE"] <- toupper(col_EXC_RULE)
   
   # convert from tibble to df
   df.lev <- as.data.frame(df.lev)
   # replace Inf and -Inf with NA
-  df.lev[!is.finite(df.lev[, "MembCalc_Alt2_min"]), "MembCalc_Alt2_min"] <- NA
-  df.lev[!is.finite(df.lev[, "MembCalc_Alt1_max"]), "MembCalc_Alt1_max"] <- NA
+  df.lev[!is.finite(df.lev[, "MembCalc_Rule2_min"]), "MembCalc_Rule2_min"] <- NA
+  df.lev[!is.finite(df.lev[, "MembCalc_Rule1_max"]), "MembCalc_Rule1_max"] <- NA
   # this one shouldn't happen.  Use zero just in case.
   df.lev[!is.finite(df.lev[, "MembCalc_Rule0_min"]), "MembCalc_Rule0_min"] <- 0
+  ## Exceptions
+  df.lev[!is.finite(df.lev[, "MembCalc_Exc0_min"]), "MembCalc_Exc0_min"] <- NA
+  df.lev[!is.finite(df.lev[, "MembCalc_Exc1_max"]), "MembCalc_Exc1_max"] <- NA
+  df.lev[!is.finite(df.lev[, "MembCalc_Exc2_min"]), "MembCalc_Exc2_min"] <- NA
   
   # dplyr fix
   # Have to do outside of dplyr to get rid of Inf and -Inf
   
   # Need to suppress warnings again
   suppressWarnings(
-    df.lev[,"MembCalc_Alt12_max"] <- apply(df.lev[, c("MembCalc_Alt2_min"
-                                                      , "MembCalc_Alt1_max")]
+    df.lev[,"MembCalc_Rule12_max"] <- apply(df.lev[, c("MembCalc_Rule2_min"
+                                                      , "MembCalc_Rule1_max")]
                                           , 1
                                           , max
                                           , na.rm=TRUE)
   )
   # replace Inf with NA
-  df.lev[!is.finite(df.lev[,"MembCalc_Alt12_max"]), "MembCalc_Alt12_max"] <- NA
+  df.lev[!is.finite(df.lev[,"MembCalc_Rule12_max"]), "MembCalc_Rule12_max"] <- NA
   
   # Final Calc
-  # df.lev[,"Level.Membership"] <- min(df.lev[,"MembCalc_Alt12_max"]
+  # df.lev[,"Level.Membership"] <- min(df.lev[,"MembCalc_Rule12_max"]
   #                                      , df.lev[,"MembCalc_Rule0_min"]
   #                                      , na.rm=TRUE)
   
-  
-  df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Alt12_max"
+  # Assign Level ----
+  df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Rule12_max"
                                                  , "MembCalc_Rule0_min")]
-                                         , 1, min, na.rm=TRUE)
+                                       , 1, min, na.rm=TRUE)
+  
+  
+  # ## Exceptions, Level Mem ----
+  boo_exceptions <- FALSE
+  #
+  if(isTRUE(boo_exceptions)) {
+    ## CT_F1_L4
+    boo_CT_F1_L4 <- df.lev[, col_INDEX_NAME] == "BCG_CT_2015" &
+      df.lev[, col_SITE_TYPE] == "fish01" &
+      df.lev[, col_LEVEL] == 4
+    ### Exc1, Recalc
+    df.lev[boo_CT_F1_L4, "MembCalc_Exc1_max"] <- max(c(
+      df.lev[boo_CT_F1_L4, "MembCalc_Exc1_max"]
+      , df.lev[boo_CT_F1_L4, "MembCalc_Exc0_min"])
+      , na.rm = TRUE)
+    ### replace Inf with NA
+    df.lev[!is.finite(df.lev[, "MembCalc_Exc1_max"]), "MembCalc_Exc1_max"] <- NA
+    ### Final Lev, Recalc
+    df.lev[boo_CT_F1_L4, "Level.Membership"] <- min(c(
+      df.lev[boo_CT_F1_L4, "MembCalc_Exc1_max"]
+      , df.lev[boo_CT_F1_L4, "MembCalc_Exc2_min"])
+      , na.rm = TRUE)
+    #
+    ## CT_F23_L2 (Combine fish02 and fish03)
+    boo_CT_F23_L4 <- df.lev[, col_INDEX_NAME] == "BCG_CT_2015" &
+      (df.lev[, col_SITE_TYPE] == "fish02" | 
+         df.lev[, col_SITE_TYPE] == "fish03") &
+      df.lev[, col_LEVEL] == 2
+    # Final Lev, Recalc
+    df.lev[boo_CT_F23_L4, "Level.Membership"] <- min(c(
+      df.lev[boo_CT_F23_L4, "MembCalc_Exc0_min"]
+      , df.lev[boo_CT_F23_L4, "MembCalc_Exc1_max"])
+      , na.rm = TRUE)
+    #
+  }## IF ~ boo_exceptions ~ END
+  
+  # replace Inf with NA (Redo, just in case for base and exceptions)
+  df.lev[!is.finite(df.lev[, "Level.Membership"]), "Level.Membership"] <- NA
+
   # add extra to "Level"
   df.lev[, col_LEVEL] <- paste0("L", df.lev[, col_LEVEL])
   
@@ -341,6 +420,11 @@ BCG.Level.Membership <- function(df.metric.membership
   names(df.lev.wide)[names(df.lev.wide) == "SITE_TYPE"] <- toupper(col_SITE_TYPE)
   names(df.lev.wide)[names(df.lev.wide) == "LEVEL"] <- toupper(col_LEVEL)
   
+  
+  # __EXCEPTIONS ----
+  # Not sure if need here or elsewhere
+  
+  
   # Add missing Levels and sort L1:L6
   col.Levels <- c(paste0("L",1:6))
   col.Other <- names(df.lev.wide)[!(names(df.lev.wide) %in% col.Levels)]
@@ -354,49 +438,55 @@ BCG.Level.Membership <- function(df.metric.membership
   col.rename <- names(df.subtotal) %in% col.Levels
   col.sub <- paste0(names(df.subtotal)[col.rename], ".Sub")
   names(df.subtotal)[col.rename] <- col.sub
-  # Calculate Final scoring
+  
+  # Calculate Final scoring ----
   ## Need to consider other final scores (use apply)
+  ### Level Membership affected by previous level assignments.
+  # 20180613, added "round" 8 for floating point error 
+  # (e.g., a value of 1.1E-16).
+  rnd_dig <- 8
   df.subtotal[, "L1"] <- df.subtotal[,"L1.Sub"]
   
   df.subtotal[, "L2"] <- apply(df.subtotal[,c("L1", "L2.Sub")], 1
-                              , function(x) min(round(1-x[1], 8)
+                              , function(x) min(round(1 - x[1]
+                                                      , rnd_dig)
                                                 , x[2]
-                                                , na.rm=TRUE))
+                                                , na.rm = TRUE))
   df.subtotal[, "L3"] <- apply(df.subtotal[,c("L1", "L2", "L3.Sub")], 1
-                              , function(x) min(round(1-sum(x[1],
+                              , function(x) min(round(1 - sum(x[1],
                                                             x[2]
-                                                            , na.rm=TRUE)
-                                                      , 8)
+                                                            , na.rm = TRUE)
+                                                      , rnd_dig)
                                                 , x[3]
-                                                , na.rm=TRUE))
+                                                , na.rm = TRUE))
   df.subtotal[, "L4"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4.Sub")], 1
-                              , function(x) min(round(1-sum(x[1]
+                              , function(x) min(round(1 - sum(x[1]
                                                             , x[2]
                                                             , x[3]
-                                                            , na.rm=TRUE)
-                                                      , 8)
-                                                , x[4], na.rm=TRUE))
+                                                            , na.rm = TRUE)
+                                                      , rnd_dig)
+                                                , x[4], na.rm = TRUE))
   df.subtotal[, "L5"] <- apply(df.subtotal[,c("L1"
                                               , "L2"
                                               , "L3"
                                               , "L4"
                                               , "L5.Sub")], 1
-                              , function(x) min(round(1-sum(x[1]
+                              , function(x) min(round(1 - sum(x[1]
                                                             , x[2]
                                                             , x[3]
                                                             , x[4]
-                                                            , na.rm=TRUE), 8)
-                                                , x[5], na.rm=TRUE))
+                                                            , na.rm = TRUE)
+                                                      , rnd_dig)
+                                                , x[5], na.rm = TRUE))
   df.subtotal[, "L6"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5")], 1
-                              , function(x) round(1-sum(x[1]
+                              , function(x) round(1 - sum(x[1]
                                                         , x[2]
                                                         , x[3]
                                                         , x[4]
                                                         , x[5]
-                                                        , na.rm=TRUE)
-                                                  , 8))
-  # 20180613, added "round" 8 for floating point error 
-  # (e.g., a value of 1.1E-16).
+                                                        , na.rm = TRUE)
+                                                  , rnd_dig))
+
   #
   # Return RESULTS ####
   # Remove sub fields
