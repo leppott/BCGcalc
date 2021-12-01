@@ -1,13 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-12-01 16:23:40
+2021-12-01 17:35:44
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-12-01 16:23:40
+    #> Last Update: 2021-12-01 17:35:44
 
 # Version History
+
+## Changes in Version 1.3.4.9036 (2021-12-01)
+
+-   fix: BCG.Level.Membership fails test
+    -   Missing EXC\_RULE in merge statement
+-   refactor: Update “Notes” to “Note\_Rules” in Rules.xlsx
+-   tests: Update test for revised sheet name in Rules.xlsx
 
 ## Changes in Version 1.3.4.9035 (2021-12-01)
 

@@ -187,7 +187,7 @@ BCG.Level.Membership <- function(df.metric.membership
   #
   boo_QC <- FALSE
   if(isTRUE(boo_QC)) {
-    df.metric.membership <- df_Met_Mem
+    df.metric.membership <- df_met_memb
     df.rules <- df_rules
     col_SAMPLEID = "SAMPLEID"
     col_INDEX_NAME = "INDEX_NAME"
@@ -254,12 +254,14 @@ BCG.Level.Membership <- function(df.metric.membership
                                , col_SITE_TYPE
                                , col_LEVEL
                                , col_METRIC_NAME
-                               , col_RULE_TYPE)
+                               , col_RULE_TYPE
+                               , col_EXC_RULE)
                     , by.y = c(col_INDEX_NAME
                                , col_SITE_TYPE
                                , col_LEVEL
                                , col_METRIC_NAME
-                               , col_RULE_TYPE))
+                               , col_RULE_TYPE
+                               , col_EXC_RULE))
   
   # Min of Rule2 (Alt2)
   # Max of Rule1 (Alt1) (with Min of Rule2 (Alt2))
@@ -268,7 +270,7 @@ BCG.Level.Membership <- function(df.metric.membership
   # QC
   if(nrow(df.merge) == 0){
     msg <- "Merging of Metric Membership and Rules data frames failed.
-    Check columns col_INDEX_NAME, col_SITE_TYPE, col_LEVEL, col_METRIC_NAME, and col_RULE_TYPE."
+    Check columns col_INDEX_NAME, col_SITE_TYPE, col_LEVEL, col_METRIC_NAME, col_RULE_TYPE, and col_EXC_RULE."
     stop(msg)
   }## IF ~ nrow(df.merge) ~ END
   

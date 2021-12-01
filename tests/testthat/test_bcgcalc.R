@@ -7,7 +7,7 @@ test_that("bcgcalc", {
   # Import Rules
   df.rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
                                      , package="BCGcalc")
-                                 , sheet="BCG_PacNW_v1_500ct") 
+                                 , sheet="Rules") 
   
   # Calculate Metric Memberships
   df.Metric.Membership <- BCGcalc::BCG.Metric.Membership(df.metric.values.bugs
