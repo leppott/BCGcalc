@@ -62,7 +62,9 @@
 #' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
 #'             , "Site_Type")
 #' # populate missing columns prior to metric calculation
-#' myDF[, c("INFRAORDER", "HABITAT")] <- NA 
+#' col_missing <- c("INFRAORDER", "HABITAT", "UFC", "ELEVATION_ATTR"
+#'                  , "GRADIENT_ATTR", "WSAREA_ATTR")
+#' myDF[, col_missing] <- NA
 #' df_met_val_bugs <- BioMonTools::metric.values(myDF
 #'                                               , "bugs"
 #'                                               , fun.cols2keep = myCols)
@@ -171,7 +173,6 @@
 # , "MembCalc_Rule0_min")]
 #                                      , 1, min, na.rm=TRUE)
 # View(df.lev)
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 BCG.Level.Membership <- function(df.metric.membership

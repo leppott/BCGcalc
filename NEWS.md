@@ -1,50 +1,27 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-08-09 13:40:45
+2021-12-01 16:23:40
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-08-09 13:40:45
-
-# Future Possible Features (Wish List)
-
--   ~~Add excluded taxa flag to samples based on levels of taxonomy.
-    Will not be completely accurate. Will have many false positives and
-    false negatives. That is, if there are only organisms at the higher
-    level in a sample it will fail. And if there are no organisms of the
-    target group it will pass.~~
-
-    -   ~~Pass, Fail on each. And overall flag~~
-    -   ~~Chiro (tribe and family)~~
-    -   ~~Oligo~~
-    -   ~~Trombidiformes~~
-
--   Hi/Lo models.
-
-    -   ~~parameter to run “correct” model or all models for each
-        site.~~
-    -   Have a field for site type. So can override gradient.
-
--   ~~Report - QC, use DataExplorer.~~
-
--   ~~Table of metrics for each model with DataExplorer report.~~
-
--   Include a master taxa list.
-
-    -   Match data input and add information (phylo and auteco)
-    -   Ability to report back unmatched
-
--   Generate SiteType from data (gradient for PacNW)
-
--   Update For loop in BCG.Level.Assignment to apply function (similar
-    to BCG.Level.Membership).
-
--   Any issues as reported on GitHub.
-
-    -   <https://github.com/leppott/BCGcalc/issues>
+    #> Last Update: 2021-12-01 16:23:40
 
 # Version History
+
+## Changes in Version 1.3.4.9035 (2021-12-01)
+
+-   fix: Renamed master branch to main
+-   docs: Move wishlist from NEWS to GitHub Issue \#56
+-   refactor: Updated Rules.xlsx for PacNW BCG, Issue \#55
+-   refactor: Updated Flags.xlsx for PacNW BCG, Issue \#55
+-   tests: Add test for floating point error
+    -   Rules.xlsx
+    -   Flags.xlsx
+-   docs: Update example for additional required columns in
+    BioMonTools::metric.values()
+    -   BCG.Metric.Membership()
+    -   BCG.Level.Membership()
 
 ## Changes in Version 1.3.4.9034 (2021-08-09)
 
