@@ -39,7 +39,9 @@
 #' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
 #'             , "Site_Type")
 #' # populate missing columns prior to metric calculation
-#' myDF[, c("INFRAORDER", "HABITAT")] <- NA 
+#' col_missing <- c("INFRAORDER", "HABITAT", "UFC", "ELEVATION_ATTR"
+#'                  , "GRADIENT_ATTR", "WSAREA_ATTR")
+#' myDF[, col_missing] <- NA
 #' df_met_val_bugs <- BioMonTools::metric.values(myDF
 #'                                               , "bugs"
 #'                                               , fun.cols2keep = myCols)
@@ -68,6 +70,16 @@
 # df.rules <- df_rules
 # input.shape <- "wide"
 # scores <- BCG.Metric.Membership(df.metrics, df.rules, "wide")
+# col_SAMPLEID = "SAMPLEID"
+#  col_INDEX_NAME = "INDEX_NAME"
+#  col_SITE_TYPE = "SITE_TYPE"
+#  col_LEVEL = "LEVEL"
+#  col_METRIC_NAME = "METRIC_NAME"
+#  col_RULE_TYPE = "RULE_TYPE"
+#  col_LOWER = "LOWER"
+#  col_UPPER = "UPPER"
+#  col_METRIC_VALUE = "METRIC_VALUE"
+#  col_INCREASE = "INCREASE"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 BCG.Metric.Membership <- function(df.metrics

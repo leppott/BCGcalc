@@ -58,3 +58,65 @@ test_that("bcgcalc", {
 })## Test ~ BCGcalc ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Thresholds, Num Digits, Rules ----
+
+test_that("thresholds, num digits, rules", {
+  # Packages
+  #library(readxl) # part of BCGcalc
+  
+  # Thresholds
+  fn_thresh <- file.path(system.file(package = "BCGcalc")
+                         , "extdata"
+                         , "Rules.xlsx")
+  df_thresh <- readxl::read_excel(fn_thresh, sheet = "Rules")
+  
+  # Number of Characters (as character)
+  metric_thresh_lo <- nchar(as.character(df_thresh$Lower))
+  metric_thresh_hi <- nchar(as.character(df_thresh$Upper))
+  
+  # Number of "bad" entries
+  # Max is 11 (MBSS)
+  digmax <- 5
+  # after that is most likely a floating point error that needs correction
+  metric_thresh_lo_nbad  <- sum(metric_thresh_lo > digmax, na.rm = TRUE)
+  metric_thresh_hi_nbad  <- sum(metric_thresh_hi > digmax, na.rm = TRUE)
+  
+  # Find those rows in Excel with errors
+  which(metric_thresh_lo  %in% metric_thresh_lo[metric_thresh_lo > digmax])
+  which(metric_thresh_hi  %in% metric_thresh_hi[metric_thresh_hi > digmax])
+  
+  # test
+  testthat::expect_true(metric_thresh_lo_nbad == 0)
+  testthat::expect_true(metric_thresh_hi_nbad == 0)
+})## Test ~ thresholds, num digits ~ END
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Thresholds, Num Digits, Flags ----
+
+test_that("thresholds, num digits, flags", {
+  # Packages
+  #library(readxl) # part of BioMonTools
+  
+  # Thresholds
+  fn_thresh <- file.path(system.file(package = "BCGcalc")
+                         , "extdata"
+                         , "MetricFlags.xlsx")
+  df_thresh <- readxl::read_excel(fn_thresh, sheet = "Flags")
+  
+  # Number of Characters (as character)
+  index_thresh01 <- nchar(as.character(df_thresh$Value))
+  
+  # Number of "bad" entries
+  # Max is 11 (MBSS)
+  digmax <- 5
+  # after that is most likely a floating point error that needs correction
+  index_thresh01_nbad <- sum(index_thresh01 > digmax, na.rm = TRUE)
+  
+  # Find those rows in Excel with errors
+  which(index_thresh01  %in% index_thresh01[index_thresh01 > digmax])
+  
+  # test
+  testthat::expect_true(index_thresh01_nbad == 0)
+})## Test ~ thresholds, num digits ~ END
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
