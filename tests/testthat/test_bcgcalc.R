@@ -120,3 +120,33 @@ test_that("thresholds, num digits, flags", {
 })## Test ~ thresholds, num digits ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Flags, symbols ----
+
+test_that("Flags, symbols", {
+  # Packages
+  #library(readxl) # part of BioMonTools
+  
+  # Thresholds
+  fn_flags <- file.path(system.file(package = "BCGcalc")
+                         , "extdata"
+                         , "MetricFlags.xlsx")
+  df_flags <- readxl::read_excel(fn_flags, sheet = "Flags")
+  
+  # symbols
+  symbols_qc <- c(">", "<", ">=", "<=", "==", "!=")
+  symbols_flags <- unique(df_flags$Symbol)
+  
+  #
+  qc_sum <- sum(symbols_flags %in% symbols_qc)
+  qc_len <- length(symbols_flags)
+  
+  # Find, non matching symbols
+  symbols_flags[symbols_flags %in% symbols_qc]
+
+  # test
+  testthat::expect_true(qc_sum == qc_len)
+})## Test ~ thresholds, num digits ~ END
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Match Metric Names to BioMonTools ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

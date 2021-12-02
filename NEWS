@@ -1,13 +1,23 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-12-01 17:35:44
+2021-12-02 12:38:22
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-12-01 17:35:44
+    #> Last Update: 2021-12-02 12:38:22
 
 # Version History
+
+## Changes in Version 1.3.4.9037 (2021-12-02)
+
+-   refactor: Update MetricFlags.xlsx
+    -   Match metric names to BioMonTools::metric.values()
+    -   Add BioMonTools\_MetNam column for future test (some not
+        metrics)
+    -   Change symbols from = to ==
+    -   Write test to check for Flag symbols
+-   fix: One entry in Rules.xlsx was “\[” instead of “&gt;=”.
 
 ## Changes in Version 1.3.4.9036 (2021-12-01)
 
