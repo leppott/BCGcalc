@@ -76,6 +76,12 @@ Some exceptions exist for particular models.
 These exceptions are mostly hard coded into the function but gather some 
 information with the parameter col_EXC_RULE from the rules table.  A future
 update may fully automate this process.
+
+2021 saw the introduction of Median Exception rule.  
+For the Pacific Northwest some metrics were grouped and the 2nd of 3 values
+is used and the other 2 values tossed when determining level membership.  
+This equates to using the median of the 3 values.  This is handled by 
+including "Median" in the Exc_Rule column in Rules.xlsx.
 }
 \examples{
 # library(readxl)

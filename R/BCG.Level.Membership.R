@@ -35,6 +35,12 @@
 #' information with the parameter col_EXC_RULE from the rules table.  A future
 #' update may fully automate this process.
 #' 
+#' 2021 saw the introduction of Median Exception rule.  
+#' For the Pacific Northwest some metrics were grouped and the 2nd of 3 values
+#' is used and the other 2 values tossed when determining level membership.  
+#' This equates to using the median of the 3 values.  This is handled by 
+#' including "Median" in the Exc_Rule column in Rules.xlsx.
+#' 
 #' @param df.metric.membership Data frame of metric memberships 
 #' (long format, the same as the output of BCG.Metric.Membership).
 #' @param df.rules Data frame of BCG model rules.
@@ -283,6 +289,32 @@ BCG.Level.Membership <- function(df.metric.membership
   names(df.merge)[names(df.merge) == col_RULE_TYPE] <- "RULE_TYPE"
   ## Exceptions
   names(df.merge)[names(df.merge) == col_EXC_RULE] <- "EXC_RULE"
+  
+  
+  # Generate Median Rules
+  df_median <- dplyr::filter(df.merge, EXC_RULE == "Median")
+  df_median_calc <- dplyr::summarise(dplyr::group_by(df_median
+                                                     , SAMPLEID
+                                                     , INDEX_NAME
+                                                     , SITE_TYPE
+                                                     , LEVEL
+                                                     , RULE_TYPE
+                                                      )
+                                      , .groups = "drop_last"
+                #
+                # Calc Median
+                , MEMBERSHIP = median(MEMBERSHIP, na.rm = TRUE)
+                # , MEMBERSHIP_MEDIAN = median(MEMBERSHIP, na.rm = TRUE)
+                # , MEMBERSHIP_COUNT = dplyr::n()
+  )##summarise ~ MEDIAN
+  # This assumes have 3 values
+  # Rename MEMBERSHIP_MEDIAN and drop Count
+  #
+  # Remove EXC_RULE == "MEDIAN"
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "Median" | is.na(EXC_RULE))
+  # Add Median memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_median_calc)
+  
   
   # Will get lots of warnings, SampIDs without alt 1 or alt 2 rules
   suppressWarnings(

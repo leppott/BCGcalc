@@ -1,13 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2021-12-02 12:38:22
+2021-12-03 08:47:24
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-12-02 12:38:22
+    #> Last Update: 2021-12-03 08:47:24
 
 # Version History
+
+## Changes in Version 1.3.4.9038 (2021-12-03)
+
+-   refactor: Update BCG.Level.Membership() for new median rule type,
+    Issue \#55
+-   refactor: Update Rules.xlsx to handle new median rule type, Issue
+    \#55
 
 ## Changes in Version 1.3.4.9037 (2021-12-02)
 
