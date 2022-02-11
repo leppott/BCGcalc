@@ -58,7 +58,7 @@ test_that("bcgcalc", {
 })## Test ~ BCGcalc ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Thresholds, Num Digits, Rules ----
+# Num Digits, Rules ----
 
 test_that("thresholds, num digits, rules", {
   # Packages
@@ -91,7 +91,7 @@ test_that("thresholds, num digits, rules", {
 })## Test ~ thresholds, num digits ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Thresholds, Num Digits, Flags ----
+# Num Digits, Flags ----
 
 test_that("thresholds, num digits, flags", {
   # Packages
@@ -148,5 +148,70 @@ test_that("Flags, symbols", {
 })## Test ~ thresholds, num digits ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Match Metric Names to BioMonTools ----
+# Flags, Metric Names, BioMonTools ----
+test_that("Flags, Metrics, BioMonTools", {
+  # Import Flags
+  fn_flags <- file.path(system.file(package = "BCGcalc")
+                        , "extdata"
+                        , "MetricFlags.xlsx")
+  df_flags <- readxl::read_excel(fn_flags, sheet = "Flags")
+  # Import MetricNames
+  fn_metnam <- file.path(system.file(package = "BioMonTools")
+                        , "extdata"
+                        , "MetricNames.xlsx")
+  df_metnam <- readxl::read_excel(fn_metnam
+                                  , sheet = "MetricMetadata"
+                                  , skip = 4)
+  #
+  metnam_flags <- unique(df_flags[df_flags$BioMonTools_MetNam == TRUE
+                                  , "Metric_Name", TRUE])
+  metnam_bmt <- unique(df_metnam$METRIC_NAME)
+  
+  # Check names vs. BioMonTools
+  len_metnam_flags <- length(metnam_flags)
+  sum_metnam_match <- sum(metnam_flags %in% metnam_bmt)
+  
+  ## Show Failures
+  metnam_flags[!metnam_flags %in% metnam_bmt]
+  
+  ## test, BMT == TRUE ----
+  testthat::expect_equal(sum_metnam_match, len_metnam_flags)
+  
+  #~~~~~
+  # Check all names
+  metnam_flags_all <- unique(df_flags[, "Metric_Name", TRUE])
+  # Remove known non-metrics
+  names_notmetrics <- c("Area_mi2"
+                        , "CollMonth"
+                        , "Density_ft2"
+                        , "Density_m2"
+                        , "DrArea_mi2"
+                        , "pcSLOPE"
+                        , "Precip8110Cat"
+                        , "SfcArea_ft2"
+                        , "Subsample_percent"
+                        , "SurfaceArea")
+  metnam_flags_check <- metnam_flags_all[!metnam_flags_all %in% names_notmetrics]
+  # Compare
+  metnam_flags_check_match <- metnam_flags_check[metnam_flags_check %in% metnam_bmt]
+  
+  ## Show Failures
+  metnam_flags_check[!metnam_flags_check %in% metnam_bmt]
+  
+  # test, All non known non-metrics ----
+  testthat::expect_equal(length(metnam_flags_check_match)
+                         , length(metnam_flags_check))
+  
+  ## Show Failures
+  metnam_flags_check[!metnam_flags_check %in% metnam_bmt]
+  
+  # test, for those marked TRUE in flags----
+  testthat::expect_equal(len_metnam_flags, length(metnam_flags_check))
+  
+  
+})## Test ~ flags, metrics, BioMonTools
+
+
+
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
