@@ -23,6 +23,10 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # Version History
 
+## Changes in Version 1.3.4.9043 (2022-02-14)
+
+* fix: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
+
 ## Changes in Version 1.3.4.9042 (2022-02-14)
 
 * refactor: Update metric.values()
