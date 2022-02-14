@@ -1,13 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-02-11 15:39:58
+2022-02-14 07:07:39
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-02-11 15:39:59
+    #> Last Update: 2022-02-14 07:07:39
 
 # Version History
+
+## Changes in Version 1.3.4.9042 (2022-02-14)
+
+-   refactor: Update metric.values()
+    -   Failed when rules table included more than 1 region and metrics
+        uneven
 
 ## Changes in Version 1.3.4.9041 (2022-02-11)
 

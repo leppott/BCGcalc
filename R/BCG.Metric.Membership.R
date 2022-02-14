@@ -106,7 +106,9 @@ BCG.Metric.Membership <- function(df.metrics
   # Metrics to long
   if (input.shape == "wide") {##IF.input.shape.START
     df.long <- reshape2::melt(df.metrics
-                        , id.vars=c(col_SAMPLEID, col_INDEX_NAME, col_SITE_TYPE)
+                        , id.vars=c(col_SAMPLEID
+                                    , col_INDEX_NAME
+                                    , col_SITE_TYPE)
                               , variable.name = col_METRIC_NAME
                               , value.name = col_METRIC_VALUE)
   } else {
@@ -126,13 +128,18 @@ BCG.Metric.Membership <- function(df.metrics
   suppressWarnings(df.long[, col_METRIC_VALUE] <- as.numeric(df.long[, col_METRIC_VALUE]))
   #
   # Check for Missing Metrics (only for index provided in metric df)
-  ## ignore site type for checking
+  ## ignore site type for checking 
+  ### added back 20220214, for when run a single index region & rules has more than one
+  ### and metrics are not the same in each region
   index.data <- unique(df.long[, col_INDEX_NAME])
-  rules.metrics.names <- unique(df.rules[df.rules[, col_INDEX_NAME] == index.data, col_METRIC_NAME])
+  index.data.region <- unique(df.long[, col_SITE_TYPE])
+  rules.metrics.names <- unique(df.rules[(df.rules[, col_INDEX_NAME] %in% index.data
+                                          & df.rules[, col_SITE_TYPE] %in% index.data.region)
+                                         , col_METRIC_NAME])
   rules.metrics.TF <- rules.metrics.names %in% unique(df.long[, col_METRIC_NAME])
   rules.metrics.len <- length(rules.metrics.names)
   #
-  if(sum(rules.metrics.TF)!=rules.metrics.len) {##IF.RulesCount.START
+  if(sum(rules.metrics.TF)!= rules.metrics.len) {##IF.RulesCount.START
     Msg <- paste0("Data provided does not include all metrics in rules table. "
                   , "The following metrics are missing: "
                   , paste(rules.metrics.names[!rules.metrics.TF], collapse=", "))
