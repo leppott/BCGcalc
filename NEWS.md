@@ -1,13 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-02-14 09:00:49
+2022-02-14 09:32:53
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-02-14 09:00:49
+    #> Last Update: 2022-02-14 09:32:53
 
 # Version History
+
+## Changes in Version 1.3.4.9045 (2022-02-14)
+
+-   fix: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
 ## Changes in Version 1.3.4.9044 (2022-02-14)
 
