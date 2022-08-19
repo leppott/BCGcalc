@@ -1,69 +1,71 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-08-19 08:18:34
+2022-08-19 10:00:00
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-08-19 08:18:34
+    #> Last Update: 2022-08-19 10:00:00
 
-# Version History
+# BCGcalc 1.3.5.9002 (2022-08-19)
 
-## Changes in Version 1.3.5.9001 (2022-08-18)
+-   docs: Update format of NEWS
+
+# BCGcalc 1.3.5.9001 (2022-08-18)
 
 -   feature: Add Shiny app skeleton and function to run it, Issue \#58
 
-## Changes in Version 1.3.5 (2022-08-18)
+# BCGcalc 1.3.5 (2022-08-18)
 
 -   refactor: Bump version number.
 
-## Changes in Version 1.3.4.9047 (2022-03-31)
+# BCGcalc 1.3.4.9047 (2022-03-31)
 
 -   fix: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
-## Changes in Version 1.3.4.9046 (2022-02-14)
+# BCGcalc 1.3.4.9046 (2022-02-14)
 
 -   fix: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
-## Changes in Version 1.3.4.9045 (2022-02-14)
+# BCGcalc 1.3.4.9045 (2022-02-14)
 
 -   fix: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
-## Changes in Version 1.3.4.9044 (2022-02-14)
+# BCGcalc 1.3.4.9044 (2022-02-14)
 
 -   fix: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
-## Changes in Version 1.3.4.9043 (2022-02-14)
+# BCGcalc 1.3.4.9043 (2022-02-14)
 
 -   fix: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
-## Changes in Version 1.3.4.9042 (2022-02-14)
+# BCGcalc 1.3.4.9042 (2022-02-14)
 
 -   refactor: Update metric.values()
     -   Failed when rules table included more than 1 region and metrics
         uneven
 
-## Changes in Version 1.3.4.9041 (2022-02-11)
+# BCGcalc 1.3.4.9041 (2022-02-11)
 
 -   refactor: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
-## Changes in Version 1.3.4.9040 (2022-02-11)
+# BCGcalc 1.3.4.9040 (2022-02-11)
 
 -   refactor: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 
-## Changes in Version 1.3.4.9039 (2022-02-11)
+# BCGcalc 1.3.4.9039 (2022-02-11)
 
 -   refactor: Update MetricFlags.xlsx for BCG_MariNW_Bugs500ct models
 -   tests: Add tests for flags and metric names
 
-## Changes in Version 1.3.4.9038 (2021-12-03)
+# BCGcalc 1.3.4.9038 (2021-12-03)
 
 -   refactor: Update BCG.Level.Membership() for new median rule type,
     Issue \#55
 -   refactor: Update Rules.xlsx to handle new median rule type, Issue
     \#55
 
-## Changes in Version 1.3.4.9037 (2021-12-02)
+# BCGcalc 1.3.4.9037 (2021-12-02)
 
 -   refactor: Update MetricFlags.xlsx
     -   Match metric names to BioMonTools::metric.values()
@@ -72,14 +74,14 @@ BCGcalc-NEWS
     -   Write test to check for Flag symbols
 -   fix: One entry in Rules.xlsx was “\[” instead of “\>=”.
 
-## Changes in Version 1.3.4.9036 (2021-12-01)
+# BCGcalc 1.3.4.9036 (2021-12-01)
 
 -   fix: BCG.Level.Membership fails test
     -   Missing EXC_RULE in merge statement
 -   refactor: Update “Notes” to “Note_Rules” in Rules.xlsx
 -   tests: Update test for revised sheet name in Rules.xlsx
 
-## Changes in Version 1.3.4.9035 (2021-12-01)
+# BCGcalc 1.3.4.9035 (2021-12-01)
 
 -   fix: Renamed master branch to main
 -   docs: Move wishlist from NEWS to GitHub Issue \#56
@@ -93,7 +95,7 @@ BCGcalc-NEWS
     -   BCG.Metric.Membership()
     -   BCG.Level.Membership()
 
-## Changes in Version 1.3.4.9034 (2021-08-09)
+# BCGcalc 1.3.4.9034 (2021-08-09)
 
 -   feat: Update BCG.Level.Membership() to account for special
     conditions
@@ -102,23 +104,23 @@ BCGcalc-NEWS
 -   feat: Update Rules.xlsx for exceptions in level membership in
     BCG.Level.Membership()
 
-## Changes in Version 1.3.4.9033 (2021-08-06)
+# BCGcalc 1.3.4.9033 (2021-08-06)
 
 -   fix: Update BCG.Metric.Membership() to use \<= and \>= when checking
     for values below and above limits rather than \< and \> due to rules
     in CT BCG using 0 as a lower AND upper limit
 
-## Changes in Version 1.3.4.9032 (2021-08-04)
+# BCGcalc 1.3.4.9032 (2021-08-04)
 
 -   fix: Update Rules.xlsx for CT BCG model, Issue \#48
     -   Removed double entries for fish01, fish02, and fish03 SiteType
 
-## Changes in Version 1.3.4.9031 (2021-08-04)
+# BCGcalc 1.3.4.9031 (2021-08-04)
 
 -   fix: Update Rules.xlsx for CT BCG model, Issue \#48
     -   Removed double entries for bug01 SiteType
 
-## Changes in Version 1.3.4.9030 (2021-08-04)
+# BCGcalc 1.3.4.9030 (2021-08-04)
 
 -   refactor: Update BCG.Metric.Membership() for lower and upper bounds
     -   Per CT Access db (2013-08-09) use \<= and \>= instead of \< and
@@ -126,33 +128,33 @@ BCGcalc-NEWS
 -   style: Wrap some lines more than 80 characters,
     BCG.Level.Assignment()
 
-## Changes in Version 1.3.4.9029 (2021-08-03)
+# BCGcalc 1.3.4.9029 (2021-08-03)
 
 -   fix: Update BCG.Metric.Membership() for calculating membership for
     more than one Site_Type at a time, Issue \#53
     -   Allows for NA for metrics not common to all included Site Types
 
-## Changes in Version 1.3.4.9028 (2021-07-30)
+# BCGcalc 1.3.4.9028 (2021-07-30)
 
 -   refactor: Update Rules.xlsx for CT BCG benthos
     -   pi_BCG_att5 to pi_BCG_att5extra
 
-## Changes in Version 1.3.4.9027 (2021-07-30)
+# BCGcalc 1.3.4.9027 (2021-07-30)
 
 -   refactor: Update BCG.Level.Membership with stop message if unable to
     merge data frames
 
-## Changes in Version 1.3.4.9026 (2021-07-30)
+# BCGcalc 1.3.4.9026 (2021-07-30)
 
 -   refactor: Update Rules.xlsx to match BioMonTools::metric.values()
     -   rename brook trout wild
 
-## Changes in Version 1.3.4.9025 (2021-07-29)
+# BCGcalc 1.3.4.9025 (2021-07-29)
 
 -   refactor: Update Rules.xlsx to match BioMonTools::metric.values()
     -   Add “BCG” to BCG attribute metric names
 
-## Changes in Version 1.3.4.9024 (2021-07-28)
+# BCGcalc 1.3.4.9024 (2021-07-28)
 
 -   refactor: Update BCG.Level.Assignment()
     -   Add column name inputs and defaults
@@ -191,12 +193,12 @@ BCGcalc-NEWS
     -   BCG.Level.Membership()
     -   BCG.Metric.Membership()
 
-## Changes in Version 1.3.4.9023 (2021-07-23)
+# BCGcalc 1.3.4.9023 (2021-07-23)
 
 -   refactor: Update Rules.xlsx, Issue \#48
     -   Change Index_Name, Site_Type, and Index_Region
 
-## Changes in Version 1.3.4.9022 (2021-07-01)
+# BCGcalc 1.3.4.9022 (2021-07-01)
 
 -   docs: Update DESCRIPTION remotes to proper url
 -   refactor: Update `metric.membership()` example to use updated
@@ -207,24 +209,24 @@ BCGcalc-NEWS
 -   refactor: Update `level.assignment()` example to use updated
     Rules.xlsx, Issue \#48
 
-## Changes in Version 1.3.4.9021 (2021-07-01)
+# BCGcalc 1.3.4.9021 (2021-07-01)
 
 -   refactor: Merge pull request with updated rules, Issue \#52
 
-## Changes in Version 1.3.4.9020 (2021-06-22)
+# BCGcalc 1.3.4.9020 (2021-06-22)
 
 -   refactor: Update model rules, Rules.xlsx, Issue \#48
 
-## Changes in Version 1.3.4.9019 (2021-04-04)
+# BCGcalc 1.3.4.9019 (2021-04-04)
 
 -   docs: Add sticker to README
 
-## Changes in Version 1.3.4.9018 (2021-04-04)
+# BCGcalc 1.3.4.9018 (2021-04-04)
 
 -   feature: Add sticker
     -   Create with hexSticker
 
-## Changes in Version 1.3.4.9017 (2021-04-04)
+# BCGcalc 1.3.4.9017 (2021-04-04)
 
 -   style: Fix devtools::spell_check() issues
     -   NEWS
@@ -235,7 +237,7 @@ BCGcalc-NEWS
         remotes::install_github
     -   Rebuild README
 
-## Changes in Version 1.3.4.9016 (2021-01-18)
+# BCGcalc 1.3.4.9016 (2021-01-18)
 
 -   docs: Remove date from DESCRIPTION
 -   tests: Add tests
@@ -247,11 +249,11 @@ BCGcalc-NEWS
 -   refactor: Replace undesirable function, library
     -   ProcessData_TaxaMaster_Ben_BCG_PacNW
 
-## Changes in Version 1.3.4.9015 (2020-12-27)
+# BCGcalc 1.3.4.9015 (2020-12-27)
 
 -   test: set up test folder
 
-## Changes in Version 1.3.4.9014 (2020-12-27)
+# BCGcalc 1.3.4.9014 (2020-12-27)
 
 -   ci: Add GitHub Action test coverage
 -   ci: Add GitHub Action pkgdown
@@ -261,20 +263,20 @@ BCGcalc-NEWS
 -   docs: Remove docs folder from main branch for pkgdown
 -   docs: Redirect GitHub repo for pkgdown to gh-pages branch
 
-## Changes in Version 1.3.4.9013 (2020-12-27)
+# BCGcalc 1.3.4.9013 (2020-12-27)
 
 -   ci: Add GitHub Actions, continuous integration
 -   ci: Remove TravisCI
 -   docs: ReadMe, remove TravisCI badge
 -   docs: ReadMe, Add GitHub Actions CMD check badge
 
-## Changes in Version 1.3.4.9012 (2019-11-07)
+# BCGcalc 1.3.4.9012 (2019-11-07)
 
 -   Add pkgdown website.
     -   Need to fix vignettes/BCGcalc_Map.Rmd.
         -   INFRAORDER missing.
 
-## Changes in Version 1.3.4.9011 (2019-06-26)
+# BCGcalc 1.3.4.9011 (2019-06-26)
 
 -   Build Check fixes.
     -   Move “View” in example to “do not run”.
@@ -291,7 +293,7 @@ BCGcalc-NEWS
         -   taxa_bugs_family
         -   taxa_bugs_genus
 
-## Changes in Version 1.3.4.9010 (2019-05-17)
+# BCGcalc 1.3.4.9010 (2019-05-17)
 
 -   Update for R v3.6.0, Issue \#46
     -   README
@@ -300,31 +302,31 @@ BCGcalc-NEWS
 -   Map Vignette
     -   Update title.
 
-## Changes in Version 1.3.4.9009 (2019-04-18)
+# BCGcalc 1.3.4.9009 (2019-04-18)
 
 -   BCG.Level.Assignment
     -   Proportional BCG final scores, Issue \#43.
         -   Add “tie” to narrative.
 
-## Changes in Version 1.3.4.9008 (2019-04-17)
+# BCGcalc 1.3.4.9008 (2019-04-17)
 
 -   BCG.Level.Assignment
     -   Proportional BCG final scores, Issue \#43
         -   Turn on features from v1.3.4.9004.
         -   Add proportional narrative (+/-).
 
-## Changes in Version 1.3.4.9007 (2019-04-17)
+# BCGcalc 1.3.4.9007 (2019-04-17)
 
 -   extdata.xlsx
     -   ni_total, Hi, to 450 from 400.
         -   Matches file in BioMonTools package.
 
-## Changes in Version 1.3.4.9006 (2019-04-17)
+# BCGcalc 1.3.4.9006 (2019-04-17)
 
 -   Remove format Hoboware file from extdata folder.
     -   From another package under development.
 
-## Changes in Version 1.3.4.9005 (2019-03-15)
+# BCGcalc 1.3.4.9005 (2019-03-15)
 
 -   MetricFlags.xlsx
     -   Percent metrics to 0-100. Issues \#45.
@@ -348,67 +350,67 @@ BCGcalc-NEWS
     -   BCG.Level.Membership.R
     -   BCG.Metric.Membership.R
 
-## Changes in Version 1.3.4.9004 (2018-11-26)
+# BCGcalc 1.3.4.9004 (2018-11-26)
 
 -   Proportional Level Assignment. Issue \#43.
     -   Needs more polish for different conditions.
     -   Assign all to NA.
 
-## Changes in Version 1.3.4.9003 (2018-11-26)
+# BCGcalc 1.3.4.9003 (2018-11-26)
 
 -   Last update not complete before uploaded.
 
-## Changes in Version 1.3.4.9002 (2018-11-26)
+# BCGcalc 1.3.4.9002 (2018-11-26)
 
 -   Move qc.checks to BioMonTools package. Issue \#44
     -   Remove qc.checks.R
     -   Update Vignette.
 -   Update read_excel with guess_max=10^6 for bio data file.
 
-## Changes in Version 1.3.4.9001 (2018-11-26)
+# BCGcalc 1.3.4.9001 (2018-11-26)
 
 -   Add proportional Level Assignment. Issue \#43.
     -   BCG.Level.Assignment
 
-## Changes in Version 1.3.4 (2018-11-21)
+# BCGcalc 1.3.4 (2018-11-21)
 
 -   Update release version with Remote”s”” fix.
 
-## Changes in Version 1.3.3.9005 (2018-11-21)
+# BCGcalc 1.3.3.9005 (2018-11-21)
 
 -   BioMonTools dependency not installing.
     -   Move Remote up in listing in DESCRIPTION.
     -   Renamed Remote to Remotes.
 
-## Changes in Version 1.3.3.9004 (2018-11-21)
+# BCGcalc 1.3.3.9004 (2018-11-21)
 
 -   Add BioMonTools to Imports so will auto install.
     -   Had removed at some point since don’t use the functions in any
         BCGcalc functions.
 
-## Changes in Version 1.3.3.9003 (2018-11-20)
+# BCGcalc 1.3.3.9003 (2018-11-20)
 
 -   Update SuperFamily Tipuloidea
     -   /extdata/Data_BCG_PacNW.xlsx
     -   /extdata/TaxaMaster_Bug_BCG_PacNW_v1.xlsx
 
-## Changes in Version 1.3.3.9002 (2018-11-19)
+# BCGcalc 1.3.3.9002 (2018-11-19)
 
 -   /extdata/Data_BCG_PacNW.xlsx
     -   Update Exclude column after QC with BioMonTools::markExcluded
         -   Change 6 FALSE to TRUE
         -   Change 1 TRUE to FALSE
 
-## Changes in Version 1.3.3.9001 (2018-11-19)
+# BCGcalc 1.3.3.9001 (2018-11-19)
 
 -   Update ReadMe for BioMonTools::metric.values. Issue \#41.
 
-## Changes in Version 1.3.3 (2018-11-19)
+# BCGcalc 1.3.3 (2018-11-19)
 
 -   Update version have changes related to moving functions to the
     BioMonTools package.
 
-## Changes in Version 1.3.2.9012 (2018-11-19)
+# BCGcalc 1.3.2.9012 (2018-11-19)
 
 -   metric.values, move to another package, Issue \#40
     -   Moved to separate package. \_
@@ -435,7 +437,7 @@ BCGcalc-NEWS
 -   BCG.Level.Assignment.R
     -   Add don’t run to simple example for write.csv.
 
-## Changes in Version 1.3.2.9011 (2018-11-15)
+# BCGcalc 1.3.2.9011 (2018-11-15)
 
 -   rarify, move to another package, Issue \#40
     -   Moved to separate package.  
@@ -456,7 +458,7 @@ BCGcalc-NEWS
         -   data-raw/ 3 data files
         -   data/data_bio2rarify.rda
 
-## Changes in Version 1.3.2.9010 (2018-11-07)
+# BCGcalc 1.3.2.9010 (2018-11-07)
 
 -   Metric calculations, additional metrics.
     -   metric.values.R
@@ -471,7 +473,7 @@ BCGcalc-NEWS
     -   metric.values.R
     -   MetricNames.xlsx
 
-## Changes in Version 1.3.2.9009 (2018-10-23)
+# BCGcalc 1.3.2.9009 (2018-10-23)
 
 -   Metric calculation;
     -   x_HBI. Issue \#37
@@ -482,7 +484,7 @@ BCGcalc-NEWS
         -   habit_clngrs to habit_cling
         -   habit_swmmrs to habit_swim
 
-## Changes in Version 1.3.2.9008 (2018-10-22)
+# BCGcalc 1.3.2.9008 (2018-10-22)
 
 -   Metric calculation;
     -   Tolerance metrics
@@ -492,25 +494,25 @@ BCGcalc-NEWS
         -   pt_tv_toler
         -   Added lower and upper limits for intol and toler
 
-## Changes in Version 1.3.2.9007 (2018-10-22)
+# BCGcalc 1.3.2.9007 (2018-10-22)
 
 -   Metric calculation;
     -   pi_Colesen
         -   Change is.na(FAMILY) from FALSE to TRUE.
 
-## Changes in Version 1.3.2.9006 (2018-10-22)
+# BCGcalc 1.3.2.9006 (2018-10-22)
 
 -   Metric calculation;
     -   pi_Hydro
         -   Equal sign missing in equation (“=” instead of “==”).
 
-## Changes in Version 1.3.2.9005 (2018-10-22)
+# BCGcalc 1.3.2.9005 (2018-10-22)
 
 -   Metric calculation;
     -   pi_Tanyp
         -   Misspelled Tanypodinae
 
-## Changes in Version 1.3.2.9004 (2018-10-22)
+# BCGcalc 1.3.2.9004 (2018-10-22)
 
 -   Metric calculations;
     -   x_HBI
@@ -522,7 +524,7 @@ BCGcalc-NEWS
     -   x_D
         -   Fix equation.
 
-## Changes in Version 1.3.2.9003 (2018-10-22)
+# BCGcalc 1.3.2.9003 (2018-10-22)
 
 -   Fix metric calculation; na.rm=TRUE for sum. Issue \#37
     -   x_HBI \_ If had any NA values for TolVal the final value was NA.
@@ -536,7 +538,7 @@ BCGcalc-NEWS
         -   No effect as no records should be NA for count
     -   All fish metrics (with “sum”)
 
-## Changes in Version 1.3.2.9002 (2018-10-12)
+# BCGcalc 1.3.2.9002 (2018-10-12)
 
 -   Add 8 additional metrics to metric.values
     -   MS DEQ, MBISQ 2015 \_ pi_Hydro
@@ -548,7 +550,7 @@ BCGcalc-NEWS
         -   pi_Colesens
         -   pi_COC2Chi
 
-## Changes in Version 1.3.2.9001 (2018-10-12)
+# BCGcalc 1.3.2.9001 (2018-10-12)
 
 -   Mapping Vignette. Issue \#34.
     -   DESCRIPTION
@@ -557,50 +559,50 @@ BCGcalc-NEWS
         -   Add Latitude, Longitude, and COMID
     -   Create Vignette for mapping
 
-## Changes in Version 1.3.2 (2018-10-11)
+# BCGcalc 1.3.2 (2018-10-11)
 
 -   Release version.
 
-## Changes in Version 1.3.1.9001 (2018-10-11)
+# BCGcalc 1.3.1.9001 (2018-10-11)
 
 -   Master Taxa List
     -   Turbellaria BCG Attribute.
         -   Change from “x” to “4” to match its synonym Trepaxonemata.
 
-## Changes in Version 1.3.1 (2018-10-10)
+# BCGcalc 1.3.1 (2018-10-10)
 
 -   Release version.
 
-## Changes in Version 1.3.0.9001 (2018-10-10)
+# BCGcalc 1.3.0.9001 (2018-10-10)
 
 -   Rules.xlsx
     -   Fix typos in “Numeric_Rules” field.
         -   No impact on calculations.
 
-## Changes in Version 1.3.0 (2018-10-09)
+# BCGcalc 1.3.0 (2018-10-09)
 
 -   Release version.
 
-## Changes in Version 1.2.2.9033 (2018-10-09)
+# BCGcalc 1.2.2.9033 (2018-10-09)
 
 -   Update Vignette.
     -   Rarify section to 600.
 
-## Changes in Version 1.2.2.9032 (2018-10-09)
+# BCGcalc 1.2.2.9032 (2018-10-09)
 
 -   Update Vignette.
     -   Fix a few typos.
 
-## Changes in Version 1.2.2.9031 (2018-10-09)
+# BCGcalc 1.2.2.9031 (2018-10-09)
 
 -   Update Rules.xlsx.
     -   300 count model edits.
 
-## Changes in Version 1.2.2.9030 (2018-10-09)
+# BCGcalc 1.2.2.9030 (2018-10-09)
 
 -   Vignette updates.
 
-## Changes in Version 1.2.2.9029 (2018-10-05)
+# BCGcalc 1.2.2.9029 (2018-10-05)
 
 -   Updated rarify data; data_bio2rarify
     -   Replace fully qualified 500 count data with 3 column 600 count.
@@ -608,32 +610,32 @@ BCGcalc-NEWS
     -   Update rarify function example.
     -   Update vignette example.
 
-## Changes in Version 1.2.2.9028 (2018-10-05)
+# BCGcalc 1.2.2.9028 (2018-10-05)
 
 -   Updated docs.
     -   extdata/ExampleDataFile.xlsx
     -   docs/BCGcalc_README_20180919.pdf
 
-## Changes in Version 1.2.2.9027 (2018-10-05)
+# BCGcalc 1.2.2.9027 (2018-10-05)
 
 -   Updated Rules.xlsx file in extdata.
 
-## Changes in Version 1.2.2.9026 (2018-09-28)
+# BCGcalc 1.2.2.9026 (2018-09-28)
 
 -   Finish updates to Vignette.
 
-## Changes in Version 1.2.2.9025 (2018-09-28)
+# BCGcalc 1.2.2.9025 (2018-09-28)
 
 -   Level.Assignment. Issue \#11
     -   Update example so don’t calculate metrics twice.
 
-## Changes in Version 1.2.2.9024 (2018-09-28)
+# BCGcalc 1.2.2.9024 (2018-09-28)
 
 -   Vignette updates (incomplete).
 -   Metric.Membership. Issue \#11
     -   Non numeric extra columns caused errors. Fixed.
 
-## Changes in Version 1.2.2.9023 (2018-09-27)
+# BCGcalc 1.2.2.9023 (2018-09-27)
 
 -   extdata
     -   TaxaMaster_Bug_BCG_PacNW_v1.xlsx; rename worksheet to match
@@ -647,7 +649,7 @@ BCGcalc-NEWS
 -   Vignette
     -   Start on updates.
 
-## Changes in Version 1.2.2.9022 (2018-09-27)
+# BCGcalc 1.2.2.9022 (2018-09-27)
 
 -   Update Data_BCG_PacNW.xlsx. Issue \#32
     -   Remove unnecessary worksheets.
@@ -657,23 +659,23 @@ BCGcalc-NEWS
 -   Add master taxa list file to external docs.
 -   Add thermal indicators file to external docs.
 
-## Changes in Version 1.2.2.9021 (2018-09-27)
+# BCGcalc 1.2.2.9021 (2018-09-27)
 
 -   update ReadMe. Issue \#31
 
-## Changes in Version 1.2.2.9020 (2018-09-27)
+# BCGcalc 1.2.2.9020 (2018-09-27)
 
 -   Ensure reshape2 package references are consistent. Issue \#30
     -   Ensure functions use reshape2::melt (or dcast)
     -   Ensure examples (and vignette) use library(reshape) and melt or
         dcast.
 
-## Changes in Version 1.2.2.9019 (2018-09-26)
+# BCGcalc 1.2.2.9019 (2018-09-26)
 
 -   File formats. Issue \#28
     -   Add statement about file formats to Vignette.
 
-## Changes in Version 1.2.2.9018 (2018-09-26)
+# BCGcalc 1.2.2.9018 (2018-09-26)
 
 -   rarify data. Issue \#19
     -   Use USGS 500 to 300 count data instead of MS 200 count.
@@ -682,14 +684,14 @@ BCGcalc-NEWS
     -   Modify rarify example.
     -   Modified rarify example in Vignette.
 
-## Changes in Version 1.2.2.9017 (2018-09-26)
+# BCGcalc 1.2.2.9017 (2018-09-26)
 
 -   BCG PacNW primer. Issue \#29
     -   BCGcalc_README_20180918.pdf to so shows up in package help.
 -   MetricFlags.xlsx
     -   Last line, Index_Name updated for 300 count model.
 
-## Changes in Version 1.2.2.9016 (2018-09-26)
+# BCGcalc 1.2.2.9016 (2018-09-26)
 
 -   Example “write” statements as “dontrun”. Issue \#27
     -   BCG.Level.Assignment; also moved write statement to end
@@ -702,7 +704,7 @@ BCGcalc-NEWS
 -   BCG.Level.Assignment
     -   Change write.table(tsv) to write.csv. Issue \#28
 
-## Changes in Version 1.2.2.9015 (2018-09-26)
+# BCGcalc 1.2.2.9015 (2018-09-26)
 
 -   extdata.xlsx. Issue \#26
     -   Added NOTES worksheet.
@@ -723,7 +725,7 @@ BCGcalc-NEWS
     -   Added Index_Name “BCG_PacNW_v1_300ct”. Adjust some flags based
         on 500 vs. 300 count.
 
-## Changes in Version 1.2.2.9014 (2018-09-25)
+# BCGcalc 1.2.2.9014 (2018-09-25)
 
 -   qc.checks. Issue \#25.
     -   Update Description.
@@ -732,29 +734,29 @@ BCGcalc-NEWS
     -   Update Level Assignment example in Vignette with real data and
         append flags.
 
-## Changes in Version 1.2.2.9013 (2018-09-25)
+# BCGcalc 1.2.2.9013 (2018-09-25)
 
 -   Function rarify. Issue \#19
     -   Remove keywords.
 
-## Changes in Version 1.2.2.9012 (2018-09-25)
+# BCGcalc 1.2.2.9012 (2018-09-25)
 
 -   Function rafify. Issue \#19
     -   Fix typo in @param mySeed. Remove extra period.
 
-## Changes in Version 1.2.2.9011 (2018-09-20)
+# BCGcalc 1.2.2.9011 (2018-09-20)
 
 -   Metric Names metadata Issue \#18
     -   Update extdata.xlsx
     -   Add PDF version to docs.
 
-## Changes in Version 1.2.2.9010 (2018-09-20)
+# BCGcalc 1.2.2.9010 (2018-09-20)
 
 -   More Indiana files. Issue \#24
     -   extdata\_IN_BCG_Bugs_20170203.xlsm
     -   extdata\_Metrics_Bugs_IN.xlsx
 
-## Changes in Version 1.2.2.9009 (2018-09-20)
+# BCGcalc 1.2.2.9009 (2018-09-20)
 
 -   Remove Indiana references. Issue \#24.
     -   Delete extdata Indiana file (Data_BCG_Indiana.xlsx).
@@ -762,31 +764,31 @@ BCGcalc-NEWS
         20170301).mdb. Already excluded from package build.
     -   Delete example in metric.values function.
 
-## Changes in Version 1.2.2.9008 (2018-09-12)
+# BCGcalc 1.2.2.9008 (2018-09-12)
 
 -   DESCRIPTION
     -   Add date.
     -   Add Jen Stamp as contributor
 -   Citation still gives error but is more complete now. Issue \#23
 
-## Changes in Version 1.2.2.9007 (2018-09-07)
+# BCGcalc 1.2.2.9007 (2018-09-07)
 
 -   metric.values
     -   Fixed included metrics (fun.MetricNames)
 
-## Changes in Version 1.2.2.9006 (2018-09-07)
+# BCGcalc 1.2.2.9006 (2018-09-07)
 
 -   metric.values
     -   Added QC check for NonTarget==FALSE.  
     -   Give a warning if have zero FALSE values.
 
-## Changes in Version 1.2.2.9005 (2018-09-07)
+# BCGcalc 1.2.2.9005 (2018-09-07)
 
 -   metric.values
     -   Added QC check for Exclude==TRUE.  
     -   Give a warning if have zero TRUE values.
 
-## Changes in Version 1.2.2.9004 (2018-09-05)
+# BCGcalc 1.2.2.9004 (2018-09-05)
 
 -   Update Vignette.
     -   Add data munging example. Issue \#14
@@ -795,38 +797,38 @@ BCGcalc-NEWS
         \#15
 -   Update text in metric.values.
 
-## Changes in Version 1.2.2.9003 (2018-09-04)
+# BCGcalc 1.2.2.9003 (2018-09-04)
 
 -   metric.values. Issue \#16
     -   Added QC worksheet to extdata\_BCG_PacNW.xlsx
 
-## Changes in Version 1.2.2.9002 (2018-08-28)
+# BCGcalc 1.2.2.9002 (2018-08-28)
 
 -   metric.values. Issue \#13
     -   Add required fields (columns) to help file.
     -   Add QC check in function. Prompt user to continue or stop.
 
-## Changes in Version 1.2.2.9001 (2018-08-15)
+# BCGcalc 1.2.2.9001 (2018-08-15)
 
 -   metric.values
     -   Added metric Percent Baetis tricaudatus complex + Simuliidae
         individuals (pi_SimBtri). Issue \#16.
 
-## Changes in Version 1.2.2 (2018-06-14)
+# BCGcalc 1.2.2 (2018-06-14)
 
 -   New release version.
 
-## Changes in Version 1.2.1.9001 (2018-06-14)
+# BCGcalc 1.2.1.9001 (2018-06-14)
 
 -   qc.checks.R
     -   Modification to use metric names as lower case. Issue \#12.
     -   Example table; useNA=“ifany”.
 
-## Changes in Version 1.2.1 (2018-06-13)
+# BCGcalc 1.2.1 (2018-06-13)
 
 -   New release version.
 
-## Changes in Version 1.2.0.9001 (2018-06-13)
+# BCGcalc 1.2.0.9001 (2018-06-13)
 
 -   BCG.Level.Assignment.R
     -   Membership QC (sum===1) add “round” 8 to avoid too many samples
@@ -836,12 +838,12 @@ BCGcalc-NEWS
     -   Changed “NumFlagFAIL” to “NumFlags”.
     -   Reordered columns so “NumFlags” is before the flag fields.
 
-## Changes in Version 1.2.0 (2018-06-13)
+# BCGcalc 1.2.0 (2018-06-13)
 
 -   Release version for Pacific Northwest BCG workgroup with updated
     model.
 
-## Changes in Version 1.1.0.9010 (2018-06-13)
+# BCGcalc 1.1.0.9010 (2018-06-13)
 
 -   BCG.Level.Assignment.R
     -   Example code to match up with qc.checks output.
@@ -849,7 +851,7 @@ BCGcalc-NEWS
 -   qc.checks.R
     -   Remove example modifying column names.
 
-## Changes in Version 1.1.0.9009 (2018-06-13)
+# BCGcalc 1.1.0.9009 (2018-06-13)
 
 -   BCG.Level.Membership.R
     -   Added “round” to 8 places when determining level membership.
@@ -858,7 +860,7 @@ BCGcalc-NEWS
     -   This resulted in the sample getting a split level assignment,
         e.g., 3:4 when it was 100% 3.
 
-## Changes in Version 1.1.0.9008 (2018-06-13)
+# BCGcalc 1.1.0.9008 (2018-06-13)
 
 -   metric.values.R
     -   Add additional metrics
@@ -869,13 +871,13 @@ BCGcalc-NEWS
     -   modify grepl to == because COLD was matching COLD and COLD_COOL.
         Only want exact match.
 
-## Changes in Version 1.1.0.9007 (2018-06-12)
+# BCGcalc 1.1.0.9007 (2018-06-12)
 
 -   Update Rules.xlsx.
     -   Level 3 (Hi and Lo), pi_BCG_att56 changed to pt_BCG_att1i23.
     -   Change involved both direction and thresholds.
 
-## Changes in Version 1.1.0.9006 (2018-06-12)
+# BCGcalc 1.1.0.9006 (2018-06-12)
 
 -   Update metric.values.
     -   Add “cols2keep” to allow for extra fields in output.
@@ -883,37 +885,37 @@ BCGcalc-NEWS
 -   Update qc.checks.
     -   Update example with cols2keep from metric.values example.
 
-## Changes in Version 1.1.0.9005 (2018-06-11)
+# BCGcalc 1.1.0.9005 (2018-06-11)
 
 -   Update bio data to be used for the model; Issue \#7
     -   Collapse mites to Order.
 
-## Changes in Version 1.1.0.9004 (2018-06-08)
+# BCGcalc 1.1.0.9004 (2018-06-08)
 
 -   Update extdata/Rules.xlsx; Issue \#7
 
-## Changes in Version 1.1.0.9003 (2018-06-08)
+# BCGcalc 1.1.0.9003 (2018-06-08)
 
 -   metric.values dd nt, pi, and pt metrics; Issue \#7
     -   NonIns_BCG_attr456
     -   NonInsJugaRiss_BCG_attr456
 
-## Changes in Version 1.1.0.9002 (2018-06-08)
+# BCGcalc 1.1.0.9002 (2018-06-08)
 
 -   QC Flags, Add pi_dom02. Issue \#7
 -   Update format of NEWS.
 -   metric.values, row_number to dplyr::row_number for dominant metrics.
 
-## Changes in Version 1.1.0.9001 (2018-06-08)
+# BCGcalc 1.1.0.9001 (2018-06-08)
 
 -   metric.values, Issue \#7
     -   Update metrics from NonClump to NoJugaRiss.
 
-## Changes in Version 1.1.0.0000 (2018-03-19)
+# BCGcalc 1.1.0.0000 (2018-03-19)
 
 -   Release new and fully QCed version.
 
-## Changes in Version 1.0.0.9002 (2018-03-19)
+# BCGcalc 1.0.0.9002 (2018-03-19)
 
 -   Metric.values
     -   Fix metrics with *not equal* functions.
@@ -929,7 +931,7 @@ BCGcalc-NEWS
     -   Add special conditions for ties (2 levels with 0.5) and primary
         level is 1 (no 2nd level).
 
-## Changes in Version 1.0.0.9001 (2018-03-18)
+# BCGcalc 1.0.0.9001 (2018-03-18)
 
 -   Metric.values
     -   Fix non-clumpy metrics.
@@ -938,12 +940,12 @@ BCGcalc-NEWS
 -   Fix version numbers in NEWS.
 -   Updated ReadMe with only the relevant packages. Issue \#4.
 
-## Changes in Version 1.0.0.0000 (2018-03-18)
+# BCGcalc 1.0.0.0000 (2018-03-18)
 
 -   Only metric value issues left to resolve with test data set. Rest of
     the calculations are ok.
 
-## Changes in Version 0.1.0.9019 (2018-03-18)
+# BCGcalc 0.1.0.9019 (2018-03-18)
 
 -   Rules.xlsx
     -   Fill in missing cells.
@@ -979,30 +981,30 @@ BCGcalc-NEWS
     affected but the remaining QC issues). Non-Insect and modified
     dominant 2 metrics are the 4 that have issues.
 
-## Changes in Version 0.1.0.9018 (2018-03-17)
+# BCGcalc 0.1.0.9018 (2018-03-17)
 
 -   BCG.Level.Membership.R
     -   Correct function to consider preceding levels when assigning
         membership scores.
 
-## Changes in Version 0.1.0.9017 (2018-03-16)
+# BCGcalc 0.1.0.9017 (2018-03-16)
 
 -   metric.values.R
     -   Added Thermal Indicator (TI) metrics.
 -   Updates to PacNW bug data and rules files (xlsx).
 
-## Changes in Version 0.1.0.9016 (2018-03-16)
+# BCGcalc 0.1.0.9016 (2018-03-16)
 
 -   metric.values.R
     -   Update pt_BCG_att1i2 and 1i23 metrics (numerator not capturing
         “i” taxa).
 -   Update Rules.xlsx
 
-## Changes in Version 0.1.0.9015 (2018-03-16)
+# BCGcalc 0.1.0.9015 (2018-03-16)
 
 -   Vignette didn’t update in previous version.
 
-## Changes in Version 0.1.0.9014 (2018-03-15)
+# BCGcalc 0.1.0.9014 (2018-03-15)
 
 -   Tweak “data.R”. Not complete!
     -   Added example save code for master taxa list.
@@ -1019,12 +1021,12 @@ BCGcalc-NEWS
 -   Update Readme.
 -   Update BCG.Level.Membership
 
-## Changes in Version 0.1.0.9013 (2018-03-14)
+# BCGcalc 0.1.0.9013 (2018-03-14)
 
 -   Added PacNW benthic master taxa list to data.
 -   Created “data.R”. Not complete!
 
-## Changes in Version 0.1.0.9012 (2018-03-08)
+# BCGcalc 0.1.0.9012 (2018-03-08)
 
 -   Update PacNW example data to use TRUE/FALSE for Excluded and
     NonTarget fields.
@@ -1033,47 +1035,47 @@ BCGcalc-NEWS
         all communities.
     -   Enabled NonTarget exclusion. NonTarget column now required.
 
-## Changes in Version 0.1.0.9011 (2018-03-08)
+# BCGcalc 0.1.0.9011 (2018-03-08)
 
 -   Completed lingering edits for “Tier” to “Level”.
 -   Completed BCG.Level.Membership function.
 
-## Changes in Version 0.1.0.9010 (2018-03-07)
+# BCGcalc 0.1.0.9010 (2018-03-07)
 
 -   Remove “Tier” wording in package and rename some functions to better
     reflect usage.
 -   Include example code for saving results for each function.
 -   Change Region to SiteType in code and example data files.
 
-## Changes in Version 0.1.0.9009 (2018-03-05)
+# BCGcalc 0.1.0.9009 (2018-03-05)
 
 -   Dom02 special metric placeholder.
 -   Update Rule table for Level assignments.
 -   BCG.Levels function.
 -   Fixed error in sequencing in BCG.Membership function.
 
-## Changes in Version 0.1.0.9008 (2018-03-05)
+# BCGcalc 0.1.0.9008 (2018-03-05)
 
 -   Add last of the PacNW specific metrics to metric.values.
 -   Added Vignette.
 
-## Changes in Version 0.1.0.9007 (2018-03-05)
+# BCGcalc 0.1.0.9007 (2018-03-05)
 
 -   Check clean up.
 -   Convert data imports from development folder to pacakge folder with
     system.file.
 -   Add data for rarify function.
 
-## Changes in Version 0.1.0.9006 (2018-03-04)
+# BCGcalc 0.1.0.9006 (2018-03-04)
 
 -   BCG.Tiers function.
 
-## Changes in Version 0.1.0.9005 (2018-03-04)
+# BCGcalc 0.1.0.9005 (2018-03-04)
 
 -   Add BCG.Membership function. Return is in long format.
     -   Not QCed but has some known issues.
 
-## Changes in Version 0.1.0.9004 (2018-03-03)
+# BCGcalc 0.1.0.9004 (2018-03-03)
 
 -   Add subtitles, date, author to YAML header to NEWS and README.
 -   Add “flags” Excel file to raw-data for QC checks. Used in qc.checks
@@ -1084,7 +1086,7 @@ BCGcalc-NEWS
 -   Add BCGcalc.R to describe the package.
 -   Update documentation headers in R files.
 
-## Changes in Version 0.1.0.9003 (2018-02-20)
+# BCGcalc 0.1.0.9003 (2018-02-20)
 
 -   metric.values.R, benthos
     -   Added BCG attribute metrics.
@@ -1101,12 +1103,12 @@ BCGcalc-NEWS
     -   included data folder and files
     -   added Excel file to extdata with metric naming explanation
 
-## Changes in Version 0.1.0.9001 (2018-02-16)
+# BCGcalc 0.1.0.9001 (2018-02-16)
 
 -   Updated files for package.
     -   Readme, NEWS, DESCRIPTION
     -   Not complete.
 
-## Changes in Version 0.1.0 (2018-02-16)
+# BCGcalc 0.1.0 (2018-02-16)
 
 -   Created GitHub repository
