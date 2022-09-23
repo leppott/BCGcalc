@@ -150,17 +150,20 @@ BCG.Level.Assignment <- function(df.level.membership
                                  , col_L4 = "L4"
                                  , col_L5 = "L5"
                                  , col_L6 = "L6") {
-  #
+  # global variable binding
+  df_Lev_Memb <- NULL
+  
+  # QC
   boo_QC <- FALSE
   if(isTRUE(boo_QC)) {
     df.level.membership <- df_Lev_Memb
-    col_SampleID = "SAMPLEID"
-    col_L1 = "L1"
-    col_L2 = "L2"
-    col_L3 = "L3"
-    col_L4 = "L4"
-    col_L5 = "L5"
-    col_L6 = "L6"
+    col_SampleID <- "SAMPLEID"
+    col_L1 <- "L1"
+    col_L2 <- "L2"
+    col_L3 <- "L3"
+    col_L4 <- "L4"
+    col_L5 <- "L5"
+    col_L6 <- "L6"
   }## IF ~ boo_QC ~ END
   
   # to data frame
@@ -218,7 +221,8 @@ BCG.Level.Assignment <- function(df.level.membership
   # df.result[, "Lev.1.Name"] <- apply(df.result, 1, function(x) match(df.result[,"Lev.1.Memb"]
   #                                                                    , df.result[,paste0("L",1:6)]))
   # Primary Level Name; Max Value Name
-  df.result[, "Lev.1.Name"] <- apply(df.result[,c(paste0("L", 1:6), "Lev.1.Memb")], 1
+  df.result[, "Lev.1.Name"] <- apply(df.result[,c(paste0("L", 1:6)
+                                                  , "Lev.1.Memb")], 1
                                      , function(x) match(x[7], x[1:6]))
   # Secondary Level Value; 2nd Max
   df.result[, "Lev.2.Memb"] <- apply(df.result[,c(paste0("L", 1:6), "Lev.1.Name")], 1
@@ -237,7 +241,8 @@ BCG.Level.Assignment <- function(df.level.membership
       , function(x) which(x[1:6] == 0.5)[2])
 
   # Diff
-  df.result[, "Lev.Memb.Diff"] <- df.result[, "Lev.1.Memb"] - df.result[, "Lev.2.Memb"]
+  df.result[, "Lev.Memb.Diff"] <- df.result[, "Lev.1.Memb"] -
+                                                   df.result[, "Lev.2.Memb"]
   # Close
   df.result[df.result[,"Lev.Memb.Diff"] < 0.2, "Lev.Memb.close"] <- "yes"
   # Tie
@@ -245,7 +250,8 @@ BCG.Level.Assignment <- function(df.level.membership
   
   
   # Close
-  # df.result[, "Lev.Memb.Diff"] <- df.result[, "Lev.1.Memb"] - df.result[, "Lev.2.Memb"]
+  # df.result[, "Lev.Memb.Diff"] <- df.result[, "Lev.1.Memb"] - df.result[
+  # , "Lev.2.Memb"]
   # df.result[,"Lev.Memb.close"] <- NA
   # df.result[df.result[,"Lev.Memb.Diff"]<0.2, "Lev.Memb.close"] <- "yes"
   # df.result[df.result[,"Lev.Memb.Diff"]<0.1, "Lev.Memb.close"] <- "tie"
@@ -259,13 +265,24 @@ BCG.Level.Assignment <- function(df.level.membership
   
   # Proportional Assignment, Narrative
   df.result.prop <- df.result
-  df.result.prop[, "Lev.Prop.Num.Int"] <- round(df.result.prop[, "Lev.Prop.Num"], 0)
-  df.result.prop[, "Lev.Prop.Num.Rem"] <- df.result.prop[, "Lev.Prop.Num.Int"] - df.result.prop[, "Lev.Prop.Num"]
-  df.result.prop[, "Lev.Prop.Num.Sign"] <- sign(df.result.prop[, "Lev.Prop.Num.Rem"])
-  df.result.prop[, "Lev.Prop.Num.Sign.Nar"] <- ifelse(df.result.prop[, "Lev.Prop.Num.Sign"]==-1,"-",ifelse(df.result.prop[, "Lev.Prop.Num.Sign"]==1,"+",""))
-  df.result.prop[, "Lev.Prop.Nar"] <- paste0(df.result.prop[, "Lev.Prop.Num.Int"], df.result.prop[, "Lev.Prop.Num.Sign.Nar"])
-  df.result.prop[, "Lev.Prop.Nar.Tie"] <- ifelse(df.result.prop[, "Lev.Memb.close"]=="tie", paste0(df.result.prop[, "Lev.1.Name"], "/", df.result.prop[, "Lev.2.Name"]," tie"), NA)
-  df.result.prop[!is.na(df.result.prop[, "Lev.Prop.Nar.Tie"]), "Lev.Prop.Nar"] <- df.result.prop[ !is.na(df.result.prop[, "Lev.Prop.Nar.Tie"]), "Lev.Prop.Nar.Tie"]
+  df.result.prop[, "Lev.Prop.Num.Int"]      <- round(df.result.prop[
+    , "Lev.Prop.Num"], 0)
+  df.result.prop[, "Lev.Prop.Num.Rem"]      <- df.result.prop[
+    , "Lev.Prop.Num.Int"] - df.result.prop[, "Lev.Prop.Num"]
+  df.result.prop[, "Lev.Prop.Num.Sign"]     <- sign(df.result.prop[
+    , "Lev.Prop.Num.Rem"])
+  df.result.prop[, "Lev.Prop.Num.Sign.Nar"] <- ifelse(df.result.prop[
+    , "Lev.Prop.Num.Sign"]==-1,"-",ifelse(df.result.prop[
+      , "Lev.Prop.Num.Sign"]==1,"+",""))
+  df.result.prop[, "Lev.Prop.Nar"]          <- paste0(df.result.prop[
+    , "Lev.Prop.Num.Int"], df.result.prop[, "Lev.Prop.Num.Sign.Nar"])
+  df.result.prop[, "Lev.Prop.Nar.Tie"]      <- ifelse(df.result.prop[
+    , "Lev.Memb.close"]=="tie", paste0(df.result.prop[, "Lev.1.Name"], "/"
+                                       , df.result.prop[, "Lev.2.Name"]," tie")
+    , NA)
+  df.result.prop[!is.na(df.result.prop[, "Lev.Prop.Nar.Tie"])
+                 , "Lev.Prop.Nar"] <- df.result.prop[ !is.na(df.result.prop[
+                   , "Lev.Prop.Nar.Tie"]), "Lev.Prop.Nar.Tie"]
   #
   df.result[,"Lev.Prop.Nar"] <- df.result.prop[,"Lev.Prop.Nar"]
   

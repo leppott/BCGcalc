@@ -384,14 +384,22 @@ table(df.samps.bugs$NonTarget)
 
 # 1.A. Calculate Metrics
 # Extra columns to keep in results
-keep.cols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
+keep.cols <- c("Area_mi2"
+               , "SurfaceArea"
+               , "Density_m2"
+               , "Density_ft2"
+               , "Site_Type")
 # Run Function
 df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
 # QC
 dim(df.metrics)
 View(df.metrics)
 # Save
-write.table(df.metrics, "Metric.Values.Test.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+write.table(df.metrics
+            , "Metric.Values.Test.tsv"
+            , col.names=TRUE
+            , row.names=FALSE
+            , sep="\t")
 
 # 1.B. Metric Membership
 # Import Rules
@@ -521,7 +529,11 @@ fn.slope <- system.file("./extdata/ExampleMunge_Slope.xlsx", package="BCGcalc")
 df.slope <- read_excel(fn.slope)
 names(df.slope) <- toupper(names(df.slope))
 # merge files
-df.comb.slope <- merge(df.data, df.slope, by.x="SITE CODE", by.y="SITE_CODE", all.x=TRUE)
+df.comb.slope <- merge(df.data
+                       , df.slope
+                       , by.x="SITE CODE"
+                       , by.y="SITE_CODE"
+                       , all.x=TRUE)
 # QC (rows)
 dim(df.data)
 dim(df.comb.slope)
@@ -544,7 +556,8 @@ col2keep <- c("SAMPLEID", "INDEX_NAME", "SITE_TYPE"
               , "TAXAID", "N_TAXA", "EXCLUDE", "NONTARGET"
               , "PHYLUM", "SUBPHYLUM", "CLASS", "ORDER", "FAMILY", "SUBFAMILY"
               , "TRIBE", "GENUS"
-              , "FFG", "HABIT", "LIFE_CYCLE", "TOLVAL", "BCG_ATTR", "THERMAL_INDICATOR")
+              , "FFG", "HABIT", "LIFE_CYCLE", "TOLVAL", "BCG_ATTR"
+              , "THERMAL_INDICATOR")
 df.samps.bugs <- as.data.frame(df.comb.slope.auteco[, col2keep ])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -560,14 +573,22 @@ table(df.samps.bugs$NONTARGET)
 
 # 1.A. Calculate Metrics
 # Extra columns to keep in results
-keep.cols <- toupper(c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type"))
+keep.cols <- toupper(c("Area_mi2"
+                       , "SurfaceArea"
+                       , "Density_m2"
+                       , "Density_ft2"
+                       , "Site_Type"))
 # Run Function
 df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
 # QC
 dim(df.metrics)
 View(df.metrics)
 # Save
-write.table(df.metrics, "Metric.Values.New.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+write.table(df.metrics
+            , "Metric.Values.New.tsv"
+            , col.names=TRUE
+            , row.names=FALSE
+            , sep="\t")
 
 # 1.B. Metric Membership
 # Import Rules
@@ -702,7 +723,8 @@ tbl_compare <- head(df_compare)
 tbl_compare_caption <- "First few rows of original and rarified data."
 kable(tbl_compare, caption=tbl_compare_caption)
 
-tbl_totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID, df_compare, sum)
+tbl_totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID
+                        , df_compare, sum)
 tbl_totals_caption <- "Comparison of total individuals per sample."
 kable(tbl_totals, caption=tbl_totals_caption)
 
@@ -755,7 +777,8 @@ col.met2keep <- c("ni_total", "nt_total", "nt_BCG_att1i2", "pt_BCG_att1i23"
                   , "pt_NonIns_BCG_att456", "nt_EPT", "pi_NonIns_BCG_att456")
 # Run Function
 df.metval <- metric.values(df.data, "bugs"
-                           , fun.cols2keep=myCols, fun.MetricNames = col.met2keep)
+                           , fun.cols2keep=myCols
+                           , fun.MetricNames = col.met2keep)
 1 # YES
 
 # Select columns
@@ -825,14 +848,19 @@ df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
 
 # 1.A. Calculate Metrics
 # Extra columns to keep in results
-keep.cols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
+keep.cols <- c("Area_mi2"
+               , "SurfaceArea"
+               , "Density_m2"
+               , "Density_ft2"
+               , "Site_Type")
 # Run Function
 df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
 # # QC
 # dim(df.metrics)
 # View(df.metrics)
 # # Save
-# write.table(df.metrics, "Metric.Values.Test.tsv", col.names=TRUE, row.names=FALSE, sep="\t")
+# write.table(df.metrics, "Metric.Values.Test.tsv", col.names=TRUE
+#, row.names=FALSE, sep="\t")
 
 # 1.B. Metric Membership
 # Import Rules
@@ -898,12 +926,13 @@ tbl.checks.caption <- "Flags, Hi Gradient"
 kable(tbl.checks.hi, caption = tbl.checks.caption)
 
 # Levels and Flags
-tbl.Levels.Flags.caption = "Levels and Flags."
+tbl.Levels.Flags.caption <- "Levels and Flags."
 kable(head(df.Levels.Flags), caption = tbl.Levels.Flags.caption)
 
 # Flags
-tbl.flags.caption = "Flag Summary."
-kable(table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany"), caption = tbl.flags.caption)
+tbl.flags.caption <- "Flag Summary."
+kable(table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
+      , caption = tbl.flags.caption)
 
 
 ```

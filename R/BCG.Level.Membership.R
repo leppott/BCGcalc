@@ -195,13 +195,13 @@ BCG.Level.Membership <- function(df.metric.membership
   if(isTRUE(boo_QC)) {
     df.metric.membership <- df_met_memb
     df.rules <- df_rules
-    col_SAMPLEID = "SAMPLEID"
-    col_INDEX_NAME = "INDEX_NAME"
-    col_SITE_TYPE = "SITE_TYPE"
-    col_LEVEL = "LEVEL"
-    col_METRIC_NAME = "METRIC_NAME"
-    col_RULE_TYPE = "RULE_TYPE"
-    col_EXC_RULE = "EXC_RULE"
+    col_SAMPLEID <- "SAMPLEID"
+    col_INDEX_NAME <- "INDEX_NAME"
+    col_SITE_TYPE <- "SITE_TYPE"
+    col_LEVEL <- "LEVEL"
+    col_METRIC_NAME <- "METRIC_NAME"
+    col_RULE_TYPE <- "RULE_TYPE"
+    col_EXC_RULE <- "EXC_RULE"
     a <- c(col_INDEX_NAME
            , col_SITE_TYPE
            , col_LEVEL
@@ -381,7 +381,8 @@ BCG.Level.Membership <- function(df.metric.membership
                                           , na.rm=TRUE)
   )
   # replace Inf with NA
-  df.lev[!is.finite(df.lev[,"MembCalc_Rule12_max"]), "MembCalc_Rule12_max"] <- NA
+  df.lev[!is.finite(df.lev[,"MembCalc_Rule12_max"])
+         , "MembCalc_Rule12_max"] <- NA
   
   # Final Calc
   # df.lev[,"Level.Membership"] <- min(df.lev[,"MembCalc_Rule12_max"]
@@ -451,8 +452,10 @@ BCG.Level.Membership <- function(df.metric.membership
   # Column fix
   ## Return to input parameters
   names(df.lev.wide)[names(df.lev.wide) == "SAMPLEID"] <- toupper(col_SAMPLEID)
-  names(df.lev.wide)[names(df.lev.wide) == "INDEX_NAME"] <- toupper(col_INDEX_NAME)
-  names(df.lev.wide)[names(df.lev.wide) == "SITE_TYPE"] <- toupper(col_SITE_TYPE)
+  names(df.lev.wide)[names(df.lev.wide) == "INDEX_NAME"] <- toupper(
+                                                                col_INDEX_NAME)
+  names(df.lev.wide)[names(df.lev.wide) == "SITE_TYPE"] <- toupper(
+                                                                  col_SITE_TYPE)
   names(df.lev.wide)[names(df.lev.wide) == "LEVEL"] <- toupper(col_LEVEL)
   
   
@@ -526,7 +529,8 @@ BCG.Level.Membership <- function(df.metric.membership
   # Return RESULTS ####
   # Remove sub fields
   df.results <- df.subtotal[,!(names(df.subtotal) %in% col.sub)]
-  # Results are for each SAMPLEID, INDEX_NAME, SITE_TYPE, and LEVEL Assignment/Membership
+  # Results are for each SAMPLEID, INDEX_NAME, SITE_TYPE, and 
+  #                                                  LEVEL Assignment/Membership
   # create output
   return(df.results)
   #

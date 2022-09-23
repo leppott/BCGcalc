@@ -51,9 +51,15 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 
 # Add Lat-Long
 ## Get unique stations
-df.stations <- as.data.frame(unique(df.samps.bugs[,c("SampleID", "Latitude", "Longitude")]))
+df.stations <- as.data.frame(unique(df.samps.bugs[,c("SampleID"
+                                                     , "Latitude"
+                                                     , "Longitude")]))
 ## Merge
-df.map <- merge(df.Levels, df.stations, by.x="SAMPLEID", by.y="SampleID", all.x=TRUE)
+df.map <- merge(df.Levels
+                , df.stations
+                , by.x="SAMPLEID"
+                , by.y="SampleID"
+                , all.x=TRUE)
 ## Level1 Name to Character
 df.map$Lev.1.Name <- as.character(df.map$Lev.1.Name)
 
@@ -69,17 +75,23 @@ m1 <- ggplot(data = subset(map_data("state"), region %in% c("washington"))) +
 
 ## Add Points
 m1 <- m1 + geom_point(data=df.map
-                      , aes(Longitude, Latitude, shape=SITE_TYPE, color=Lev.1.Name))
+                      , aes(Longitude
+                            , Latitude
+                            , shape=SITE_TYPE
+                            , color=Lev.1.Name))
 ## Change shape
 m1 <- m1 + scale_shape_manual(name="Site Type", values=c(17,16))
 ## Change colors
 m1 <- m1 + scale_colour_manual(name="Level 1 Assignment"
-                               #, values=c("green", "cyan", "blue", "orange", "red") )
+                               #, values=c("green", "cyan", "blue", "orange"
+                               #, "red") )
                                , values=pal_cb)
 
 ## Map Title
-m1 <- m1 + labs(title="Pacific Northwest BCG", subtitle="Example Samples, WA only")
-m1 <- m1 + theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust=0.5))
+m1 <- m1 + labs(title="Pacific Northwest BCG"
+                , subtitle="Example Samples, WA only")
+m1 <- m1 + theme(plot.title = element_text(hjust = 0.5)
+                 , plot.subtitle = element_text(hjust=0.5))
 
 ## Display Map
 m1

@@ -191,9 +191,11 @@ test_that("Flags, Metrics, BioMonTools", {
                         , "SfcArea_ft2"
                         , "Subsample_percent"
                         , "SurfaceArea")
-  metnam_flags_check <- metnam_flags_all[!metnam_flags_all %in% names_notmetrics]
+  metnam_flags_check <- metnam_flags_all[!metnam_flags_all %in% 
+                                           names_notmetrics]
   # Compare
-  metnam_flags_check_match <- metnam_flags_check[metnam_flags_check %in% metnam_bmt]
+  metnam_flags_check_match <- metnam_flags_check[metnam_flags_check %in% 
+                                                   metnam_bmt]
   
   ## Show Failures
   metnam_flags_check[!metnam_flags_check %in% metnam_bmt]

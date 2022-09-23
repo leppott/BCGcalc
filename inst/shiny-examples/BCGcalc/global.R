@@ -42,7 +42,7 @@ path_results <- file.path("results")
 dir_results_sub <- c("subsample", "markexcl", "taxamaps", "calcmet")
 for (i in dir_results_sub){
   dir_new <- file.path("results", i)
-  if(dir.exists(dir_new) == FALSE) {
+  if (dir.exists(dir_new) == FALSE) {
     dir.create(dir_new)
   } else {
     message(paste0("Directory already exists; ", i))
@@ -54,4 +54,3 @@ sel_community <- c("bugs", "fish", "algae")
 
 # taxamaps ----
 maps_database <- c("world", "usa", "state", "county")
-

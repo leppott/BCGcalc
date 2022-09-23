@@ -8,17 +8,17 @@ function(id) {
     , sidebarMenu(id = id
       , menuItem(text = "About"
                , tabName = "tab_about"
-               , icon = icon("home")
+               , icon = icon("house")
                )## menuItem ~ About ~ END
       , menuItem(text = "Import Files"
                  , tabName = "tab_import"
-                 , icon = icon("file-upload")
+                 , icon = icon("file-arrow-up")
                  , startExpanded = TRUE)
       , menuItem(text = "Temperature"
-                 , icon = icon("thermometer-full") #
+                 , icon = icon("temperature-full") #
                  , menuSubItem("Thermal Stats"
                                , tabName = "tab_about"
-                               , icon = icon("check-square"))
+                               , icon = icon("square-check"))
                  , menuSubItem("Growing Degree Days"
                                , tabName = "seedling"
                                , icon = icon("microscope"))
@@ -39,14 +39,15 @@ function(id) {
                  , icon = icon("clipboard-check")
                  , menuSubItem("Single Site"
                                , tabName = "tab_X"
-                              # , icon = "pencil-alt"
+                               , icon = icon("pen")
                                )
                  , menuSubItem("Muliple Sites"
                                , tabName = "tab_Y"
-                              # , icon = "pencil-ruler"
+                               , icon = icon("pen-ruler")
                                )
                  , menuSubItem("Continuous Sensor Metadata"
-                               , tabName = "tools")
+                               , tabName = "tools"
+                               , icon = icon("pen-to-square"))
                  )## menuItem ~ Summary ~ END
     )## sidebarMenu ~ END
   )## dashboardSidebar ~ END

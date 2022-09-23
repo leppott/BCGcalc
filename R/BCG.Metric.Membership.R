@@ -116,7 +116,7 @@ BCG.Metric.Membership <- function(df.metrics
   }##IF.input.shape.END
   #
   # ColNames to Upper Case
-  ## has to be df.long if upper case df.metrics the metric names become upper case.
+## has to be df.long if upper case df.metrics the metric names become upper case
   names(df.long) <- toupper(names(df.long))
   names(df.rules) <- toupper(names(df.rules))
   #
@@ -125,24 +125,30 @@ BCG.Metric.Membership <- function(df.metrics
   df.rules[, col_SITE_TYPE] <- tolower(df.rules[, col_SITE_TYPE])
   #
   # Extra columns may have text (convert to numeric)
-  suppressWarnings(df.long[, col_METRIC_VALUE] <- as.numeric(df.long[, col_METRIC_VALUE]))
+  suppressWarnings(df.long[, col_METRIC_VALUE] <- as.numeric(df.long[
+    , col_METRIC_VALUE]))
   #
   # Check for Missing Metrics (only for index provided in metric df)
   ## ignore site type for checking 
-  ### added back 20220214, for when run a single index region & rules has more than one
+  ### added back 20220214, for when run a single index region 
+  #                                             & rules has more than one
   ### and metrics are not the same in each region
   index.data <- unique(df.long[, col_INDEX_NAME])
   index.data.region <- unique(df.long[, col_SITE_TYPE])
-  rules.metrics.names <- unique(df.rules[(df.rules[, col_INDEX_NAME] %in% index.data
-                                          & df.rules[, col_SITE_TYPE] %in% index.data.region)
+  rules.metrics.names <- unique(df.rules[(df.rules[, col_INDEX_NAME] %in% 
+                                            index.data
+                                          & df.rules[, col_SITE_TYPE] %in% 
+                                            index.data.region)
                                          , col_METRIC_NAME])
-  rules.metrics.TF <- rules.metrics.names %in% unique(df.long[, col_METRIC_NAME])
+  rules.metrics.TF <- rules.metrics.names %in% unique(df.long[
+    , col_METRIC_NAME])
   rules.metrics.len <- length(rules.metrics.names)
   #
   if(sum(rules.metrics.TF)!= rules.metrics.len) {##IF.RulesCount.START
     Msg <- paste0("Data provided does not include all metrics in rules table. "
                   , "The following metrics are missing: "
-                  , paste(rules.metrics.names[!rules.metrics.TF], collapse=", "))
+                  , paste(rules.metrics.names[!rules.metrics.TF]
+                          , collapse=", "))
     stop(Msg)
   }##IF.RulesCount.END
   
@@ -174,13 +180,16 @@ BCG.Metric.Membership <- function(df.metrics
                                       )
   #
   boo.score.calc <- is.na(df.merge[,"MEMBERSHIP"])
-  df.merge[boo.score.calc, "MEMBERSHIP"] <- df.merge[boo.score.calc, col_METRIC_VALUE] / 
-    (df.merge[boo.score.calc, col_UPPER] - df.merge[boo.score.calc, col_LOWER]) - 
+  df.merge[boo.score.calc, "MEMBERSHIP"] <- df.merge[boo.score.calc
+                                                     , col_METRIC_VALUE] / 
+    (df.merge[boo.score.calc, col_UPPER] - df.merge[boo.score.calc
+                                                    , col_LOWER]) - 
      df.merge[boo.score.calc, col_LOWER] / 
     (df.merge[boo.score.calc, col_UPPER] - df.merge[boo.score.calc, col_LOWER])
   # direction
   boo.direction <- df.merge[, col_INCREASE]
-  df.merge[!boo.direction, "MEMBERSHIP"] <- 1 - df.merge[!boo.direction, "MEMBERSHIP"]
+  df.merge[!boo.direction, "MEMBERSHIP"] <- 1 - df.merge[!boo.direction
+                                                         , "MEMBERSHIP"]
       # can mess up 0 and 1
   
   # Access uses 2 different formulas

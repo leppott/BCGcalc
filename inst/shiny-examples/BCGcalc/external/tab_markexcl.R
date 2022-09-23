@@ -17,7 +17,8 @@ function() {
       , p("TaxaLevels (if present) are used in the order below.")
       , p("Kingdom, Phylum, SubPhylum, Class, SubClass
                            , Order, SubOrder, InfraOrder, SuperFamily, Family
-                           , SubFamily, Tribe, Genus, SubGenus, Species, Variety")
+                           , SubFamily, Tribe, Genus, SubGenus, Species
+          , Variety")
       , uiOutput("UI_col_markexcl_Phylo")
       #, p("Current version uses all phylogenetic names present in file.")
       , p("4. Run Function")

@@ -27,7 +27,7 @@ function() {
                        # , selectInput("taxamaps_leg_loc"
                        #               , label = "Legend Location"
                        #               , choices = c("left", "right", "bottom"
-                       #                             , "bottomleft", "bottomright")
+                       #                          , "bottomleft", "bottomright")
                        #               , selected = "bottomleft")
                        , p("4. Run Function")
                        , bsButton("b_taxamaps_run", label = "Run Function")

@@ -21,19 +21,19 @@ function() {
          , shinyjs::disabled(downloadButton("b_subsample_download"
                                          , "Download Results"))
 
-        #                                                      , "Download Results"))
+        #                                                 , "Download Results"))
         #                   # , bsPopover(id = "subsamp_col_SampID"
         #                   #             , title = "Column Name"
-        #                   #             , content = "Enter relevant column name.")
+        #                   #         , content = "Enter relevant column name.")
         #                   # , bsPopover(id = "subsamp_col_TaxaID"
         #                   #             , title = "Column Name"
-        #                   #             , content = "Enter relevant column name.")
+        #                   #         , content = "Enter relevant column name.")
         #                   # , bsPopover(id = "subsamp_col_Count"
         #                   #             , title = "Column Name"
-        #                   #             , content = "Enter relevant column name.")
+        #                   #         , content = "Enter relevant column name.")
         #                   # , bsPopover(id = "subsamp_seed"
         #                   #             , title = "Seed"
-        #                   #             , content = "Number at least 6 digits to reproduce results. If left blank a random number is used.")
+        #                   # , content = "Number at least 6 digits to reproduce results. If left blank a random number is used.")
 
 
     )## sidebarPanel ~ END
