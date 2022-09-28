@@ -71,8 +71,8 @@
 #' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
 #'             , "Site_Type")
 #' #' # populate missing columns prior to metric calculation
-#' col_missing <- c("INFRAORDER", "HABITAT", "UFC", "ELEVATION_ATTR"
-#'                  , "GRADIENT_ATTR", "WSAREA_ATTR")
+#' col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
+#'                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
 #' myDF[, col_missing] <- NA
 #' df_met_val_bugs <- BioMonTools::metric.values(myDF
 #'                                               , "bugs"
@@ -259,21 +259,26 @@ BCG.Level.Assignment <- function(df.level.membership
   # Proportional Assignment, Numeric
   Lev.Col <- c(paste0("L",1:6))
   #df.result[,"Lev.Prop"] <- NA
-  df.result[,"Lev.Prop.Num"] <- apply(t((1:6)*t(df.result[,Lev.Col]))
+  df.result[,"Lev.Prop.Num"] <- apply(t((1:6) * t(df.result[,Lev.Col]))
                                       , 1
                                       , FUN = sum)
   
   # Proportional Assignment, Narrative
   df.result.prop <- df.result
-  df.result.prop[, "Lev.Prop.Num.Int"]      <- round(df.result.prop[
-    , "Lev.Prop.Num"], 0)
+  df.result.prop[, "Lev.Prop.Num.Int"] <- round(df.result.prop[, "Lev.Prop.Num"]
+                                                , 0)
   df.result.prop[, "Lev.Prop.Num.Rem"]      <- df.result.prop[
-    , "Lev.Prop.Num.Int"] - df.result.prop[, "Lev.Prop.Num"]
-  df.result.prop[, "Lev.Prop.Num.Sign"]     <- sign(df.result.prop[
-    , "Lev.Prop.Num.Rem"])
+                                                        , "Lev.Prop.Num.Int"] - 
+                                                df.result.prop[, "Lev.Prop.Num"]
+  df.result.prop[, "Lev.Prop.Num.Sign"] <- sign(df.result.prop[
+                                                          , "Lev.Prop.Num.Rem"])
   df.result.prop[, "Lev.Prop.Num.Sign.Nar"] <- ifelse(df.result.prop[
-    , "Lev.Prop.Num.Sign"]==-1,"-",ifelse(df.result.prop[
-      , "Lev.Prop.Num.Sign"]==1,"+",""))
+                                                    , "Lev.Prop.Num.Sign"] == -1
+                                                  , "-"
+                                                  , ifelse(df.result.prop[
+                                                     , "Lev.Prop.Num.Sign"] == 1
+                                                    , "+"
+                                                    , ""))
   df.result.prop[, "Lev.Prop.Nar"]          <- paste0(df.result.prop[
     , "Lev.Prop.Num.Int"], df.result.prop[, "Lev.Prop.Num.Sign.Nar"])
   df.result.prop[, "Lev.Prop.Nar.Tie"]      <- ifelse(df.result.prop[

@@ -91,7 +91,7 @@ shinyServer(function(input, output) {
       
       # button, disable, download
       shinyjs::disable("b_bcg_download")
-      
+ browser()     
       # data
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)

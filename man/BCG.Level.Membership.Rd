@@ -96,8 +96,8 @@ myDF <- df_samps_bugs
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
             , "Site_Type")
 # populate missing columns prior to metric calculation
-col_missing <- c("INFRAORDER", "HABITAT", "UFC", "ELEVATION_ATTR"
-                 , "GRADIENT_ATTR", "WSAREA_ATTR")
+col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
+                 , "WSAREA_ATTR", "HABSTRUCT", "UFC")
 myDF[, col_missing] <- NA
 df_met_val_bugs <- BioMonTools::metric.values(myDF
                                               , "bugs"

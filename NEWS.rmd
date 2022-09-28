@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 1.3.5.9006 (2022-09-28)
+
+* docs: Update examples for missing columns in sample data for all functions
+* fix: Update MetricFlags.xlsx for one flag
+
 # BCGcalc 1.3.5.9005 (2022-09-28)
 
 * docs: Update packages in DESCRIPTION and global.R in Shiny app

@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-09-28 11:46:57
+2022-09-28 16:28:00
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-09-28 11:46:57
+    #> Last Update: 2022-09-28 16:28:00
+
+# BCGcalc 1.3.5.9006 (2022-09-28)
+
+-   docs: Update examples for missing columns in sample data for all
+    functions
+-   fix: Update MetricFlags.xlsx for one flag
 
 # BCGcalc 1.3.5.9005 (2022-09-28)
 
