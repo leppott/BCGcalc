@@ -14,41 +14,54 @@ function(id) {
                  , tabName = "tab_import"
                  , icon = icon("file-arrow-up")
                  , startExpanded = TRUE)
-      , menuItem(text = "Temperature"
-                 , icon = icon("temperature-full") #
-                 , menuSubItem("Thermal Stats"
-                               , tabName = "tab_about"
-                               , icon = icon("square-check"))
-                 , menuSubItem("Growing Degree Days"
-                               , tabName = "seedling"
-                               , icon = icon("microscope"))
-                 , menuSubItem("Thermal Classification"
-                               , tabName = "tab_about"
-                               , icon = icon("clone"))
-                 )## menuItem ~ Data Preparation ~ END
-      , menuItem(text = "Hydrology"
-                 , icon = icon("water") #
-                 , menuSubItem("IHA"
-                               , tabName = "tab_about"
-                               , icon = icon("map"))
-                 , menuSubItem("Flashiness"
-                               , tabName = "tab_about"
-                               , icon = icon("calculator"))
-                 )## menuItem ~ Analysis ~ END
-      , menuItem(text = "Reports"
-                 , icon = icon("clipboard-check")
-                 , menuSubItem("Single Site"
-                               , tabName = "tab_X"
-                               , icon = icon("pen")
-                               )
-                 , menuSubItem("Muliple Sites"
-                               , tabName = "tab_Y"
-                               , icon = icon("pen-ruler")
-                               )
-                 , menuSubItem("Continuous Sensor Metadata"
-                               , tabName = "tools"
-                               , icon = icon("pen-to-square"))
-                 )## menuItem ~ Summary ~ END
+      , menuItem(text = "BCG Model Calculation"
+                 , icon = icon("gears")
+                 , tabName = "tab_calcbcg"
+                 # , menuSubItem("Metric Membership"
+                 #               , tabName = "tab_bcg_metmemb"
+                 #               , icon = icon("award"))
+                 # , menuSubItem("Level Membership"
+                 #               , tabName = "tab_bcg_metmemb"
+                 #               , icon = icon("medal"))
+                 # , menuSubItem("Level Assignment"
+                 #               , tabName = "tab_bcg_metmemb"
+                 #               , icon = icon("ranking-star"))
+                 )## menuItem ~ BCG
+      # , menuItem(text = "Temperature"
+      #            , icon = icon("temperature-full") #
+      #            , menuSubItem("Thermal Stats"
+      #                          , tabName = "tab_about"
+      #                          , icon = icon("square-check"))
+      #            , menuSubItem("Growing Degree Days"
+      #                          , tabName = "seedling"
+      #                          , icon = icon("microscope"))
+      #            , menuSubItem("Thermal Classification"
+      #                          , tabName = "tab_about"
+      #                          , icon = icon("clone"))
+      #            )## menuItem ~ Data Preparation ~ END
+      # , menuItem(text = "Hydrology"
+      #            , icon = icon("water") #
+      #            , menuSubItem("IHA"
+      #                          , tabName = "tab_about"
+      #                          , icon = icon("map"))
+      #            , menuSubItem("Flashiness"
+      #                          , tabName = "tab_about"
+      #                          , icon = icon("calculator"))
+      #            )## menuItem ~ Analysis ~ END
+      # , menuItem(text = "Reports"
+      #            , icon = icon("clipboard-check")
+      #            , menuSubItem("Single Site"
+      #                          , tabName = "tab_X"
+      #                          , icon = icon("pen")
+      #                          )
+      #            , menuSubItem("Muliple Sites"
+      #                          , tabName = "tab_Y"
+      #                          , icon = icon("pen-ruler")
+      #                          )
+      #            , menuSubItem("Continuous Sensor Metadata"
+      #                          , tabName = "tools"
+      #                          , icon = icon("pen-to-square"))
+      #            )## menuItem ~ Reports ~ END
     )## sidebarMenu ~ END
   )## dashboardSidebar ~ END
 }## FUNCTION ~ END

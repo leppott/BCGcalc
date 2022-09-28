@@ -5,10 +5,7 @@ function(id) {
     tabItems(
       tabItem(tabName = "tab_about", tab_code_about())
       , tabItem(tabName = "tab_import", tab_code_import())
-      , tabItem(tabName = "tab_allparam", tab_code_about())
-      , tabItem(tabName = "tab_temp", tab_code_about())
-      , tabItem(tabName = "tab_hydro", tab_code_about())
-      , tabItem(tabName = "tab_reports", tab_code_about())
+      , tabItem(tabName = "tab_calcbcg", tab_code_calcbcg())
     )## tabItems
   )## dashboardBody ~ END
 }## FUNCTION ~ END

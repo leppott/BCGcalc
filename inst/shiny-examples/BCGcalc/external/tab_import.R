@@ -8,6 +8,7 @@ function() {
           # 0. Progress
           #, tags$hr()
           h4("1. Load File")
+          , p("Only comma-separated or tab-separated files.")
           , h5("Select file parameters")
           #, checkboxInput('header', 'Header', TRUE)
           , radioButtons("sep", "Separator",
@@ -15,17 +16,17 @@ function() {
                           # Semicolon = ";",
                            Tab = "\t"),
                          ',')
-          , fileInput("fn_input", "Choose file to upload",
-                      accept = c(
-                        "text/csv",
-                        "text/comma-separated-values",
-                        "text/tab-separated-values",
-                        "text/plain",
-                        ".csv",
-                        ".tsv",
-                        ".txt"
-                      )
-          )##fileInput~END
+          , fileInput("fn_input"
+                      , label = "Choose file to upload"
+                      , multiple = FALSE
+                      , accept = c("text/csv"
+                                   , "text/comma-separated-values"
+                                   , "text/tab-separated-values"
+                                   , "text/plain"
+                                   , ".csv"
+                                   , ".tsv"
+                                   , ".txt")
+                      )##fileInput~END
           , tags$hr()
           , p("The 'separator' allows the user to upload different file formats
             (e.g., csv, tsv, or txt).")
@@ -38,7 +39,7 @@ function() {
       # Main Panel ####
       , mainPanel(
            p("A table is shown below after data is loaded.")
-          , DT::dataTableOutput("df_data_DT")
+          , DT::dataTableOutput("df_import_DT")
       )##mainPanel~END
 
     )##sidebarLayout~END
