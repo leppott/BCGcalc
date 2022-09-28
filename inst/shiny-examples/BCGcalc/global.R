@@ -7,11 +7,11 @@ pkg_version <- "1.3.5.9004"
 library(BCGcalc)
 library(BioMonTools)
 library(shiny)
-#library(shinydashboard)
+library(shinydashboard)
 #library(shinydashboardPlus)
 library(shinyjs)
 #library(shinyWidgets)
-#library(shinyBS)
+library(shinyBS)
 library(DT)
 # masks shinydashboardPlus::progressBar
 # masks shinyjs::alert
@@ -43,7 +43,7 @@ path_results <- file.path("results")
 if (dir.exists(path_results) == FALSE) {
   dir.create(path_results)
 } else {
-  message(paste0("Directory already exists; ", i))
+  message(paste0("Directory already exists; ", path_data))
 }## IF ~ dir.exists
 
 # create results subfolders

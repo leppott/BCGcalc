@@ -25,7 +25,7 @@ function() {
        , p("This button will calculate metrics values, metric memberships
            , level membership, and level assignment.")
        , useShinyjs()
-       , shinyjs::disabled(bsButton("b_bcg_calc", label = "Run Calculations"))
+       , shinyjs::disabled(shinyBS::bsButton("b_bcg_calc", label = "Run Calculations"))
        , h4("2.D. Download Results")
        , p("All input and output files will be available in a single zip file.")
        , shinyjs::disabled(downloadButton("b_bcg_download"
