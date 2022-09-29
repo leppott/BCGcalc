@@ -7,11 +7,11 @@
 #    http://shiny.rstudio.com/
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-shinydashboard::dashboardPage(
-  header = shinydashboard::dashboardHeader(title = "BCGcalc")
+dashboardPage(
+  header = dashboardHeader(title = "BCGcalc")
   #, sidebar = dashboardSidebar(sb_main("leftsidebarmenu"))
-  , sidebar = shinydashboard::dashboardSidebar(sb_main("leftsidebarmenu"))
-  , body = dashboardBody(db_main("dbBody"))
+  , sidebar = dashboardSidebar(db_main_sb("leftsidebarmenu"))
+  , body = dashboardBody(db_main_body("dbBody"))
 ) ## dashboardPage ~ END
 
 # https://rstudio.github.io/shinydashboard/get_started.html

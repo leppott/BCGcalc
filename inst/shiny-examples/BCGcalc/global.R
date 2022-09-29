@@ -24,11 +24,14 @@ library(httr)
 library(reshape2)
 
 # Source ----
-sb_main            <- source("external/sb_main.R", local = TRUE)$value
-db_main            <- source("external/db_main.R", local = TRUE)$value
-tab_code_about     <- source("external/tab_about.R", local = TRUE)$value
-tab_code_import    <- source("external/tab_import.R", local = TRUE)$value
-tab_code_calcbcg   <- source("external/tab_calcbcg.R", local = TRUE)$value
+db_main_sb       <- source("external/db_main_sb.R", local = TRUE)$value
+db_main_body     <- source("external/db_main_body.R", local = TRUE)$value
+tab_code_about   <- source("external/tab_about.R", local = TRUE)$value
+tab_code_import  <- source("external/tab_import.R", local = TRUE)$value
+tab_code_calcbcg <- source("external/tab_calcbcg.R", local = TRUE)$value
+
+# Console Message ----
+message(paste0("Interactive: ", interactive()))
 
 # File Size ----
 # By default, the file size limit is 5MB.

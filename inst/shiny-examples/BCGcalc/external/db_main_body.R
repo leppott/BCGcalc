@@ -1,13 +1,13 @@
 # Main
 
 function(id) {
-  dashboardBody(
+
     tabItems(
       tabItem(tabName = "tab_about", tab_code_about())
       , tabItem(tabName = "tab_import", tab_code_import())
       , tabItem(tabName = "tab_calcbcg", tab_code_calcbcg())
     )## tabItems
-  )## dashboardBody ~ END
+
 }## FUNCTION ~ END
 
 

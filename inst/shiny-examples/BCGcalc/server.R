@@ -22,10 +22,18 @@ shinyServer(function(input, output) {
     
     return(paste0("'",inFile$name,"'"))
     
-    })
+  })## fn_input_display
   
-  # df_import ####
-  output$df_import_DT <- renderDT({
+  # IMPORT ----
+  file_watch <- reactive({
+    # trigger for df_import()
+    input$fn_input
+  })## file_watch
+  
+  ## IMPORT, df_import ####
+  df_import <- eventReactive(file_watch(), {
+    # use a multi-item reactive so keep on a single line (if needed later)
+    
     # input$df_import will be NULL initially. After the user selects
     # and uploads a file, it will be a data frame with 'name',
     # 'size', 'type', and 'datapath' columns. The 'datapath'
@@ -37,6 +45,9 @@ shinyServer(function(input, output) {
     if (is.null(inFile)){
       return(NULL)
     }##IF~is.null~END
+    
+    # Define file
+    fn_inFile <- inFile$datapath
     
     #message(getwd())
     message(paste0("Import, separator: '", input$sep,"'"))
@@ -57,10 +68,17 @@ shinyServer(function(input, output) {
     file.remove(fn_results) # ok if no files
     
     # Read user imported file
-    df_input <- read.delim(inFile$datapath
+    # Add extra colClasses parameter for BCG_Attr
+    # the "i" values default to complex numbers
+    # Will get a 'warning'
+    # coded into BioMonTools::metric.values() but being extra careful
+    df_input <- read.delim(fn_inFile
                          , header = TRUE
                          , sep = input$sep
-                         , stringsAsFactors = FALSE)
+                         , stringsAsFactors = FALSE
+                         , colClasses = c("BCG_Attr" = "character"
+                                          , "BCG_ATTR" = "character"
+                                          , "bcg_attr" = "character"))
     
     # Copy to "Results" folder - Import "as is"
     file.copy(input$fn_input$datapath, file.path(path_results
@@ -71,27 +89,61 @@ shinyServer(function(input, output) {
     
     return(df_input)
     
+  })##output$df_import ~ END
+  
+  ## IMPORT, df_import_DT ----
+  output$df_import_DT <- DT::renderDT({
+    df_data <- df_import()
   }##expression~END
-  , filter="top", options=list(scrollX=TRUE)
-  )##output$df_import_DT~END
+  , filter="top"
+  , caption = "Table. Imported data."
+  , options = list(scrollX = TRUE
+                   , pageLength = 10
+                   , lengthMenu = c(5, 10, 25, 50, 100, 1000)
+                   , autoWidth = TRUE)
+  )##df_import_DT~END
+  
+  ## IMPORT, col names ----
+  col_import <- eventReactive(file_watch(), {
+    
+    inFile <- input$fn_input
+    
+    if (is.null(inFile)){
+      return(NULL)
+    }##IF~is.null~END
+    
+    # temp df
+    df_temp <- df_import()
+    # Column Names
+    input_colnames <- names(df_temp)
+    #
+    return(input_colnames)
+    
+  })## col_import
   
   # b_Calc ----
   observeEvent(input$b_bcg_calc, {
     shiny::withProgress({
-    
-      ## Calc, Initialize ----
-      message("\nCalculation...")
+      
+      ## Calc, 0, Set Up Shiny Code ----
+      
+      prog_detail <- "Calculation..."
+      message(paste0("\n", prog_detail))
       
       # Number of increments
-      n_inc <- 7
+      prog_n <- 9
+      prog_sleep <- 0.25
       
+      # Calc, 1, Initialize ----
+      prog_detail <- "Initialize Data"
+      message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/n_inc, detail = "Initialize Data")
-      Sys.sleep(0.25)
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       
       # button, disable, download
       shinyjs::disable("b_bcg_download")
- browser()     
+    
       # data
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
@@ -105,20 +157,55 @@ shinyServer(function(input, output) {
         return(NULL)
       }
       
-      # Calc, 1 MetVal----
-      message("\nCalc, MetVal")
+      # Calc, 2, Excluded Taxa ----
+      prog_detail <- "Calculate, Excluded Taxa"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # Calc
+      
+      # Calc, 3, BCG Model Cols ----
+      # get columns from Flags to carry through
+      prog_detail <- "Calculate, Keep BCG Model Columns"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # Calc - should all be metrics but leaving here just in case
+      # Index Name for import data
+      import_IndexName <- unique(df_input$Index_Name)
+      # BCG Model Metric Names for chosen model
+      cols_flags <- unique(df_checks[df_checks$Index_Name == import_IndexName
+                                 , "Metric_Name"])
+      # can also add other columns to keep if feel so inclined
+      cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
+      
+      # Calc, 4, MetVal----
+      prog_detail <- "Calculate, Metric, Values"
+      message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/n_inc, detail = "Calculate, Metric, Values")
-      Sys.sleep(0.25)
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       # Calc
       # QC
       # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
       # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
-      df_metval <- BioMonTools::metric.values(df_input
+     
+      if(length(cols_flags_keep) > 0){
+        df_metval <- BioMonTools::metric.values(df_input
+                                                , input$si_community
+                                              , fun.cols2keep = cols_flags_keep
+                                                , boo.Shiny = TRUE
+                                                , verbose = TRUE)
+      } else {
+        df_metval <- BioMonTools::metric.values(df_input
                                               , input$si_community
                                               , boo.Shiny = TRUE
                                               , verbose = TRUE)
+      }## IF ~ length(col_rules_keep)
+      
       df_metval$SITE_TYPE <- df_metval$INDEX_REGION
       # Save Results
       fn_metval <- paste0(fn_input_base, "_bcgcalc_1metval.csv")
@@ -126,11 +213,12 @@ shinyServer(function(input, output) {
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
 
-      # Calc, 2 MetMemb----
-      message("\nCalc, MetMemb")
+      # Calc, 5, MetMemb----
+      prog_detail <- "Calculate, Metric, Membership"
+      message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/n_inc, detail = "Calculate, Metric, Membership")
-      Sys.sleep(0.25)
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       # Calc
       df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
       # Save Results
@@ -139,11 +227,12 @@ shinyServer(function(input, output) {
       pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
 
-      # Calc, 3 LevMemb----
-      message("\nCalc, LevMemb")
+      # Calc, 6, LevMemb----
+      prog_detail <- "Calculate, Level, Membership"
+      message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/n_inc, detail = "Calculate, Level, Membership")
-      Sys.sleep(0.25)
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       # Calc
       df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
       # Save Results
@@ -152,11 +241,12 @@ shinyServer(function(input, output) {
       pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
 
-      # Calc, 4 LevAssign---- 
-      message("\nCalc, LevAssign")
+      # Calc, 7, LevAssign----
+      prog_detail <- "Calculate, Level, Assignment"
+      message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/n_inc, detail = "Calculate, Level, Assignment")
-      Sys.sleep(0.25)
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       # Calc
       df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
       # Save Results
@@ -165,11 +255,13 @@ shinyServer(function(input, output) {
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
   
-      # Calc, 5 QC Flags----
-      message("\nCalc, QC Flags")
+      # Calc, 8, QC Flags----
+      prog_detail <- "Calculate, QC Flags"
+      message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/n_inc, detail = "Calculate, QC Flags")
-      Sys.sleep(0.25)
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
       # Calc
       # df_checks loaded in global.R
       df_flags <- BioMonTools::qc.checks(df_metval, df_checks)
@@ -208,11 +300,12 @@ shinyServer(function(input, output) {
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_lev_flags, pn_results, row.names = FALSE)
       
-      # Calc, Clean Up----
-      message("\nCalc, Clean Up")
+      # Calc, 9, Clean Up----
+      prog_detail <- "Calculate, Clean Up"
+      message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/n_inc, detail = "Calculate, Clean Up")
-      Sys.sleep(0.5)
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
    
       # Create zip file of results
       fn_4zip <- list.files(path = path_results
