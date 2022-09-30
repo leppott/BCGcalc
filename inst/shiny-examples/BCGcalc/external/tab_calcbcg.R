@@ -14,19 +14,21 @@ function() {
                      , label = "Community"
                      , choices = sel_community
                      , selected = "bugs")
-       , h4("2.C. Define BCG Model.")
+       , h4("2.C. Excluded Taxa")
+       , checkboxInput("ExclTaxa", "Generate Excluded Taxa Column", TRUE)
+       , h4("2.D. Define BCG Model.")
        , p("Determined by INDEX_NAME and INDEX_REGION in data input file.")
        # , selectInput("si_model"
        #               , label = "BCG Model"
        #               , choices = sel_bcg_models
        #               , selected = "BCG_MariNW_Bugs500ct")
        #, uiOutput("UI_col_calcmet_Cols2Keep")
-       , h4("2.C. Run Calculations")
+       , h4("2.E. Run Calculations")
        , p("This button will calculate metrics values, metric memberships
            , level membership, and level assignment.")
        , useShinyjs()
        , shinyjs::disabled(shinyBS::bsButton("b_bcg_calc", label = "Run Calculations"))
-       , h4("2.D. Download Results")
+       , h4("2.F. Download Results")
        , p("All input and output files will be available in a single zip file.")
        , shinyjs::disabled(downloadButton("b_bcg_download"
                                           , "Download Results"))

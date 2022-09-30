@@ -62,10 +62,20 @@ shinyServer(function(input, output) {
     # Remove all files in "Results" folder
     # Triggered here so can run different files
     fn_results <- list.files(path_results
-                             , full.names=TRUE
+                             , full.names = TRUE
                              , include.dirs = FALSE
                              , recursive = TRUE)
+    message(paste0("Files in 'results' folder (before removal) = "
+                   , length(fn_results)))
     file.remove(fn_results) # ok if no files
+    # QC, repeat 
+    fn_results2 <- list.files(path_results
+                             , full.names = TRUE
+                             , include.dirs = FALSE
+                             , recursive = TRUE)
+    message("recheck results folder (should be 0)")
+    message(paste0("Files in 'results' folder (after removal) = "
+                   , length(fn_results2)))
     
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
@@ -172,10 +182,11 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      # Calc - should all be metrics but leaving here just in case
+      # Rules - should all be metrics but leaving here just in case
+      # Flags - not always metrics,
       # Index Name for import data
       import_IndexName <- unique(df_input$Index_Name)
-      # BCG Model Metric Names for chosen model
+      # QC Flags for chosen BCG model
       cols_flags <- unique(df_checks[df_checks$Index_Name == import_IndexName
                                  , "Metric_Name"])
       # can also add other columns to keep if feel so inclined
@@ -208,10 +219,25 @@ shinyServer(function(input, output) {
       
       df_metval$SITE_TYPE <- df_metval$INDEX_REGION
       # Save Results
-      fn_metval <- paste0(fn_input_base, "_bcgcalc_1metval.csv")
+      fn_metval <- paste0(fn_input_base, "_bcgcalc_1metval_all.csv")
       dn_metval <- path_results
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
+      
+      # Munge
+      ## Model and QC Flag metrics only
+      # cols_flags defined above
+      cols_model_metrics <- unique(df_bcg_models[
+                  df_bcg_models$Index_Name == import_IndexName, "Metric_Name"])
+      cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_REGION"
+                    , "ni_total", "nt_total")
+      cols_metrics_flags_keep <- c(cols_req, cols_flags, cols_model_metrics)
+    df_metval_slim <- df_metval[, names(df_metval) %in% col_metrics_flags_keep]
+      # Save
+      fn_metval_slim <- paste0(fn_input_base, "_bcgcalc_1metval_slim.csv")
+      dn_metval_slim <- path_results
+      pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
+      write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
 
       # Calc, 5, MetMemb----
       prog_detail <- "Calculate, Metric, Membership"
