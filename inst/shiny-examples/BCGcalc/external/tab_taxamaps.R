@@ -38,7 +38,7 @@ function() {
                      ,
                 )## sidebarPanel ~ END
            , mainPanel(
-            # includeHTML(file.path("www", "ShinyHTML_TaxaMaps.html"))
+            # includeHTML(file.path("www", "rmd_html", "ShinyHTML_TaxaMaps.html"))
            )## mainPanel ~ END
    )##sidebarLayout ~ END
 }##FUNCTION ~ END

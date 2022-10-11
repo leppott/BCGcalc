@@ -73,8 +73,7 @@ shinyServer(function(input, output) {
                              , full.names = TRUE
                              , include.dirs = FALSE
                              , recursive = TRUE)
-    message("recheck results folder (should be 0)")
-    message(paste0("Files in 'results' folder (after removal) = "
+    message(paste0("Files in 'results' folder (after removal [should be 0]) = "
                    , length(fn_results2)))
     
     # Read user imported file
@@ -167,6 +166,7 @@ shinyServer(function(input, output) {
         return(NULL)
       }
       
+      
       # Calc, 2, Excluded Taxa ----
       prog_detail <- "Calculate, Excluded Taxa"
       message(paste0("\n", prog_detail))
@@ -174,6 +174,47 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       # Calc
+      
+      message(paste0("User response to generate ExclTaxa = ", input$ExclTaxa))
+
+      if(input$ExclTaxa) {
+        ## Get TaxaLevel names present in user file
+        names_df <- names(df_input)
+        phylo_all <- c("Kingdom"
+                       , "Phylum"
+                       , "SubPhylum"
+                       , "Class"
+                       , "SubClass"
+                       , "Order"
+                       , "SubOrder"
+                       , "InfraOrder"
+                       , "SuperFamily"
+                       , "Family"
+                       , "SubFamily"
+                       , "Tribe"
+                       , "Genus"
+                       , "SubGenus"
+                       , "Species"
+                       , "Variety")
+        fun_TaxaLevels <- phylo_all[toupper(phylo_all) %in% toupper(names_df)]
+        
+        # overwrite current data frame
+        df_input <- BioMonTools::markExcluded(df_samptax = df_input
+                                              , SampID = "SAMPLEID"
+                                              , TaxaID = "TAXAID"
+                                              , TaxaCount = "N_TAXA"
+                                              , Exclude = "EXCLUDED"
+                                              , TaxaLevels = fun_TaxaLevels
+                                              , Exceptions = NA)
+        
+        # Save Results
+        fn_excl <- paste0(fn_input_base, "_bcgcalc_1markexcl.csv")
+        dn_excl <- path_results
+        pn_excl <- file.path(dn_excl, fn_excl)
+        write.csv(df_input, pn_excl, row.names = FALSE)
+        
+      }## IF ~ input$ExclTaxa
+      
       
       # Calc, 3, BCG Model Cols ----
       # get columns from Flags to carry through
@@ -191,6 +232,7 @@ shinyServer(function(input, output) {
                                  , "Metric_Name"])
       # can also add other columns to keep if feel so inclined
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
+      
       
       # Calc, 4, MetVal----
       prog_detail <- "Calculate, Metric, Values"
@@ -219,11 +261,12 @@ shinyServer(function(input, output) {
       
       df_metval$SITE_TYPE <- df_metval$INDEX_REGION
       # Save Results
-      fn_metval <- paste0(fn_input_base, "_bcgcalc_1metval_all.csv")
+      fn_metval <- paste0(fn_input_base, "_bcgcalc_2metval_all.csv")
       dn_metval <- path_results
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
-      
+
+          
       # Munge
       ## Model and QC Flag metrics only
       # cols_flags defined above
@@ -231,14 +274,17 @@ shinyServer(function(input, output) {
                   df_bcg_models$Index_Name == import_IndexName, "Metric_Name"])
       cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_REGION"
                     , "ni_total", "nt_total")
-      cols_metrics_flags_keep <- c(cols_req, cols_flags, cols_model_metrics)
-    df_metval_slim <- df_metval[, names(df_metval) %in% col_metrics_flags_keep]
+      cols_metrics_flags_keep <- unique(c(cols_req
+                                          , cols_flags
+                                          , cols_model_metrics))
+    df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
       # Save
-      fn_metval_slim <- paste0(fn_input_base, "_bcgcalc_1metval_slim.csv")
+      fn_metval_slim <- paste0(fn_input_base, "_bcgcalc_2metval_slim.csv")
       dn_metval_slim <- path_results
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
 
+      
       # Calc, 5, MetMemb----
       prog_detail <- "Calculate, Metric, Membership"
       message(paste0("\n", prog_detail))
@@ -248,11 +294,12 @@ shinyServer(function(input, output) {
       # Calc
       df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
       # Save Results
-      fn_metmemb <- paste0(fn_input_base, "_bcgcalc_2metmemb.csv")
+      fn_metmemb <- paste0(fn_input_base, "_bcgcalc_3metmemb.csv")
       dn_metmemb <- path_results
       pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
 
+      
       # Calc, 6, LevMemb----
       prog_detail <- "Calculate, Level, Membership"
       message(paste0("\n", prog_detail))
@@ -262,11 +309,12 @@ shinyServer(function(input, output) {
       # Calc
       df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
       # Save Results
-      fn_levmemb <- paste0(fn_input_base, "_bcgcalc_3levmemb.csv")
+      fn_levmemb <- paste0(fn_input_base, "_bcgcalc_4levmemb.csv")
       dn_levmemb <- path_results
       pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
 
+      
       # Calc, 7, LevAssign----
       prog_detail <- "Calculate, Level, Assignment"
       message(paste0("\n", prog_detail))
@@ -276,11 +324,12 @@ shinyServer(function(input, output) {
       # Calc
       df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
       # Save Results
-      fn_levassign <- paste0(fn_input_base, "_bcgcalc_4levassign.csv")
+      fn_levassign <- paste0(fn_input_base, "_bcgcalc_5levassign.csv")
       dn_levassign <- path_results
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
   
+      
       # Calc, 8, QC Flags----
       prog_detail <- "Calculate, QC Flags"
       message(paste0("\n", prog_detail))
@@ -315,7 +364,7 @@ shinyServer(function(input, output) {
                                                      , useNA = "ifany"))
       
       # Save Flags Summary
-      fn_levflags <- paste0(fn_input_base, "_bcgcalc_5levflags.csv")
+      fn_levflags <- paste0(fn_input_base, "_bcgcalc_6levflags.csv")
       dn_levflags <- path_results
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
@@ -325,6 +374,7 @@ shinyServer(function(input, output) {
       dn_results <- path_results
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_lev_flags, pn_results, row.names = FALSE)
+      
       
       # Calc, 9, Clean Up----
       prog_detail <- "Calculate, Clean Up"

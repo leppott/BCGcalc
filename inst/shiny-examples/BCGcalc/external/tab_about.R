@@ -13,7 +13,7 @@ function() {
            #
            #
            #              )## fluidPage ~ END
-            , includeHTML(file.path("www", "ShinyHTML_About.html"))
+            , includeHTML(file.path("www", "rmd_html", "ShinyHTML_About.html"))
          #  , htmlOutput("html_about") # use with iframe
            )##tabPanel ~ END
 }##FUNCTION ~ END

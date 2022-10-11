@@ -34,7 +34,7 @@ function() {
                                           , "Download Results"))
         )## sidebarPanel ~ END
     , mainPanel(
-    #  includeHTML(file.path("www", "ShinyHTML_CalcMetrics.html"))
+    #  includeHTML(file.path("www", "rmd_html", "ShinyHTML_CalcMetrics.html"))
     )## mainPanel ~ END
   )##sidebarLayout ~ END
 }##FUNCTION ~ END

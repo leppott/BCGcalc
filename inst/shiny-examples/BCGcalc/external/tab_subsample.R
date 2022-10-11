@@ -38,7 +38,7 @@ function() {
 
     )## sidebarPanel ~ END
     , mainPanel(
-     # includeHTML(file.path("www", "ShinyHTML_Subsample.html"))
+     # includeHTML(file.path("www", "rmd_html", "ShinyHTML_Subsample.html"))
 
     )## mainPanel ~ END
 

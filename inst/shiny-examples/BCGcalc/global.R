@@ -1,14 +1,14 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "1.3.5.9004"
+pkg_version <- "1.3.5.9009"
 
 # Packages----
 library(BCGcalc)
 library(BioMonTools)
 library(shiny)
 library(shinydashboard)
-#library(shinydashboardPlus)
+library(shinydashboardPlus) # only using for footer
 library(shinyjs)
 #library(shinyWidgets)
 library(shinyBS)

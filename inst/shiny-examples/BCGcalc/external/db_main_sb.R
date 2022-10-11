@@ -14,18 +14,25 @@ function(id) {
                  , tabName = "tab_import"
                  , icon = icon("file-arrow-up")
                  , startExpanded = TRUE)
-      , menuItem(text = "BCG Model Calculation"
+      , menuItem(text = "File Modification"
+                 , tabName = "tab_munge"
+                 , icon = icon("toolbox")
+                 )
+      , menuItem(text = "Calculation"
                  , icon = icon("gears")
-                 , tabName = "tab_calcbcg"
-                 # , menuSubItem("Metric Membership"
-                 #               , tabName = "tab_bcg_metmemb"
-                 #               , icon = icon("award"))
-                 # , menuSubItem("Level Membership"
-                 #               , tabName = "tab_bcg_metmemb"
-                 #               , icon = icon("medal"))
-                 # , menuSubItem("Level Assignment"
-                 #               , tabName = "tab_bcg_metmemb"
-                 #               , icon = icon("ranking-star"))
+                 , tabName = "tab_calc"
+                 , menuSubItem("BCG Models"
+                               , tabName = "tab_calcbcg"
+                               , icon = icon("award"))
+                 , menuSubItem("Thermal Preference Metrics"
+                               , tabName = "tab_calcbcg"
+                               , icon = icon("temperature-empty"))
+                 , menuSubItem("BMI BCG-style temperature model"
+                               , tabName = "tab_bcg_metmemb"
+                               , icon = icon("temperature-half"))
+                 , menuSubItem("NorWeST modeled stream temperature"
+                               , tabName = "tab_bcg_metmemb"
+                               , icon = icon("temperature-full"))
                  )## menuItem ~ BCG
       # , menuItem(text = "Temperature"
       #            , icon = icon("temperature-full") #
@@ -48,20 +55,20 @@ function(id) {
       #                          , tabName = "tab_about"
       #                          , icon = icon("calculator"))
       #            )## menuItem ~ Analysis ~ END
-      # , menuItem(text = "Reports"
-      #            , icon = icon("clipboard-check")
-      #            , menuSubItem("Single Site"
-      #                          , tabName = "tab_X"
-      #                          , icon = icon("pen")
-      #                          )
-      #            , menuSubItem("Muliple Sites"
-      #                          , tabName = "tab_Y"
-      #                          , icon = icon("pen-ruler")
-      #                          )
-      #            , menuSubItem("Continuous Sensor Metadata"
-      #                          , tabName = "tools"
-      #                          , icon = icon("pen-to-square"))
-      #            )## menuItem ~ Reports ~ END
+      , menuItem(text = "Reports"
+                 , icon = icon("clipboard-check")
+                 , menuSubItem("Single Site"
+                               , tabName = "tab_X"
+                               , icon = icon("pen")
+                               )
+                 , menuSubItem("Muliple Sites"
+                               , tabName = "tab_Y"
+                               , icon = icon("pen-ruler")
+                               )
+                 , menuSubItem("Continuous Sensor Metadata"
+                               , tabName = "tools"
+                               , icon = icon("pen-to-square"))
+                 )## menuItem ~ Reports ~ END
     )## sidebarMenu ~ END
   )## dashboardSidebar ~ END
 }## FUNCTION ~ END

@@ -17,7 +17,11 @@ myFiles <- list.files(path = "inst/shiny-examples/BCGcalc/external/RMD"
 
 
 # Render as HTML
-path_shiny_www <- file.path("inst", "shiny-examples", "BCGcalc", "www")
+path_shiny_www <- file.path("inst"
+                            , "shiny-examples"
+                            , "BCGcalc"
+                            , "www"
+                            , "rmd_html")
 
 
 for(i in myFiles) {

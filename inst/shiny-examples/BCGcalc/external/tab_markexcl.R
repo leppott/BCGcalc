@@ -29,7 +29,7 @@ function() {
                                          , "Download Results"))
     )## sidebarPanel ~ END
     , mainPanel(
-    #  includeHTML(file.path("www", "ShinyHTML_MarkExcluded.html"))
+    #  includeHTML(file.path("www", "rmd_html", "ShinyHTML_MarkExcluded.html"))
     )## mainPanel ~ END
   )##sidebarLayout ~ END
 }##FUNCTION ~ END
