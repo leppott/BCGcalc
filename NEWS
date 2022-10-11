@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-10-11 10:14:54
+2022-10-11 16:31:02
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-10-11 10:14:54
+    #> Last Update: 2022-10-11 16:31:02
+
+# BCGcalc 1.3.5.9010 (2022-10-11)
+
+-   refactor: Upgrades to Shiny app
+    -   Added summary report
+    -   Added packages needed for report
+    -   Minor edits to main menu
+    -   Minor edits to About
+-   update: Add ‘Therm_ORWA_Bugs500ct’ model to Excel files
 
 # BCGcalc 1.3.5.9009 (2022-10-11)
 

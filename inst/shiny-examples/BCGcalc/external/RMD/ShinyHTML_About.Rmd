@@ -23,11 +23,9 @@ and
 <a href="https://github.com/leppott/BioMonTools" target="_blank">BioMonTools</a> 
 R packages, which were developed by Erik W. Leppo (Erik.Leppo@tetratech.com) from Tetra Tech and are available on GitHub. 
 
-![Figure 1. The Biological Condition Gradient (BCG), modified from Davies and Jackson 2006. The BCG was developed to serve as a scientific framework to synthesize expert knowledge with empirical observations and develop testable hypotheses on the response of aquatic biota to increasing levels of stress.](images/Fig2_BCG.jpg)
-
 This website is customized to calculate the BCG model for macroinvertebrate 
 assemblages in freshwater wadeable streams in the Pacific Northwest Maritime 
-Region (PNMR) of Oregon and Washington (Figure 2). It also calculates thermal preference metrics and probability of membership in cold, cool or warm-water communities, which can help inform restoration and protection efforts and 
+Region (PNMR) of Oregon and Washington (Figure 1). It also calculates thermal preference metrics and probability of membership in cold, cool or warm-water communities, which can help inform restoration and protection efforts and 
 climate resiliency. The user uploads input files to the website, which will 
 generate the outputs without the use of R code. Those who prefer to work with R 
 can download the R packages from the GitHub sites.  
@@ -63,24 +61,26 @@ Effort guidelines (Wisseman et al. 2015)
 
 Model calibration is described in detail in [Stamp 2022](links/PNMR_BCG_report_20220930_minusSupp.zip). 
 
-```{r, echo=FALSE, out.width="50%", fig.cap="Figure 2. The Pacific Northwest Maritime Region (PNMR) of Oregon and Washington includes five Omernik Level 3 ecoregions: Coast Range, Puget Lowland, Willamette Valley, Cascades, and North Cascades, excluding xeric regions (< 650 mm mean annual precipitation)."}
+```{r, echo=FALSE, out.width="50%", fig.cap="Figure 1. The Pacific Northwest Maritime Region (PNMR) of Oregon and Washington includes five Omernik Level 3 ecoregions: Coast Range, Puget Lowland, Willamette Valley, Cascades, and North Cascades, excluding xeric regions (< 650 mm mean annual precipitation)."}
 knitr::include_graphics("images/Fig1_PNMR_StudyArea.jpg")
 ```
 
-# Funding 
+![Figure 2. The Biological Condition Gradient (BCG), modified from Davies and Jackson 2006. The BCG was developed to serve as a scientific framework to synthesize expert knowledge with empirical observations and develop testable hypotheses on the response of aquatic biota to increasing levels of stress.](images/Fig2_BCG.jpg)
+
+## Funding 
 Development of the BCGcalc and BioMonTools R packages have been funded by the 
 United States Environmental Protection Agency (EPA) Office of Office of Science 
 and Technology (OST) (lead EPA OST scientist: Susan Jackson) and Office of 
 Research and Development (ORD) (lead EPA ORD scientist: Britta Bierwagen). 
 
-# Contacts
+## Contacts
 If you encounter problems with the Shiny app and/or have suggestions on ways to further improve it, please contact Erik W. Leppo from Tetra Tech via email (Erik.Leppo@tetratech.com) or via a post on the 
 <a href="https://github.com/leppott/BCGcalc/discussions" target="_blank">BCGcalc GitHub Discussions page</a>.
 
 For more information on this project, or on the BCG in general, please contact 
 Susan Jackson (Jackson.Susank@epa.gov).
 
-# Literature cited
+## Literature cited
 Davies, S. B., and S. K. Jackson. 2006. The Biological Condition Gradient: A descriptive model for interpreting change in aquatic ecosystems. Ecological Applications 16(4):1251–1266.
 
 Hayslip, Gretchen, editor, 2007. Methods for the collection and analysis of 

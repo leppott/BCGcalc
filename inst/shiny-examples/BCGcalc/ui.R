@@ -12,7 +12,7 @@ dashboardPage(
   #, sidebar = dashboardSidebar(sb_main("leftsidebarmenu"))
   , sidebar = dashboardSidebar(db_main_sb("leftsidebarmenu"))
   , body = dashboardBody(db_main_body("dbBody"))
-  , footer = dashboardFooter(left = "v1.3.5.9009"
+  , footer = dashboardFooter(left = pkg_version
                              , right = "https://github.com/leppott/BCGcalc")
 ) ## dashboardPage ~ END
 

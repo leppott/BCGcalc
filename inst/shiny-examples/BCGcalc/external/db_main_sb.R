@@ -14,7 +14,7 @@ function(id) {
                  , tabName = "tab_import"
                  , icon = icon("file-arrow-up")
                  , startExpanded = TRUE)
-      , menuItem(text = "File Modification"
+      , menuItem(text = "File Builder"
                  , tabName = "tab_munge"
                  , icon = icon("toolbox")
                  )
@@ -28,9 +28,6 @@ function(id) {
                                , tabName = "tab_calcbcg"
                                , icon = icon("temperature-empty"))
                  , menuSubItem("BMI BCG-style temperature model"
-                               , tabName = "tab_bcg_metmemb"
-                               , icon = icon("temperature-half"))
-                 , menuSubItem("NorWeST modeled stream temperature"
                                , tabName = "tab_bcg_metmemb"
                                , icon = icon("temperature-full"))
                  )## menuItem ~ BCG

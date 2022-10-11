@@ -1,0 +1,103 @@
+---
+title: "BCGcalc"
+subtitle: "Result Summary"
+author: "`r Sys.getenv('USERNAME')`"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
+```
+
+# Plot
+
+```{r plot}
+df_plot <- df_lev_flags 
+alpha_rect <- 0.25
+plot_mean <- mean(df_plot$Lev.Prop.Num)
+
+p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Lev.Prop.Num)) + 
+  ggplot2::geom_histogram(bins = 50) + 
+  ggplot2::annotate("rect"
+                    , xmin = 5.5
+                    , xmax = 6.25
+                    , ymin = -Inf
+                    , ymax = Inf
+                    , alpha = alpha_rect
+                    , fill = "red") + 
+  ggplot2::annotate("rect"
+                    , xmin = 4.5
+                    , xmax = 5.5
+                    , ymin = -Inf
+                    , ymax = Inf
+                    , alpha = alpha_rect
+                    , fill = "dark orange") + 
+  ggplot2::annotate("rect"
+                    , xmin = 3.5
+                    , xmax = 4.5
+                    , ymin = -Inf
+                    , ymax = Inf
+                    , alpha = alpha_rect
+                    , fill = "yellow") + 
+  ggplot2::annotate("rect"
+                    , xmin = 2.5
+                    , xmax = 3.5
+                    , ymin = -Inf
+                    , ymax = Inf
+                    , alpha = alpha_rect
+                    , fill = "purple") + 
+  ggplot2::annotate("rect"
+                    , xmin = 1.5
+                    , xmax = 2.5
+                    , ymin = -Inf
+                    , ymax = Inf
+                    , alpha = alpha_rect
+                    , fill = "green") + 
+  ggplot2::annotate("rect"
+                    , xmin = 1.25
+                    , xmax = 1.5
+                    , ymin = -Inf
+                    , ymax = Inf
+                    , alpha = alpha_rect
+                    , fill = "dark green") +
+  ggplot2::geom_histogram(bins = 50) + 
+  ggplot2::geom_vline( ggplot2::aes(xintercept = mean(Lev.Prop.Num))
+                       , color = "black"
+                       , linetype = "dashed") +
+  ggplot2::labs(caption = paste0("mean (black dashed line) = "
+                                 , round(plot_mean, 2))
+       , x = "Nominal Level") + 
+  ggplot2::theme_light()
+
+# plotly::ggplotly(p1)
+p1
+```
+
+# Flags
+
+```{r flags}
+cap_flags <- "Flag summary."
+knitr::kable(table(df_flags[, "CHECKNAME"]
+                   , df_flags[, "FLAG"]
+                   , useNA = "ifany")
+             , caption = cap_flags)
+```
+
+# Results
+
+```{r results}
+cap_data <- "Summary results."
+DT::datatable(df_lev_flags 
+              , filter="top"
+              , caption = cap_data
+              , options=list(scrollX=TRUE
+                             , lengthMenu = c(5, 10, 25, 50, 100, 1000)
+                             , autoWidth = TRUE
+              ))
+```
+

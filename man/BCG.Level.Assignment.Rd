@@ -155,4 +155,17 @@ table(df_flags[, "CHECKNAME"], df_flags[, "FLAG"], useNA = "ifany")
 
 # Save Results
 write.csv(df_lev_flags, file.path(tempdir(), "Level_Flags.csv"))
+
+# Summary Report
+ strFile.RMD <- system.file(paste0("rmd/Results_Summary.Rmd")
+                            , package = "BCGcalc")
+strFile.RMD.format <- "html_document"
+strFile.out <- "_bcgcalc_RESULTS.html"
+dir.export <- tempdir()
+rmarkdown::render(strFile.RMD
+                  , output_format = strFile.RMD.format
+                  , output_file = strFile.out
+                  , output_dir = dir.export
+                  , quiet = TRUE)
+
 }

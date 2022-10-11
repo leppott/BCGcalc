@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "1.3.5.9009"
+pkg_version <- "1.3.5.9010"
 
 # Packages----
 library(BCGcalc)
@@ -17,11 +17,12 @@ library(DT)
 # masks shinyjs::alert
 # library(dplyr)
 # library(tidyr)
-# library(ggplot2)
-# library(plotly)
+library(ggplot2)
+library(plotly)
 library(readxl)
 library(httr)
 library(reshape2)
+library(knitr)
 
 # Source ----
 db_main_sb       <- source("external/db_main_sb.R", local = TRUE)$value

@@ -140,7 +140,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 9
+      prog_n <- 10
       prog_sleep <- 0.25
       
       # Calc, 1, Initialize ----
@@ -374,7 +374,23 @@ shinyServer(function(input, output) {
       dn_results <- path_results
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_lev_flags, pn_results, row.names = FALSE)
+   
+      # Calc, 9, RMD----
+      prog_detail <- "Calculate, Create Report"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
       
+      strFile.RMD <- file.path("external", "Results_Summary.Rmd")
+      strFile.RMD.format <- "html_document"
+      strFile.out <- paste0(fn_input_base, "_bcgcalc_RESULTS.html")
+      dir.export <- path_results
+      rmarkdown::render(strFile.RMD
+                        , output_format = strFile.RMD.format
+                        , output_file = strFile.out
+                        , output_dir = dir.export
+                        , quiet = TRUE)
       
       # Calc, 9, Clean Up----
       prog_detail <- "Calculate, Clean Up"
