@@ -19,9 +19,9 @@ knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
 ```{r plot}
 df_plot <- df_lev_flags 
 alpha_rect <- 0.25
-plot_mean <- mean(df_plot$Lev.Prop.Num)
+plot_mean <- mean(df_plot$Lev.1.Name)
 
-p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Lev.Prop.Num)) + 
+p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Lev.1.Name)) + 
   ggplot2::geom_histogram(bins = 50) + 
   ggplot2::annotate("rect"
                     , xmin = 5.5
@@ -50,7 +50,7 @@ p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Lev.Prop.Num)) +
                     , ymin = -Inf
                     , ymax = Inf
                     , alpha = alpha_rect
-                    , fill = "purple") + 
+                    , fill = "gray") + 
   ggplot2::annotate("rect"
                     , xmin = 1.5
                     , xmax = 2.5
@@ -64,9 +64,9 @@ p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Lev.Prop.Num)) +
                     , ymin = -Inf
                     , ymax = Inf
                     , alpha = alpha_rect
-                    , fill = "dark green") +
+                    , fill = "blue") +
   ggplot2::geom_histogram(bins = 50) + 
-  ggplot2::geom_vline( ggplot2::aes(xintercept = mean(Lev.Prop.Num))
+  ggplot2::geom_vline( ggplot2::aes(xintercept = plot_mean)
                        , color = "black"
                        , linetype = "dashed") +
   ggplot2::labs(caption = paste0("mean (black dashed line) = "

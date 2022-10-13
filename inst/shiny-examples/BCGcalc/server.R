@@ -107,7 +107,7 @@ shinyServer(function(input, output) {
   , filter="top"
   , caption = "Table. Imported data."
   , options = list(scrollX = TRUE
-                   , pageLength = 10
+                   , pageLength = 5
                    , lengthMenu = c(5, 10, 25, 50, 100, 1000)
                    , autoWidth = TRUE)
   )##df_import_DT~END

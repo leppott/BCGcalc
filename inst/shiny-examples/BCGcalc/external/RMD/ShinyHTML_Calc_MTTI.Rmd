@@ -1,0 +1,19 @@
+---
+title: "Calculation, MTTI"
+date: "2022-10-13"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+Some information about calculationg the MTTI.
+
+*Last updated 2022-10-13*

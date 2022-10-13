@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 1.3.5.9011 (2022-10-13)
+
+* refactor: Upgrades to Shiny app
+    + Rework tab order and names
+    + Update About
+    + Other
+
 # BCGcalc 1.3.5.9010 (2022-10-11)
 
 * refactor: Upgrades to Shiny app

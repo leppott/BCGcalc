@@ -15,21 +15,27 @@ function(id) {
                  , icon = icon("file-arrow-up")
                  , startExpanded = TRUE)
       , menuItem(text = "File Builder"
-                 , tabName = "tab_munge"
+                 , tabName = "tab_filebuilder"
                  , icon = icon("toolbox")
                  )
       , menuItem(text = "Calculation"
                  , icon = icon("gears")
                  , tabName = "tab_calc"
                  , menuSubItem("BCG Models"
-                               , tabName = "tab_calcbcg"
+                               , tabName = "tab_calc_bcg"
                                , icon = icon("award"))
                  , menuSubItem("Thermal Preference Metrics"
-                               , tabName = "tab_calcbcg"
+                               , tabName = "tab_calc_metrics"
                                , icon = icon("temperature-empty"))
                  , menuSubItem("BMI BCG-style temperature model"
-                               , tabName = "tab_bcg_metmemb"
-                               , icon = icon("temperature-full"))
+                               , tabName = "tab_calc_model_thermal"
+                               , icon = icon("square-check"))
+                 , menuSubItem("MTTI"
+                               , tabName = "tab_calc_mtti"
+                               , icon = icon("microscope"))
+                 , menuSubItem("BioDiversity Index"
+                               , tabName = "tab_calc_biodivind"
+                               , icon = icon("flask"))
                  )## menuItem ~ BCG
       # , menuItem(text = "Temperature"
       #            , icon = icon("temperature-full") #
@@ -54,18 +60,21 @@ function(id) {
       #            )## menuItem ~ Analysis ~ END
       , menuItem(text = "Reports"
                  , icon = icon("clipboard-check")
-                 , menuSubItem("Single Site"
-                               , tabName = "tab_X"
+                 , menuSubItem("Single Site, Single Sample"
+                               , tabName = "tab_rep_ss_ss"
                                , icon = icon("pen")
                                )
-                 , menuSubItem("Muliple Sites"
-                               , tabName = "tab_Y"
+                 , menuSubItem("Single Site, Multiple Samples"
+                               , tabName = "tab_rep_ss_ms"
                                , icon = icon("pen-ruler")
                                )
-                 , menuSubItem("Continuous Sensor Metadata"
-                               , tabName = "tools"
+                 , menuSubItem("Muliple Sites"
+                               , tabName = "tab_rep_ms"
                                , icon = icon("pen-to-square"))
                  )## menuItem ~ Reports ~ END
+      , menuItem(text = "Relevant Resources"
+                 , tabName = "tab_resources"
+                 , icon = icon("book"))
     )## sidebarMenu ~ END
   )## dashboardSidebar ~ END
 }## FUNCTION ~ END

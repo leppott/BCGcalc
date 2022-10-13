@@ -29,7 +29,19 @@ db_main_sb       <- source("external/db_main_sb.R", local = TRUE)$value
 db_main_body     <- source("external/db_main_body.R", local = TRUE)$value
 tab_code_about   <- source("external/tab_about.R", local = TRUE)$value
 tab_code_import  <- source("external/tab_import.R", local = TRUE)$value
-tab_code_calcbcg <- source("external/tab_calcbcg.R", local = TRUE)$value
+tab_code_calc_bcg <- source("external/tab_calc_bcg.R", local = TRUE)$value
+# tab_code_calc_metrics <- source("external/tab_calc_metrics.R"
+#                                 , local = TRUE)$value
+# tab_code_calc_model_thermal <- source("external/tab_calc_model_thermal.R"
+#                                 , local = TRUE)$value
+tab_code_rep_ss_ss   <- source("external/tab_report_singlesite_singlesamp.R"
+                               , local = TRUE)$value
+tab_code_rep_ss_ms   <- source("external/tab_report_singlesite_multisamp.R"
+                               , local = TRUE)$value
+tab_code_rep_ms   <- source("external/tab_report_multiplesite.R"
+                            , local = TRUE)$value
+tab_code_resources   <- source("external/tab_resources.R", local = TRUE)$value
+tab_code_filebuilder   <- source("external/tab_filebuilder.R", local = TRUE)$value
 
 # Console Message ----
 message(paste0("Interactive: ", interactive()))
@@ -71,6 +83,9 @@ df_bcg_models <- as.data.frame(read_excel(temp_bcg_models
                                           , guess_max = 10^3
                                           , sheet = "Rules"))
 sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
+
+## Metric Suites
+sel_metric_suites <- c("ThermalHydro")
 
 # Flags ----
 url_bcg_checks <- "https://github.com/leppott/BCGcalc/raw/main/inst/extdata/MetricFlags.xlsx"
