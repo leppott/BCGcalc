@@ -35,11 +35,15 @@ function() {
         )## sidebarPanel ~ END
     , mainPanel(
         tabsetPanel(type = "tabs"
-                    , tabPanel("Calc_BCG_About"
-                               ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG.html"))
+                    , tabPanel(title = "Calc_BCG_About"
+                               ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_1About.html"))
                                )
-                    , tabPanel("Calc_BCG_2")
-                    , tabPanel("Calc_BCG3")
+                    , tabPanel(title = "Calc_BCG_Input"
+                               ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_2Input.html"))
+                               )
+                    , tabPanel(title = "Calc_BCG_Output"
+                               ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_3Output.html"))
+                               )
                     )## tabsetPanel ~ END
       
     )## mainPanel ~ END

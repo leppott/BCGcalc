@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-10-13 15:30:31
+2022-10-14 10:48:00
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-10-13 15:30:31
+    #> Last Update: 2022-10-14 10:48:00
+
+# BCGcalc 1.3.5.9012 (2022-10-14)
+
+-   refactor: Upgrades to Shiny app
 
 # BCGcalc 1.3.5.9011 (2022-10-13)
 

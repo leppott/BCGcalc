@@ -1,0 +1,69 @@
+
+
+
+<p>A single zip file will be available for download. It will include all
+result files along wiht the original data file. All result data files
+will be CSV format.</p>
+<p>The zip file will included the base name of the original file along
+with the date and time.</p>
+<p>The individual files will include the same basename along with a
+suffix to represent each step of the calculation process.</p>
+<p>As an example if the input file was “Data_BCG_PacNW.csv” the result
+files will look like those in the table below.</p>
+<table>
+<caption>BCG Calculation zip file contents.</caption>
+<colgroup>
+<col width="39%" />
+<col width="60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">File Names</th>
+<th align="left">File Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Data_BCG_PacNW.csv</td>
+<td align="left">User input data</td>
+</tr>
+<tr class="even">
+<td align="left">Data_BCG_PacNW_bcgcalc_1markexcl.csv</td>
+<td align="left">Excluded taxa revised, if checked
+(BioMonTools::markExcluded)</td>
+</tr>
+<tr class="odd">
+<td align="left">Data_BCG_PacNW_bcgcalc_2metval_all.csv</td>
+<td align="left">Metric values, all (BioMonTools::metric.values)</td>
+</tr>
+<tr class="even">
+<td align="left">Data_BCG_PacNW_bcgcalc_2metval_slim.csv</td>
+<td align="left">Metric values, only those used in index and flags</td>
+</tr>
+<tr class="odd">
+<td align="left">Data_BCG_PacNW_bcgcalc_3metmemb.csv</td>
+<td align="left">Metric membership (BCGcalc::BCG.Metric.Membership)</td>
+</tr>
+<tr class="even">
+<td align="left">Data_BCG_PacNW_bcgcalc_4levmemb.csv</td>
+<td align="left">Level membership (BCGcalc::BCG.Level.Membership)</td>
+</tr>
+<tr class="odd">
+<td align="left">Data_BCG_PacNW_bcgcalc_5levassign.csv</td>
+<td align="left">Level assignment (BCGcalc::BCG.Level.Assignment)</td>
+</tr>
+<tr class="even">
+<td align="left">Data_BCG_PacNW_bcgcalc_6levflags.csv</td>
+<td align="left">BCG flags summary</td>
+</tr>
+<tr class="odd">
+<td align="left">Data_BCG_PacNW_bcgcalc_RESULTS.csv</td>
+<td align="left">Results, levels and flags</td>
+</tr>
+<tr class="even">
+<td align="left">Data_BCG_PacNW_RESULTS.html</td>
+<td align="left">Results summary report</td>
+</tr>
+</tbody>
+</table>
+<p><em>Last updated 2022-10-14</em></p>

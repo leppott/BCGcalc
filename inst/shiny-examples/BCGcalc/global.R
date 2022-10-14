@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "1.3.5.9010"
+pkg_version <- "1.3.5.9012"
 
 # Packages----
 library(BCGcalc)
@@ -25,23 +25,26 @@ library(reshape2)
 library(knitr)
 
 # Source ----
-db_main_sb       <- source("external/db_main_sb.R", local = TRUE)$value
-db_main_body     <- source("external/db_main_body.R", local = TRUE)$value
-tab_code_about   <- source("external/tab_about.R", local = TRUE)$value
-tab_code_import  <- source("external/tab_import.R", local = TRUE)$value
-tab_code_calc_bcg <- source("external/tab_calc_bcg.R", local = TRUE)$value
-# tab_code_calc_metrics <- source("external/tab_calc_metrics.R"
-#                                 , local = TRUE)$value
-# tab_code_calc_model_thermal <- source("external/tab_calc_model_thermal.R"
-#                                 , local = TRUE)$value
+db_main_sb           <- source("external/db_main_sb.R", local = TRUE)$value
+db_main_body         <- source("external/db_main_body.R", local = TRUE)$value
+tab_code_about       <- source("external/tab_about.R", local = TRUE)$value
+tab_code_import      <- source("external/tab_import.R", local = TRUE)$value
+tab_code_filebuilder <- source("external/tab_filebuilder.R", local = TRUE)$value
+tab_code_calc_bcg    <- source("external/tab_calc_bcg.R", local = TRUE)$value
+tab_code_calc_metrics <- source("external/tab_calc_metrics.R", local = TRUE)$value
+tab_code_calc_model_thermal <- source("external/tab_calc_model_thermal.R"
+                                , local = TRUE)$value
+tab_code_calc_mtti <- source("external/tab_calc_mtti.R", local = TRUE)$value
+tab_code_calc_biodivind <- source("external/tab_calc_biodivind.R"
+                                  , local = TRUE)$value
 tab_code_rep_ss_ss   <- source("external/tab_report_singlesite_singlesamp.R"
                                , local = TRUE)$value
 tab_code_rep_ss_ms   <- source("external/tab_report_singlesite_multisamp.R"
                                , local = TRUE)$value
-tab_code_rep_ms   <- source("external/tab_report_multiplesite.R"
+tab_code_rep_ms      <- source("external/tab_report_multiplesite.R"
                             , local = TRUE)$value
 tab_code_resources   <- source("external/tab_resources.R", local = TRUE)$value
-tab_code_filebuilder   <- source("external/tab_filebuilder.R", local = TRUE)$value
+
 
 # Console Message ----
 message(paste0("Interactive: ", interactive()))

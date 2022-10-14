@@ -1,0 +1,19 @@
+---
+title: "Calculation, Metrics, Input"
+date: "2022-10-14"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+Some text about metric calculation input file requirements.
+
+*Last updated 2022-10-14*

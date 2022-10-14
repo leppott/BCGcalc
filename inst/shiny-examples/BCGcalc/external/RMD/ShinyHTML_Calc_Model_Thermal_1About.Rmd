@@ -1,0 +1,72 @@
+---
+title: "Calculation, Model Thermal"
+date: "2022-10-13"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+Status:
+
+*	Online Shiny app calculator - in progress
+
+*	R code – in progress
+
+The BCG-style temperature model is an exploratory model. Instead of assigning samples to a BCG level, it assigns them to one of the following temperature classes, which are based on the Maximum Weekly Maximum Temperature (MWMT) metric from the 
+<a href="https://www.fs.usda.gov/rm/boise/AWAE/projects/NorWeST/ModeledStreamTemperatureScenarioMaps.shtml" target="_blank">NorWeST modeled stream temperature dataset</a>: 
+
+*	VERY COLD (MWMT < 15 C)
+
+*	COLD (MWMT 15-17.9 C)
+
+*	TRANSITIONAL (MWMT 18-21.9 C)
+
+*	WARM (MWMT ≥ 22 C)
+
+The model works the same way as a BCG model, with an output that includes probability of membership in a primary and secondary class, as shown below.
+
+Example of an output from the BCG-style temperature model.
+
+|SampleID	            |ThermBug1|ThermBug1_memb|ThermBug2|ThermBug2_memb|
+|:--------------------|:--------|:------------:|:--------|:------------:|
+|SampPSSB_10055_15126	|Cold	    |0.85	         |CoolWarm |0.15          |
+|SampPSSB_9245_14248	|Warm	    |0.63	         |CoolWarm |0.38          |
+
+<br>
+We calibrated the model with the same datasets (CAL and VAL) that were used to calibrate the MTTI.
+
+Click [here](links/BoxPlots_CALVAL_20220914.pdf) to view the box plots that helped inform selection of metrics and thresholds.
+
+Rules for the current version of the model are as follows:
+
+|CLASS | METRIC | RULE |
+|:-----|:-------|:----:|
+|VERY COLD (MWMT < 15 C)||
+||# cold stenotherm taxa|	≥ 2 (1-3)|
+||# cold stenotherm + cold taxa	|≥ 8 (4-12)|
+||% cold stenotherm + cold taxa	|≥ 20% (15-25)|
+||% cold stenotherm + cold indiv	|≥ 10% (5-15)|
+||% warm + warm stenotherm taxa	|≤ 10% (5-15)|
+||% warm + warm stenotherm indiv	|≤ 5% (2-8)|
+|COLD (MWMT 15-17.9 C)|||
+||# cold stenotherm + cold taxa	|≥ 3 (1-5)|
+||% cold stenotherm + cold taxa	|≥ 5% (3-7)|
+||% cold stenotherm + cold indiv	|≥ 1% (0-2)|
+||% cold stenotherm + cold + cool taxa	|≥ 45% (40-50)|
+||% warm + warm stenotherm taxa	|≤ 15% (10-20)|
+||% warm + warm stenotherm indiv	|≤ 15% (10-20)|
+|TRANSITIONAL (MWMT 18-21.9 C)||
+||% warm + warm stenotherm taxa	|≤ 30% (25-35)|
+
+<br>
+For more information, contact Jen Stamp (Tetra Tech) (Jen.Stamp@tetratech.com).
+
+*Last updated 2022-10-13*
