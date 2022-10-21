@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-10-14 11:14:32
+2022-10-21 16:30:58
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-10-14 11:14:32
+    #> Last Update: 2022-10-21 16:30:58
+
+# BCGcalc 1.3.5.9014 (2022-10-21)
+
+-   update: Update BCG style temperature model thresholds
+    -   Rules.xlsx
 
 # BCGcalc 1.3.5.9013 (2022-10-14)
 
