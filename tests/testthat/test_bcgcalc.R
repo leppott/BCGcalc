@@ -4,6 +4,7 @@ test_that("bcgcalc", {
   # Metrics
   df.metric.values.bugs <- BCGcalc::metrics_values
   
+  
   # Import Rules
   df.rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
                                      , package="BCGcalc")
@@ -11,7 +12,8 @@ test_that("bcgcalc", {
   
   # Calculate Metric Memberships
   df.Metric.Membership <- BCGcalc::BCG.Metric.Membership(df.metric.values.bugs
-                                                         , df.rules)
+                                                         , df.rules
+                                              , col_SITE_TYPE = "INDEX_REGION")
   
   # quick check
   mean_membership_calc <- mean(df.Metric.Membership$MEMBERSHIP)
@@ -175,6 +177,7 @@ test_that("Flags, Metrics, BioMonTools", {
   metnam_flags[!metnam_flags %in% metnam_bmt]
   
   ## test, BMT == TRUE ----
+  # ensure all flag metrics are included in BioMonTools metric names
   testthat::expect_equal(sum_metnam_match, len_metnam_flags)
   
   #~~~~~
@@ -198,6 +201,7 @@ test_that("Flags, Metrics, BioMonTools", {
                                                    metnam_bmt]
   
   ## Show Failures
+  # should be character(0)
   metnam_flags_check[!metnam_flags_check %in% metnam_bmt]
   
   # test, All non known non-metrics ----
@@ -205,6 +209,7 @@ test_that("Flags, Metrics, BioMonTools", {
                          , length(metnam_flags_check))
   
   ## Show Failures
+  # should be character(0)
   metnam_flags_check[!metnam_flags_check %in% metnam_bmt]
   
   # test, for those marked TRUE in flags----

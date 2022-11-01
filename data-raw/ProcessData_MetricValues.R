@@ -11,14 +11,17 @@
 
 # 1. Get data and process#####
 # Calculate Metrics
-df.samps.bugs <- readxl::read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+df.samps.bugs <- readxl::read_excel(
+                             system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
                                         , package="BCGcalc")
                             , guess_max = 10^6)
 # Run Function
 myDF <- df.samps.bugs
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
 # Add columns
-myDF[, c("INFRAORDER", "HABITAT")] <- NA
+myDF[, c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
+         , "WSAREA_ATTR", "HABSTRUCT")] <- NA_character_
+myDF[, c("UFC")] <- NA_integer_
 df.metric.values.bugs <- BioMonTools::metric.values(myDF
                                                     , "bugs"
                                                     , fun.cols2keep=myCols) 

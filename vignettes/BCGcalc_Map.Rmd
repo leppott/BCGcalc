@@ -31,18 +31,25 @@ library(BioMonTools)
 
 # Calculate BCG model
 ## Calculate Metrics
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
                                         , package="BCGcalc")
                             , guess_max = 10^6)
 ## Run Function
 myDF <- df.samps.bugs
+col_add_char <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
+                  , "WSAREA_ATTR", "HABSTRUCT")
+col_add_num <- "UFC"
+myDF[, col_add_char] <- NA_character_
+myDF[, col_add_num] <- NA_integer_
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
 df.metric.values.bugs <- metric.values(myDF, "bugs", fun.cols2keep=myCols) 
 ## Import Rules
 df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct") 
+                             , package="BCGcalc")
+                       , sheet="Rules") 
 ## Calculate Metric Memberships
-df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
+df.Metric.Membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules
+                                              , col_SITE_TYPE = "INDEX_REGION")
 ## Calculate Level Memberships
 df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
 ## Run Function
@@ -53,11 +60,15 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 ## Get unique stations
 df.stations <- as.data.frame(unique(df.samps.bugs[,c("SampleID"
                                                      , "Latitude"
-                                                     , "Longitude")]))
+                                                     , "Longitude"
+                                                     , "Index_Name"
+                                                     , "Index_Region"
+                                                     , "Site_Type")]))
+
 ## Merge
 df.map <- merge(df.Levels
                 , df.stations
-                , by.x="SAMPLEID"
+                , by.x="SampleID"
                 , by.y="SampleID"
                 , all.x=TRUE)
 ## Level1 Name to Character
@@ -66,26 +77,32 @@ df.map$Lev.1.Name <- as.character(df.map$Lev.1.Name)
 # Palette, Color Blind
 ## http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
 pal_cb <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
+pal_bcg_old <- c("green", "cyan", "blue", "orange", "red")
+pal_bcg <- c("blue", "green", "gray", "yellow", "dark orange", "red")
 
 # Map
 ## Map of OR and WA
 m1 <- ggplot(data = subset(map_data("state"), region %in% c("washington"))) + 
-            geom_polygon(aes(x=long, y=lat, group=group), fill="light gray", color="black") +
-            coord_fixed(1.3) + theme_void()
+  geom_polygon(aes(x = long, y = lat, group = group)
+               , fill = "gray90"
+               , color = "black") +
+  coord_fixed(1.3) + 
+  theme_void()
 
 ## Add Points
-m1 <- m1 + geom_point(data=df.map
+m1 <- m1 + geom_point(data = df.map
                       , aes(Longitude
                             , Latitude
-                            , shape=SITE_TYPE
-                            , color=Lev.1.Name))
+                            , shape = Index_Name
+                            , color = Lev.1.Name), na.rm = TRUE)
+
 ## Change shape
-m1 <- m1 + scale_shape_manual(name="Site Type", values=c(17,16))
+shp_solid <- c(17, 16) # solid triangle and circle
+m1 <- m1 + scale_shape_manual(name = "Site Type", values = shp_solid)
+
 ## Change colors
-m1 <- m1 + scale_colour_manual(name="Level 1 Assignment"
-                               #, values=c("green", "cyan", "blue", "orange"
-                               #, "red") )
-                               , values=pal_cb)
+m1 <- m1 + scale_colour_manual(name = "Level 1 Assignment"
+                               , values = pal_bcg)
 
 ## Map Title
 m1 <- m1 + labs(title="Pacific Northwest BCG"

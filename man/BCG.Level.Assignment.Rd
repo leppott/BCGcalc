@@ -87,7 +87,7 @@ write.table(df_Levels
 
 # Calculate Metrics
 df_samps_bugs <- readxl::read_excel(system.file(
-                                        "./extdata/Data_BCG_PacNW.xlsx"
+                                       "./extdata/Data_BCG_PugLowWilVal.xlsx"
                                         , package="BCGcalc")
                            , guess_max = 10^6)
                                         

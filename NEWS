@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-10-21 16:30:58
+2022-11-01 15:17:05
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-10-21 16:30:58
+    #> Last Update: 2022-11-01 15:17:05
+
+# BCGcalc 1.3.5.9015 (2022-11-01)
+
+-   update: Change name of PacNW model, Issue \#61
+    -   Rules.xlsx
+    -   MetricFlags.xlsx
+    -   Example files (file name, data, sheet names)
+    -   Update examples in functions
+    -   Vignettes
 
 # BCGcalc 1.3.5.9014 (2022-10-21)
 

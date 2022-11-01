@@ -1,13 +1,15 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # TaxaMaster ----
-#' @title Benthic Master Taxa List, BCG Pacific Northwest
+#' @title Benthic Master Taxa List, BCG Puget Lowlands Willamette Valley
 #' 
-#' @description Master taxa list for BCG model for Pacific Northwest; 
+#' @description Master taxa list for BCG model for Puget Lowlands Willamette 
+#' Valley; 
 #' current as of 2018-09-27.
 #' 
 #' @details To export to file use the code below.
 #' 
-#' write.csv(TaxaMaster_Ben_BCG_PacNW, "TaxaMaster_Ben_BCG_PacNW_20180314.csv")
+#' write.csv(TaxaMaster_Ben_BCG_PugLowWilVal
+#'          , "TaxaMaster_Ben_BCG_PugLowWilVal_20180314.csv")
 #' 
 #' @format A data frame with 684 rows and 19 variables:
 #' \describe{
@@ -31,27 +33,10 @@
 #'    \item{Life_Cycle}{Voltinism}
 #'    \item{TolVal}{Tolerance Value}
 #' }
-"TaxaMaster_Ben_BCG_PacNW"
+"TaxaMaster_Ben_BCG_PugLowWilVal"
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# metrics_scoring ----
-#' @title Metric Scoring
-#' 
-#' @description Example metric scoring
-#' 
-#' @format A data frame with 69 rows and 8 variables:
-#' \describe{
-#'    \item{Index.Name}{}
-#'    \item{Index.Region}{}
-#'    \item{Metric}{}
-#'    \item{Direction}{}
-#'    \item{Thresh.Lo}{}
-#'    \item{Thresh.Hi}{}
-#'    \item{ScoreRegime}{}
-#'    \item{Name_Other}{}
-#' }
-"metrics_scoring"
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# metrics_values
+# metrics_values----
 #' @title Metric Values
 #' 
 #' @description Example metric values
