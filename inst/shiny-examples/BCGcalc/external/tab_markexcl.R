@@ -1,4 +1,4 @@
-# Mark Excluded Taxa Panel
+# Mark Exclude Taxa Panel
 
 function() {
   sidebarLayout(
@@ -29,7 +29,7 @@ function() {
                                          , "Download Results"))
     )## sidebarPanel ~ END
     , mainPanel(
-    #  includeHTML(file.path("www", "rmd_html", "ShinyHTML_MarkExcluded.html"))
+    #  includeHTML(file.path("www", "rmd_html", "ShinyHTML_MarkExclude.html"))
     )## mainPanel ~ END
   )##sidebarLayout ~ END
 }##FUNCTION ~ END

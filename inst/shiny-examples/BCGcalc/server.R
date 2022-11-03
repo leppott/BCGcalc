@@ -167,8 +167,8 @@ shinyServer(function(input, output) {
       }
       
       
-      # Calc, 2, Excluded Taxa ----
-      prog_detail <- "Calculate, Excluded Taxa"
+      # Calc, 2, Exclude Taxa ----
+      prog_detail <- "Calculate, Exclude Taxa"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
@@ -179,7 +179,6 @@ shinyServer(function(input, output) {
 
       if(input$ExclTaxa) {
         ## Get TaxaLevel names present in user file
-        names_df <- names(df_input)
         phylo_all <- c("Kingdom"
                        , "Phylum"
                        , "SubPhylum"
@@ -196,15 +195,16 @@ shinyServer(function(input, output) {
                        , "SubGenus"
                        , "Species"
                        , "Variety")
-        fun_TaxaLevels <- phylo_all[toupper(phylo_all) %in% toupper(names_df)]
+        
+        # case and matching of taxa levels handled inside of markExluded 
         
         # overwrite current data frame
         df_input <- BioMonTools::markExcluded(df_samptax = df_input
                                               , SampID = "SAMPLEID"
                                               , TaxaID = "TAXAID"
                                               , TaxaCount = "N_TAXA"
-                                              , Exclude = "EXCLUDED"
-                                              , TaxaLevels = fun_TaxaLevels
+                                              , Exclude = "EXCLUDE"
+                                              , TaxaLevels = phylo_all
                                               , Exceptions = NA)
         
         # Save Results

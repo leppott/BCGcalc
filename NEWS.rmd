@@ -20,6 +20,10 @@ knitr::opts_chunk$set(
 ```{r, echo = FALSE}
 cat(paste0("Last Update: ",Sys.time()))
 ```
+# BCGcalc 1.3.5.9016 (2022-11-03)
+
+* fix: Shiny app, markExcl, EXCLUDED to EXCLUDE
+
 # BCGcalc 1.3.5.9015 (2022-11-01)
 
 * update: Change name of PacNW model, Issue #61

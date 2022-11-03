@@ -11,7 +11,7 @@ tabItems(
             , h2("Subsample content")
             )## tabItem ~ subsample ~ END
   , tabItem(tabName = "tab_markexcl"
-            , h2("Mark Excluded Taxa content")
+            , h2("Mark Exclude Taxa content")
             )## excl taxa ~ about ~ END
   , tabItem(tabName = "tab_taxamaps"
             , h2("Taxa Maps content")

@@ -42,7 +42,7 @@ file_names <- c(paste0(fn_base, ".csv")
        , paste0(fn_base, suffix, ".csv")
        , paste0(fn_base, "_RESULTS.html"))
 file_desc <- c("User input data"
-               , "Excluded taxa revised, if checked (BioMonTools::markExcluded)"
+               , "Exclude taxa revised, if checked (BioMonTools::markExcluded)"
                , "Metric values, all (BioMonTools::metric.values)"
                , "Metric values, only those used in index and flags"
                , "Metric membership (BCGcalc::BCG.Metric.Membership)"

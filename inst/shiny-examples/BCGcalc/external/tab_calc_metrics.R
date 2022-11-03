@@ -14,8 +14,8 @@ function() {
        #               , label = "Community"
        #               , choices = sel_community
        #               , selected = "bugs")
-       # , h4("2.C. Excluded Taxa")
-       # , checkboxInput("ExclTaxa_met", "Generate Excluded Taxa Column", TRUE)
+       # , h4("2.C. Exclude Taxa")
+       # , checkboxInput("ExclTaxa_met", "Generate Exclude Taxa Column", TRUE)
        # , h4("2.D. Select metric suite.")
        # , p("(Only thermal metric suite of metrics available at this time).")
        # , selectInput("si_metric_suite"

@@ -14,8 +14,8 @@ function() {
        #               , label = "Community"
        #               , choices = sel_community
        #               , selected = "bugs")
-       # , h4("2.C. Excluded Taxa")
-       # , checkboxInput("ExclTaxa_modtherm", "Generate Excluded Taxa Column", TRUE)
+       # , h4("2.C. Exclude Taxa")
+       # , checkboxInput("ExclTaxa_modtherm", "Generate Exclude Taxa Column", TRUE)
        # , h4("2.D. Define BCG Model.")
        # , p("Determined by INDEX_NAME and INDEX_REGION in data input file.")
        # # , selectInput("si_model"

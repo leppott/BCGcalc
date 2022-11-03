@@ -168,7 +168,7 @@ Required Fields:
 
     + Non-unique/non-distinct taxa are excluded from richness metric 
     calculations but are counted in the other metrics. Appendix B of the
-    ‘BCGcalc_README_20180919’ Word document describes the Excluded Taxa Decision
+    ‘BCGcalc_README_20180919’ Word document describes the Exclude Taxa Decision
     Criteria that was used during BCG model calibration. 
 
     + Valid entries: TRUE or FALSE 
