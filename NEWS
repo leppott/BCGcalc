@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-03 08:19:29
+2022-11-11 16:45:41
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-03 08:19:29
+    #> Last Update: 2022-11-11 16:45:41
+
+# BCGcalc 1.3.5.9017 (2022-11-11)
+
+-   fix: Shiny app ‘slim’ output, Issue \#62
 
 # BCGcalc 1.3.5.9016 (2022-11-03)
 

@@ -165,7 +165,9 @@ shinyServer(function(input, output) {
       if (is.null(df_input)){
         return(NULL)
       }
-      
+    
+      # QC, names to upper case
+      names(df_input) <- toupper(names(df_input))
       
       # Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -195,6 +197,7 @@ shinyServer(function(input, output) {
                        , "SubGenus"
                        , "Species"
                        , "Variety")
+        phylo_all <- toupper(phylo_all) # so matches rest of file
         
         # case and matching of taxa levels handled inside of markExluded 
         
@@ -215,9 +218,9 @@ shinyServer(function(input, output) {
         
       }## IF ~ input$ExclTaxa
       
-      
-      # Calc, 3, BCG Model Cols ----
-      # get columns from Flags to carry through
+   
+      # Calc, 3, BCG Flag Cols ----
+      # get columns from Flags (non-metrics) to carry through
       prog_detail <- "Calculate, Keep BCG Model Columns"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -226,14 +229,14 @@ shinyServer(function(input, output) {
       # Rules - should all be metrics but leaving here just in case
       # Flags - not always metrics,
       # Index Name for import data
-      import_IndexName <- unique(df_input$Index_Name)
-      # QC Flags for chosen BCG model
+      import_IndexName <- unique(df_input$INDEX_NAME)
+      # QC Flags for chosen BCG model (non-metrics)
       cols_flags <- unique(df_checks[df_checks$Index_Name == import_IndexName
                                  , "Metric_Name"])
       # can also add other columns to keep if feel so inclined
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
       
-      
+  
       # Calc, 4, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
@@ -247,6 +250,7 @@ shinyServer(function(input, output) {
       # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
      
       if(length(cols_flags_keep) > 0){
+        # keep extra cols from Flags (non-metric)
         df_metval <- BioMonTools::metric.values(df_input
                                                 , input$si_community
                                               , fun.cols2keep = cols_flags_keep
@@ -260,13 +264,13 @@ shinyServer(function(input, output) {
       }## IF ~ length(col_rules_keep)
       
       df_metval$SITE_TYPE <- df_metval$INDEX_REGION
-      # Save Results
+      ## Save Results ----
       fn_metval <- paste0(fn_input_base, "_bcgcalc_2metval_all.csv")
       dn_metval <- path_results
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
 
-          
+      ## Save Results (slim) ----
       # Munge
       ## Model and QC Flag metrics only
       # cols_flags defined above
