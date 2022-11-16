@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 1.3.5.9018 (2022-11-16)
+
+* refactor: Shiny, change menu item name
+
 # BCGcalc 1.3.5.9017 (2022-11-11)
 
 * fix: Shiny app 'slim' output, Issue #62

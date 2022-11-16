@@ -27,7 +27,7 @@ function(id) {
                  , menuSubItem("Thermal Preference Metrics"
                                , tabName = "tab_calc_metrics"
                                , icon = icon("temperature-empty"))
-                 , menuSubItem("BMI BCG-style temperature model"
+                 , menuSubItem("Fuzzy set temperature model"
                                , tabName = "tab_calc_model_thermal"
                                , icon = icon("square-check"))
                  , menuSubItem("MTTI"
