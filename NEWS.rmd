@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9001 (2022-11-17)
+
+* fix: Update Rules.xlsx for non-ASCII characters
+
 # BCGcalc 2.0.0.9001 (2022-11-16)
 
 * breaking change: Site_Type and Index_Region to INDEX_CLASS, Issue #63

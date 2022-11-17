@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-17 07:37:02
+2022-11-17 14:25:15
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-17 07:37:02
+    #> Last Update: 2022-11-17 14:25:15
+
+# BCGcalc 2.0.0.9001 (2022-11-17)
+
+- fix: Update Rules.xlsx for non-ASCII characters
 
 # BCGcalc 2.0.0.9001 (2022-11-16)
 
