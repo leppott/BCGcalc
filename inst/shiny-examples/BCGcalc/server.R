@@ -270,7 +270,7 @@ shinyServer(function(input, output) {
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
 
-      ## Save Results (slim) ----
+      ## Save Results (BCG) ----
       # Munge
       ## Model and QC Flag metrics only
       # cols_flags defined above
@@ -283,7 +283,7 @@ shinyServer(function(input, output) {
                                           , cols_model_metrics))
     df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
       # Save
-      fn_metval_slim <- paste0(fn_input_base, "_bcgcalc_2metval_slim.csv")
+      fn_metval_slim <- paste0(fn_input_base, "_bcgcalc_2metval_BCG.csv")
       dn_metval_slim <- path_results
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)

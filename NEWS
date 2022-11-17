@@ -1,13 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-17 14:25:15
+2022-11-17 14:52:53
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-17 14:25:15
+    #> Last Update: 2022-11-17 14:52:53
 
-# BCGcalc 2.0.0.9001 (2022-11-17)
+# BCGcalc 2.0.0.9003 (2022-11-17)
+
+- refactor: Change Shiny output 2metval_slim.csv to 2metval_BCG.csv
+
+# BCGcalc 2.0.0.9002 (2022-11-17)
 
 - fix: Update Rules.xlsx for non-ASCII characters
 
