@@ -1,11 +1,22 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-16 10:56:43
+2022-11-17 07:37:02
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-16 10:56:43
+    #> Last Update: 2022-11-17 07:37:02
+
+# BCGcalc 2.0.0.9001 (2022-11-16)
+
+- breaking change: Site_Type and Index_Region to INDEX_CLASS, Issue \#63
+  - Deprecate in functions (allow for ‘…’) and shiny
+    - BCG.Level.Membership
+    - BCG.Metric.Membership
+    - Include warning for old code
+- refactor: Update reference Excel files for updated field, Issue \#63
+  - Rules.xlsx
+  - MetricFlags.xlsx
 
 # BCGcalc 1.3.5.9018 (2022-11-16)
 

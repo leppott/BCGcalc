@@ -12,12 +12,12 @@
 # 1. Get data and process#####
 # Calculate Metrics
 df.samps.bugs <- readxl::read_excel(
-                             system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
+                             system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
                                         , package="BCGcalc")
                             , guess_max = 10^6)
 # Run Function
 myDF <- df.samps.bugs
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "INDEX_CLASS")
 # Add columns
 myDF[, c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
          , "WSAREA_ATTR", "HABSTRUCT")] <- NA_character_

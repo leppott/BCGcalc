@@ -6,14 +6,14 @@ test_that("bcgcalc", {
   
   
   # Import Rules
-  df.rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+  df.rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
                                      , package="BCGcalc")
                                  , sheet="Rules") 
   
   # Calculate Metric Memberships
   df.Metric.Membership <- BCGcalc::BCG.Metric.Membership(df.metric.values.bugs
                                                          , df.rules
-                                              , col_SITE_TYPE = "INDEX_REGION")
+                                              , col_INDEX_CLASS = "INDEX_CLASS")
   
   # quick check
   mean_membership_calc <- mean(df.Metric.Membership$MEMBERSHIP)

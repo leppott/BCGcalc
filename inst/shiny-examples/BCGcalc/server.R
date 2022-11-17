@@ -263,7 +263,7 @@ shinyServer(function(input, output) {
                                               , verbose = TRUE)
       }## IF ~ length(col_rules_keep)
       
-      df_metval$SITE_TYPE <- df_metval$INDEX_REGION
+      #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
       ## Save Results ----
       fn_metval <- paste0(fn_input_base, "_bcgcalc_2metval_all.csv")
       dn_metval <- path_results
@@ -276,7 +276,7 @@ shinyServer(function(input, output) {
       # cols_flags defined above
       cols_model_metrics <- unique(df_bcg_models[
                   df_bcg_models$Index_Name == import_IndexName, "Metric_Name"])
-      cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_REGION"
+      cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
                     , "ni_total", "nt_total")
       cols_metrics_flags_keep <- unique(c(cols_req
                                           , cols_flags
@@ -333,7 +333,7 @@ shinyServer(function(input, output) {
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
   
-      
+   
       # Calc, 8, QC Flags----
       prog_detail <- "Calculate, QC Flags"
       message(paste0("\n", prog_detail))

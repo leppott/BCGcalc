@@ -62,14 +62,14 @@
 #' 
 #' # Calculate Metrics
 #' df_samps_bugs <- readxl::read_excel(system.file(
-#'                                        "./extdata/Data_BCG_PugLowWilVal.xlsx"
+#'                                        "extdata/Data_BCG_PugLowWilVal.xlsx"
 #'                                         , package="BCGcalc")
 #'                            , guess_max = 10^6)
 #'                                         
 #' # Run Function
 #' myDF <- df_samps_bugs
 #' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-#'             , "Site_Type")
+#'             , "INDEX_CLASS")
 #' #' # populate missing columns prior to metric calculation
 #' col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
 #'                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")

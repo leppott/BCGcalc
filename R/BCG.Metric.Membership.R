@@ -6,13 +6,14 @@
 #' Uses a rules table to define the metrics, scoring range, and direction for 
 #' each named index. 
 #' 
+#' Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
+#' 
 #' @param df.metrics Wide data frame with metric values to be evaluated.
 #' @param df.rules  Data frame of metric thresholds to check.
 #' @param input.shape Shape of df.metrics; wide or long.  Default is wide.
 #' @param col_SAMPLEID Column name for sample id.  Default = "SAMPLEID"
 #' @param col_INDEX_NAME Column name for index name. Default = "INDEX_NAME"
-#' @param col_SITE_TYPE Column name for site type  Default = "SITE_TYPE"
-#' Site Type is used over Index_Region for BCG calculations
+#' @param col_INDEX_CLASS Column name for index class  Default = "INDEX_CLASS"
 #' @param col_LEVEL Column name for level.  Default = "LEVEL"
 #' @param col_METRIC_NAME Column name for metric name.  Default = "METRIC_NAME"
 #' @param col_RULE_TYPE Column name for rule type (e.g., Rule0).
@@ -23,6 +24,7 @@
 #' Default = "METRIC_VALUE"
 #' @param col_INCREASE Column name for if the metric increases. 
 #' Default = "INCREASE"
+#' @param ... Arguments passed to `BCG.MetricMembership` used internally
 #' 
 #' @return Returns a data frame of results in the long format.
 #' 
@@ -32,12 +34,12 @@
 #' 
 #' # Calculate Metrics
 #' df_samps_bugs <- readxl::read_excel(
-#'                            system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
+#'                            system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
 #'                                              , package="BCGcalc")
 #'                            , guess_max = 10^6)
 #' myDF <- df_samps_bugs
 #' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-#'             , "Site_Type")
+#'             , "INDEX_CLASS")
 #' # populate missing columns prior to metric calculation
 #' col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
 #'                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
@@ -48,7 +50,7 @@
 #' 
 #' 
 #' # Import Rules
-#' df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+#' df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
 #'                                            , package = "BCGcalc")
 #'                       , sheet="Rules") 
 #' 
@@ -72,7 +74,7 @@
 # scores <- BCG.Metric.Membership(df.metrics, df.rules, "wide")
 # col_SAMPLEID = "SAMPLEID"
 #  col_INDEX_NAME = "INDEX_NAME"
-#  col_SITE_TYPE = "SITE_TYPE"
+#  col_INDEX_CLASS = "INDEX_CLASS"
 #  col_LEVEL = "LEVEL"
 #  col_METRIC_NAME = "METRIC_NAME"
 #  col_RULE_TYPE = "RULE_TYPE"
@@ -87,19 +89,29 @@ BCG.Metric.Membership <- function(df.metrics
                                   , input.shape = "wide"
                                   , col_SAMPLEID = "SAMPLEID"
                                   , col_INDEX_NAME = "INDEX_NAME"
-                                  , col_SITE_TYPE = "SITE_TYPE"
+                                  , col_INDEX_CLASS = "INDEX_CLASS"
                                   , col_LEVEL = "LEVEL"
                                   , col_METRIC_NAME = "METRIC_NAME"
                                   , col_RULE_TYPE = "RULE_TYPE"
                                   , col_LOWER = "LOWER"
                                   , col_UPPER = "UPPER"
                                   , col_METRIC_VALUE = "METRIC_VALUE"
-                                  , col_INCREASE = "INCREASE") {
-  #
+                                  , col_INCREASE = "INCREASE"
+                                  , ...) {
+  
+  # QC
+  # DEPRECATE SITE_TYPE
+  if(exists("col_SITE_TYPE")) {
+    col_INDEX_CLASS <- col_SITE_TYPE
+    msg <- "The parameter 'col_SITE_TYPE' was deprecated in v2.0.0.9001. \n
+    Use 'col_INDEX_CLASS' instead."
+    message(msg)
+  } ## IF ~ col_SITE_TYPE
+  
   # scrub off "Tibble" as it throws off other data operations below
   df.metrics <- as.data.frame(df.metrics)
   df.rules <- as.data.frame(df.rules)
-  #
+  
   # QC, Column names
   ## use inputs
   #
@@ -108,7 +120,7 @@ BCG.Metric.Membership <- function(df.metrics
     df.long <- reshape2::melt(df.metrics
                         , id.vars=c(col_SAMPLEID
                                     , col_INDEX_NAME
-                                    , col_SITE_TYPE)
+                                    , col_INDEX_CLASS)
                               , variable.name = col_METRIC_NAME
                               , value.name = col_METRIC_VALUE)
   } else {
@@ -120,9 +132,9 @@ BCG.Metric.Membership <- function(df.metrics
   names(df.long) <- toupper(names(df.long))
   names(df.rules) <- toupper(names(df.rules))
   #
-  # SITE_TYPE to lowercase
-  df.long[, col_SITE_TYPE] <- tolower(df.long[, col_SITE_TYPE])
-  df.rules[, col_SITE_TYPE] <- tolower(df.rules[, col_SITE_TYPE])
+  # INDEX_CLASS to lowercase
+  df.long[, col_INDEX_CLASS] <- tolower(df.long[, col_INDEX_CLASS])
+  df.rules[, col_INDEX_CLASS] <- tolower(df.rules[, col_INDEX_CLASS])
   #
   # Extra columns may have text (convert to numeric)
   suppressWarnings(df.long[, col_METRIC_VALUE] <- as.numeric(df.long[
@@ -134,10 +146,10 @@ BCG.Metric.Membership <- function(df.metrics
   #                                             & rules has more than one
   ### and metrics are not the same in each region
   index.data <- unique(df.long[, col_INDEX_NAME])
-  index.data.region <- unique(df.long[, col_SITE_TYPE])
+  index.data.region <- unique(df.long[, col_INDEX_CLASS])
   rules.metrics.names <- unique(df.rules[(df.rules[, col_INDEX_NAME] %in% 
                                             index.data
-                                          & df.rules[, col_SITE_TYPE] %in% 
+                                          & df.rules[, col_INDEX_CLASS] %in% 
                                             index.data.region)
                                          , col_METRIC_NAME])
   rules.metrics.TF <- rules.metrics.names %in% unique(df.long[
@@ -155,8 +167,8 @@ BCG.Metric.Membership <- function(df.metrics
   
   # merge metrics and checks
   df.merge <- merge(df.long, df.rules
-                    , by.x=c(col_INDEX_NAME, col_SITE_TYPE, col_METRIC_NAME)
-                    , by.y=c(col_INDEX_NAME, col_SITE_TYPE, col_METRIC_NAME))
+                    , by.x=c(col_INDEX_NAME, col_INDEX_CLASS, col_METRIC_NAME)
+                    , by.y=c(col_INDEX_NAME, col_INDEX_CLASS, col_METRIC_NAME))
   #
   # The above only returns a single match, not all.
   # dplyr version
@@ -195,7 +207,7 @@ BCG.Metric.Membership <- function(df.metrics
   # Access uses 2 different formulas
 
   # wide name
-  df.merge[,"NAME_WIDE"] <- paste0(df.merge[, col_SITE_TYPE]
+  df.merge[,"NAME_WIDE"] <- paste0(df.merge[, col_INDEX_CLASS]
                                    , "_L"
                                    , df.merge[, col_LEVEL]
                                    , "_"

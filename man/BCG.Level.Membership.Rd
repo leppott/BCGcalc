@@ -9,11 +9,12 @@ BCG.Level.Membership(
   df.rules,
   col_SAMPLEID = "SAMPLEID",
   col_INDEX_NAME = "INDEX_NAME",
-  col_SITE_TYPE = "SITE_TYPE",
+  col_INDEX_CLASS = "INDEX_CLASS",
   col_LEVEL = "LEVEL",
   col_METRIC_NAME = "METRIC_NAME",
   col_RULE_TYPE = "RULE_TYPE",
-  col_EXC_RULE = "EXC_RULE"
+  col_EXC_RULE = "EXC_RULE",
+  ...
 )
 }
 \arguments{
@@ -26,7 +27,7 @@ BCG.Level.Membership(
 
 \item{col_INDEX_NAME}{column name for index name. Default = INDEX_NAME}
 
-\item{col_SITE_TYPE}{column name for site type  Default = SITE_TYPE}
+\item{col_INDEX_CLASS}{column name for site type  Default = INDEX_CLASS}
 
 \item{col_LEVEL}{column name for level.  Default = LEVEL}
 
@@ -36,6 +37,8 @@ BCG.Level.Membership(
 Default = RULE_TYPE}
 
 \item{col_EXC_RULE}{column name for exception rules}
+
+\item{...}{Arguments passed to `BCG.MetricMembership` used internally}
 }
 \value{
 Returns a data frame of results in the wide format.
@@ -67,10 +70,10 @@ That is, perform calculations in this order:
 
 Some exceptions exist for particular models.
 
-|Index_Name |Site_Type|
-|:----------|:--------|
-|CT_BCG_2015|fish02   |
-|CT_BCG_2015|fish03   |
+|Index_Name |INDEX_CLASS|
+|:----------|:----------|
+|CT_BCG_2015|fish02     |
+|CT_BCG_2015|fish03     |
 
 
 These exceptions are mostly hard coded into the function but gather some 
@@ -82,6 +85,8 @@ For the Pacific Northwest some metrics were grouped and the 2nd of 3 values
 is used and the other 2 values tossed when determining level membership.  
 This equates to using the median of the 3 values.  This is handled by 
 including "Median" in the Exc_Rule column in Rules.xlsx.
+
+Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
 }
 \examples{
 # library(readxl)
@@ -89,12 +94,12 @@ including "Median" in the Exc_Rule column in Rules.xlsx.
 
 # Calculate Metrics
 df_samps_bugs <- readxl::read_excel(
-                           system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
+                           system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
                                              , package="BCGcalc")
                            , guess_max = 10^6)
 myDF <- df_samps_bugs
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-            , "Site_Type")
+            , "INDEX_CLASS")
 # populate missing columns prior to metric calculation
 col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
@@ -105,7 +110,7 @@ df_met_val_bugs <- BioMonTools::metric.values(myDF
 
 
 # Import Rules
-df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
                                            , package = "BCGcalc")
                       , sheet="Rules") 
 

@@ -5,16 +5,15 @@
 \alias{metrics_values}
 \title{Metric Values}
 \format{
-A data frame with 678 observations on the following 313 variables.:
+A data frame with 678 observations on the following 312 variables.:
 \describe{
  \item{\code{SAMPLEID}}{a character vector}
  \item{\code{AREA_MI2}}{a numeric vector}
  \item{\code{SURFACEAREA}}{a character vector}
  \item{\code{DENSITY_M2}}{a logical vector}
  \item{\code{DENSITY_FT2}}{a logical vector}
- \item{\code{SITE_TYPE}}{a character vector}
  \item{\code{INDEX_NAME}}{a character vector}
- \item{\code{INDEX_REGION}}{a character vector}
+ \item{\code{INDEX_CLASS}}{a character vector}
  \item{\code{ni_total}}{a numeric vector}
  \item{\code{li_total}}{a numeric vector}
  \item{\code{ni_Chiro}}{a numeric vector}

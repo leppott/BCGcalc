@@ -25,10 +25,10 @@
 #' 
 #' Some exceptions exist for particular models.
 #' 
-#' |Index_Name |Site_Type|
-#' |:----------|:--------|
-#' |CT_BCG_2015|fish02   |
-#' |CT_BCG_2015|fish03   |
+#' |Index_Name |INDEX_CLASS|
+#' |:----------|:----------|
+#' |CT_BCG_2015|fish02     |
+#' |CT_BCG_2015|fish03     |
 #' 
 #' 
 #' These exceptions are mostly hard coded into the function but gather some 
@@ -41,17 +41,20 @@
 #' This equates to using the median of the 3 values.  This is handled by 
 #' including "Median" in the Exc_Rule column in Rules.xlsx.
 #' 
+#' Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
+#' 
 #' @param df.metric.membership Data frame of metric memberships 
 #' (long format, the same as the output of BCG.Metric.Membership).
 #' @param df.rules Data frame of BCG model rules.
 #' @param col_SAMPLEID column name for sample id.  Default = SAMPLEID
 #' @param col_INDEX_NAME column name for index name. Default = INDEX_NAME
-#' @param col_SITE_TYPE column name for site type  Default = SITE_TYPE
+#' @param col_INDEX_CLASS column name for site type  Default = INDEX_CLASS
 #' @param col_LEVEL column name for level.  Default = LEVEL
 #' @param col_METRIC_NAME column name for metric name.  Default = METRIC_NAME
 #' @param col_RULE_TYPE column name for rule type (e.g., Rule0, Rule1, or Rule2)
 #' Default = RULE_TYPE
 #' @param col_EXC_RULE column name for exception rules
+#' @param ... Arguments passed to `BCG.MetricMembership` used internally
 #'
 #' @return Returns a data frame of results in the wide format.
 #' 
@@ -61,12 +64,12 @@
 #' 
 #' # Calculate Metrics
 #' df_samps_bugs <- readxl::read_excel(
-#'                            system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
+#'                            system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
 #'                                              , package="BCGcalc")
 #'                            , guess_max = 10^6)
 #' myDF <- df_samps_bugs
 #' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-#'             , "Site_Type")
+#'             , "INDEX_CLASS")
 #' # populate missing columns prior to metric calculation
 #' col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
 #'                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
@@ -77,7 +80,7 @@
 #' 
 #' 
 #' # Import Rules
-#' df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+#' df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
 #'                                            , package = "BCGcalc")
 #'                       , sheet="Rules") 
 #' 
@@ -101,14 +104,14 @@
 # library(BCGcalc)
 # library(readxl)
 # #  Calculate Metrics
-# df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
+# df.samps.bugs <- read_excel(system.file("extdata/Data_BCG_PacNW.xlsx"
 #                                         , package="BCGcalc")
 #                             , guess_max = 10^6)
 # myDF <- df.samps.bugs
 # df.metric.values.bugs <- BioMonTools::metric.values(myDF, "bugs")
 # 
 # # Import Rules
-# df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
+# df.rules <- read_excel(system.file("extdata/Rules.xlsx"
 #                              , package="BCGcalc"), sheet="BCG_PacNW_v1_500ct")
 # # Calculate Membership
 # df.metric.membership <- BCG.Metric.Membership(df.metric.values.bugs, df.rules)
@@ -123,10 +126,10 @@
 # names(df.metric.membership) <- toupper(names(df.metric.membership))
 # names(df.rules) <- toupper(names(df.rules))
 # 
-# # SITE_TYPE to lowercase
-# df.metric.membership[,"SITE_TYPE"] <- tolower(df.metric.membership[
-#,"SITE_TYPE"])
-# df.rules[,"SITE_TYPE"] <- tolower(df.rules[,"SITE_TYPE"])
+# # INDEX_CLASS to lowercase
+# df.metric.membership[,"INDEX_CLASS"] <- tolower(df.metric.membership[
+#,"INDEX_CLASS"])
+# df.rules[,"INDEX_CLASS"] <- tolower(df.rules[,"INDEX_CLASS"])
 # 
 # # Drop extra columns from df.metric.membership
 # # (otherwise duplicates in merge)
@@ -137,15 +140,15 @@
 # 
 # # merge metrics and rules
 # df.merge <- merge(df.metric.membership[,col.keep], df.rules
-#       , by.x=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE")
-#     , by.y=c("INDEX_NAME", "SITE_TYPE", "LEVEL", "METRIC_NAME", "RULE_TYPE"))
+#       , by.x=c("INDEX_NAME", "INDEX_CLASS", "LEVEL", "METRIC_NAME", "RULE_TYPE")
+#     , by.y=c("INDEX_NAME", "INDEX_CLASS", "LEVEL", "METRIC_NAME", "RULE_TYPE"))
 # 
 # 
 # df.merge <- df.merge[df.merge$SAMPLEID=="06029CSR_Bug_2006-09-27_0", ]
 # 
 # 
 # df.lev <- dplyr::summarise(dplyr::group_by(df.merge, SAMPLEID, INDEX_NAME
-#                                            , SITE_TYPE, LEVEL)
+#                                            , INDEX_CLASS, LEVEL)
 #                            #
 #                            # Min of Alt2
 #         , MembCalc_Alt2_min=min(MEMBERSHIP[RULE_TYPE == "Alt2"], na.rm=TRUE)
@@ -185,11 +188,12 @@ BCG.Level.Membership <- function(df.metric.membership
                                  , df.rules
                                  , col_SAMPLEID = "SAMPLEID"
                                  , col_INDEX_NAME = "INDEX_NAME"
-                                 , col_SITE_TYPE = "SITE_TYPE"
+                                 , col_INDEX_CLASS = "INDEX_CLASS"
                                  , col_LEVEL = "LEVEL"
                                  , col_METRIC_NAME = "METRIC_NAME"
                                  , col_RULE_TYPE = "RULE_TYPE"
-                                 , col_EXC_RULE = "EXC_RULE") {
+                                 , col_EXC_RULE = "EXC_RULE"
+                                 , ...) {
   #
   boo_QC <- FALSE
   if(isTRUE(boo_QC)) {
@@ -197,24 +201,33 @@ BCG.Level.Membership <- function(df.metric.membership
     df.rules <- df_rules
     col_SAMPLEID <- "SAMPLEID"
     col_INDEX_NAME <- "INDEX_NAME"
-    col_SITE_TYPE <- "SITE_TYPE"
+    col_INDEX_CLASS <- "INDEX_CLASS"
     col_LEVEL <- "LEVEL"
     col_METRIC_NAME <- "METRIC_NAME"
     col_RULE_TYPE <- "RULE_TYPE"
     col_EXC_RULE <- "EXC_RULE"
     a <- c(col_INDEX_NAME
-           , col_SITE_TYPE
+           , col_INDEX_CLASS
            , col_LEVEL
            , col_METRIC_NAME
            , col_RULE_TYPE
            , col_EXC_RULE)
   }## IF ~ boo_QC ~ END
   
+  # QC
+  # DEPRECATE SITE_TYPE.
+  if(exists("col_SITE_TYPE")) {
+    col_INDEX_CLASS <- col_SITE_TYPE
+    msg <- "The parameter 'col_SITE_TYPE' was deprecated in v2.0.0.9001. \n
+    Use 'col_INDEX_CLASS' instead."
+    message(msg)
+  } ## IF ~ col_SITE_TYPE
+  
   # # convert membership to long format if provided
   # # Metrics to long
   # if (input.shape=="wide") {##IF.input.shape.START
   #   df.long <- reshape2::melt(df.metric.membership, id.vars=c("SAMPLEID"
-  # , "INDEX_NAME", "SITE_TYPE")
+  # , "INDEX_NAME", "INDEX_CLASS")
   #                             , variable.name="METRIC_NAME"
   # , value.name="METRIC_VALUE")
   # } else {
@@ -232,15 +245,15 @@ BCG.Level.Membership <- function(df.metric.membership
   # QC, Columns
   # col_SAMPLEID
   # col_INDEX_NAME
-  # col_SITE_TYPE
+  # col_INDEX_CLASS
   # col_LEVEL
   # col_METRIC_NAME
   # col_RULE_TYPE
   
-  # SITE_TYPE to lowercase
-  df.metric.membership[, col_SITE_TYPE] <- tolower(df.metric.membership[
-                                                               , col_SITE_TYPE])
-  df.rules[, col_SITE_TYPE] <- tolower(df.rules[, col_SITE_TYPE])
+  # INDEX_CLASS to lowercase
+  df.metric.membership[, col_INDEX_CLASS] <- tolower(df.metric.membership[
+                                                               , col_INDEX_CLASS])
+  df.rules[, col_INDEX_CLASS] <- tolower(df.rules[, col_INDEX_CLASS])
   
   # Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
@@ -257,13 +270,13 @@ BCG.Level.Membership <- function(df.metric.membership
   df.merge <- merge(df.metric.membership[, col.keep]
                     , df.rules
                     , by.x = c(col_INDEX_NAME
-                               , col_SITE_TYPE
+                               , col_INDEX_CLASS
                                , col_LEVEL
                                , col_METRIC_NAME
                                , col_RULE_TYPE
                                , col_EXC_RULE)
                     , by.y = c(col_INDEX_NAME
-                               , col_SITE_TYPE
+                               , col_INDEX_CLASS
                                , col_LEVEL
                                , col_METRIC_NAME
                                , col_RULE_TYPE
@@ -276,7 +289,7 @@ BCG.Level.Membership <- function(df.metric.membership
   # QC
   if(nrow(df.merge) == 0){
     msg <- "Merging of Metric Membership and Rules data frames failed.
-    Check columns col_INDEX_NAME, col_SITE_TYPE, col_LEVEL, col_METRIC_NAME, col_RULE_TYPE, and col_EXC_RULE."
+    Check columns col_INDEX_NAME, col_INDEX_CLASS, col_LEVEL, col_METRIC_NAME, col_RULE_TYPE, and col_EXC_RULE."
     stop(msg)
   }## IF ~ nrow(df.merge) ~ END
   
@@ -284,7 +297,7 @@ BCG.Level.Membership <- function(df.metric.membership
   # Ensure have correct names for summarise(group_by))
   names(df.merge)[names(df.merge) == col_SAMPLEID] <- "SAMPLEID"
   names(df.merge)[names(df.merge) == col_INDEX_NAME] <- "INDEX_NAME"
-  names(df.merge)[names(df.merge) == col_SITE_TYPE] <- "SITE_TYPE"
+  names(df.merge)[names(df.merge) == col_INDEX_CLASS] <- "INDEX_CLASS"
   names(df.merge)[names(df.merge) == col_LEVEL] <- "LEVEL"
   names(df.merge)[names(df.merge) == col_RULE_TYPE] <- "RULE_TYPE"
   ## Exceptions
@@ -296,7 +309,7 @@ BCG.Level.Membership <- function(df.metric.membership
   df_median_calc <- dplyr::summarise(dplyr::group_by(df_median
                                                      , SAMPLEID
                                                      , INDEX_NAME
-                                                     , SITE_TYPE
+                                                     , INDEX_CLASS
                                                      , LEVEL
                                                      , RULE_TYPE
                                                       )
@@ -321,7 +334,7 @@ BCG.Level.Membership <- function(df.metric.membership
     df.lev <- dplyr::summarise(dplyr::group_by(df.merge
                                                , SAMPLEID
                                                , INDEX_NAME
-                                               , SITE_TYPE
+                                               , INDEX_CLASS
                                                , LEVEL
                                                )
                                , .groups = "drop_last"
@@ -351,7 +364,7 @@ BCG.Level.Membership <- function(df.metric.membership
   # Change names back to variable inputs
   names(df.lev)[names(df.lev) == "SAMPLEID"] <- toupper(col_SAMPLEID)
   names(df.lev)[names(df.lev) == "INDEX_NAME"] <- toupper(col_INDEX_NAME)
-  names(df.lev)[names(df.lev) == "SITE_TYPE"] <- toupper(col_SITE_TYPE)
+  names(df.lev)[names(df.lev) == "INDEX_CLASS"] <- toupper(col_INDEX_CLASS)
   names(df.lev)[names(df.lev) == "LEVEL"] <- toupper(col_LEVEL)
   names(df.lev)[names(df.lev) == "RULE_TYPE"] <- toupper(col_RULE_TYPE)
   ## Exceptions
@@ -401,7 +414,7 @@ BCG.Level.Membership <- function(df.metric.membership
   if(isTRUE(boo_exceptions)) {
     ## CT_F1_L4
     boo_CT_F1_L4 <- df.lev[, col_INDEX_NAME] == "BCG_CT_2015" &
-      df.lev[, col_SITE_TYPE] == "fish01" &
+      df.lev[, col_INDEX_CLASS] == "fish01" &
       df.lev[, col_LEVEL] == 4
     ### Exc1, Recalc
     df.lev[boo_CT_F1_L4, "MembCalc_Exc1_max"] <- max(c(
@@ -418,8 +431,8 @@ BCG.Level.Membership <- function(df.metric.membership
     #
     ## CT_F23_L2 (Combine fish02 and fish03)
     boo_CT_F23_L4 <- df.lev[, col_INDEX_NAME] == "BCG_CT_2015" &
-      (df.lev[, col_SITE_TYPE] == "fish02" | 
-         df.lev[, col_SITE_TYPE] == "fish03") &
+      (df.lev[, col_INDEX_CLASS] == "fish02" | 
+         df.lev[, col_INDEX_CLASS] == "fish03") &
       df.lev[, col_LEVEL] == 2
     # Final Lev, Recalc
     df.lev[boo_CT_F23_L4, "Level.Membership"] <- min(c(
@@ -439,12 +452,12 @@ BCG.Level.Membership <- function(df.metric.membership
   ## Ensure have expected values
   names(df.lev)[names(df.lev) == col_SAMPLEID] <- "SAMPLEID"
   names(df.lev)[names(df.lev) == col_INDEX_NAME] <- "INDEX_NAME"
-  names(df.lev)[names(df.lev) == col_SITE_TYPE] <- "SITE_TYPE"
+  names(df.lev)[names(df.lev) == col_INDEX_CLASS] <- "INDEX_CLASS"
   names(df.lev)[names(df.lev) == col_LEVEL] <- "LEVEL"
   
   # Convert to wide format
   df.lev.wide <- reshape2::dcast(df.lev
-                                 , SAMPLEID + INDEX_NAME + SITE_TYPE
+                                 , SAMPLEID + INDEX_NAME + INDEX_CLASS
                                  ~ LEVEL
                                  , value.var = "Level.Membership"
                                  )
@@ -454,8 +467,8 @@ BCG.Level.Membership <- function(df.metric.membership
   names(df.lev.wide)[names(df.lev.wide) == "SAMPLEID"] <- toupper(col_SAMPLEID)
   names(df.lev.wide)[names(df.lev.wide) == "INDEX_NAME"] <- toupper(
                                                                 col_INDEX_NAME)
-  names(df.lev.wide)[names(df.lev.wide) == "SITE_TYPE"] <- toupper(
-                                                                  col_SITE_TYPE)
+  names(df.lev.wide)[names(df.lev.wide) == "INDEX_CLASS"] <- toupper(
+                                                                  col_INDEX_CLASS)
   names(df.lev.wide)[names(df.lev.wide) == "LEVEL"] <- toupper(col_LEVEL)
   
   
@@ -529,7 +542,7 @@ BCG.Level.Membership <- function(df.metric.membership
   # Return RESULTS ####
   # Remove sub fields
   df.results <- df.subtotal[,!(names(df.subtotal) %in% col.sub)]
-  # Results are for each SAMPLEID, INDEX_NAME, SITE_TYPE, and 
+  # Results are for each SAMPLEID, INDEX_NAME, INDEX_CLASS, and 
   #                                                  LEVEL Assignment/Membership
   # create output
   return(df.results)

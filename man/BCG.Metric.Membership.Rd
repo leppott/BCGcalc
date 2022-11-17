@@ -10,14 +10,15 @@ BCG.Metric.Membership(
   input.shape = "wide",
   col_SAMPLEID = "SAMPLEID",
   col_INDEX_NAME = "INDEX_NAME",
-  col_SITE_TYPE = "SITE_TYPE",
+  col_INDEX_CLASS = "INDEX_CLASS",
   col_LEVEL = "LEVEL",
   col_METRIC_NAME = "METRIC_NAME",
   col_RULE_TYPE = "RULE_TYPE",
   col_LOWER = "LOWER",
   col_UPPER = "UPPER",
   col_METRIC_VALUE = "METRIC_VALUE",
-  col_INCREASE = "INCREASE"
+  col_INCREASE = "INCREASE",
+  ...
 )
 }
 \arguments{
@@ -31,8 +32,7 @@ BCG.Metric.Membership(
 
 \item{col_INDEX_NAME}{Column name for index name. Default = "INDEX_NAME"}
 
-\item{col_SITE_TYPE}{Column name for site type  Default = "SITE_TYPE"
-Site Type is used over Index_Region for BCG calculations}
+\item{col_INDEX_CLASS}{Column name for index class  Default = "INDEX_CLASS"}
 
 \item{col_LEVEL}{Column name for level.  Default = "LEVEL"}
 
@@ -50,6 +50,8 @@ Default = "METRIC_VALUE"}
 
 \item{col_INCREASE}{Column name for if the metric increases. 
 Default = "INCREASE"}
+
+\item{...}{Arguments passed to `BCG.MetricMembership` used internally}
 }
 \value{
 Returns a data frame of results in the long format.
@@ -60,7 +62,9 @@ Biological Condition Gradient fuzzy membership for metrics.
 \details{
 Converts metric values into BCG membership values.  
 Uses a rules table to define the metrics, scoring range, and direction for 
-each named index.
+each named index. 
+
+Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
 }
 \examples{
 # library(readxl)
@@ -68,12 +72,12 @@ each named index.
 
 # Calculate Metrics
 df_samps_bugs <- readxl::read_excel(
-                           system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
+                           system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
                                              , package="BCGcalc")
                            , guess_max = 10^6)
 myDF <- df_samps_bugs
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-            , "Site_Type")
+            , "INDEX_CLASS")
 # populate missing columns prior to metric calculation
 col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
@@ -84,7 +88,7 @@ df_met_val_bugs <- BioMonTools::metric.values(myDF
 
 
 # Import Rules
-df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
                                            , package = "BCGcalc")
                       , sheet="Rules") 
 

@@ -17,7 +17,7 @@ function() {
        # , h4("2.C. Exclude Taxa")
        # , checkboxInput("ExclTaxa_modtherm", "Generate Exclude Taxa Column", TRUE)
        # , h4("2.D. Define BCG Model.")
-       # , p("Determined by INDEX_NAME and INDEX_REGION in data input file.")
+       # , p("Determined by INDEX_NAME and INDEX_CLASS in data input file.")
        # # , selectInput("si_model"
        # #               , label = "BCG Model"
        # #               , choices = sel_bcg_models

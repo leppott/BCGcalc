@@ -1,4 +1,4 @@
-INDEX_REGION,INDEX_NAME,SourceEntity,StationID,SampleID_Tt,SampleID,RepNum_new,CollDate,TaxaID,N_TAXA,NonTarget,Phylum,Class,Subclass,Order,Family,Subfamily,Tribe,Genus,BCG_Attr,FFG,Life_Cycle,Noteworthy
+INDEX_CLASS,INDEX_NAME,SourceEntity,StationID,SampleID_Tt,SampleID,RepNum_new,CollDate,TaxaID,N_TAXA,NonTarget,Phylum,Class,Subclass,Order,Family,Subfamily,Tribe,Genus,BCG_Attr,FFG,Life_Cycle,Noteworthy
 HiGrad-HiElev,BCG_MariNW_Bugs500ct,King County - DNRP,2363,Tt_524,8160_13009,13009,9/21/2015,Attenella delantala,23,FALSE,Arthropoda,Insecta,NA,Ephemeroptera,Ephemerellidae,NA,NA,Attenella,3,CG,uni,NA
 HiGrad-HiElev,BCG_MariNW_Bugs500ct,King County - DNRP,2363,Tt_524,8160_13009,13009,9/21/2015,Baetis tricaudatus complex,23,FALSE,Arthropoda,Insecta,NA,Ephemeroptera,Baetidae,NA,NA,Baetis,4,CG,multi,NA
 HiGrad-HiElev,BCG_MariNW_Bugs500ct,King County - DNRP,2363,Tt_524,8160_13009,13009,9/21/2015,Brillia,7,FALSE,Arthropoda,Insecta,NA,Diptera,Chironomidae,Orthocladiinae,NA,Brillia,4,SH,multi,NA
