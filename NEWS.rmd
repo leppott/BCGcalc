@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9005 (2022-11-18)
+
+* refactor: Additional Shiny outputs
+    + 6metflags; flag metrics, values, thresholds
+    + 3metrules; rules table
+* refactor: Update Shiny text for additional outputs
+
 # BCGcalc 2.0.0.9004 (2022-11-18)
 
 * refactor: Update Shiny app text for slim to BCG file name for BCG output

@@ -34,9 +34,11 @@ suffix <- c(paste0("_bcgcalc_"
                 , "2metval_all"
                 , "2metval_BCG"
                 , "3metmemb"
+                , "3metrules"
                 , "4levmemb"
                 , "5levassign"
                 , "6levflags"
+                , "6metflags"
                 , "RESULTS")))
 file_names <- c(paste0(fn_base, ".csv")
        , paste0(fn_base, suffix, ".csv")
@@ -46,9 +48,11 @@ file_desc <- c("User input data"
                , "Metric values, all (BioMonTools::metric.values)"
                , "Metric values, only those used in index and flags"
                , "Metric membership (BCGcalc::BCG.Metric.Membership)"
+               , "BCG rules"
                , "Level membership (BCGcalc::BCG.Level.Membership)"
                , "Level assignment (BCGcalc::BCG.Level.Assignment)"
                , "BCG flags summary"
+               , "Flag evaluations with metric values"
                , "Results, levels and flags"
                , "Results summary report") 
 df_zip <- data.frame(cbind(file_names, file_desc))
@@ -59,4 +63,4 @@ knitr::kable(df_zip, caption = cap_zip)
 ```
 
 
-*Last updated 2022-10-14*
+*Last updated 2022-11-18*

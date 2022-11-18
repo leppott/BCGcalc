@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-18 08:56:08
+2022-11-18 10:37:10
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-18 08:56:08
+    #> Last Update: 2022-11-18 10:37:10
+
+# BCGcalc 2.0.0.9005 (2022-11-18)
+
+- refactor: Additional Shiny outputs
+  - 6metflags; flag metrics, values, thresholds
+  - 3metrules; rules table
+- refactor: Update Shiny text for additional outputs
 
 # BCGcalc 2.0.0.9004 (2022-11-18)
 

@@ -236,7 +236,23 @@ shinyServer(function(input, output) {
       # can also add other columns to keep if feel so inclined
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
       
-  
+   
+      # Calc, 3b, Rules ----
+      prog_detail <- "Calculate, BCG Rules"
+      message(paste0("\n", prog_detail))
+      message(paste0("Community = ", input$si_community))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # filter for data Index_Name in data (drop 2 extra columns)
+      df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
+                    , !names(df_bcg_models) %in% c("SITE_TYPE", "INDEX_REGION")]
+      # Save
+      fn_rules <- paste0(fn_input_base, "_bcgcalc_3metrules.csv")
+      dn_rules <- path_results
+      pn_rules <- file.path(dn_rules, fn_rules)
+      write.csv(df_rules, pn_rules, row.names = FALSE)
+      
       # Calc, 4, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
@@ -382,6 +398,19 @@ shinyServer(function(input, output) {
       dn_results <- path_results
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
+
+            
+      # Calc, 8b, QC Flag Metrics ----
+      # create
+      col2keep <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS", "METRIC_NAME"
+                    , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
+      df_metflags <- df_flags[, col2keep]
+      # save
+      fn_metflags <- paste0(fn_input_base, "_bcgcalc_6metflags.csv")
+      dn_metflags <- path_results
+      pn_metflags <- file.path(dn_metflags, fn_metflags)
+      write.csv(df_metflags, pn_metflags, row.names = FALSE)
+      
    
       # Calc, 9, RMD----
       prog_detail <- "Calculate, Create Report"
