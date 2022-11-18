@@ -4,8 +4,8 @@
 #' given Level memberships.
 #' 
 #' @details Input is L1 to L6 with membership values of 0 to 1.  
-#' Result is 1st (primary) Level (Lev.1.Name) and 2nd (secondary) Level 
-#' (Lev.2.Name).  Also give close (Lev.Memb.close) and a proportional Level 
+#' Result is 1st Level (Primary_BCG_Level) and 2nd Level (Secondary_BCG_Level). 
+#' Also give close (Membership_Close) and a proportional Level 
 #' assignment ("Lev.Prop").
 #' 
 #' 
@@ -79,7 +79,7 @@
 #'                                               , fun.cols2keep = myCols) 
 #' 
 #' # Import Rules
-#' df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+#' df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
 #'                                            , package="BCGcalc")
 #'                               , sheet="Rules") 
 #' 
@@ -95,7 +95,7 @@
 #' # QC Checks (flags)
 #' #
 #' # Import Checks
-#' df_checks <- readxl::read_excel(system.file("./extdata/MetricFlags.xlsx"
+#' df_checks <- readxl::read_excel(system.file("extdata/MetricFlags.xlsx"
 #'                                             , package="BCGcalc")
 #'                                , sheet="Flags") 
 #'
@@ -169,7 +169,23 @@ BCG.Level.Assignment <- function(df.level.membership
   # QC
   boo_QC <- FALSE
   if(isTRUE(boo_QC)) {
-    df.level.membership <- df_Lev_Memb
+    # construct a dummy dataset
+    L1 <- c(rep(0, 12))
+    L2 <- c(0.4, 0, 0.4, rep(0,7), 0, 0)
+    L3 <- c(0.6, 0, 0.6, 0, 0.42, 0, 1, 1, 0.22, 0.33, 0.5, 0)
+    L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67, 0.5, 0)
+    L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4), 0, 1)
+    L6 <- c(rep(0, length(L1)))
+    SAMPLEID <- LETTERS[1:length(L1)]
+    df_lev_memb <- data.frame(SAMPLEID = SAMPLEID
+                              , L1 = L1
+                              , L2 = L2
+                              , L3 = L3
+                              , L4 = L4
+                              , L5 = L5
+                              , L6 = L6)
+    # function inputs
+    df.level.membership <- df_lev_memb
     col_SampleID <- "SAMPLEID"
     col_L1 <- "L1"
     col_L2 <- "L2"
@@ -188,14 +204,15 @@ BCG.Level.Assignment <- function(df.level.membership
   names(df.result) <- c("SampleID", paste0("L", 1:6))
   
   # QC check membership (should be 1)
-  df.result[, "Memb.Total"] <- round(rowSums(df.result[, paste0("L", 1:6)]
+  df.result[, "Membership_Total"] <- round(rowSums(df.result[, paste0("L", 1:6)]
                                              , na.rm = TRUE), 8)
-  df.result[, "Memb.QC"] <- "FAIL"
-  df.result[df.result[, "Memb.Total"] == 1, "Memb.QC"] <- "PASS"
+  df.result[, "Membership_Total_QC"] <- "FAIL"
+  df.result[df.result[, "Membership_Total"] == 1
+            , "Membership_Total_QC"] <- "PASS"
   #
   # add result columns
-  myCol.1 <- paste0("Lev.1.", c("Memb", "Name"))
-  myCol.2 <- sub("1", "2", myCol.1)
+  myCol.1 <- paste0("Primary_", c("BCG_Level", "Membership"))
+  myCol.2 <- sub("Primary_", "Secondary_", myCol.1)
   # default to NA so don't need extra conditions later
   df.result[, c(myCol.1, myCol.2)] <- NA
   
@@ -203,106 +220,111 @@ BCG.Level.Assignment <- function(df.level.membership
   # # quick and dirty
   # for (i in 1:nrow(df.result)){##FOR.i.START
   #   # Max Value Name
-  #   df.result[i, "Lev.1.Name"] <- match(df.result[i, "Lev.1.Memb"], df.result[i, paste0("L",1:6)])
+  #   df.result[i, "Primary_BCG_Level"] <- match(df.result[i, "Primary_Membership"], df.result[i, paste0("L",1:6)])
   #   # Remove max and get max of remainder
-  #   df.result[i, "Lev.2.Memb"]  <- max(df.result[i, paste0("L",1:6)][-df.result[i, "Lev.1.Name"]], na.rm=TRUE)
+  #   df.result[i, "Secondary_Membership"]  <- max(df.result[i, paste0("L",1:6)][-df.result[i, "Primary_BCG_Level"]], na.rm=TRUE)
   #   # match 2nd
-  #   if(df.result[i, "Lev.1.Memb"]==1){##IF.START
-  #     df.result[i, "Lev.2.Name"] <- NA
+  #   if(df.result[i, "Primary_Membership"]==1){##IF.START
+  #     df.result[i, "Secondary_BCG_Level"] <- NA
   #   } else {
-  #     df.result[i, "Lev.2.Name"] <- match(df.result[i, "Lev.2.Memb"], df.result[i, paste0("L",1:6)]) 
+  #     df.result[i, "Secondary_BCG_Level"] <- match(df.result[i, "Secondary_Membership"], df.result[i, paste0("L",1:6)]) 
   #   }##IF.END
   #   #
-  #   df.result[i, "Lev.Memb.Diff"] <- df.result[i, "Lev.1.Memb"] - df.result[i, "Lev.2.Memb"]
-  #   #df.levels[i, "Lev.Memb.close"] <- NA
+  #   df.result[i, "Membership_Diff"] <- df.result[i, "Primary_Membership"] - df.result[i, "Secondary_Membership"]
+  #   #df.levels[i, "Membership_Close"] <- NA
   #   
-  #   if(df.result[i,"Lev.Memb.Diff"]<0.2){
-  #     df.result[i, "Lev.Memb.close"] <- "yes"
+  #   if(df.result[i,"Membership_Diff"]<0.2){
+  #     df.result[i, "Membership_Close"] <- "yes"
   #   }
-  #   if(df.result[i,"Lev.Memb.Diff"]<0.1){
-  #     df.result[i, "Lev.Memb.close"] <- "tie"
+  #   if(df.result[i,"Membership_Diff"]<0.1){
+  #     df.result[i, "Membership_Close"] <- "tie"
   #   }
   # }##FOR.i.END
   #
   # should be able to redo with apply similar to Level Assignment
   #
   # Primary Level Value: Max Value
-  df.result[, "Lev.1.Memb"] <- apply(df.result[, c(paste0("L", 1:6))]
+  df.result[, "Primary_Membership"] <- apply(df.result[, c(paste0("L", 1:6))]
                                      , 1
                                      , max
                                      , na.rm = TRUE)
-  # df.result[, "Lev.1.Name"] <- apply(df.result, 1, function(x) match(df.result[,"Lev.1.Memb"]
+  # df.result[, "Primary_BCG_Level"] <- apply(df.result, 1, function(x) match(df.result[,"Primary_Membership"]
   #                                                                    , df.result[,paste0("L",1:6)]))
   # Primary Level Name; Max Value Name
-  df.result[, "Lev.1.Name"] <- apply(df.result[,c(paste0("L", 1:6)
-                                                  , "Lev.1.Memb")], 1
+  df.result[, "Primary_BCG_Level"] <- apply(df.result[,c(paste0("L", 1:6)
+                                                    , "Primary_Membership")], 1
                                      , function(x) match(x[7], x[1:6]))
   # Secondary Level Value; 2nd Max
-  df.result[, "Lev.2.Memb"] <- apply(df.result[,c(paste0("L", 1:6), "Lev.1.Name")], 1
-                                     , function(x) max(x[1:6][-x[7]], na.rm=TRUE))
+  df.result[, "Secondary_Membership"] <- apply(df.result[, c(paste0("L", 1:6)
+                                                      , "Primary_BCG_Level")], 1
+                                  , function(x) max(x[1:6][-x[7]], na.rm=TRUE))
   # Force 2nd Value to be 0 if 1st is "1"
-  df.result[df.result[,"Lev.1.Memb"] == 1, "Lev.2.Memb"] <- 0
+  df.result[df.result[, "Primary_Membership"] == 1, "Secondary_Membership"] <- 0
   # Secondary Level Name; 2nd Max (but NA if Secondary Value is 0)
-  df.result[df.result[, "Lev.2.Memb"]!=0, "Lev.2.Name"] <- apply(
-    df.result[df.result[, "Lev.2.Memb"]!=0, c(paste0("L", 1:6), "Lev.2.Memb")]
+  df.result[df.result[, "Secondary_Membership"] != 0, "Secondary_BCG_Level"] <- apply(
+    df.result[df.result[, "Secondary_Membership"] != 0, c(paste0("L", 1:6), "Secondary_Membership")]
     , 1
     , function(x) match(x[7], x[1:6]))
   ## need condition for 50/50 split (no other duplicate should occur)
-  df.result[df.result[, "Lev.2.Memb"] == 0.5, "Lev.2.Name"] <- apply(
-    df.result[df.result[, "Lev.2.Memb"] == 0.5, c(paste0("L", 1:6))]
+  df.result[df.result[, "Secondary_Membership"] == 0.5, "Secondary_BCG_Level"] <- apply(
+    df.result[df.result[, "Secondary_Membership"] == 0.5, c(paste0("L", 1:6))]
       , 1
       , function(x) which(x[1:6] == 0.5)[2])
 
   # Diff
-  df.result[, "Lev.Memb.Diff"] <- df.result[, "Lev.1.Memb"] -
-                                                   df.result[, "Lev.2.Memb"]
+  df.result[, "Membership_Diff"] <- df.result[, "Primary_Membership"] -
+                                                   df.result[, "Secondary_Membership"]
   # Close
-  df.result[df.result[,"Lev.Memb.Diff"] < 0.2, "Lev.Memb.close"] <- "yes"
+  df.result[df.result[,"Membership_Diff"] < 0.2, "Membership_Close"] <- "yes"
   # Tie
-  df.result[df.result[,"Lev.Memb.Diff"] < 0.1, "Lev.Memb.close"] <- "tie"
+  df.result[df.result[,"Membership_Diff"] < 0.1, "Membership_Close"] <- "tie"
   
   
   # Close
-  # df.result[, "Lev.Memb.Diff"] <- df.result[, "Lev.1.Memb"] - df.result[
-  # , "Lev.2.Memb"]
-  # df.result[,"Lev.Memb.close"] <- NA
-  # df.result[df.result[,"Lev.Memb.Diff"]<0.2, "Lev.Memb.close"] <- "yes"
-  # df.result[df.result[,"Lev.Memb.Diff"]<0.1, "Lev.Memb.close"] <- "tie"
+  # df.result[, "Membership_Diff"] <- df.result[, "Primary_Membership"] - df.result[
+  # , "Secondary_Membership"]
+  # df.result[,"Membership_Close"] <- NA
+  # df.result[df.result[,"Membership_Diff"]<0.2, "Membership_Close"] <- "yes"
+  # df.result[df.result[,"Membership_Diff"]<0.1, "Membership_Close"] <- "tie"
   
-  # Proportional Assignment, Numeric
+  # Proportional (Continuous) Assignment, Numeric----
   Lev.Col <- c(paste0("L",1:6))
   #df.result[,"Lev.Prop"] <- NA
-  df.result[,"Lev.Prop.Num"] <- apply(t((1:6) * t(df.result[,Lev.Col]))
+  df.result[,"Continuous_BCG_Level"] <- apply(t((1:6) * t(df.result[,Lev.Col]))
                                       , 1
                                       , FUN = sum)
   
-  # Proportional Assignment, Narrative
+  # Proportional (Continuous) Assignment, Narrative----
   df.result.prop <- df.result
-  df.result.prop[, "Lev.Prop.Num.Int"] <- round(df.result.prop[, "Lev.Prop.Num"]
+  df.result.prop[, "Continuous_BCG_Level.Int"] <- round(df.result.prop[, "Continuous_BCG_Level"]
                                                 , 0)
-  df.result.prop[, "Lev.Prop.Num.Rem"]      <- df.result.prop[
-                                                        , "Lev.Prop.Num.Int"] - 
-                                                df.result.prop[, "Lev.Prop.Num"]
-  df.result.prop[, "Lev.Prop.Num.Sign"] <- sign(df.result.prop[
-                                                          , "Lev.Prop.Num.Rem"])
-  df.result.prop[, "Lev.Prop.Num.Sign.Nar"] <- ifelse(df.result.prop[
-                                                    , "Lev.Prop.Num.Sign"] == -1
+  df.result.prop[, "Continuous_BCG_Level.Rem"]      <- df.result.prop[
+                                                        , "Continuous_BCG_Level.Int"] - 
+                                                df.result.prop[, "Continuous_BCG_Level"]
+  df.result.prop[, "Continuous_BCG_Level.Sign"] <- sign(df.result.prop[
+                                                          , "Continuous_BCG_Level.Rem"])
+  df.result.prop[, "Continuous_BCG_Level.Sign.Nar"] <- ifelse(df.result.prop[
+                                                    , "Continuous_BCG_Level.Sign"] == -1
                                                   , "-"
                                                   , ifelse(df.result.prop[
-                                                     , "Lev.Prop.Num.Sign"] == 1
+                                                     , "Continuous_BCG_Level.Sign"] == 1
                                                     , "+"
                                                     , ""))
-  df.result.prop[, "Lev.Prop.Nar"]          <- paste0(df.result.prop[
-    , "Lev.Prop.Num.Int"], df.result.prop[, "Lev.Prop.Num.Sign.Nar"])
-  df.result.prop[, "Lev.Prop.Nar.Tie"]      <- ifelse(df.result.prop[
-    , "Lev.Memb.close"]=="tie", paste0(df.result.prop[, "Lev.1.Name"], "/"
-                                       , df.result.prop[, "Lev.2.Name"]," tie")
+  df.result.prop[, "BCG_Status"] <- paste0(df.result.prop[
+    , "Continuous_BCG_Level.Int"], df.result.prop[, "Continuous_BCG_Level.Sign.Nar"])
+  df.result.prop[, "BCG_Status.Tie"]      <- ifelse(df.result.prop[
+    , "Membership_Close"]=="tie", paste0(df.result.prop[, "Primary_BCG_Level"], "/"
+                                       , df.result.prop[, "Secondary_BCG_Level"]," tie")
     , NA)
-  df.result.prop[!is.na(df.result.prop[, "Lev.Prop.Nar.Tie"])
-                 , "Lev.Prop.Nar"] <- df.result.prop[ !is.na(df.result.prop[
-                   , "Lev.Prop.Nar.Tie"]), "Lev.Prop.Nar.Tie"]
+  df.result.prop[!is.na(df.result.prop[, "BCG_Status.Tie"])
+                 , "BCG_Status"] <- df.result.prop[ !is.na(df.result.prop[
+                   , "BCG_Status.Tie"]), "BCG_Status.Tie"]
   #
-  df.result[,"Lev.Prop.Nar"] <- df.result.prop[,"Lev.Prop.Nar"]
+  df.result[, "BCG_Status"] <- df.result.prop[, "BCG_Status"]
+  
+  # new field 2022-11-18
+  # BCG_Status no plus minus
+  df.result[, "BCG_Status2"] <- NA
   
   # create output
   return(df.result)

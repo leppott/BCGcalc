@@ -318,7 +318,7 @@ shinyServer(function(input, output) {
       pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
 
-      
+     
       # Calc, 7, LevAssign----
       prog_detail <- "Calculate, Level, Assignment"
       message(paste0("\n", prog_detail))
@@ -372,12 +372,16 @@ shinyServer(function(input, output) {
       dn_levflags <- path_results
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
+       
+      # Create Results
+     df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
+      ## remove L1:6
       
       # Save Results
       fn_results <- paste0(fn_input_base, "_bcgcalc_RESULTS.csv")
       dn_results <- path_results
       pn_results <- file.path(dn_results, fn_results)
-      write.csv(df_lev_flags, pn_results, row.names = FALSE)
+      write.csv(df_results, pn_results, row.names = FALSE)
    
       # Calc, 9, RMD----
       prog_detail <- "Calculate, Create Report"

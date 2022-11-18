@@ -41,8 +41,8 @@ given Level memberships.
 }
 \details{
 Input is L1 to L6 with membership values of 0 to 1.  
-Result is 1st (primary) Level (Lev.1.Name) and 2nd (secondary) Level 
-(Lev.2.Name).  Also give close (Lev.Memb.close) and a proportional Level 
+Result is 1st Level (Primary_BCG_Level) and 2nd Level (Secondary_BCG_Level). 
+Also give close (Membership_Close) and a proportional Level 
 assignment ("Lev.Prop").
 }
 \examples{
@@ -104,7 +104,7 @@ df_met_val_bugs <- BioMonTools::metric.values(myDF
                                               , fun.cols2keep = myCols) 
 
 # Import Rules
-df_rules <- readxl::read_excel(system.file("./extdata/Rules.xlsx"
+df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
                                            , package="BCGcalc")
                               , sheet="Rules") 
 
@@ -120,7 +120,7 @@ df_Levels <- BCG.Level.Assignment(df_lev_memb)
 # QC Checks (flags)
 #
 # Import Checks
-df_checks <- readxl::read_excel(system.file("./extdata/MetricFlags.xlsx"
+df_checks <- readxl::read_excel(system.file("extdata/MetricFlags.xlsx"
                                             , package="BCGcalc")
                                , sheet="Flags") 
 

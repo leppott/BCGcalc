@@ -1,11 +1,28 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-17 14:52:53
+2022-11-18 08:56:08
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-17 14:52:53
+    #> Last Update: 2022-11-18 08:56:08
+
+# BCGcalc 2.0.0.9004 (2022-11-18)
+
+- refactor: Update Shiny app text for slim to BCG file name for BCG
+  output
+- refactor: Change order and names of columns in BCG.Level.Assignment
+  output
+  - Memb.Total to Membership_Total
+  - Memb.QC to Membership_Total_QC
+  - Lev.1.Memb to Primary_Membership
+  - Lev.1.Name to Primary_BCG_Level
+  - Lev.2.Memb to Secondary_Membership
+  - Lev.2.Name to Secondary_BCG_Level
+  - Lev.Memb.Diff to Membership_Diff
+  - Lev.Memb.close to Membership_Close
+  - Lev.Prop.Num to Continuous_BCG_Level
+  - Lev.Prop.Nar to BCG_Status
 
 # BCGcalc 2.0.0.9003 (2022-11-17)
 

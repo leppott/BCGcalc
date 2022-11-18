@@ -17,11 +17,12 @@ knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
 # Plot
 
 ```{r plot}
+# use results before trimmed L1:6
 df_plot <- df_lev_flags 
 alpha_rect <- 0.25
-plot_mean <- mean(df_plot$Lev.1.Name)
+plot_mean <- mean(df_plot$Primary_BCG_Level)
 
-p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Lev.1.Name)) + 
+p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Primary_BCG_Level)) + 
   ggplot2::geom_histogram(bins = 50) + 
   ggplot2::annotate("rect"
                     , xmin = 5.5
@@ -71,7 +72,7 @@ p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Lev.1.Name)) +
                        , linetype = "dashed") +
   ggplot2::labs(caption = paste0("mean (black dashed line) = "
                                  , round(plot_mean, 2))
-       , x = "Nominal Level") + 
+       , x = "Primary BCG Level") + 
   ggplot2::theme_light()
 
 # plotly::ggplotly(p1)

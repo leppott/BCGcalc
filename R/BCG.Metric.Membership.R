@@ -35,7 +35,7 @@
 #' # Calculate Metrics
 #' df_samps_bugs <- readxl::read_excel(
 #'                            system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
-#'                                              , package="BCGcalc")
+#'                                              , package = "BCGcalc")
 #'                            , guess_max = 10^6)
 #' myDF <- df_samps_bugs
 #' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
@@ -47,7 +47,6 @@
 #' df_met_val_bugs <- BioMonTools::metric.values(myDF
 #'                                               , "bugs"
 #'                                               , fun.cols2keep = myCols)
-#' 
 #' 
 #' # Import Rules
 #' df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"

@@ -73,7 +73,7 @@ Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
 # Calculate Metrics
 df_samps_bugs <- readxl::read_excel(
                            system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
-                                             , package="BCGcalc")
+                                             , package = "BCGcalc")
                            , guess_max = 10^6)
 myDF <- df_samps_bugs
 myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
@@ -85,7 +85,6 @@ myDF[, col_missing] <- NA
 df_met_val_bugs <- BioMonTools::metric.values(myDF
                                               , "bugs"
                                               , fun.cols2keep = myCols)
-
 
 # Import Rules
 df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
