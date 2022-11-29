@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-18 10:37:10
+2022-11-29 11:09:18
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-18 10:37:10
+    #> Last Update: 2022-11-29 11:09:18
+
+# BCGcalc 2.0.0.9006 (2022-11-29)
+
+- feature: Add new function to calculate BCG Status
+  - Uses continuous value to get Integer or PlusMinus text
 
 # BCGcalc 2.0.0.9005 (2022-11-18)
 

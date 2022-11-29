@@ -42,8 +42,8 @@ given Level memberships.
 \details{
 Input is L1 to L6 with membership values of 0 to 1.  
 Result is 1st Level (Primary_BCG_Level) and 2nd Level (Secondary_BCG_Level). 
-Also give close (Membership_Close) and a proportional Level 
-assignment ("Lev.Prop").
+Also give close (Membership_Close) and a continuous proportional Level 
+assignment ("Continuous_BCG_Level").
 }
 \examples{
 # Example 1

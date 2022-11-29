@@ -5,8 +5,8 @@
 #' 
 #' @details Input is L1 to L6 with membership values of 0 to 1.  
 #' Result is 1st Level (Primary_BCG_Level) and 2nd Level (Secondary_BCG_Level). 
-#' Also give close (Membership_Close) and a proportional Level 
-#' assignment ("Lev.Prop").
+#' Also give close (Membership_Close) and a continuous proportional Level 
+#' assignment ("Continuous_BCG_Level").
 #' 
 #' 
 #' @param df.level.membership Wide data frame with level memberships (0-1).
@@ -143,16 +143,6 @@
 #'                   , output_dir = dir.export
 #'                   , quiet = TRUE)
 #' 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~
-# QC
-# SampleID <- LETTERS[1:10]
-# df.Level.Membership <- as.data.frame(SampleID, stringsAsFactors=FALSE)
-# df.Level.Membership[,"L1"] <- L1
-# df.Level.Membership[,"L2"] <- L2
-# df.Level.Membership[,"L3"] <- L3
-# df.Level.Membership[,"L4"] <- L4
-# df.Level.Membership[,"L5"] <- L5
-# df.Level.Membership[,"L6"] <- L6
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @export
 BCG.Level.Assignment <- function(df.level.membership
@@ -294,37 +284,40 @@ BCG.Level.Assignment <- function(df.level.membership
                                       , 1
                                       , FUN = sum)
   
-  # Proportional (Continuous) Assignment, Narrative----
-  df.result.prop <- df.result
-  df.result.prop[, "Continuous_BCG_Level.Int"] <- round(df.result.prop[, "Continuous_BCG_Level"]
-                                                , 0)
-  df.result.prop[, "Continuous_BCG_Level.Rem"]      <- df.result.prop[
-                                                        , "Continuous_BCG_Level.Int"] - 
-                                                df.result.prop[, "Continuous_BCG_Level"]
-  df.result.prop[, "Continuous_BCG_Level.Sign"] <- sign(df.result.prop[
-                                                          , "Continuous_BCG_Level.Rem"])
-  df.result.prop[, "Continuous_BCG_Level.Sign.Nar"] <- ifelse(df.result.prop[
-                                                    , "Continuous_BCG_Level.Sign"] == -1
-                                                  , "-"
-                                                  , ifelse(df.result.prop[
-                                                     , "Continuous_BCG_Level.Sign"] == 1
-                                                    , "+"
-                                                    , ""))
-  df.result.prop[, "BCG_Status"] <- paste0(df.result.prop[
-    , "Continuous_BCG_Level.Int"], df.result.prop[, "Continuous_BCG_Level.Sign.Nar"])
-  df.result.prop[, "BCG_Status.Tie"]      <- ifelse(df.result.prop[
-    , "Membership_Close"]=="tie", paste0(df.result.prop[, "Primary_BCG_Level"], "/"
-                                       , df.result.prop[, "Secondary_BCG_Level"]," tie")
-    , NA)
-  df.result.prop[!is.na(df.result.prop[, "BCG_Status.Tie"])
-                 , "BCG_Status"] <- df.result.prop[ !is.na(df.result.prop[
-                   , "BCG_Status.Tie"]), "BCG_Status.Tie"]
+  # # Proportional (Continuous) Assignment, Narrative----
+  # df.result.prop <- df.result
+  # df.result.prop[, "Continuous_BCG_Level.Int"] <- round(df.result.prop[, "Continuous_BCG_Level"]
+  #                                               , 0)
+  # df.result.prop[, "Continuous_BCG_Level.Rem"]      <- df.result.prop[
+  #                                                       , "Continuous_BCG_Level.Int"] - 
+  #                                               df.result.prop[, "Continuous_BCG_Level"]
+  # df.result.prop[, "Continuous_BCG_Level.Sign"] <- sign(df.result.prop[
+  #                                                         , "Continuous_BCG_Level.Rem"])
+  # df.result.prop[, "Continuous_BCG_Level.Sign.Nar"] <- ifelse(df.result.prop[
+  #                                                   , "Continuous_BCG_Level.Sign"] == -1
+  #                                                 , "-"
+  #                                                 , ifelse(df.result.prop[
+  #                                                    , "Continuous_BCG_Level.Sign"] == 1
+  #                                                   , "+"
+  #                                                   , ""))
+  # df.result.prop[, "BCG_Status"] <- paste0(df.result.prop[
+  #   , "Continuous_BCG_Level.Int"], df.result.prop[, "Continuous_BCG_Level.Sign.Nar"])
+  # df.result.prop[, "BCG_Status.Tie"]      <- ifelse(df.result.prop[
+  #   , "Membership_Close"]=="tie", paste0(df.result.prop[, "Primary_BCG_Level"], "/"
+  #                                      , df.result.prop[, "Secondary_BCG_Level"]," tie")
+  #   , NA)
+  # df.result.prop[!is.na(df.result.prop[, "BCG_Status.Tie"])
+  #                , "BCG_Status"] <- df.result.prop[ !is.na(df.result.prop[
+  #                  , "BCG_Status.Tie"]), "BCG_Status.Tie"]
   #
-  df.result[, "BCG_Status"] <- df.result.prop[, "BCG_Status"]
+  # Get Status
+  df_status <- BCG.ContLevelText(df.result[,"Continuous_BCG_Level"])
+  
+  df.result[, "BCG_Status"] <- df_status[, "status"]
   
   # new field 2022-11-18
   # BCG_Status no plus minus
-  df.result[, "BCG_Status2"] <- NA
+  df.result[, "BCG_Status2"] <- df_status[, "status_pm"]
   
   # create output
   return(df.result)

@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9006 (2022-11-29)
+
+* feature: Add new function to calculate BCG Status
+    + Uses continuous value to get Integer or PlusMinus text
+
 # BCGcalc 2.0.0.9005 (2022-11-18)
 
 * refactor: Additional Shiny outputs
