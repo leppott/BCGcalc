@@ -24,6 +24,17 @@ shinyServer(function(input, output) {
     
   })## fn_input_display
   
+  output$fn_input_display2 <- renderText({
+    inFile <- input$fn_input
+    
+    if (is.null(inFile)){
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+    
+    return(paste0("'",inFile$name,"'"))
+    
+  })## fn_input_display2
+  
   # IMPORT ----
   file_watch <- reactive({
     # trigger for df_import()
@@ -95,6 +106,10 @@ shinyServer(function(input, output) {
     
     # button, enable, calc
     shinyjs::enable("b_bcg_calc")
+    shinyjs::enable("b_taxatrans_calc")
+    
+    # update cb_taxatrans_sum 
+    # doesn't work here as timing is after the file is created
     
     return(df_input)
     
@@ -130,13 +145,13 @@ shinyServer(function(input, output) {
     
   })## col_import
   
-  # b_Calc ----
+  # b_Calc_BCG ----
   observeEvent(input$b_bcg_calc, {
     shiny::withProgress({
       
       ## Calc, 0, Set Up Shiny Code ----
       
-      prog_detail <- "Calculation..."
+      prog_detail <- "Calculation, BCG..."
       message(paste0("\n", prog_detail))
       
       # Number of increments
@@ -450,7 +465,7 @@ shinyServer(function(input, output) {
   }##expr ~ ObserveEvent ~ END
   )##observeEvent ~ b_bcg_calc ~ END
   
-  # b_download ----
+  # b_download_BCG ----
   output$b_bcg_download <- downloadHandler(
     
     filename = function() {
@@ -467,7 +482,303 @@ shinyServer(function(input, output) {
       
     }##content~END
     #, contentType = "application/zip"
-  )##downloadData~END
+  )##download ~ BCG
   
+  # TAXATRANS ----
+  ## TaxaTrans, UI ----
+  
+  output$UI_taxatrans_pick_official <- renderUI({
+    str_col <- "Official Taxa Data"
+    selectInput("taxatrans_pick_official"
+                , label = str_col
+                , choices = df_pick_taxoff[, "project"]
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  # output$UI_taxatrans_pick_official_project <- renderUI({
+  #   browser()
+  #   str_col <- "Official Taxa Data, Column Taxa_ID"
+  #   selectInput("taxatrans_pick_official_project"
+  #               , label = str_col
+  #               , choices = names(df_pick_taxoff)
+  #               , multiple = FALSE)
+  # })## UI_colnames
+  
+  output$UI_taxatrans_user_col_taxaid <- renderUI({
+    str_col <- "User Data, Column Taxa_ID"
+    selectInput("taxatrans_user_col_taxaid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  output$UI_taxatrans_user_col_drop <- renderUI({
+    str_col <- "User Data, Columns to Drop"
+    selectInput("taxatrans_user_col_drop"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , multiple = TRUE)
+  })## UI_colnames  
+  
+  output$UI_taxatrans_user_col_n_taxa <- renderUI({
+    str_col <- "User Data, Column N_Taxa"
+    selectInput("taxatrans_user_col_n_taxa"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_taxatrans_user_col_groupby <- renderUI({
+    str_col <- "User Data, Columns to Group By"
+    selectInput("taxatrans_user_col_groupby"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , multiple = TRUE)
+  })## UI_colnames  
+  
+  ## TaxaTrans, combine ----
+  observeEvent(input$cb_TaxaTrans_Summ, {
+    # turn on/off extra selection boxes based on checkbox
+    if(input$cb_TaxaTrans_Summ == TRUE) {
+      shinyjs::enable("UI_taxatrans_user_col_n_taxa")
+      shinyjs::enable("UI_taxatrans_user_col_groupby")
+    } else {
+      shinyjs::disable("UI_taxatrans_user_col_n_taxa")
+      shinyjs::disable("UI_taxatrans_user_col_groupby")
+    }## IF ~ checkbox
+
+  }, ignoreInit = FALSE
+  , ignoreNULL = FALSE)## observerEvent ~ cb_TaxaTrans_Summ
+  #})
+  
+  
+  ## b_Calc_TaxaTrans ----
+  observeEvent(input$b_taxatrans_calc, {
+    shiny::withProgress({
+  
+      ### Calc, 00, Initialize ----
+      prog_detail <- "Calculation, Taxa Translator..."
+      message(paste0("\n", prog_detail))
+      
+      # Number of increments
+      prog_n <- 6
+      prog_sleep <- 0.25
+      
+      ## Calc, 01, Import User Data ----
+      prog_detail <- "Import Data, User"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, disable, download
+      shinyjs::disable("b_taxatrans_download")
+      
+      # Import data
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+      df_input <- read.delim(inFile$datapath
+                             , header = TRUE
+                             , sep = input$sep
+                             , stringsAsFactors = FALSE)
+      # QC, FAIL if TRUE
+      if (is.null(df_input)){
+        return(NULL)
+      }
+      
+      ## Calc, 02, Gather and Test Inputs  ----
+      prog_detail <- "QC Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+          
+      # Fun Param, Define
+      sel_proj <- input$taxatrans_pick_official
+      sel_user_taxaid <- input$taxatrans_user_col_taxaid
+      sel_col_drop <- unlist(input$taxatrans_user_col_drop)
+      sel_user_ntaxa <- input$taxatrans_user_col_n_taxa
+      sel_user_groupby <- unlist(input$taxatrans_user_col_groupby)
+      sel_summ <- input$cb_TaxaTrans_Summ
+      
+      fn_taxoff <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                  , "filename"]
+      fn_taxoff_meta <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                       , "metadata_file"] 
+      col_taxaid_official_match <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                                  , "taxaid"]
+      col_taxaid_official_project <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                                    , "calc_type_taxaid"]
+      
+      # Fun Param, Test
+    
+      if(sel_proj == "") {
+        # end process with pop up
+      }## IF ~ sel_proj
+
+      if(is.na(fn_taxoff_meta) | fn_taxoff_meta == "") {
+        # set value to NULL 
+        df_official_metadata <- NULL
+      }## IF ~ fn_taxaoff_meta
+      
+      if(is.na(sel_user_ntaxa) | sel_user_ntaxa == "") {
+        sel_user_ntaxa <- NULL
+      }## IF ~ fn_taxaoff_meta
+
+      if(is.null(sel_summ)) {
+        sel_summ <- FALSE
+      }## IF ~ sel_summ
+ 
+     
+      message(paste0("User response to summarize duplicate sample taxa = "
+               , sel_summ)) 
+      
+      ## Calc, 03, Import Official Data (and Metadata)  ----
+      prog_detail <- "Import Data, Official and Metadata"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Data,  Official Taxa
+      url_taxoff <- file.path(url_bmt_sf_taxoff, fn_taxoff)
+      GET(url_taxoff, write_disk(temp_taxoff <- tempfile(fileext = ".csv")))
+      df_taxoff <- read.csv(temp_taxoff)
+      
+      # Data, Official Taxa, Meta Data
+      if(!is.null(fn_taxoff_meta)) {
+        url_taxoff_meta <- file.path(url_bmt_sf_taxoff, fn_taxoff_meta)
+        GET(url_taxoff_meta, write_disk(temp_taxoff_meta <- tempfile(fileext = ".csv")))
+        df_taxoff_meta <- read.csv(temp_taxoff_meta)
+      }## IF ~ fn_taxaoff_meta
+
+      
+    
+      ## Calc, 03, Run Function ----
+      prog_detail <- "Calculate, Taxa Trans"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # function parameters
+      df_user                 <- df_input
+      df_official             <- df_taxoff
+      df_official_metadata    <- df_taxoff_meta
+      taxaid_user             <- sel_user_taxaid
+      taxaid_official_match   <- col_taxaid_official_match
+      taxaid_official_project <- col_taxaid_official_project
+      col_drop                <- sel_col_drop
+      sum_n_taxa_boo          <- sel_summ
+      sum_n_taxa_col          <- sel_user_ntaxa
+      sum_n_taxa_group_by     <- sel_user_groupby
+     
+      # run the function
+      taxatrans_results <- BioMonTools::taxa_translate(df_user
+                                                       , df_official
+                                                       , df_official_metadata
+                                                       , taxaid_user
+                                                       , taxaid_official_match
+                                                       , taxaid_official_project
+                                                       , col_drop
+                                                       , sum_n_taxa_boo
+                                                       , sum_n_taxa_col
+                                                       , sum_n_taxa_group_by)
+      
+      ## Calc, 04, Save Results ----
+      prog_detail <- "Save Results"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Save files
+      
+      ## Taxa User 
+      # saved when imported
+      
+      ## Taxa Official
+      df_save <- df_official
+      fn_part <- paste0("_", "taxatrans", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+      
+      ##  meta data
+      df_save <- taxatrans_results$official_metadata # df_taxoff_meta
+      fn_part <- paste0("_", "metadata", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+      
+      ## Taxa Trans
+      df_save <- taxatrans_results$merge
+      fn_part <- paste0("_", "RESULTS", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+      
+      ## Non Match
+      df_save <- taxatrans_results$nonmatch
+      fn_part <- paste0("_", "nonmatch", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+      
+      ## Calc, 05, Create Zip ----
+      prog_detail <- "Create Zip File For Download"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Create zip file for download
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      
+      
+      ## Calc, 06, Clean Up ----
+      prog_detail <- "Calculate, Clean Up"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, enable, download
+      shinyjs::enable("b_taxatrans_download")
+      
+    }## expr ~ withProgress ~ END
+    , message = "Calculating BCG"
+    )## withProgress
+    
+  }##expr ~ ObserveEvent
+  
+  )##observeEvent ~ b_taxatrans_calc
+  
+  ## b_download_TaxaTrans ----
+  output$b_taxatrans_download <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_TaxaTrans_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {##content~START
+      
+      file.copy(file.path(path_results, "results.zip"), fname)
+      
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ TaxaTrans
 
 })##shinyServer ~ END

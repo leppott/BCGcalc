@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9006"
+pkg_version <- "2.0.0.9007"
 
 # Packages----
 library(BCGcalc)
@@ -80,7 +80,9 @@ if (dir.exists(path_results) == FALSE) {
 sel_community <- c("bugs", "fish", "algae")
 
 ##  BCG Models ----
-url_bcg_models <- "https://github.com/leppott/BCGcalc/raw/main/inst/extdata/Rules.xlsx"
+url_bcg_base <- "https://github.com/leppott/BCGcalc/raw/main/inst/extdata"
+
+url_bcg_models <- file.path(url_bcg_base, "Rules.xlsx")
 GET(url_bcg_models, write_disk(temp_bcg_models <- tempfile(fileext = ".xlsx")))
 df_bcg_models <- as.data.frame(read_excel(temp_bcg_models
                                           , guess_max = 10^3
@@ -91,6 +93,13 @@ sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
 sel_metric_suites <- c("ThermalHydro")
 
 # Flags ----
-url_bcg_checks <- "https://github.com/leppott/BCGcalc/raw/main/inst/extdata/MetricFlags.xlsx"
+url_bcg_checks <- file.path(url_bcg_base, "MetricFlags.xlsx")
 GET(url_bcg_checks, write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
 df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet="Flags"))
+
+# Taxa Official Pick----
+url_bmt_sf_taxoff <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data/taxa_official"
+url_taxa_official_pick <- file.path(url_bmt_sf_taxoff, "_pick_files.csv")
+GET(url_taxa_official_pick, write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
+df_pick_taxoff <- read.csv(temp_taxa_official_pick)
+

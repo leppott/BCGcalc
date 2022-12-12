@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9007 (2022-12-12)
+
+* feature: Add taxa translator tab and functionality to Shiny
+
 # BCGcalc 2.0.0.9006 (2022-11-29)
 
 * feature: Add new function to calculate BCG Status

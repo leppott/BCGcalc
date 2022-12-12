@@ -27,7 +27,8 @@ function() {
        , p("This button will calculate metrics values, metric memberships
            , level membership, and level assignment.")
        , useShinyjs()
-       , shinyjs::disabled(shinyBS::bsButton("b_bcg_calc", label = "Run Calculations"))
+       , shinyjs::disabled(shinyBS::bsButton("b_bcg_calc"
+                                             , label = "Run Calculations"))
        , h4("2.F. Download Results")
        , p("All input and output files will be available in a single zip file.")
        , shinyjs::disabled(downloadButton("b_bcg_download"
@@ -36,13 +37,19 @@ function() {
     , mainPanel(
         tabsetPanel(type = "tabs"
                     , tabPanel(title = "Calc_BCG_About"
-                               ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_1About.html"))
+                               ,includeHTML(file.path("www"
+                                                      , "rmd_html"
+                                            , "ShinyHTML_Calc_BCG_1About.html"))
                                )
                     , tabPanel(title = "Calc_BCG_Input"
-                               ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_2Input.html"))
+                               ,includeHTML(file.path("www"
+                                                      , "rmd_html"
+                                            , "ShinyHTML_Calc_BCG_2Input.html"))
                                )
                     , tabPanel(title = "Calc_BCG_Output"
-                               ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_3Output.html"))
+                               ,includeHTML(file.path("www"
+                                                      , "rmd_html"
+                                          , "ShinyHTML_Calc_BCG_3Output.html"))
                                )
                     )## tabsetPanel ~ END
       

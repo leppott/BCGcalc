@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-11-29 11:09:18
+2022-12-12 14:28:38
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-11-29 11:09:18
+    #> Last Update: 2022-12-12 14:28:38
+
+# BCGcalc 2.0.0.9007 (2022-12-12)
+
+- feature: Add taxa translator tab and functionality to Shiny
 
 # BCGcalc 2.0.0.9006 (2022-11-29)
 
