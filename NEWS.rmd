@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9008 (2022-12-13)
+
+* refactor: Change BCG.ContLevelText status from x/y tie to x.5, Issue #64
+
+
 # BCGcalc 2.0.0.9007 (2022-12-12)
 
 * feature: Add taxa translator tab and functionality to Shiny

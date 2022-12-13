@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-12-12 14:28:38
+2022-12-13 09:10:11
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-12 14:28:38
+    #> Last Update: 2022-12-13 09:10:11
+
+# BCGcalc 2.0.0.9008 (2022-12-13)
+
+- refactor: Change BCG.ContLevelText status from x/y tie to x.5, Issue
+  \#64
 
 # BCGcalc 2.0.0.9007 (2022-12-12)
 

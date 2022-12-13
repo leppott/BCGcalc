@@ -6,7 +6,8 @@
 #' @details Internal function to get narrative BCG level based on the 
 #' continuous level.
 #' 
-#' 'status' is the BCG Level as an integer.
+#' 'status' is the BCG Level as a number 
+#' (x/y tie is x.5, the rest are integers).
 #' 
 #' 'status_pm' is the BCG Level with +/- descriptors. 
 #' 
@@ -129,10 +130,7 @@ BCG.ContLevelText <- function(ContValue) {
                             , ifelse(df_data[, "cut_int"] == "x+1"
                                      , as.numeric(df_data[, "Floor"]) + 1
                             , ifelse(df_data[, "cut_int"] == "tie"
-                                     , paste0(df_data[, "Floor"]
-                                              , "/"
-                                            , as.numeric(df_data[, "Floor"]) + 1
-                                              , " tie")
+                                     , as.numeric(df_data[, "Floor"]) + 0.5
                                      , "ERROR"))) 
    
   df_data[, "Level_pm_v2"] <- ifelse(df_data[, "cut_pm_v2"] == "x"

@@ -21,7 +21,8 @@ level text.
 Internal function to get narrative BCG level based on the 
 continuous level.
 
-'status' is the BCG Level as an integer.
+'status' is the BCG Level as a number 
+(x/y tie is x.5, the rest are integers).
 
 'status_pm' is the BCG Level with +/- descriptors.
 }
