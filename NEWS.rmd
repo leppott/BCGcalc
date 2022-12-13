@@ -21,6 +21,16 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9009 (2022-12-13)
+
+* refactor: Update filebuilder tab in Shiny app
+   + Use "user file" less often
+   + Change summary default to TRUE
+   + Modified output files to include "_taxatrans_"
+   + Renamed RESULTS to MERGED in output file
+   + Add link to Taxa Translate Official files on GitHub
+   + Fix non-match output
+   
 # BCGcalc 2.0.0.9008 (2022-12-13)
 
 * refactor: Change BCG.ContLevelText status from x/y tie to x.5, Issue #64

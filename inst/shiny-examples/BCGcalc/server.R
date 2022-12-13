@@ -488,7 +488,7 @@ shinyServer(function(input, output) {
   ## TaxaTrans, UI ----
   
   output$UI_taxatrans_pick_official <- renderUI({
-    str_col <- "Official Taxa Data"
+    str_col <- "Official Taxa Dataset (Project)"
     selectInput("taxatrans_pick_official"
                 , label = str_col
                 , choices = df_pick_taxoff[, "project"]
@@ -505,7 +505,7 @@ shinyServer(function(input, output) {
   # })## UI_colnames
   
   output$UI_taxatrans_user_col_taxaid <- renderUI({
-    str_col <- "User Data, Column Taxa_ID"
+    str_col <- "Column, Taxa_ID"
     selectInput("taxatrans_user_col_taxaid"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -513,7 +513,7 @@ shinyServer(function(input, output) {
   })## UI_colnames
   
   output$UI_taxatrans_user_col_drop <- renderUI({
-    str_col <- "User Data, Columns to Drop"
+    str_col <- "Columns to Drop"
     selectInput("taxatrans_user_col_drop"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -521,7 +521,7 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   output$UI_taxatrans_user_col_n_taxa <- renderUI({
-    str_col <- "User Data, Column N_Taxa"
+    str_col <- "Column, N_Taxa"
     selectInput("taxatrans_user_col_n_taxa"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -529,7 +529,7 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   output$UI_taxatrans_user_col_groupby <- renderUI({
-    str_col <- "User Data, Columns to Group By"
+    str_col <- "Columns to Group By"
     selectInput("taxatrans_user_col_groupby"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -598,7 +598,7 @@ shinyServer(function(input, output) {
       # Fun Param, Define
       sel_proj <- input$taxatrans_pick_official
       sel_user_taxaid <- input$taxatrans_user_col_taxaid
-      sel_col_drop <- unlist(input$taxatrans_user_col_drop)
+      #sel_col_drop <- unlist(input$taxatrans_user_col_drop)
       sel_user_ntaxa <- input$taxatrans_user_col_n_taxa
       sel_user_groupby <- unlist(input$taxatrans_user_col_groupby)
       sel_summ <- input$cb_TaxaTrans_Summ
@@ -611,6 +611,8 @@ shinyServer(function(input, output) {
                                                   , "taxaid"]
       col_taxaid_official_project <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                                     , "calc_type_taxaid"]
+      col_drop_project <- unlist(strsplit(df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                         , "col_drop"], ","))
       
       # Fun Param, Test
     
@@ -670,12 +672,12 @@ shinyServer(function(input, output) {
       taxaid_user             <- sel_user_taxaid
       taxaid_official_match   <- col_taxaid_official_match
       taxaid_official_project <- col_taxaid_official_project
-      col_drop                <- sel_col_drop
+      col_drop                <- NULL #sel_col_drop
       sum_n_taxa_boo          <- sel_summ
       sum_n_taxa_col          <- sel_user_ntaxa
       sum_n_taxa_group_by     <- sel_user_groupby
-     
-      # run the function
+  
+      ### run the function ----
       taxatrans_results <- BioMonTools::taxa_translate(df_user
                                                        , df_official
                                                        , df_official_metadata
@@ -686,6 +688,14 @@ shinyServer(function(input, output) {
                                                        , sum_n_taxa_boo
                                                        , sum_n_taxa_col
                                                        , sum_n_taxa_group_by)
+     
+      ### Munge ----
+      # Remove non-project taxaID cols
+      # Specific to shiny project, not a part of the taxa_translate function
+      col_keep <- !names(taxatrans_results$merge) %in% col_drop_project
+      taxatrans_results$merge <- taxatrans_results$merge[, col_keep]
+      
+      
       
       ## Calc, 04, Save Results ----
       prog_detail <- "Save Results"
@@ -701,15 +711,15 @@ shinyServer(function(input, output) {
       
       ## Taxa Official
       df_save <- df_official
-      fn_part <- paste0("_", "taxatrans", ".csv")
+      fn_part <- paste0("_taxatrans_", "official", ".csv")
       write.csv(df_save
                 , file.path(path_results, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
-      
+     
       ##  meta data
       df_save <- taxatrans_results$official_metadata # df_taxoff_meta
-      fn_part <- paste0("_", "metadata", ".csv")
+      fn_part <- paste0("_taxatrans_", "metadata", ".csv")
       write.csv(df_save
                 , file.path(path_results, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
@@ -717,15 +727,15 @@ shinyServer(function(input, output) {
       
       ## Taxa Trans
       df_save <- taxatrans_results$merge
-      fn_part <- paste0("_", "RESULTS", ".csv")
+      fn_part <- paste0("_taxatrans_", "MERGED", ".csv")
       write.csv(df_save
                 , file.path(path_results, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## Non Match
-      df_save <- taxatrans_results$nonmatch
-      fn_part <- paste0("_", "nonmatch", ".csv")
+      df_save <- data.frame(taxatrans_results$nonmatch)
+      fn_part <- paste0("_taxatrans_", "nonmatch", ".csv")
       write.csv(df_save
                 , file.path(path_results, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)

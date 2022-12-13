@@ -1,11 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-12-13 09:10:11
+2022-12-13 17:09:04
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-13 09:10:11
+    #> Last Update: 2022-12-13 17:09:04
+
+# BCGcalc 2.0.0.9009 (2022-12-13)
+
+- refactor: Update filebuilder tab in Shiny app
+  - Use “user file” less often
+  - Change summary default to TRUE
+  - Modified output files to include “*taxatrans*”
+  - Renamed RESULTS to MERGED in output file
+  - Add link to Taxa Translate Official files on GitHub
+  - Fix non-match output
 
 # BCGcalc 2.0.0.9008 (2022-12-13)
 
