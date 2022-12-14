@@ -1,0 +1,26 @@
+---
+title: "Taxa Translator, About"
+date: "2022-12-14"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+Apply taxa translation before running other calculations.
+
+URL for Official taxa files and metadata files is provided below.
+
+Both files are included in the output of the taxa translator function.
+
+Taxa Translate Official Files on 
+<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official" target = "_blank">GitHub</a>.
+
+*Last updated 2022-12-14*

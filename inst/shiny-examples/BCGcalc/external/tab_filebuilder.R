@@ -32,7 +32,7 @@ function() {
             , uiOutput("UI_taxatrans_user_col_n_taxa")
             , p("Select user file columns for grouping the taxa counts after combining with official taxa file.")
             , p("All other columns will be dropped.")
-            , p("For example, SAMPID and TAXA_ID")
+            , p("For example, SAMPLEID and TAXAID")
             #, shinyjs::disabled(uiOutput("UI_taxatrans_user_col_groupby"))
             , uiOutput("UI_taxatrans_user_col_groupby")
             , hr(style = "border-top: 1px solid #000000;")
@@ -48,29 +48,19 @@ function() {
                                                , "Download Results"))
            
     )## sidebarPanel ~ END
-           
-           
-    , mainPanel(
-      p("Apply taxa translation before running calculations")
-      # tabsetPanel(type = "tabs"
-      #             , tabPanel(title = "Calc_BCG_About"
-      #                        ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_1About.html"))
-      #             )
-      #             , tabPanel(title = "Calc_BCG_Input"
-      #                        ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_2Input.html"))
-      #             )
-      #             , tabPanel(title = "Calc_BCG_Output"
-      #                        ,includeHTML(file.path("www", "rmd_html", "ShinyHTML_Calc_BCG_3Output.html"))
-      #             )
-      # )## tabsetPanel ~ END
-      , p("URLs for Official taxa file and metadata are below:")
-      , p("Both files are included in the output of the taxa translator function.")
-      , p("Temporary link to GitHub (all files).")
-      , p("A future update will link directly to the selected dataset.")
-      , a("Taxa Translate Official Files on GitHub"
-          , href = "https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official"
-          , target = "_blank")
-      
+       , mainPanel(
+            tabsetPanel(type = "tabs"
+                        , tabPanel(title = "TaxaTrans_About"
+                                   ,includeHTML(file.path("www"
+                                                          , "rmd_html"
+                                          , "ShinyHTML_TaxaTrans_1About.html"))
+                                   )
+                            , tabPanel(title = "TaxaTrans_Output"
+                                       ,includeHTML(file.path("www"
+                                                              , "rmd_html"
+                                          , "ShinyHTML_TaxaTrans_2Output.html"))
+                            )
+            )## tabsetPanel ~ END
     )## mainPanel ~ END
   )##sidebarLayout ~ END
   

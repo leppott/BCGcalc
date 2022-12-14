@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = FALSE
 ```
 
 A single zip file will be available for download.  It will include all result
-files along wiht the original data file.  All result data files will be CSV 
+files along with the original data file.  All result data files will be CSV 
 format.
 
 The zip file will included the base name of the original file along with the 

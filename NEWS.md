@@ -1,11 +1,22 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-12-13 17:09:04
+2022-12-14 10:43:35
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-13 17:09:04
+    #> Last Update: 2022-12-14 10:43:35
+
+# BCGcalc 2.0.0.9010 (2022-12-14)
+
+- refactor: Shiny app, filebuilder
+  - Ensure consistency of BCGcalc and BioMonTools columns names (all
+    caps)
+  - Add about and output tabs to taxa translator
+  - Update for consistency pick list file names in file and in code
+  - Update routine for translating then adding attributes
+    - Leave some projects with one file but add ability for two files
+      (PacNW)
 
 # BCGcalc 2.0.0.9009 (2022-12-13)
 
