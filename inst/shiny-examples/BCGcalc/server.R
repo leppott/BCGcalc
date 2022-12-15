@@ -629,6 +629,7 @@ shinyServer(function(input, output) {
                                        , "attributes_filename"] 
       col_taxaid_attr <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                         , "attributes_taxaid"] 
+      sel_user_sampid <- input$taxatrans_user_col_sampid
       
       # Fun Param, Test
     
@@ -743,6 +744,17 @@ shinyServer(function(input, output) {
         #                        , sum(df_ttrm[, sel_user_ntaxa], na.rm = TRUE))
       }## IF ~ !is.na(fn_taxoff_attr)
       
+      # Reorder by SampID and TaxaID
+      taxatrans_results$merge <- taxatrans_results$merge[
+           order(taxatrans_results$merge[, sel_user_sampid]
+                   , taxatrans_results$merge[, sel_user_taxaid]), ]
+      
+      # Resort columns
+      col_start <- c(sel_user_sampid, sel_user_taxaid, sel_user_ntaxa)
+    col_other <- names(taxatrans_results$merge)[!names(taxatrans_results$merge) 
+                                                  %in% col_start]
+      taxatrans_results$merge <- taxatrans_results$merge[, c(col_start
+                                                             , col_other)]
       
       ## Calc, 04, Save Results ----
       prog_detail <- "Save Results"

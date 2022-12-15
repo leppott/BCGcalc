@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-12-15 08:26:46
+2022-12-15 09:15:08
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-15 08:26:46
+    #> Last Update: 2022-12-15 09:15:08
+
+# BCGcalc 2.0.0.9013 (2022-12-15)
+
+- refactor: Sort columns and order output of taxa translator
 
 # BCGcalc 2.0.0.9012 (2022-12-15)
 
