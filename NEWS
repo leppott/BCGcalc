@@ -1,11 +1,23 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-12-14 10:43:35
+2022-12-15 08:26:46
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-14 10:43:35
+    #> Last Update: 2022-12-15 08:26:46
+
+# BCGcalc 2.0.0.9012 (2022-12-15)
+
+- feature: Add INDEX_NAME and INDEX_CLASS as input parameters to
+  `BCG.Level.Assignment`
+
+# BCGcalc 2.0.0.9011 (2022-12-15)
+
+- refactor: Shiny app, filebuilder
+  - save version of files in download
+  - reorganize the required fields requested of user
+  - change some text on screen
 
 # BCGcalc 2.0.0.9010 (2022-12-14)
 

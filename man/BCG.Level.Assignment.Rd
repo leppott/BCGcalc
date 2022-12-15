@@ -7,6 +7,8 @@
 BCG.Level.Assignment(
   df.level.membership,
   col_SampleID = "SAMPLEID",
+  col_Index_Name = "INDEX_NAME",
+  col_Index_Class = "INDEX_CLASS",
   col_L1 = "L1",
   col_L2 = "L2",
   col_L3 = "L3",
@@ -19,6 +21,10 @@ BCG.Level.Assignment(
 \item{df.level.membership}{Wide data frame with level memberships (0-1).}
 
 \item{col_SampleID}{Column name for sample id.  Default = "SAMPLEID"}
+
+\item{col_Index_Name}{Column name for index name.  Default = "INDEX_NAME"}
+
+\item{col_Index_Class}{Column name for index class.  Default = "INDEX_CLASS"}
 
 \item{col_L1}{Column name for memberships, Level 1.  Default = "L1"}
 
@@ -57,6 +63,8 @@ L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4), 0, 1)
 L6 <- c(rep(0, length(L1)))
 SAMPLEID <- LETTERS[1:length(L1)]
 df_lev_memb <- data.frame(SAMPLEID = SAMPLEID
+                          , INDEX_NAME = "TEST_NAME"
+                          , INDEX_CLASS = "TEST_CLASS"
                           , L1 = L1
                           , L2 = L2
                           , L3 = L3

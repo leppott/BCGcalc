@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9012 (2022-12-15)
+
+* feature: Add INDEX_NAME and INDEX_CLASS as input parameters to 
+`BCG.Level.Assignment`
+
 # BCGcalc 2.0.0.9011 (2022-12-15)
 
 * refactor: Shiny app, filebuilder

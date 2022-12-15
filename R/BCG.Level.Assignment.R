@@ -11,6 +11,8 @@
 #' 
 #' @param df.level.membership Wide data frame with level memberships (0-1).
 #' @param col_SampleID Column name for sample id.  Default = "SAMPLEID"
+#' @param col_Index_Name Column name for index name.  Default = "INDEX_NAME"
+#' @param col_Index_Class Column name for index class.  Default = "INDEX_CLASS"
 #' @param col_L1 Column name for memberships, Level 1.  Default = "L1"
 #' @param col_L2 Column name for memberships, Level 2.  Default = "L2"
 #' @param col_L3 Column name for memberships, Level 3.  Default = "L3"
@@ -32,6 +34,8 @@
 #' L6 <- c(rep(0, length(L1)))
 #' SAMPLEID <- LETTERS[1:length(L1)]
 #' df_lev_memb <- data.frame(SAMPLEID = SAMPLEID
+#'                           , INDEX_NAME = "TEST_NAME"
+#'                           , INDEX_CLASS = "TEST_CLASS"
 #'                           , L1 = L1
 #'                           , L2 = L2
 #'                           , L3 = L3
@@ -147,6 +151,8 @@
 #' @export
 BCG.Level.Assignment <- function(df.level.membership
                                  , col_SampleID = "SAMPLEID"
+                                 , col_Index_Name = "INDEX_NAME"
+                                 , col_Index_Class = "INDEX_CLASS"
                                  , col_L1 = "L1"
                                  , col_L2 = "L2"
                                  , col_L3 = "L3"
@@ -168,6 +174,8 @@ BCG.Level.Assignment <- function(df.level.membership
     L6 <- c(rep(0, length(L1)))
     SAMPLEID <- LETTERS[1:length(L1)]
     df_lev_memb <- data.frame(SAMPLEID = SAMPLEID
+                              , INDEX_NAME = "TEST_NAME"
+                              , INDEX_CLASS = "TEST_CLASS"
                               , L1 = L1
                               , L2 = L2
                               , L3 = L3
@@ -189,9 +197,20 @@ BCG.Level.Assignment <- function(df.level.membership
   df.result <- as.data.frame(df.level.membership)
   #
   # QC, columns
-  col_keep <- c(col_SampleID, col_L1, col_L2, col_L3, col_L4, col_L5, col_L6)
+  col_keep <- c(col_SampleID
+                , col_Index_Name
+                , col_Index_Class
+                , col_L1
+                , col_L2
+                , col_L3
+                , col_L4
+                , col_L5
+                , col_L6)
   df.result <- df.result[, col_keep]
-  names(df.result) <- c("SampleID", paste0("L", 1:6))
+  names(df.result) <- c("SampleID"
+                        , col_Index_Name
+                        , col_Index_Class
+                        , paste0("L", 1:6))
   
   # QC check membership (should be 1)
   df.result[, "Membership_Total"] <- round(rowSums(df.result[, paste0("L", 1:6)]
