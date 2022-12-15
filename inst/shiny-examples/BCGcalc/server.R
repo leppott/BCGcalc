@@ -505,10 +505,11 @@ shinyServer(function(input, output) {
   # })## UI_colnames
   
   output$UI_taxatrans_user_col_taxaid <- renderUI({
-    str_col <- "Column, TAXAID"
+    str_col <- "Column, TaxaID"
     selectInput("taxatrans_user_col_taxaid"
                 , label = str_col
                 , choices = c("", names(df_import()))
+                , selected = "TaxaID"
                 , multiple = FALSE)
   })## UI_colnames
   
@@ -521,35 +522,46 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   output$UI_taxatrans_user_col_n_taxa <- renderUI({
-    str_col <- "Column, N_TAXA"
+    str_col <- "Column, N_Taxa (taxa count or number of individuals)"
     selectInput("taxatrans_user_col_n_taxa"
                 , label = str_col
                 , choices = c("", names(df_import()))
+                , selected = "N_Taxa"
                 , multiple = FALSE)
   })## UI_colnames  
   
   output$UI_taxatrans_user_col_groupby <- renderUI({
-    str_col <- "Columns to Group By"
+    str_col <- "Columns to Keep in Output"
     selectInput("taxatrans_user_col_groupby"
                 , label = str_col
                 , choices = c("", names(df_import()))
                 , multiple = TRUE)
   })## UI_colnames  
   
-  ## TaxaTrans, combine ----
-  observeEvent(input$cb_TaxaTrans_Summ, {
-    # turn on/off extra selection boxes based on checkbox
-    if(input$cb_TaxaTrans_Summ == TRUE) {
-      shinyjs::enable("UI_taxatrans_user_col_n_taxa")
-      shinyjs::enable("UI_taxatrans_user_col_groupby")
-    } else {
-      shinyjs::disable("UI_taxatrans_user_col_n_taxa")
-      shinyjs::disable("UI_taxatrans_user_col_groupby")
-    }## IF ~ checkbox
-
-  }, ignoreInit = FALSE
-  , ignoreNULL = FALSE)## observerEvent ~ cb_TaxaTrans_Summ
-  #})
+  output$UI_taxatrans_user_col_sampid <- renderUI({
+    str_col <- "Column, SampleID"
+    selectInput("taxatrans_user_col_sampid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  
+  # ## TaxaTrans, combine ----
+  # observeEvent(input$cb_TaxaTrans_Summ, {
+  #   # turn on/off extra selection boxes based on checkbox
+  #   if(input$cb_TaxaTrans_Summ == TRUE) {
+  #     shinyjs::enable("UI_taxatrans_user_col_n_taxa")
+  #     shinyjs::enable("UI_taxatrans_user_col_groupby")
+  #   } else {
+  #     shinyjs::disable("UI_taxatrans_user_col_n_taxa")
+  #     shinyjs::disable("UI_taxatrans_user_col_groupby")
+  #   }## IF ~ checkbox
+  # 
+  # }, ignoreInit = FALSE
+  # , ignoreNULL = FALSE)## observerEvent ~ cb_TaxaTrans_Summ
+  # #})
   
   
   ## b_Calc_TaxaTrans ----
@@ -700,7 +712,7 @@ shinyServer(function(input, output) {
                                                        , sum_n_taxa_group_by)
      
       ### Munge ----
-      
+ browser()     
       # Remove non-project taxaID cols
       # Specific to shiny project, not a part of the taxa_translate function
       col_keep <- !names(taxatrans_results$merge) %in% col_drop_project
@@ -740,6 +752,19 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # Save files
+      
+      ## File version names
+      df_save <- data.frame(project = sel_proj
+                            , file_translations = fn_taxoff
+                            , taxaid_translations = col_taxaid_official_project
+                            , file_metadata = fn_taxoff_attr
+                            , file_attributes = fn_taxoff_attr
+                            , taxaid_attributes = col_taxaid_attr)
+      fn_part <- paste0("_taxatrans_", "0fileversions", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
       
       ## Taxa User 
       # saved when imported

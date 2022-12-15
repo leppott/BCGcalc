@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9011 (2022-12-15)
+
+* refactor: Shiny app, filebuilder
+    + save version of files in download
+    + reorganize the required fields requested of user
+    + change some text on screen
+
 # BCGcalc 2.0.0.9010 (2022-12-14)
 
 * refactor: Shiny app, filebuilder

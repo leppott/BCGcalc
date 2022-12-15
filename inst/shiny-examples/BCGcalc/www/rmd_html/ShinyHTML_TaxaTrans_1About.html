@@ -1,10 +1,52 @@
 
 
 
-<p>Apply taxa translation before running other calculations.</p>
+<div id="purpose" class="section level1">
+<h1>Purpose</h1>
+<p>Apply taxa translation before running other calculations to get the
+proper Operational Taxonomic Units (OTU).</p>
+</div>
+<div id="official-taxa-files" class="section level1">
+<h1>Official Taxa Files</h1>
 <p>URL for Official taxa files and metadata files is provided below.</p>
 <p>Both files are included in the output of the taxa translator
 function.</p>
 <p>Taxa Translate Official Files on
 <a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official" target="_blank">GitHub</a>.</p>
+</div>
+<div id="file-inputs" class="section level1">
+<h1>File Inputs</h1>
+<p>Any file can be run through the file builder but it is suggested the
+file be ready for use in <code>BioMonTools</code> or
+<code>BCGcalc</code> functions. That is, it has the columns:</p>
+<ul>
+<li><p>SampleID</p>
+<ul>
+<li>Unique sample identifier. Includes any replicate/duplicate
+information.</li>
+</ul></li>
+<li><p>TaxaID</p>
+<ul>
+<li>Unique taxa name</li>
+</ul></li>
+<li><p>N_Taxa</p>
+<ul>
+<li>Count of taxa individuals</li>
+</ul></li>
+<li><p>Other Optional Columns</p>
+<ul>
+<li>For example, station, date, latitude, longitude, elevation,
+gradient, etc.</li>
+</ul></li>
+</ul>
+<p>The user will be required to identify the basic fields in their file
+in the select boxes. The user also has the ability to include additional
+fields in their output (e.g., collection date, latitude, longitude,
+station). These additional fields need to be unique to the sample and
+not the taxa (e.g., do not include notes from the taxonomist as this
+could cause issues if two or more taxa and combined in to a coarser taxa
+name).</p>
+<p>The select boxes will contain the columns names of the user file that
+was already uploaded.</p>
 <p><em>Last updated 2022-12-14</em></p>
+</div>

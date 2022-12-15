@@ -14,13 +14,53 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-Apply taxa translation before running other calculations.
+# Purpose
+Apply taxa translation before running other calculations to get the proper
+Operational Taxonomic Units (OTU).
 
+# Official Taxa Files
 URL for Official taxa files and metadata files is provided below.
 
 Both files are included in the output of the taxa translator function.
 
 Taxa Translate Official Files on 
 <a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official" target = "_blank">GitHub</a>.
+
+# File Inputs
+Any file can be run through the file builder but it is suggested the file be 
+ready for use in `BioMonTools` or `BCGcalc` functions.  That is, it has the 
+columns:
+
+* SampleID
+
+    + Unique sample identifier.  Includes any replicate/duplicate information.
+
+* TaxaID
+
+    + Unique taxa name
+
+* N_Taxa
+
+    + Count of taxa individuals
+    
+* Other Optional Columns
+
+    + For example, station, date, latitude, longitude, elevation, gradient, etc.
+    
+The user will be required to identify the basic fields in their file in the
+select boxes.  The user also has the ability to include additional fields in 
+their output (e.g., collection date, latitude, longitude, station).  These
+additional fields need to be unique to the sample and not the taxa (e.g., do 
+not include notes from the taxonomist as this could cause issues if two or 
+more taxa and combined in to a coarser taxa name).
+
+The select boxes will contain the columns names of the user file that was 
+already uploaded.
+
+
+
+
+
+
 
 *Last updated 2022-12-14*

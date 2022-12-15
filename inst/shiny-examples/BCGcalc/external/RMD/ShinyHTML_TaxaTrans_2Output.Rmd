@@ -1,6 +1,6 @@
 ---
 title: "Calculation, BCG, Output"
-date: "2022-10-14"
+date: "2022-12-14"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -30,7 +30,8 @@ look like those in the table below.
 ```{r}
 fn_base <- "Data_BCG_PacNW"
 suffix <- c(paste0("_taxatrans_"
-            , c("1official"
+            , c("0fileversions"
+                , "1official"
                 , "1attributes"
                 , "2metadata"
                 , "3nonmatch"
@@ -38,6 +39,7 @@ suffix <- c(paste0("_taxatrans_"
 file_names <- c(paste0(fn_base, ".csv")
        , paste0(fn_base, suffix, ".csv"))
 file_desc <- c("User input data"
+               , "File name versions"
                , "Official taxa list"
                , "Official taxa attributes (only if separate from official list)"
                , "Metadata for Official taxa list"
@@ -47,7 +49,6 @@ df_zip <- data.frame(cbind(file_names, file_desc))
 names(df_zip) <- c("File Names", "File Descriptions")
 cap_zip <- "Taxa Translator zip file contents."
 knitr::kable(df_zip, caption = cap_zip)
-
 ```
 
 
