@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-12-15 09:15:08
+2022-12-20 13:10:32
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-15 09:15:08
+    #> Last Update: 2022-12-20 13:10:32
+
+# BCGcalc 2.0.0.9014 (2022-12-20)
+
+- refactor: Update Shiny app for taxaid_drop parameter in
+  `BioMonTools::taxa_translate`
 
 # BCGcalc 2.0.0.9013 (2022-12-15)
 

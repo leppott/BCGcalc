@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9014 (2022-12-20)
+
+* refactor: Update Shiny app for taxaid_drop parameter in 
+`BioMonTools::taxa_translate`
+
 # BCGcalc 2.0.0.9013 (2022-12-15)
 
 * refactor: Sort columns and order output of taxa translator

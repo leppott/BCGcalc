@@ -630,6 +630,9 @@ shinyServer(function(input, output) {
       col_taxaid_attr <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                         , "attributes_taxaid"] 
       sel_user_sampid <- input$taxatrans_user_col_sampid
+  
+      sel_taxaid_drop <-  df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                     , "taxaid_drop"] 
       
       # Fun Param, Test
     
@@ -650,6 +653,10 @@ shinyServer(function(input, output) {
         sel_summ <- FALSE
       }## IF ~ sel_summ
  
+      if(sel_taxaid_drop == "NULL") {
+        sel_taxaid_drop <- NULL
+      }## IF ~ sel_taxaid_drop
+      
      
       message(paste0("User response to summarize duplicate sample taxa = "
                , sel_summ)) 
@@ -680,7 +687,7 @@ shinyServer(function(input, output) {
         df_taxoff_attr <- read.csv(temp_taxoff_attr)
       }## IF ~ fn_taxoff_attr
       
-    
+
       ## Calc, 03, Run Function ----
       prog_detail <- "Calculate, Taxa Trans"
       message(paste0("\n", prog_detail))
@@ -695,6 +702,7 @@ shinyServer(function(input, output) {
       taxaid_user             <- sel_user_taxaid
       taxaid_official_match   <- col_taxaid_official_match
       taxaid_official_project <- col_taxaid_official_project
+      taxaid_drop             <- sel_taxaid_drop
       col_drop                <- NULL #sel_col_drop
       sum_n_taxa_boo          <- sel_summ
       sum_n_taxa_col          <- sel_user_ntaxa
@@ -707,13 +715,14 @@ shinyServer(function(input, output) {
                                                        , taxaid_user
                                                        , taxaid_official_match
                                                        , taxaid_official_project
+                                                       , taxaid_drop
                                                        , col_drop
                                                        , sum_n_taxa_boo
                                                        , sum_n_taxa_col
                                                        , sum_n_taxa_group_by)
      
       ### Munge ----
- browser()     
+    
       # Remove non-project taxaID cols
       # Specific to shiny project, not a part of the taxa_translate function
       col_keep <- !names(taxatrans_results$merge) %in% col_drop_project
