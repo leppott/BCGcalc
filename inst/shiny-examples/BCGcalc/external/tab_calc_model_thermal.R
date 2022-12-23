@@ -3,7 +3,7 @@
 function() {
   sidebarLayout(
     sidebarPanel(
-       h2("2. Calculate BCG-style Thermal Model")
+       h2("2. Calculate Fuzzy Set Model")
        # , p("This function will render all steps and make available files for download.")
        # , br()
        # , h4("2.A. Upload a file.")
