@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9017 (2022-12-23)
+
+* refactor: Update Shiny taxa trans to include filenames in MERGED output
+
 # BCGcalc 2.0.0.9016 (2022-12-23)
 
 * refactor: Update Shiny, split file builder in to taxa trans and assign index 

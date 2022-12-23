@@ -757,9 +757,18 @@ shinyServer(function(input, output) {
       taxatrans_results$merge <- taxatrans_results$merge[
            order(taxatrans_results$merge[, sel_user_sampid]
                    , taxatrans_results$merge[, sel_user_taxaid]), ]
+    
+      # Add input filenames
+      taxatrans_results$merge[, "file_taxatrans"] <- fn_taxoff
+      taxatrans_results$merge[, "file_attributes"] <- fn_taxoff_attr
+      
       
       # Resort columns
-      col_start <- c(sel_user_sampid, sel_user_taxaid, sel_user_ntaxa)
+      col_start <- c(sel_user_sampid
+                     , sel_user_taxaid
+                     , sel_user_ntaxa
+                     , "file_taxatrans"
+                     , "file_attributes")
     col_other <- names(taxatrans_results$merge)[!names(taxatrans_results$merge) 
                                                   %in% col_start]
       taxatrans_results$merge <- taxatrans_results$merge[, c(col_start

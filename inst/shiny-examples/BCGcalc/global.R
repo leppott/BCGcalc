@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9016"
+pkg_version <- "2.0.0.9017"
 
 # Packages----
 library(BCGcalc)
@@ -30,9 +30,13 @@ db_main_body         <- source("external/db_main_body.R", local = TRUE)$value
 tab_code_about       <- source("external/tab_about.R", local = TRUE)$value
 tab_code_import      <- source("external/tab_import.R", local = TRUE)$value
 tab_code_filebuilder <- source("external/tab_filebuilder.R", local = TRUE)$value
+tab_code_taxatrans <- source("external/tab_taxatrans.R", local = TRUE)$value
+tab_code_assignindexclass <- source("external/tab_assignindexclass.R"
+                                    , local = TRUE)$value
 tab_code_calc_bcg    <- source("external/tab_calc_bcg.R", local = TRUE)$value
-tab_code_calc_metrics <- source("external/tab_calc_metrics.R", local = TRUE)$value
-tab_code_calc_model_thermal <- source("external/tab_calc_model_thermal.R"
+tab_code_calc_thermalmetrics <- source("external/tab_calc_thermalmetrics.R"
+                                    , local = TRUE)$value
+tab_code_calc_thermalfuzzy <- source("external/tab_calc_thermalfuzzy.R"
                                 , local = TRUE)$value
 tab_code_calc_mtti <- source("external/tab_calc_mtti.R", local = TRUE)$value
 tab_code_calc_biodivind <- source("external/tab_calc_biodivind.R"
@@ -44,10 +48,6 @@ tab_code_rep_ss_ms   <- source("external/tab_report_singlesite_multisamp.R"
 tab_code_rep_ms      <- source("external/tab_report_multiplesite.R"
                             , local = TRUE)$value
 tab_code_resources   <- source("external/tab_resources.R", local = TRUE)$value
-tab_code_taxatrans <- source("external/tab_taxatrans.R", local = TRUE)$value
-tab_code_assignindexclass <- source("external/tab_assignindexclass.R"
-                                    , local = TRUE)$value
-
 
 # Console Message ----
 message(paste0("Interactive: ", interactive()))

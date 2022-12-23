@@ -8,7 +8,7 @@ function() {
       , br()
       , h4("2.A. Upload a file.")
       , p("If no file name showing below repeat 'Import File' in the left sidebar.")
-      , p(textOutput("fn_input_display"))
+      #, p(textOutput("fn_input_display"))
     )## sidebarPanel
     , mainPanel(
       tabsetPanel(type = "tabs"

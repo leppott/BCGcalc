@@ -3,7 +3,7 @@
 function() {
   sidebarLayout(
     sidebarPanel(h2("2. Assign Index Class")
-            , useShinyjs()
+            #, useShinyjs()
             
             # , p("The process below will combine user data with an official taxa list.")
             # #, br()

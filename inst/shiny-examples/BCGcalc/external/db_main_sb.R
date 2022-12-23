@@ -16,14 +16,15 @@ function(id) {
                  , startExpanded = TRUE)
       , menuItem(text = "File Builder"
                  , icon = icon("toolbox")
-                 , tabName = "tab_filebuilder"
+                 #, tabName = "tab_filebuilder"
                  , menuSubItem("Taxa Translate"
                                , tabName = "tab_taxatrans"
                                , icon = icon("language")
                                )
                  , menuSubItem("Assign Index Class"
                                , tabName = "tab_assignindexclass"
-                               , icon = icon("address-book"))
+                               , icon = icon("address-book")
+                               )
                  )
       , menuItem(text = "Calculation"
                  , icon = icon("gears")
@@ -32,10 +33,10 @@ function(id) {
                                , tabName = "tab_calc_bcg"
                                , icon = icon("award"))
                  , menuSubItem("Thermal Preference Metrics"
-                               , tabName = "tab_calc_metrics"
+                               , tabName = "tab_calc_thermalmetrics"
                                , icon = icon("temperature-empty"))
                  , menuSubItem("Fuzzy set temperature model"
-                               , tabName = "tab_calc_model_thermal"
+                               , tabName = "tab_calc_thermalfuzzy"
                                , icon = icon("square-check"))
                  , menuSubItem("MTTI"
                                , tabName = "tab_calc_mtti"
