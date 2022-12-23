@@ -15,8 +15,15 @@ function(id) {
                  , icon = icon("file-arrow-up")
                  , startExpanded = TRUE)
       , menuItem(text = "File Builder"
-                 , tabName = "tab_filebuilder"
                  , icon = icon("toolbox")
+                 , tabName = "tab_filebuilder"
+                 , menuSubItem("Taxa Translate"
+                               , tabName = "tab_taxatrans"
+                               , icon = icon("language")
+                               )
+                 , menuSubItem("Assign Index Class"
+                               , tabName = "tab_assignindexclass"
+                               , icon = icon("address-book"))
                  )
       , menuItem(text = "Calculation"
                  , icon = icon("gears")

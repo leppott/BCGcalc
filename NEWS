@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2022-12-23 10:22:55
+2022-12-23 14:16:45
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2022-12-23 10:22:55
+    #> Last Update: 2022-12-23 14:16:45
+
+# BCGcalc 2.0.0.9016 (2022-12-23)
+
+- refactor: Update Shiny, split file builder in to taxa trans and assign
+  index class
 
 # BCGcalc 2.0.0.9015 (2022-12-23)
 

@@ -6,6 +6,8 @@ function(id) {
       tabItem(tabName = "tab_about", tab_code_about())
       , tabItem(tabName = "tab_import", tab_code_import())
       , tabItem(tabName = "tab_filebuilder", tab_code_filebuilder())
+      , tabItem(tabName = "tab_taxatrans", tab_code_taxatrans())
+      , tabItem(tabName = "tab_assignindexclass", tab_code_assignindexclass())
       , tabItem(tabName = "tab_calc_bcg", tab_code_calc_bcg())
       , tabItem(tabName = "tab_calc_metrics", tab_code_calc_metrics())
       , tabItem(tabName = "tab_calc_model_thermal", tab_code_calc_model_thermal())

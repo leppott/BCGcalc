@@ -1,0 +1,57 @@
+---
+title: "Assign Index Class, About"
+date: "2022-12-23"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+# Purpose
+Assign Index Class when have the input parameters in data file using 
+`BioMonTools::assign_IndexClass`.
+
+# Index Name and Class Matrix
+
+The file used to assign INDEX_CLASS by INDEX_NAME is on 
+<a href="https://github.com/leppott/BioMonTools/blob/main/inst/extdata/IndexClass.xlsx" target = "_blank">GitHub</a> 
+as part of the 
+<a href="https://github.com/leppott/BioMonTools" target = "_blank">BioMonTools</a>
+package.
+
+# File Inputs
+Any file can be run through the file builder but it is suggested the file be 
+ready for use in `BioMonTools` or `BCGcalc` functions.  That is, it has the 
+columns:
+
+* SITEID
+
+    + Unique site (not sample) identifier.  
+    
+* INDEX_NAME
+
+    + Index name used to identify the proper index
+
+* INDEX_CLASS
+
+    + Column for the new class assignment.  
+    The existing field will be overwritten.
+    
+* Other Optional Columns
+
+    + Other data (e.g., date, latitude, longitude, elevation, gradient) that 
+    may be used to classify SITEID by INDEX_CLASS for the provided INDEX_NAME.
+    
+The user will be required to identify these fields in their file in the select 
+boxes.  The select boxes will contain the columns names of the user file that 
+was already uploaded.
+
+
+*Last updated 2022-12-23*

@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9015"
+pkg_version <- "2.0.0.9016"
 
 # Packages----
 library(BCGcalc)
@@ -44,6 +44,9 @@ tab_code_rep_ss_ms   <- source("external/tab_report_singlesite_multisamp.R"
 tab_code_rep_ms      <- source("external/tab_report_multiplesite.R"
                             , local = TRUE)$value
 tab_code_resources   <- source("external/tab_resources.R", local = TRUE)$value
+tab_code_taxatrans <- source("external/tab_taxatrans.R", local = TRUE)$value
+tab_code_assignindexclass <- source("external/tab_assignindexclass.R"
+                                    , local = TRUE)$value
 
 
 # Console Message ----
