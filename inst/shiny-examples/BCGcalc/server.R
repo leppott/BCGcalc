@@ -634,6 +634,15 @@ shinyServer(function(input, output) {
       sel_taxaid_drop <-  df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                      , "taxaid_drop"] 
       
+      # include = yes; unique(sel_user_groupby)
+      # include sampid, taxaid, and n_taxa so not dropped
+      user_col_keep <- names(df_input)[names(df_input) %in% c(sel_user_groupby
+                                                              , sel_user_sampid
+                                                              , sel_user_taxaid
+                                                              , sel_user_ntaxa)]
+      # flip to col_drop
+      user_col_drop <- names(df_input)[!names(df_input) %in% user_col_keep]
+      
       # Fun Param, Test
     
       if(sel_proj == "") {
@@ -703,11 +712,11 @@ shinyServer(function(input, output) {
       taxaid_official_match   <- col_taxaid_official_match
       taxaid_official_project <- col_taxaid_official_project
       taxaid_drop             <- sel_taxaid_drop
-      col_drop                <- NULL #sel_col_drop
+      col_drop                <- user_col_drop #NULL #sel_col_drop
       sum_n_taxa_boo          <- sel_summ
       sum_n_taxa_col          <- sel_user_ntaxa
       sum_n_taxa_group_by     <- sel_user_groupby
-  
+
       ### run the function ----
       taxatrans_results <- BioMonTools::taxa_translate(df_user
                                                        , df_official
@@ -727,10 +736,18 @@ shinyServer(function(input, output) {
       # Specific to shiny project, not a part of the taxa_translate function
       col_keep <- !names(taxatrans_results$merge) %in% col_drop_project
       taxatrans_results$merge <- taxatrans_results$merge[, col_keep]
-      
+   
       # Attributes if have 2nd file
       if(!is.na(fn_taxoff_attr)) {
         df_ttrm <- taxatrans_results$merge
+        # drop translation file columns
+        col_keep_ttrm <- names(df_ttrm)[names(df_ttrm) %in% c(sel_user_sampid
+                                                            , sel_user_taxaid
+                                                            , sel_user_ntaxa
+                                                            , "Match_Official"
+                                                            , sel_user_groupby)]
+        df_ttrm <- df_ttrm[, col_keep_ttrm]
+        # merge with attributes
         df_merge_attr <- merge(df_ttrm
                                , df_taxoff_attr
                                , by.x = taxaid_user

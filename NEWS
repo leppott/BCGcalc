@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-02 10:58:55
+2023-01-02 14:48:16
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-02 10:58:55
+    #> Last Update: 2023-01-02 14:48:16
+
+# BCGcalc 2.0.0.9019 (2023-01-02)
+
+- refactor: Update Shiny taxa trans to drop translator columns if have
+  an attributes table
 
 # BCGcalc 2.0.0.9018 (2023-01-02)
 

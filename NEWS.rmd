@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9019 (2023-01-02)
+
+* refactor: Update Shiny taxa trans to drop translator columns if have an 
+attributes table
+
 # BCGcalc 2.0.0.9018 (2023-01-02)
 
 * refactor: Update Shiny taxa trans to use default names
