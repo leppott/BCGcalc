@@ -774,6 +774,19 @@ shinyServer(function(input, output) {
       taxatrans_results$merge <- taxatrans_results$merge[, c(col_start
                                                              , col_other)]
       
+      # Convert required file names to standard
+      ## do at end so don't have to modify any other variables
+      boo_req_names <- TRUE
+      if(boo_req_names == TRUE) {
+        names(taxatrans_results$merge)[names(taxatrans_results$merge) 
+                                       %in% sel_user_sampid] <- "SampleID"
+        names(taxatrans_results$merge)[names(taxatrans_results$merge) 
+                                       %in% sel_user_taxaid] <- "TaxaID"
+        names(taxatrans_results$merge)[names(taxatrans_results$merge) 
+                                       %in% sel_user_ntaxa] <- "N_Taxa"
+      }## IF ~ boo_req_names
+      
+      
       ## Calc, 04, Save Results ----
       prog_detail <- "Save Results"
       message(paste0("\n", prog_detail))
