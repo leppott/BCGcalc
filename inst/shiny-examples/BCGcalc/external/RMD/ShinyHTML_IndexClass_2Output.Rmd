@@ -1,0 +1,51 @@
+---
+title: "Calculation, BCG, Output"
+date: "2022-12-14"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+A single zip file will be available for download.  It will include all result
+files along the the original data file.  All result data files will be CSV 
+format.
+
+The zip file will included the base name of the original file along with the 
+date and time.
+
+The individual files will include the same basename along with a suffix to 
+represent each step of the calculation process.
+
+The entire criteria file is included to allow the user to check for non-matching
+Index Name and/or criteria columns.
+
+As an example if the input file was "Data_BCG_PacNW.csv" the result files will
+look like those in the table below.
+
+```{r}
+fn_base <- "Data_BCG_PacNW"
+suffix <- c(paste0("_indexclass_"
+            , c("0criteria"
+                , "1results")))
+file_names <- c(paste0(fn_base, ".csv")
+       , paste0(fn_base, suffix, ".csv"))
+file_desc <- c("All index criteria"
+               , "Result file (original with updated Index_Class") 
+df_zip <- data.frame(cbind(file_names, file_desc))
+names(df_zip) <- c("File Names", "File Descriptions")
+cap_zip <- "Taxa Translator zip file contents."
+knitr::kable(df_zip, caption = cap_zip)
+cat("\n\n")
+```
+
+
+
+*Last updated 2023-01-09*

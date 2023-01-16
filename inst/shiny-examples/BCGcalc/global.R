@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9019"
+pkg_version <- "2.0.0.9020"
 
 # Packages----
 library(BCGcalc)
@@ -30,8 +30,9 @@ db_main_body         <- source("external/db_main_body.R", local = TRUE)$value
 tab_code_about       <- source("external/tab_about.R", local = TRUE)$value
 tab_code_import      <- source("external/tab_import.R", local = TRUE)$value
 tab_code_filebuilder <- source("external/tab_filebuilder.R", local = TRUE)$value
-tab_code_taxatrans <- source("external/tab_taxatrans.R", local = TRUE)$value
-tab_code_assignindexclass <- source("external/tab_assignindexclass.R"
+tab_code_filebuilder_taxatrans <- source("external/tab_filebuilder_taxatrans.R"
+                                         , local = TRUE)$value
+tab_code_filebuilder_indexclass <- source("external/tab_filebuilder_indexclass.R"
                                     , local = TRUE)$value
 tab_code_calc_bcg    <- source("external/tab_calc_bcg.R", local = TRUE)$value
 tab_code_calc_thermalmetrics <- source("external/tab_calc_thermalmetrics.R"
@@ -95,14 +96,25 @@ sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
 ## Metric Suites
 sel_metric_suites <- c("ThermalHydro")
 
+## URL BioMonTools
+url_bmt_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data"
+
 # Flags ----
 url_bcg_checks <- file.path(url_bcg_base, "MetricFlags.xlsx")
-GET(url_bcg_checks, write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
+GET(url_bcg_checks
+    , write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
 df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet="Flags"))
 
 # Taxa Official Pick----
-url_bmt_sf_taxoff <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data/taxa_official"
-url_taxa_official_pick <- file.path(url_bmt_sf_taxoff, "_pick_files.csv")
-GET(url_taxa_official_pick, write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
+url_taxa_official_pick <- file.path(url_bmt_base, "taxa_official", "_pick_files.csv")
+GET(url_taxa_official_pick
+    , write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
 df_pick_taxoff <- read.csv(temp_taxa_official_pick)
+
+# Index Class ----
+url_indexclass_crit <- file.path(url_bmt_base, "index_class", "IndexClass.xlsx")
+GET(url_indexclass_crit
+    , write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))
+df_indexclass_crit <- readxl::read_excel(temp_indexclass_crit
+                                         , sheet = "Index_Class")
 

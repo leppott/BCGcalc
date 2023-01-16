@@ -13,7 +13,7 @@ library(shiny)
 shinyServer(function(input, output) {
 
   # Misc Names ####
-  output$fn_input_display <- renderText({
+  output$fn_input_display_bcg <- renderText({
     inFile <- input$fn_input
     
     if (is.null(inFile)){
@@ -22,9 +22,9 @@ shinyServer(function(input, output) {
     
     return(paste0("'",inFile$name,"'"))
     
-  })## fn_input_display
+  })## fn_input_display_bcg
   
-  output$fn_input_display2 <- renderText({
+  output$fn_input_display_taxatrans <- renderText({
     inFile <- input$fn_input
     
     if (is.null(inFile)){
@@ -33,7 +33,19 @@ shinyServer(function(input, output) {
     
     return(paste0("'",inFile$name,"'"))
     
-  })## fn_input_display2
+  })## fn_input_display_taxatrans
+  
+  output$fn_input_display_indexclass <- renderText({
+    inFile <- input$fn_input
+    
+    if (is.null(inFile)){
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+    
+    return(paste0("'",inFile$name,"'"))
+    
+  })## fn_input_display_indexclass
+  
   
   # IMPORT ----
   file_watch <- reactive({
@@ -107,6 +119,7 @@ shinyServer(function(input, output) {
     # button, enable, calc
     shinyjs::enable("b_bcg_calc")
     shinyjs::enable("b_taxatrans_calc")
+    shinyjs::enable("b_indexclass_calc")
     
     # update cb_taxatrans_sum 
     # doesn't work here as timing is after the file is created
@@ -567,7 +580,7 @@ shinyServer(function(input, output) {
   ## b_Calc_TaxaTrans ----
   observeEvent(input$b_taxatrans_calc, {
     shiny::withProgress({
-  
+ 
       ### Calc, 00, Initialize ----
       prog_detail <- "Calculation, Taxa Translator..."
       message(paste0("\n", prog_detail))
@@ -676,23 +689,31 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      
+ 
       ### Data,  Official Taxa----
-      url_taxoff <- file.path(url_bmt_sf_taxoff, fn_taxoff)
+      url_taxoff <- file.path(url_bmt_base
+                              , "taxa_official"
+                              , fn_taxoff)
       GET(url_taxoff, write_disk(temp_taxoff <- tempfile(fileext = ".csv")))
       df_taxoff <- read.csv(temp_taxoff)
       
       ### Data, Official Taxa, Meta Data----
       if(!is.null(fn_taxoff_meta)) {
-        url_taxoff_meta <- file.path(url_bmt_sf_taxoff, fn_taxoff_meta)
-        GET(url_taxoff_meta, write_disk(temp_taxoff_meta <- tempfile(fileext = ".csv")))
+        url_taxoff_meta <- file.path(url_bmt_base
+                                     , "taxa_official"
+                                     , fn_taxoff_meta)
+        GET(url_taxoff_meta
+            , write_disk(temp_taxoff_meta <- tempfile(fileext = ".csv")))
         df_taxoff_meta <- read.csv(temp_taxoff_meta)
       }## IF ~ fn_taxaoff_meta
 
       ### Data, Official Attributes----
       if(!is.null(fn_taxoff_attr)) {
-        url_taxoff_attr <- file.path(url_bmt_sf_taxoff, fn_taxoff_attr)
-        GET(url_taxoff_attr, write_disk(temp_taxoff_attr <- tempfile(fileext = ".csv")))
+        url_taxoff_attr <- file.path(url_bmt_base
+                                     , "taxa_official"
+                                     , fn_taxoff_attr)
+        GET(url_taxoff_attr
+            , write_disk(temp_taxoff_attr <- tempfile(fileext = ".csv")))
         df_taxoff_attr <- read.csv(temp_taxoff_attr)
       }## IF ~ fn_taxoff_attr
       
@@ -713,9 +734,11 @@ shinyServer(function(input, output) {
       taxaid_official_project <- col_taxaid_official_project
       taxaid_drop             <- sel_taxaid_drop
       col_drop                <- user_col_drop #NULL #sel_col_drop
-      sum_n_taxa_boo          <- sel_summ
+      sum_n_taxa_boo          <- TRUE
       sum_n_taxa_col          <- sel_user_ntaxa
-      sum_n_taxa_group_by     <- sel_user_groupby
+      sum_n_taxa_group_by     <- c(sel_user_sampid
+                                   , sel_user_taxaid
+                                   , sel_user_groupby)
 
       ### run the function ----
       taxatrans_results <- BioMonTools::taxa_translate(df_user
@@ -731,7 +754,7 @@ shinyServer(function(input, output) {
                                                        , sum_n_taxa_group_by)
      
       ### Munge ----
-    
+ 
       # Remove non-project taxaID cols
       # Specific to shiny project, not a part of the taxa_translate function
       col_keep <- !names(taxatrans_results$merge) %in% col_drop_project
@@ -786,7 +809,7 @@ shinyServer(function(input, output) {
                      , sel_user_ntaxa
                      , "file_taxatrans"
                      , "file_attributes")
-    col_other <- names(taxatrans_results$merge)[!names(taxatrans_results$merge) 
+      col_other <- names(taxatrans_results$merge)[!names(taxatrans_results$merge) 
                                                   %in% col_start]
       taxatrans_results$merge <- taxatrans_results$merge[, c(col_start
                                                              , col_other)]
@@ -918,5 +941,398 @@ shinyServer(function(input, output) {
     }##content~END
     #, contentType = "application/zip"
   )##download ~ TaxaTrans
+  
+  # INDEX_CLASS ----
+  
+  ## IndexClass, UI ----
+  
+  output$UI_indexclass_user_col_indexclass <- renderUI({
+    str_col <- "Column, Index_Class"
+    selectInput("indexclass_user_col_indexclass"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Index_Class"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_indexclass_user_col_indexname <- renderUI({
+    str_col <- "Column, Index_Name"
+    selectInput("indexclass_user_col_indexname"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Index_Name"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_indexclass_user_col_sampid <- renderUI({
+    str_col <- "Column, SampleID"
+    selectInput("indexclass_user_col_sampid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  ## b_Calc_IndexClass ----
+  observeEvent(input$b_indexclass_calc, {
+    shiny::withProgress({
+     
+      ### Calc, 00, Initialize ----
+      prog_detail <- "Calculation, Assign Index Class..."
+      message(paste0("\n", prog_detail))
+      
+      # Number of increments
+      prog_n <- 6
+      prog_sleep <- 0.25
+      
+      ## Calc, 01, Import User Data ----
+      prog_detail <- "Import Data, User"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, disable, download
+      shinyjs::disable("b_indexclass_download")
+      
+      # Import data
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+      df_input <- read.delim(inFile$datapath
+                             , header = TRUE
+                             , sep = input$sep
+                             , stringsAsFactors = FALSE)
+      # QC, FAIL if TRUE
+      if (is.null(df_input)){
+        return(NULL)
+      }
+      
+      
+      ## Calc, 02, Gather and Test Inputs  ----
+      prog_detail <- "QC Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+     
+      # Fun Param, Define
+      sel_col_indexname  <- input$indexclass_user_col_indexname
+      sel_col_indexclass <- input$indexclass_user_col_indexclass
+      sel_col_sampid     <- input$indexclass_user_col_sampid
+      
+       
+      if(sel_col_indexclass == "") {
+        sel_col_indexclass <- "INDEX_CLASS"
+      }## IF ~ sel_col_indexclass
+      
+      if(sel_col_indexname == "") {
+        # end process with pop up
+      }## IF ~ sel_col_indexname
+      
+      if(sel_col_sampid == "") {
+        # end process with pop up
+      }## IF ~ sel_col_sampid
+
+      # Check if required fields present in input
+      boo_col_indexclass <- sel_col_indexclass %in% names(df_input)
+      if(boo_col_indexclass == FALSE) {
+        df_input[, sel_col_indexclass] <- NA_character_
+      }
+      
+      boo_col_indexname <- sel_col_indexname %in% names(df_input)
+      if(boo_col_indexname == FALSE) {
+        df_input[, sel_col_indexname] <- NA_character_
+      }
+      
+      boo_col_sampid <- sel_col_sampid %in% names(df_input)
+      if(boo_col_sampid == FALSE) {
+        df_input[, sel_col_sampid] <- NA_character_
+      }
+    
+      # Check if required fields for criteria
+      user_indexname <- sort(unique(df_input[, sel_col_indexname]))
+      message(paste0("User Index_Name = ", user_indexname))
+   
+      indexclass_fields <- sort(
+                            unique(
+                              df_indexclass_crit[df_indexclass_crit[
+                                               , "INDEX_NAME"] == user_indexname
+                                             , "FIELD", TRUE]))
+       
+      # add fields if not present so can continue without errors
+      indexclass_fields_missing <- indexclass_fields[!indexclass_fields %in% 
+                                                       names(df_input)]
+      if(length(indexclass_fields_missing) > 0) {
+        df_input[, indexclass_fields_missing] <- NA_character_
+      }## length
+      
+      # to upper
+      names(df_input) <- toupper(names(df_input))
+      names(df_indexclass_crit) <- toupper(names(df_indexclass_crit))
+      sel_col_indexclass <- toupper(sel_col_indexclass)
+      sel_col_indexname <- toupper(sel_col_indexname)
+      sel_col_sampid <- toupper(sel_col_sampid)
+      
+     
+      ## Calc, 03, Run Function ----
+      prog_detail <- "Calculate, Index Class"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+browser()      
+      ### run the function ----
+      df_indexclass_results <- BioMonTools::assign_IndexClass(data = df_input
+                                          , criteria = df_indexclass_crit
+                                          , name_indexclass = sel_col_indexclass
+                                          , name_indexname = sel_col_indexname
+                                          , name_siteid = sel_col_sampid
+                                          , data_shape = "WIDE")
+      
+      ## Calc, 04, Save Results ----
+      prog_detail <- "Save Results"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Save files 
+      
+      ## save, criteria
+      df_save <- df_indexclass_crit
+      fn_part <- paste0("_indexclass_", "0criteria", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+      
+      ## save, results
+      df_save <- df_indexclass_results
+      fn_part <- paste0("_indexclass_", "1results", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+      
+      
+      ## Calc, 05, Create Zip ----
+      prog_detail <- "Create Zip File For Download"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Create zip file for download
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      
+      
+      ## Calc, 06, Clean Up ----
+      prog_detail <- "Calculate, Clean Up"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, enable, download
+      shinyjs::enable("b_indexclass_download")
+      
+    }## expr ~ withProgress ~ END
+    , message = "Calculating Index Class"
+    )## withProgress
+    
+  }##expr ~ ObserveEvent
+  
+  )##observeEvent ~ b_indexclass_calc
+  
+  ## b_download_IndexClass ----
+  output$b_indexclass_download <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_IndexClass_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {##content~START
+      
+      file.copy(file.path(path_results, "results.zip"), fname)
+      
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ TaxaTrans
+  
+  # THERMAL METRICS ----
+  
+  # b_Calc_Thermal ----
+  observeEvent(input$b_thermal_calc, {
+    shiny::withProgress({
+ browser()     
+      ## Calc, 0, Set Up Shiny Code ----
+      
+      prog_detail <- "Calculation, Thermal Metrics..."
+      message(paste0("\n", prog_detail))
+      
+      # Number of increments
+      prog_n <- 10
+      prog_sleep <- 0.25
+      
+      # Calc, 1, Initialize ----
+      prog_detail <- "Initialize Data"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, disable, download
+      shinyjs::disable("b_bcg_download")
+      
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+      df_input <- read.delim(inFile$datapath
+                             , header = TRUE
+                             , sep = input$sep
+                             , stringsAsFactors = FALSE)
+      # QC, FAIL if TRUE
+      if (is.null(df_input)){
+        return(NULL)
+      }
+      
+      # QC, names to upper case
+      names(df_input) <- toupper(names(df_input))
+      
+     
+      # Calc, 4, MetVal----
+      prog_detail <- "Calculate, Metric, Values"
+      message(paste0("\n", prog_detail))
+      message(paste0("Community = ", input$si_community))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # Calc
+      # QC
+      # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
+      # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
+      
+      if(length(cols_flags_keep) > 0){
+        # keep extra cols from Flags (non-metric)
+        df_metval <- BioMonTools::metric.values(df_input
+                                                , input$si_community
+                                                , fun.cols2keep = cols_flags_keep
+                                                , boo.Shiny = TRUE
+                                                , verbose = TRUE)
+      } else {
+        df_metval <- BioMonTools::metric.values(df_input
+                                                , input$si_community
+                                                , boo.Shiny = TRUE
+                                                , verbose = TRUE)
+      }## IF ~ length(col_rules_keep)
+      
+      #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
+      ## Save Results ----
+      fn_metval <- paste0(fn_input_base, "_bcgcalc_2metval_all.csv")
+      dn_metval <- path_results
+      pn_metval <- file.path(dn_metval, fn_metval)
+      write.csv(df_metval, pn_metval, row.names = FALSE)
+      
+      ## Save Results (Thermal) ----
+      
+      met_thermal <- c("ni_total"
+                      , "pi_dom01"
+                      , "pi_dom02"
+                      , "x_Shan_2"
+                      , "nt_total"
+                      , "nt_ti_stenocold"
+                      , "nt_ti_cold"
+                      , "nt_ti_cool"
+                      , "nt_ti_cowa"
+                      , "nt_ti_warm"
+                      , "nt_ti_stenowarm"
+                      , "nt_ti_eury"
+                      , "nt_ti_stenocold_cold"
+                      , "nt_ti_stenocold_cold_cool"
+                      , "nt_ti_cowa_warm_stenowarm"
+                      , "nt_ti_warm_stenowarm"
+                      , "nt_ti_na"
+                      , "pi_ti_stenocold"
+                      , "pi_ti_cold"
+                      , "pi_ti_cool"
+                      , "pi_ti_cowa"
+                      , "pi_ti_warm"
+                      , "pi_ti_stenowarm"
+                      , "pi_ti_eury"
+                      , "pi_ti_stenocold_cold"
+                      , "pi_ti_stenocold_cold_cool"
+                      , "pi_ti_cowa_warm_stenowarm"
+                      , "pi_ti_warm_stenowarm"
+                      , "pi_ti_na"
+                      , "pt_ti_stenocold"
+                      , "pt_ti_cold"
+                      , "pt_ti_cool"
+                      , "pt_ti_cowa"
+                      , "pt_ti_warm"
+                      , "pt_ti_stenowarm"
+                      , "pt_ti_eury"
+                      , "pt_ti_stenocold_cold"
+                      , "pt_ti_stenocold_cold_cool"
+                      , "pt_ti_cowa_warm_stenowarm"
+                      , "pt_ti_warm_stenowarm"
+                      , "pt_ti_na")
+      
+      
+      # Munge
+      
+      
+      
+      
+      
+      
+     
+     
+     
+   
+      
+      # Create Results
+      df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
+      ## remove L1:6
+      
+      # Save Results
+      fn_results <- paste0(fn_input_base, "_bcgcalc_RESULTS.csv")
+      dn_results <- path_results
+      pn_results <- file.path(dn_results, fn_results)
+      write.csv(df_results, pn_results, row.names = FALSE)
+      
+    
+      
+      # Calc, 9, Clean Up----
+      prog_detail <- "Calculate, Clean Up"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+      
+      # Create zip file of results
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      
+      # button, enable, download
+      shinyjs::enable("b_bcg_download")
+      
+    }## expr ~ withProgress ~ END
+    , message = "Calculating BCG"
+    )## withProgress ~ END
+  }##expr ~ ObserveEvent ~ END
+  )##observeEvent ~ b_thermal_calc ~ END
+  
+  # b_download_Thermal ----
+  
 
 })##shinyServer ~ END

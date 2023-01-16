@@ -1,0 +1,55 @@
+---
+title: "Assign Index Class, About"
+date: "2022-12-14"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+# Purpose
+Apply Index Class before running other index dependent calculations.
+
+# Official Taxa Files
+URL for Index Class criteria is provided below.
+
+Index Class criteria File on 
+<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/index_class" target = "_blank">GitHub</a>.
+
+# File Inputs
+Any file can be run  but it is suggested the file be ready for use in
+`BioMonTools` or `BCGcalc` functions.  That is, it has the columns:
+
+* Index_Name
+
+    + Unique taxa name
+
+* Index_Class
+
+    + Count of taxa individuals
+    
+* SampleID
+
+    + Unique sample identifier.  Includes any replicate/duplicate information.
+    
+* Other Optional Columns needed to discern Index Class.  These are dependent 
+upon the Index Name and Index Class
+
+    + For example, station, date, latitude, longitude, elevation, gradient, etc.
+    
+The user will be required to identify the basic fields in their file in the
+select boxes.  The select boxes will contain the columns names of the user file 
+that was already uploaded.
+
+# Other
+The Index_Class column will be updated according to the criteria.  
+
+
+*Last updated 2023-01-09*

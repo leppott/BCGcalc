@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-02 14:48:16
+2023-01-16 16:09:51
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-02 14:48:16
+    #> Last Update: 2023-01-16 16:09:51
+
+# BCGcalc 2.0.0.9020 (2023-01-16)
+
+- feature: Add assign index class to Shiny
+- refactor: Update Shiny tabs to not include numbered steps (all were
+  step 2)
+- fix: Update shiny taxa translate to combine duplicate taxa by default
 
 # BCGcalc 2.0.0.9019 (2023-01-02)
 

@@ -3,10 +3,10 @@
 function() {
   sidebarLayout(
     sidebarPanel(
-      h2("2. Calculate MMTI")
+      h2("Calculate MMTI")
       , p("This function will render all steps and make available files for download.")
       , br()
-      , h4("2.A. Upload a file.")
+      , h4("A. Upload a file.")
       , p("If no file name showing below repeat 'Import File' in the left sidebar.")
       #, p(textOutput("fn_input_display"))
     )## sidebarPanel

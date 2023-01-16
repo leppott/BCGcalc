@@ -1,13 +1,13 @@
 # Import Page
 
 function() {
-  tabPanel("1. Import Data"
+  tabPanel("Import Data"
     # SideBar ####
     , sidebarLayout(
         sidebarPanel(
           # 0. Progress
           #, tags$hr()
-          h4("1. Load File")
+          h4("Load File")
           , p("Only comma-separated or tab-separated files.")
           , h5("Select file parameters")
           #, checkboxInput('header', 'Header', TRUE)

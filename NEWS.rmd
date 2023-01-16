@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9020 (2023-01-16)
+
+* feature: Add assign index class to Shiny
+* refactor: Update Shiny tabs to not include numbered steps (all were step 2)
+* fix: Update shiny taxa translate to combine duplicate taxa by default
+
 # BCGcalc 2.0.0.9019 (2023-01-02)
 
 * refactor: Update Shiny taxa trans to drop translator columns if have an 

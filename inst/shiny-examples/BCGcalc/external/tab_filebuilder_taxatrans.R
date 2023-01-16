@@ -1,21 +1,21 @@
-# File Builder Panel
+# File Builder Panel, taxa translate
 
 function() {
   sidebarLayout(
-    sidebarPanel(h2("2. Taxa Translate")
+    sidebarPanel(h2("Taxa Translate")
             , useShinyjs()
             
             , p("The process below will combine user data with an official taxa list.")
             #, br()
-            , h4("2.A. Upload a File")
+            , h4("A. Upload a File")
             , p("If no file name showing below repeat 'Import File' in the left sidebar.")
-            , p(textOutput("fn_input_display2"))
+            , p(textOutput("fn_input_display_taxatrans"))
             
-            , h4("2.B. Select Official File.")
+            , h4("B. Select Official File.")
             , uiOutput("UI_taxatrans_pick_official")
             #, uiOutput("UI_taxatrans_pick_official_project")
             
-            , h4("2.C. User File Column Names")
+            , h4("C. User File Column Names")
             
             , h6("Required Fields")
             , p("If the default values are present they will be auto-populated.")
@@ -35,7 +35,7 @@ function() {
             # , uiOutput("UI_taxatrans_user_col_drop")
             
             
-          #  , h4("2.D. Combine Duplicate Taxa Within Samples")
+          #  , h4("D. Combine Duplicate Taxa Within Samples")
            # , p("Taxa names that have more than one entry in a sample are combined into one entry per sample, with summed counts. For example, a taxon that has multiple entries due to differences in OTU are consolidated into one entry for the calculation.")
             # , checkboxInput("cb_TaxaTrans_Summ"
             #                 , "Combine same taxa in samples"
@@ -50,12 +50,12 @@ function() {
             
           #  , hr(style = "border-top: 1px solid #000000;")
            
-            , h4("2.D. Run Operation")
+            , h4("D. Run Operation")
             , p("This button will merge the user file with the official taxa file")
             , shinyjs::disabled(shinyBS::bsButton("b_taxatrans_calc"
                                                   , label = "Run Operation"))
             
-            , h4("2.F. Download Output")
+            , h4("E. Download Output")
             , p("All input and output files will be available in a single zip file.")
             , shinyjs::disabled(downloadButton("b_taxatrans_download"
                                                , "Download Results"))

@@ -18,11 +18,11 @@ function(id) {
                  , icon = icon("toolbox")
                  #, tabName = "tab_filebuilder"
                  , menuSubItem("Taxa Translate"
-                               , tabName = "tab_taxatrans"
+                               , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
                                )
                  , menuSubItem("Assign Index Class"
-                               , tabName = "tab_assignindexclass"
+                               , tabName = "tab_filebuilder_indexclass"
                                , icon = icon("address-book")
                                )
                  )
