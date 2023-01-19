@@ -46,6 +46,16 @@ shinyServer(function(input, output) {
     
   })## fn_input_display_indexclass
   
+  output$fn_input_display_met_therm <- renderText({
+    inFile <- input$fn_input
+    
+    if (is.null(inFile)){
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+    
+    return(paste0("'",inFile$name,"'"))
+    
+  })## fn_input_display_indexclass
   
   # IMPORT ----
   file_watch <- reactive({
@@ -120,6 +130,7 @@ shinyServer(function(input, output) {
     shinyjs::enable("b_bcg_calc")
     shinyjs::enable("b_taxatrans_calc")
     shinyjs::enable("b_indexclass_calc")
+    shinyjs::enable("b_calc_met_therm")
     
     # update cb_taxatrans_sum 
     # doesn't work here as timing is after the file is created
@@ -1082,7 +1093,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-browser()      
+     
       ### run the function ----
       df_indexclass_results <- BioMonTools::assign_IndexClass(data = df_input
                                           , criteria = df_indexclass_crit
@@ -1169,20 +1180,20 @@ browser()
   
   # THERMAL METRICS ----
   
-  # b_Calc_Thermal ----
-  observeEvent(input$b_thermal_calc, {
+  # b_Calc_Met_Therm ----
+  observeEvent(input$b_calc_met_therm, {
     shiny::withProgress({
- browser()     
-      ## Calc, 0, Set Up Shiny Code ----
+
+      ## Calc, 00, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, Thermal Metrics..."
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 10
+      prog_n <- 4
       prog_sleep <- 0.25
       
-      # Calc, 1, Initialize ----
+      # Calc, 01, Initialize ----
       prog_detail <- "Initialize Data"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -1190,7 +1201,7 @@ browser()
       Sys.sleep(prog_sleep)
       
       # button, disable, download
-      shinyjs::disable("b_bcg_download")
+      shinyjs::disable("b_download_met_therm")
       
       # data
       inFile <- input$fn_input
@@ -1209,7 +1220,7 @@ browser()
       names(df_input) <- toupper(names(df_input))
       
      
-      # Calc, 4, MetVal----
+      # Calc, 02, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -1221,118 +1232,93 @@ browser()
       # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
       # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
       
-      if(length(cols_flags_keep) > 0){
-        # keep extra cols from Flags (non-metric)
+    
+      # filter for thermal metrics
+      ## Metric Names
+      fn_metname <- file.path(system.file(package="BioMonTools")
+                                                     , "extdata"
+                                                     , "MetricNames.xlsx")
+      df_metname <- readxl::read_excel(fn_metname
+                                                  , sheet = "MetricMetadata"
+                                                  , skip = 4)
+      ## Filter on community
+      df_metname_thermhydr <- dplyr::filter(df_metname
+                                    , Sort_Group == "ThermalHydro"
+                                    , Community == input$si_community_met_therm)
+      
+      
+      ## final set of metrics
+      names_met_therm_calc <- c("ni_total"
+                                 , "pi_dom01"
+                                 , "pi_dom02"
+                                 , "x_Shan_2"
+                                 , "nt_total"
+                                 , df_metname_thermhydr[, "METRIC_NAME", TRUE])
+      
+      
+      #if(length(cols_flags_keep) > 0){
+      #  # keep extra cols from Flags (non-metric)
         df_metval <- BioMonTools::metric.values(df_input
-                                                , input$si_community
-                                                , fun.cols2keep = cols_flags_keep
-                                                , boo.Shiny = TRUE
-                                                , verbose = TRUE)
-      } else {
-        df_metval <- BioMonTools::metric.values(df_input
-                                                , input$si_community
-                                                , boo.Shiny = TRUE
-                                                , verbose = TRUE)
-      }## IF ~ length(col_rules_keep)
+                                  , fun.Community = input$si_community_met_therm
+                                  , fun.MetricNames = names_met_therm_calc
+                                  #, fun.cols2keep = cols_flags_keep
+                                  , boo.Shiny = TRUE
+                                  , verbose = TRUE)
+     # } else {
+      #   df_metval <- BioMonTools::metric.values(df_input
+      #                             , fun.Community = input$si_community_met_therm
+      #                             , fun.MetricNames = names_met_therm_calc
+      #                             , boo.Shiny = TRUE
+      #                             , verbose = TRUE)
+      # }## IF ~ length(col_rules_keep)
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
-      ## Save Results ----
-      fn_metval <- paste0(fn_input_base, "_bcgcalc_2metval_all.csv")
+  
+      # Calc, 03, Save Results ----
+      fn_metval <- paste0(fn_input_base, "_met_therm_RESULTS.csv")
       dn_metval <- path_results
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
-      ## Save Results (Thermal) ----
       
-      met_thermal <- c("ni_total"
-                      , "pi_dom01"
-                      , "pi_dom02"
-                      , "x_Shan_2"
-                      , "nt_total"
-                      , "nt_ti_stenocold"
-                      , "nt_ti_cold"
-                      , "nt_ti_cool"
-                      , "nt_ti_cowa"
-                      , "nt_ti_warm"
-                      , "nt_ti_stenowarm"
-                      , "nt_ti_eury"
-                      , "nt_ti_stenocold_cold"
-                      , "nt_ti_stenocold_cold_cool"
-                      , "nt_ti_cowa_warm_stenowarm"
-                      , "nt_ti_warm_stenowarm"
-                      , "nt_ti_na"
-                      , "pi_ti_stenocold"
-                      , "pi_ti_cold"
-                      , "pi_ti_cool"
-                      , "pi_ti_cowa"
-                      , "pi_ti_warm"
-                      , "pi_ti_stenowarm"
-                      , "pi_ti_eury"
-                      , "pi_ti_stenocold_cold"
-                      , "pi_ti_stenocold_cold_cool"
-                      , "pi_ti_cowa_warm_stenowarm"
-                      , "pi_ti_warm_stenowarm"
-                      , "pi_ti_na"
-                      , "pt_ti_stenocold"
-                      , "pt_ti_cold"
-                      , "pt_ti_cool"
-                      , "pt_ti_cowa"
-                      , "pt_ti_warm"
-                      , "pt_ti_stenowarm"
-                      , "pt_ti_eury"
-                      , "pt_ti_stenocold_cold"
-                      , "pt_ti_stenocold_cold_cool"
-                      , "pt_ti_cowa_warm_stenowarm"
-                      , "pt_ti_warm_stenowarm"
-                      , "pt_ti_na")
-      
-      
-      # Munge
-      
-      
-      
-      
-      
-      
-     
-     
-     
-   
-      
-      # Create Results
-      df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
-      ## remove L1:6
-      
-      # Save Results
-      fn_results <- paste0(fn_input_base, "_bcgcalc_RESULTS.csv")
-      dn_results <- path_results
-      pn_results <- file.path(dn_results, fn_results)
-      write.csv(df_results, pn_results, row.names = FALSE)
-      
-    
-      
-      # Calc, 9, Clean Up----
+      # Calc, 04, Clean Up----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
       
-      # Create zip file of results
+      # Calc, 5, Create zip file of results
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
       utils::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
-      shinyjs::enable("b_bcg_download")
+      shinyjs::enable("b_download_met_therm")
       
     }## expr ~ withProgress ~ END
-    , message = "Calculating BCG"
+    , message = "Calculating Metrics Thermal"
     )## withProgress ~ END
   }##expr ~ ObserveEvent ~ END
-  )##observeEvent ~ b_thermal_calc ~ END
+  )##observeEvent ~ b_calc_met_therm ~ END
   
-  # b_download_Thermal ----
-  
+  # b_download_Met_Therm ----
+  output$b_download_met_therm <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_Metrics_Thermal_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {##content~START
+      
+      file.copy(file.path(path_results, "results.zip"), fname)
+      
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ Met Therm
 
 })##shinyServer ~ END
