@@ -958,7 +958,7 @@ shinyServer(function(input, output) {
   ## IndexClass, UI ----
   
   output$UI_indexclass_user_col_indexclass <- renderUI({
-    str_col <- "Column, Index_Class"
+    str_col <- "Column, Index_Class (can be blank if not in data)"
     selectInput("indexclass_user_col_indexclass"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -987,7 +987,7 @@ shinyServer(function(input, output) {
   ## b_Calc_IndexClass ----
   observeEvent(input$b_indexclass_calc, {
     shiny::withProgress({
-     
+   
       ### Calc, 00, Initialize ----
       prog_detail <- "Calculation, Assign Index Class..."
       message(paste0("\n", prog_detail))
@@ -1049,7 +1049,8 @@ shinyServer(function(input, output) {
       # Check if required fields present in input
       boo_col_indexclass <- sel_col_indexclass %in% names(df_input)
       if(boo_col_indexclass == FALSE) {
-        df_input[, sel_col_indexclass] <- NA_character_
+       # df_input[, sel_col_indexclass] <- NA_character_
+        # if add it as blank it messes up the main function
       }
       
       boo_col_indexname <- sel_col_indexname %in% names(df_input)
@@ -1086,14 +1087,14 @@ shinyServer(function(input, output) {
       sel_col_indexname <- toupper(sel_col_indexname)
       sel_col_sampid <- toupper(sel_col_sampid)
       
-     
+    
       ## Calc, 03, Run Function ----
       prog_detail <- "Calculate, Index Class"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-     
+  
       ### run the function ----
       df_indexclass_results <- BioMonTools::assign_IndexClass(data = df_input
                                           , criteria = df_indexclass_crit
