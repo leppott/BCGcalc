@@ -846,7 +846,7 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # Save files
-      
+ 
       ## File version names
       df_save <- data.frame(project = sel_proj
                             , file_translations = fn_taxoff
@@ -879,9 +879,17 @@ shinyServer(function(input, output) {
                 , row.names = FALSE)
       rm(df_save, fn_part)
      
-      ##  meta data
+      ## meta data
       df_save <- taxatrans_results$official_metadata # df_taxoff_meta
-      fn_part <- paste0("_taxatrans_", "2metadata", ".csv")
+      fn_part <- paste0("_taxatrans_", "1metadata", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+     
+      ## translate - crosswalk
+      df_save <- taxatrans_results$taxatrans_unique # df_taxoff_meta
+      fn_part <- paste0("_taxatrans_", "2taxamatch", ".csv")
       write.csv(df_save
                 , file.path(path_results, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)

@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-19 16:00:50
+2023-01-20 10:43:01
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-19 16:00:50
+    #> Last Update: 2023-01-20 10:43:01
+
+# BCGcalc 2.0.0.9023 (2023-01-20)
+
+- refactor: Add taxa translate unique crosswalk to output of
+  taxatranslate in Shiny
 
 # BCGcalc 2.0.0.9022 (2023-01-19)
 

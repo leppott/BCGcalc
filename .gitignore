@@ -21,3 +21,6 @@ inst/extdata/Data_BCG_PacNW.7z
 
 *.dcf
 *.dcf
+inst/shiny-examples/BCGcalc/rsconnect/shinyapps.io/tetratech-wtr-wne/BCGcalc.dcf
+inst/shiny-examples/BCGcalc/rsconnect/shinyapps.io/tetratech-wtr-wne/BCGcalc.dcf
+*.dcf

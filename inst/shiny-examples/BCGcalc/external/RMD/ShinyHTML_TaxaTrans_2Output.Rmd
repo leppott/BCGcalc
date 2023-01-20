@@ -33,7 +33,8 @@ suffix <- c(paste0("_taxatrans_"
             , c("0fileversions"
                 , "1official"
                 , "1attributes"
-                , "2metadata"
+                , "1metadata"
+                , "2taxatrans"
                 , "3nonmatch"
                 , "MERGED")))
 file_names <- c(paste0(fn_base, ".csv")
@@ -43,6 +44,7 @@ file_desc <- c("User input data"
                , "Official taxa list"
                , "Official taxa attributes (only if separate from official list)"
                , "Metadata for Official taxa list"
+               , "Crosswalk taxa table (translations), input to official"
                , "Non-matching taxa"
                , "Merged data results") 
 df_zip <- data.frame(cbind(file_names, file_desc))
