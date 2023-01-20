@@ -1243,15 +1243,9 @@ shinyServer(function(input, output) {
       
     
       # filter for thermal metrics
-      ## Metric Names
-      fn_metname <- file.path(system.file(package="BioMonTools")
-                                                     , "extdata"
-                                                     , "MetricNames.xlsx")
-      df_metname <- readxl::read_excel(fn_metname
-                                                  , sheet = "MetricMetadata"
-                                                  , skip = 4)
+      ## Metric Names (from global from BioMonTools pkg)
       ## Filter on community
-      df_metname_thermhydr <- dplyr::filter(df_metname
+      df_metname_thermhydr <- dplyr::filter(df_metricnames
                                     , Sort_Group == "ThermalHydro"
                                     , Community == input$si_community_met_therm)
       

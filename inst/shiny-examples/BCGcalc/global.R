@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9023"
+pkg_version <- "2.0.0.9024"
 
 # Packages----
 library(BCGcalc)
@@ -99,22 +99,30 @@ sel_metric_suites <- c("ThermalHydro")
 ## URL BioMonTools
 url_bmt_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data"
 
-# Flags ----
+# BTM, Flags ----
 url_bcg_checks <- file.path(url_bcg_base, "MetricFlags.xlsx")
 GET(url_bcg_checks
     , write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
 df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet="Flags"))
 
-# Taxa Official Pick----
+# BMT, Taxa Official Pick----
 url_taxa_official_pick <- file.path(url_bmt_base, "taxa_official", "_pick_files.csv")
 GET(url_taxa_official_pick
     , write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
 df_pick_taxoff <- read.csv(temp_taxa_official_pick)
 
-# Index Class ----
+# BMT, Index Class ----
 url_indexclass_crit <- file.path(url_bmt_base, "index_class", "IndexClass.xlsx")
 GET(url_indexclass_crit
     , write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))
 df_indexclass_crit <- readxl::read_excel(temp_indexclass_crit
                                          , sheet = "Index_Class")
 
+# BMT, Metric Names ----
+url_bmt_pkg <- "https://github.com/leppott/BioMonTools/raw/main/inst/extdata"
+url_metricnames <- file.path(url_bmt_pkg, "MetricNames.xlsx")
+GET(url_metricnames
+    , write_disk(temp_metricnames <- tempfile(fileext = ".xlsx")))
+df_metricnames <- readxl::read_excel(temp_metricnames
+                                     , sheet = "MetricMetadata"
+                                     , skip = 4)

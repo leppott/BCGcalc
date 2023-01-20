@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-20 10:43:01
+2023-01-20 14:34:34
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-20 10:43:01
+    #> Last Update: 2023-01-20 14:34:34
+
+# BCGcalc 2.0.0.9024 (2023-01-20)
+
+- refactor: BioMonTools MetricNames.xlsx from GitHub instead of package
+  in Shiny
 
 # BCGcalc 2.0.0.9023 (2023-01-20)
 
