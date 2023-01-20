@@ -14,14 +14,16 @@ function() {
                       , label = "Community"
                       , choices = sel_community
                       , selected = "bugs")
+       , h4("C. Exclude Taxa")
+       , checkboxInput("ExclTaxa_thermal", "Generate Exclude Taxa Column", TRUE)
+       , h4("D. Define Metric Suite")
        , p("(Only thermal metric suite of metrics available at this time).")
-       , h4("C. Define Metric Suite")
        , selectInput("si_metric_suite"
                      , label = "Metric Suite"
                      , choices = sel_metric_suites
                      , selected = "ThermalHydro")
        # #, uiOutput("UI_col_calcmet_Cols2Keep")
-       , h4("D. Run Calculations")
+       , h4("E. Run Calculations")
        , p("This button will calculate metrics values.")
        , useShinyjs()
        , shinyjs::disabled(shinyBS::bsButton("b_calc_met_therm", label = "Run Calculations"))

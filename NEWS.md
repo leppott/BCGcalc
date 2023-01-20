@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-20 14:34:34
+2023-01-20 15:09:15
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-20 14:34:34
+    #> Last Update: 2023-01-20 15:09:15
+
+# BCGcalc 2.0.0.9025 (2023-01-20)
+
+- refactor: Add excluded taxa subroutine to thermal metrics in Shiny
 
 # BCGcalc 2.0.0.9024 (2023-01-20)
 

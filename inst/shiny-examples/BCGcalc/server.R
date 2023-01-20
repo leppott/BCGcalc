@@ -1199,7 +1199,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 4
+      prog_n <- 5
       prog_sleep <- 0.25
       
       # Calc, 01, Initialize ----
@@ -1229,7 +1229,56 @@ shinyServer(function(input, output) {
       names(df_input) <- toupper(names(df_input))
       
      
-      # Calc, 02, MetVal----
+      # Calc, 02, Exclude Taxa ----
+      prog_detail <- "Calculate, Exclude Taxa"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # Calc
+      
+      message(paste0("User response to generate ExclTaxa = ", input$ExclTaxa))
+      
+      if(input$ExclTaxa_thermal) {
+        ## Get TaxaLevel names present in user file
+        phylo_all <- c("Kingdom"
+                       , "Phylum"
+                       , "SubPhylum"
+                       , "Class"
+                       , "SubClass"
+                       , "Order"
+                       , "SubOrder"
+                       , "InfraOrder"
+                       , "SuperFamily"
+                       , "Family"
+                       , "SubFamily"
+                       , "Tribe"
+                       , "Genus"
+                       , "SubGenus"
+                       , "Species"
+                       , "Variety")
+        phylo_all <- toupper(phylo_all) # so matches rest of file
+        
+        # case and matching of taxa levels handled inside of markExluded 
+        
+        # overwrite current data frame
+        df_input <- BioMonTools::markExcluded(df_samptax = df_input
+                                              , SampID = "SAMPLEID"
+                                              , TaxaID = "TAXAID"
+                                              , TaxaCount = "N_TAXA"
+                                              , Exclude = "EXCLUDE"
+                                              , TaxaLevels = phylo_all
+                                              , Exceptions = NA)
+        
+        # Save Results
+        fn_excl <- paste0(fn_input_base, "_met_therm_1markexcl.csv")
+        dn_excl <- path_results
+        pn_excl <- file.path(dn_excl, fn_excl)
+        write.csv(df_input, pn_excl, row.names = FALSE)
+        
+      }## IF ~ input$ExclTaxa
+      
+      # Calc, 03, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -1277,14 +1326,14 @@ shinyServer(function(input, output) {
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
   
-      # Calc, 03, Save Results ----
+      # Calc, 04, Save Results ----
       fn_metval <- paste0(fn_input_base, "_met_therm_RESULTS.csv")
       dn_metval <- path_results
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
       
-      # Calc, 04, Clean Up----
+      # Calc, 05, Clean Up----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.

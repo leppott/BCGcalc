@@ -30,11 +30,12 @@ look like those in the table below.
 ```{r}
 fn_base <- "Data_BCG_PacNW"
 suffix <- c(paste0("_met_therm_"
-            , "RESULTS"))
+            , c("1markexcl"
+                , "RESULTS")))
 file_names <- c(paste0(fn_base, ".csv")
-       , paste0(fn_base, suffix, ".csv")
-       )
+       , paste0(fn_base, suffix, ".csv"))
 file_desc <- c("User input data"
+               , "Exclude taxa revised, if checked (BioMonTools::markExcluded)"
                , "Results metrics, thermal") 
 df_zip <- data.frame(cbind(file_names, file_desc))
 names(df_zip) <- c("File Names", "File Descriptions")
@@ -43,4 +44,4 @@ knitr::kable(df_zip, caption = cap_zip)
 
 ```
 
-*Last updated 2023-01-19*
+*Last updated 2023-01-20*
