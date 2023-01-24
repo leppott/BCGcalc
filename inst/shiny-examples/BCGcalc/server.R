@@ -1003,7 +1003,7 @@ shinyServer(function(input, output) {
       # Number of increments
       prog_n <- 6
       prog_sleep <- 0.25
-      
+browser()      
       ## Calc, 01, Import User Data ----
       prog_detail <- "Import Data, User"
       message(paste0("\n", prog_detail))
@@ -1089,12 +1089,12 @@ shinyServer(function(input, output) {
       }## length
       
       # to upper
-      names(df_input) <- toupper(names(df_input))
-      names(df_indexclass_crit) <- toupper(names(df_indexclass_crit))
-      sel_col_indexclass <- toupper(sel_col_indexclass)
-      sel_col_indexname <- toupper(sel_col_indexname)
-      sel_col_sampid <- toupper(sel_col_sampid)
-      
+      # names(df_input) <- toupper(names(df_input))
+      # names(df_indexclass_crit) <- toupper(names(df_indexclass_crit))
+      # sel_col_indexclass <- toupper(sel_col_indexclass)
+      # sel_col_indexname <- toupper(sel_col_indexname)
+      # sel_col_sampid <- toupper(sel_col_sampid)
+      ## handled in the function
     
       ## Calc, 03, Run Function ----
       prog_detail <- "Calculate, Index Class"
