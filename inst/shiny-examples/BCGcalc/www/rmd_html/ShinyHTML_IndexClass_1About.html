@@ -3,47 +3,28 @@
 
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>Apply Index Class before running other index dependent
-calculations.</p>
-</div>
-<div id="official-taxa-files" class="section level1">
-<h1>Official Taxa Files</h1>
-<p>URL for Index Class criteria is provided below.</p>
-<p>Index Class criteria File on
-<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/index_class" target="_blank">GitHub</a>.</p>
-</div>
-<div id="file-inputs" class="section level1">
-<h1>File Inputs</h1>
-<p>Any file can be run but it is suggested the file be ready for use in
-<code>BioMonTools</code> or <code>BCGcalc</code> functions. That is, it
-has the columns:</p>
+<p>This function adds a BCG class column (Index_Class) to the input file
+based on elevation and gradient.</p>
+<p>The PNMR BCG model has three classes:</p>
 <ul>
-<li><p>Index_Name</p>
-<ul>
-<li>Unique taxa name</li>
-</ul></li>
-<li><p>Index_Class</p>
-<ul>
-<li>Count of taxa individuals</li>
-</ul></li>
-<li><p>SampleID</p>
-<ul>
-<li>Unique sample identifier. Includes any replicate/duplicate
-information.</li>
-</ul></li>
-<li><p>Other Optional Columns needed to discern Index Class. These are
-dependent upon the Index Name and Index Class</p>
-<ul>
-<li>For example, station, date, latitude, longitude, elevation,
-gradient, etc.</li>
-</ul></li>
+<li><p>low gradient/lower elevation (LoGrad-LoElev)</p></li>
+<li><p>higher gradient/lower elevation (HiGrad-LoElev)</p></li>
+<li><p>higher gradient/higher elevation (HiGrad-HiElev)</p></li>
 </ul>
-<p>The user will be required to identify the basic fields in their file
-in the select boxes. The select boxes will contain the columns names of
-the user file that was already uploaded.</p>
+<p>The classification thresholds are 1% for gradient and 750-m for
+elevation.</p>
+<p>During calibration of the BCG model, we derived gradient from the
+<a href="https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data" target="_blank">NHDPlusV2</a>
+and elevation from the
+<a href="https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset" target="_blank">EPA
+StreamCat</a> dataset (local catchment scale).</p>
 </div>
-<div id="other" class="section level1">
-<h1>Other</h1>
-<p>The Index_Class column will be updated according to the criteria.</p>
-<p><em>Last updated 2023-01-09</em></p>
+<div id="required-fields" class="section level1">
+<h1>Required Fields</h1>
+<p>Index_Name (user defined) – for the PacNW model, enter
+‘BCG_MariNW_Bugs500ct’</p>
+<p>SampleID (user defined) – unique identifier</p>
+<p>pslope_nhd (column heading must match exactly) – percent slope</p>
+<p>elev_m (column heading must match exactly) – elevation (meters)</p>
+<p><em>Last updated 2023-01-24</em></p>
 </div>

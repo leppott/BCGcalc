@@ -1,6 +1,6 @@
 ---
 title: "Calculation, BCG, Output"
-date: "2022-12-14"
+date: "2023-01-24"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -38,7 +38,7 @@ suffix <- c(paste0("_indexclass_"
 file_names <- c(paste0(fn_base, ".csv")
        , paste0(fn_base, suffix, ".csv"))
 file_desc <- c("All index criteria"
-               , "Result file (original with updated Index_Class") 
+               , "Result file (original with updated Index_Class)") 
 df_zip <- data.frame(cbind(file_names, file_desc))
 names(df_zip) <- c("File Names", "File Descriptions")
 cap_zip <- "Taxa Translator zip file contents."
@@ -48,4 +48,4 @@ cat("\n\n")
 
 
 
-*Last updated 2023-01-09*
+*Last updated 2023-01-24*

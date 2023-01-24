@@ -1,6 +1,6 @@
 ---
 title: "Assign Index Class, About"
-date: "2022-12-14"
+date: "2023-01-24"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -15,41 +15,33 @@ knitr::opts_chunk$set(echo = FALSE
 ```
 
 # Purpose
-Apply Index Class before running other index dependent calculations.
+This function adds a BCG class column (Index_Class) to the input file based on 
+elevation and gradient.
 
-# Official Taxa Files
-URL for Index Class criteria is provided below.
+The PNMR BCG model has three classes:
 
-Index Class criteria File on 
-<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/index_class" target = "_blank">GitHub</a>.
+* low gradient/lower elevation (LoGrad-LoElev)
 
-# File Inputs
-Any file can be run  but it is suggested the file be ready for use in
-`BioMonTools` or `BCGcalc` functions.  That is, it has the columns:
+* higher gradient/lower elevation (HiGrad-LoElev)
 
-* Index_Name
+* higher gradient/higher elevation (HiGrad-HiElev)
 
-    + Unique taxa name
+The classification thresholds are 1% for gradient and 750-m for elevation.
 
-* Index_Class
+During calibration of the BCG model, we derived gradient from the
+<a href="https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data" target = "_blank">NHDPlusV2</a>
+and elevation from the 
+<a href="https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset" target = "_blank">EPA StreamCat</a> 
+dataset (local catchment scale).
 
-    + Count of taxa individuals
-    
-* SampleID
+# Required Fields
 
-    + Unique sample identifier.  Includes any replicate/duplicate information.
-    
-* Other Optional Columns needed to discern Index Class.  These are dependent 
-upon the Index Name and Index Class
+Index_Name (user defined) – for the PacNW model, enter ‘BCG_MariNW_Bugs500ct’
 
-    + For example, station, date, latitude, longitude, elevation, gradient, etc.
-    
-The user will be required to identify the basic fields in their file in the
-select boxes.  The select boxes will contain the columns names of the user file 
-that was already uploaded.
+SampleID (user defined) – unique identifier
 
-# Other
-The Index_Class column will be updated according to the criteria.  
+pslope_nhd (column heading must match exactly) – percent slope 
 
+elev_m  (column heading must match exactly) – elevation (meters)
 
-*Last updated 2023-01-09*
+*Last updated 2023-01-24*

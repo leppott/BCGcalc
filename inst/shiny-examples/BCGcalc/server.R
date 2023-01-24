@@ -1003,7 +1003,7 @@ shinyServer(function(input, output) {
       # Number of increments
       prog_n <- 6
       prog_sleep <- 0.25
-browser()      
+   
       ## Calc, 01, Import User Data ----
       prog_detail <- "Import Data, User"
       message(paste0("\n", prog_detail))
