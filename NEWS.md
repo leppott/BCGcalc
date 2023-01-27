@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-27 09:52:56
+2023-01-27 11:45:57
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-27 09:52:56
+    #> Last Update: 2023-01-27 11:45:58
+
+# BCGcalc 2.0.0.9029 (2023-01-27)
+
+- docs: Add Shiny link to README
+- refactor: Layout changes to taxa translate section of Shiny app
 
 # BCGcalc 2.0.0.9028 (2023-01-27)
 

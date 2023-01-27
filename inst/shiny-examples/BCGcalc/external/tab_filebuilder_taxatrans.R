@@ -2,7 +2,7 @@
 
 function() {
   sidebarLayout(
-    sidebarPanel(h2("Taxa Translate")
+    sidebarPanel(h2("Taxa Translate and Attribute Assignment")
             , useShinyjs()
             
             , p("The process below will combine user data with an official taxa list.")
@@ -11,7 +11,7 @@ function() {
             , p("If no file name showing below repeat 'Import File' in the left sidebar.")
             , p(textOutput("fn_input_display_taxatrans"))
             
-            , h4("B. Select Official File.")
+            , h4("B. Select Official Taxa File.")
             , uiOutput("UI_taxatrans_pick_official")
             #, uiOutput("UI_taxatrans_pick_official_project")
             

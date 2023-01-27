@@ -23,7 +23,7 @@ function(id) {
       , menuItem(text = "File Builder"
                  , icon = icon("toolbox")
                  #, tabName = "tab_filebuilder"
-                 , menuSubItem("Taxa Translate and Assign Attributes"
+                 , menuSubItem("Taxa Translate and Attribute Assignment"
                                , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
                                )

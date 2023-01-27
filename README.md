@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2021-04-04 21:31:59
+2023-01-27 10:20:18
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-04 21:31:59
+    #> Last Update: 2023-01-27 10:20:18
 
 # BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
 
@@ -49,7 +49,7 @@ with the basic `install_github` command. If you want the vignette
 install with the command above (or download the compressed file from
 GitHub and install from that file).
 
-All dependent libraries should install with the install\_github command
+All dependent libraries should install with the install_github command
 but occassionally they do not. If you encounter issues the dependant
 libraries can be installed separately with the command below.
 
@@ -108,6 +108,12 @@ myDir.BASE <- getwd()
 setwd(myDir.BASE)
 ```
 
+## Shiny
+
+The Shiny app code is included in the package but is also on the web.
+
+<https://tetratech-wtr-wne.shinyapps.io/BCGcalc/>
+
 ## Help
 
 Every function has a help file with a working example. There is also a
@@ -134,7 +140,7 @@ much easier to use the code below to call the vignette by name. There is
 also be a link to the vignette at the top of the help index for the
 package.
 
-“C:\\Programs\\R\\R-3.4.3\\library\\BCGcalc\\doc\\vignette\_BCGcalc.html”
+“C:\Programs\R\R-3.4.3\library\BCGcalc\doc\vignette_BCGcalc.html”
 
 ``` r
 vignette("vignette_BCGcalc", package="BCGcalc")

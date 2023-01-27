@@ -98,6 +98,12 @@ myDir.BASE <- getwd()
 setwd(myDir.BASE)
 ```
 
+Shiny
+------------
+The Shiny app code is included in the package but is also on the web.
+
+https://tetratech-wtr-wne.shinyapps.io/BCGcalc/
+
 Help
 ------------
 Every function has a help file with a working example.  There is also a vignette with descriptions and examples of all functions in the `BCGcalc` library.

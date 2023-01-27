@@ -563,7 +563,7 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   output$UI_taxatrans_user_col_sampid <- renderUI({
-    str_col <- "Column, SampleID"
+    str_col <- "Column, Unique Sample Identifier (e.g., SampleID)"
     selectInput("taxatrans_user_col_sampid"
                 , label = str_col
                 , choices = c("", names(df_import()))
