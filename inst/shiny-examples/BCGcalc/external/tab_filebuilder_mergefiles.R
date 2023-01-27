@@ -1,0 +1,70 @@
+# filebuilder, merge files Panel
+#
+# 2nd version
+# https://community.rstudio.com/t/how-can-you-make-a-merge-of-two-reactive-datas-in-which-the-user-can-select-the-columns-through-which-to-make-the-merge-that-is-the-user-selects-who-is-by-x-and-by-y/30345/2
+
+function() {
+  sidebarLayout(
+    sidebarPanel(
+      h2("Merge Sample and Site Files")
+      , p("This process will merge two CSV files.")
+      , p("File 1 is the sample file (with benthic counts).")
+      , p("File 2 is the site info file (with index class).")
+      , br()
+      
+      , h4("A. Upload files.")
+      # file input
+      , fileInput("input_merge_file1_sample", label = "Import File 1 (Samples)")
+      , fileInput("input_merge_file2_site", label = "Import File 2 (Site Info)")
+      
+      , h4("B. Select columns for merge.")
+      , uiOutput("UI_mergefiles_f1_col_merge")
+      , uiOutput("UI_mergefiles_f2_col_merge")
+      
+      , h4("C. Run Operation")
+      , p("This button will merge the two files based on inputs")
+      , shinyjs::disabled(shinyBS::bsButton("b_mergefiles_calc"
+                                            , label = "Run Operation"))
+      
+      , h4("D. Download Output")
+      , p("All input and output files will be available in a single zip file.")
+      , shinyjs::disabled(downloadButton("b_mergefiles_download"
+                                         , "Download Results"))
+      
+      #, p(textOutput("fn_input_display"))
+    )## sidebarPanel
+    , mainPanel(
+      tabsetPanel(type = "tabs"
+                  , tabPanel(title = "About"
+                             , includeHTML(file.path("www"
+                                                     , "rmd_html"
+                                                     , "ShinyHTML_MergeFiles_1About.html")))
+                  , tabPanel(title = "File 1"
+                             , h4("File 1 (Samples)")
+                             , tableOutput(outputId = "mf_input1"))
+                  , tabPanel(title = "File 2"
+                             , h4("File 2 (Sites)")
+                             , tableOutput(outputId = "mf_input2"))
+                  , tabPanel(title = "Merged File"
+                             , h4("Merged File")
+                             , tableOutput(outputId = "mf_output"))
+                  
+                  # , tabPanel(title = "Calc_MTTI_Input"
+                  #            ,includeHTML(file.path("www"
+                  #                                   , "rmd_html"
+                  #                                   , "ShinyHTML_Calc_MTTI_2Input.html"))
+                  # )
+                  # , tabPanel(title = "Calc_MTTI_Output"
+                  #            ,includeHTML(file.path("www"
+                  #                                   , "rmd_html"
+                  #                                   , "ShinyHTML_Calc_MTTI_3Output.html"))
+                  # )
+      )## tabsetPanel ~ END
+      
+    )## mainPanel ~ END
+  )##sidebarLayout ~ END  
+}##FUNCTION ~ END
+
+# output$UI_about = renderUI({
+#   p("About stuff here.")
+# })

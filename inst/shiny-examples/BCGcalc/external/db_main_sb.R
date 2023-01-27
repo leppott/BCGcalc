@@ -1,4 +1,10 @@
 #Sidebar----
+
+# tabs
+# sourced in global.R
+# ref in db_main_body.R
+# menu in db_main_sb.R
+
 #sb_main <- function(id) {
 function(id) {
   dashboardSidebar(
@@ -17,7 +23,7 @@ function(id) {
       , menuItem(text = "File Builder"
                  , icon = icon("toolbox")
                  #, tabName = "tab_filebuilder"
-                 , menuSubItem("Taxa Translate"
+                 , menuSubItem("Taxa Translate and Assign Attributes"
                                , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
                                )
@@ -25,7 +31,11 @@ function(id) {
                                , tabName = "tab_filebuilder_indexclass"
                                , icon = icon("address-book")
                                )
-                 )
+                 , menuSubItem("Merge Index and Taxa Files"
+                               , tabName = "tab_filebuilder_mergefiles"
+                               , icon = icon("code-merge")
+                               )
+                 )## menuItem ~ File Builder
       , menuItem(text = "Calculation"
                  , icon = icon("gears")
                  , tabName = "tab_calc"

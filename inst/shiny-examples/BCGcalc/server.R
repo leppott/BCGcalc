@@ -1372,5 +1372,52 @@ shinyServer(function(input, output) {
     }##content~END
     #, contentType = "application/zip"
   )##download ~ Met Therm
+  
+  # MERGE FILES ----
+  
+  ## Merge, Import ----
+  
+  ## Merge, UI----
+  
+  output$UI_mergefiles_f1_col_merge <- renderUI({
+    str_col <- "Merge Column, File 1 (Samples)"
+    selectInput("mergefiles_f1_col_merge"
+                , label = str_col
+                , choices = c("SiteID", "feature", "in progress")
+                # , choices = c("", names(df_import()))
+                , selected = "SiteID"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_mergefiles_f2_col_merge <- renderUI({
+    str_col <- "Merge Column, File 2 (Site Info)"
+    selectInput("mergefiles_f2_col_merge"
+                , label = str_col
+                , choices = c("SiteID", "feature", "in progress")
+                # , choices = c("", names(df_import()))
+                , selected = "SiteID"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  ## b_Calc_Merge ----
+  
+  ## b_download_Merge ----
+  output$b_download_mergefiles <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_MergeFiles_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {
+      
+      file.copy(file.path(path_results, "results.zip"), fname)
+      
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ MergeFiles
 
 })##shinyServer ~ END
