@@ -11,12 +11,18 @@ function() {
             , p("If no file name showing below repeat 'Import File' in the left sidebar.")
             , p(textOutput("fn_input_display_indexclass"))
             
+            , h4("B. Define Index Name")
+            , uiOutput("UI_indexclass_indexname")
+            
             , h4("B. User File Column Names")
             , h6("Required Fields")
             , p("If the default values are present they will be auto-populated.")
-            # SampleID (really for group_by)
-            , uiOutput("UI_indexclass_user_col_indexname")
-            , uiOutput("UI_indexclass_user_col_indexclass")
+            # , uiOutput("UI_indexclass_user_col_indexname")
+            # , uiOutput("UI_indexclass_user_col_indexclass")
+            # for expediency hard code the classification fields
+            , uiOutput("UI_indexclass_user_col_elev")
+            , uiOutput("UI_indexclass_user_col_slope")
+            # SampleID (only for group_by)
             , uiOutput("UI_indexclass_user_col_sampid")
 
             , h4("C. Run Operation")

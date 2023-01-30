@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9030 (2023-01-30)
+
+* refactor: Add error checking for Index_Class in Shiny
+
 # BCGcalc 2.0.0.9029 (2023-01-27)
 
 * docs: Add Shiny link to README

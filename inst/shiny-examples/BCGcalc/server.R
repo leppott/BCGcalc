@@ -620,7 +620,7 @@ shinyServer(function(input, output) {
                              , sep = input$sep
                              , stringsAsFactors = FALSE)
       # QC, FAIL if TRUE
-      if (is.null(df_input)){
+      if (is.null(df_input)) {
         return(NULL)
       }
       
@@ -965,23 +965,23 @@ shinyServer(function(input, output) {
   
   ## IndexClass, UI ----
   
-  output$UI_indexclass_user_col_indexclass <- renderUI({
-    str_col <- "Column, Index_Class (can be blank if not in data)"
-    selectInput("indexclass_user_col_indexclass"
-                , label = str_col
-                , choices = c("", names(df_import()))
-                , selected = "Index_Class"
-                , multiple = FALSE)
-  })## UI_colnames  
-  
-  output$UI_indexclass_user_col_indexname <- renderUI({
-    str_col <- "Column, Index_Name"
-    selectInput("indexclass_user_col_indexname"
-                , label = str_col
-                , choices = c("", names(df_import()))
-                , selected = "Index_Name"
-                , multiple = FALSE)
-  })## UI_colnames  
+  # output$UI_indexclass_user_col_indexclass <- renderUI({
+  #   str_col <- "Column, Index_Class (can be blank if not in data)"
+  #   selectInput("indexclass_user_col_indexclass"
+  #               , label = str_col
+  #               , choices = c("", names(df_import()))
+  #               , selected = "Index_Class"
+  #               , multiple = FALSE)
+  # })## UI_colnames  
+  # 
+  # output$UI_indexclass_user_col_indexname <- renderUI({
+  #   str_col <- "Column, Index_Name"
+  #   selectInput("indexclass_user_col_indexname"
+  #               , label = str_col
+  #               , choices = c("", names(df_import()))
+  #               , selected = "Index_Name"
+  #               , multiple = FALSE)
+  # })## UI_colnames  
   
   output$UI_indexclass_user_col_sampid <- renderUI({
     str_col <- "Column, SampleID"
@@ -992,10 +992,40 @@ shinyServer(function(input, output) {
                 , multiple = FALSE)
   })## UI_colnames  
   
+  output$UI_indexclass_indexname <- renderUI({
+    str_col <- "Index Name"
+    selectInput("indexclass_indexname"
+                , label = str_col
+                , choices = c("", sel_indexclass_indexnames)
+                , selected = "BCG_MariNW_Bugs500ct"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  # hard code for expediency for PacNW
+  # later change to variable
+  output$UI_indexclass_user_col_elev <- renderUI({
+    str_col <- "Column, Elevation (meters) [StreamCat]"
+    selectInput("indexclass_user_col_elev"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "elev_m"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_indexclass_user_col_slope <- renderUI({
+    str_col <- "Column, Slope (percent) [NHDplus]"
+    selectInput("indexclass_user_col_slope"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "pslope_nhd"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  
   ## b_Calc_IndexClass ----
   observeEvent(input$b_indexclass_calc, {
     shiny::withProgress({
-   
+  
       ### Calc, 00, Initialize ----
       prog_detail <- "Calculation, Assign Index Class..."
       message(paste0("\n", prog_detail))
@@ -1024,11 +1054,11 @@ shinyServer(function(input, output) {
                              , sep = input$sep
                              , stringsAsFactors = FALSE)
       # QC, FAIL if TRUE
-      if (is.null(df_input)){
+      if (is.null(df_input)) {
         return(NULL)
       }
       
-      
+     
       ## Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
       message(paste0("\n", prog_detail))
@@ -1037,56 +1067,62 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
      
       # Fun Param, Define
-      sel_col_indexname  <- input$indexclass_user_col_indexname
-      sel_col_indexclass <- input$indexclass_user_col_indexclass
+      sel_col_indexname  <- "INDEX_NAME" #input$indexclass_user_col_indexname
+      sel_col_indexclass <- "INDEX_CLASS" #input$indexclass_user_col_indexclass
       sel_col_sampid     <- input$indexclass_user_col_sampid
       
+      sel_indexname <- input$indexclass_indexname
+      sel_col_elev <- input$indexclass_user_col_elev
+      sel_col_slope <- input$indexclass_user_col_slope
        
-      if(sel_col_indexclass == "") {
-        sel_col_indexclass <- "INDEX_CLASS"
-      }## IF ~ sel_col_indexclass
+      # if(sel_col_indexclass == "") {
+      #   sel_col_indexclass <- "INDEX_CLASS"
+      # }## IF ~ sel_col_indexclass
       
-      if(sel_col_indexname == "") {
-        # end process with pop up
-      }## IF ~ sel_col_indexname
+      # if(sel_col_indexname == "") {
+      #   # end process with pop up
+      # }## IF ~ sel_col_indexname
       
-      if(sel_col_sampid == "") {
+      if (sel_col_sampid == "") {
         # end process with pop up
       }## IF ~ sel_col_sampid
 
-      # Check if required fields present in input
-      boo_col_indexclass <- sel_col_indexclass %in% names(df_input)
-      if(boo_col_indexclass == FALSE) {
-       # df_input[, sel_col_indexclass] <- NA_character_
-        # if add it as blank it messes up the main function
-      }
+      # # Check if required fields present in input
+      # boo_col_indexclass <- sel_col_indexclass %in% names(df_input)
+      # if(boo_col_indexclass == FALSE) {
+      #  # df_input[, sel_col_indexclass] <- NA_character_
+      #   # if add it as blank it messes up the main function
+      # }
       
-      boo_col_indexname <- sel_col_indexname %in% names(df_input)
-      if(boo_col_indexname == FALSE) {
-        df_input[, sel_col_indexname] <- NA_character_
-      }
+      # boo_col_indexname <- sel_col_indexname %in% names(df_input)
+      # if(boo_col_indexname == FALSE) {
+      #   df_input[, sel_col_indexname] <- NA_character_
+      # }
       
       boo_col_sampid <- sel_col_sampid %in% names(df_input)
-      if(boo_col_sampid == FALSE) {
+      if (boo_col_sampid == FALSE) {
         df_input[, sel_col_sampid] <- NA_character_
       }
-    
-      # Check if required fields for criteria
-      user_indexname <- sort(unique(df_input[, sel_col_indexname]))
-      message(paste0("User Index_Name = ", user_indexname))
    
+      # Check if required fields for criteria
+      #user_indexname <- sort(unique(df_input[, sel_col_indexname]))
+      #message(paste0("User Index_Name = ", user_indexname))
+      message(paste0("User Index_Name = ", sel_indexname))
+
       indexclass_fields <- sort(
                             unique(
                               df_indexclass_crit[df_indexclass_crit[
-                                               , "INDEX_NAME"] == user_indexname
+                                               , "INDEX_NAME"] == sel_indexname
                                              , "FIELD", TRUE]))
+      # change from user_indexname to sel_indexname
+      indexclass_fields_user <- c(sel_col_elev, sel_col_slope)
        
-      # add fields if not present so can continue without errors
-      indexclass_fields_missing <- indexclass_fields[!indexclass_fields %in% 
-                                                       names(df_input)]
-      if(length(indexclass_fields_missing) > 0) {
-        df_input[, indexclass_fields_missing] <- NA_character_
-      }## length
+      # # add fields if not present so can continue without errors
+      # indexclass_fields_missing <- indexclass_fields[!indexclass_fields %in% 
+      #                                                  names(df_input)]
+      # if(length(indexclass_fields_missing) > 0) {
+      #   df_input[, indexclass_fields_missing] <- NA_character_
+      # }## length
       
       # to upper
       # names(df_input) <- toupper(names(df_input))
@@ -1095,14 +1131,36 @@ shinyServer(function(input, output) {
       # sel_col_indexname <- toupper(sel_col_indexname)
       # sel_col_sampid <- toupper(sel_col_sampid)
       ## handled in the function
+      
+      # Update official index classification file with user fields
+      df_indexclass_crit[df_indexclass_crit[, "FIELD"] == "elev_m"
+                         , "FIELD"] <- sel_col_elev
+      df_indexclass_crit[df_indexclass_crit[, "FIELD"] == "pslope_nhd"
+                         , "FIELD"] <- sel_col_slope
     
+      # Add Index_Name
+      df_input[, sel_col_indexname] <- sel_indexname
+      # Add Index_Class
+      ## can crash if case is different
+      ### Rename to standard
+      position_IC <- grep(sel_col_indexclass
+                          , names(df_input)
+                          , ignore.case = TRUE)
+      if (position_IC > 0) {
+        names(df_input)[position_IC] <- sel_col_indexclass
+      }## IF ~ position_IC
+      ### Add (if not present) or Change to NA
+      df_input[, sel_col_indexclass] <- NA_character_ 
+      ### Remove
+      df_input[, sel_col_indexclass] <- NULL 
+
       ## Calc, 03, Run Function ----
       prog_detail <- "Calculate, Index Class"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-  
+   
       ### run the function ----
       df_indexclass_results <- BioMonTools::assign_IndexClass(data = df_input
                                           , criteria = df_indexclass_crit
@@ -1221,7 +1279,7 @@ shinyServer(function(input, output) {
                              , sep = input$sep
                              , stringsAsFactors = FALSE)
       # QC, FAIL if TRUE
-      if (is.null(df_input)){
+      if (is.null(df_input)) {
         return(NULL)
       }
       
@@ -1239,7 +1297,7 @@ shinyServer(function(input, output) {
       
       message(paste0("User response to generate ExclTaxa = ", input$ExclTaxa))
       
-      if(input$ExclTaxa_thermal) {
+      if (input$ExclTaxa_thermal) {
         ## Get TaxaLevel names present in user file
         phylo_all <- c("Kingdom"
                        , "Phylum"

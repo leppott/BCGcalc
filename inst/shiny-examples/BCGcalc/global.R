@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9029"
+pkg_version <- "2.0.0.9030"
 
 # Packages----
 library(BCGcalc)
@@ -113,7 +113,7 @@ sel_metric_suites <- c("ThermalHydro")
 ## URL BioMonTools
 url_bmt_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data"
 
-# BTM, Flags ----
+# BMT, Flags ----
 url_bcg_checks <- file.path(url_bcg_base, "MetricFlags.xlsx")
 GET(url_bcg_checks
     , write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
@@ -140,3 +140,11 @@ GET(url_metricnames
 df_metricnames <- readxl::read_excel(temp_metricnames
                                      , sheet = "MetricMetadata"
                                      , skip = 4)
+
+# Index Class ----
+## Index Class, Index Names
+sel_indexclass_indexnames <- sort(unique(df_indexclass_crit[, "INDEX_NAME", TRUE]))
+
+
+
+
