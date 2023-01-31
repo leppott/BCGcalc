@@ -8,14 +8,30 @@ function() {
     sidebarPanel(
       h2("Merge Sample and Site Files")
       , p("This process will merge two CSV files.")
-      , p("File 1 is the sample file (with benthic counts).")
-      , p("File 2 is the site info file (with index class).")
+      , p("File 1 is the 'sample' file (with benthic counts).")
+      , p("File 2 is the 'site' info file (with index class).")
       , br()
       
       , h4("A. Upload files.")
       # file input
-      , fileInput("input_merge_file1_sample", label = "Import File 1 (Samples)")
-      , fileInput("input_merge_file2_site", label = "Import File 2 (Site Info)")
+      , fileInput("fn_input_mf1"
+                  , label = "Import File 1 (Samples)"
+                  , multiple = FALSE
+                  , accept = c("text/csv"
+                               , "text/comma-separated-values"
+                               , "text/tab-separated-values"
+                               , "text/plain"
+                               , ".csv")
+                  )
+      , fileInput("fn_input_mf2"
+                  , label = "Import File 2 (Sites)"
+                  , multiple = FALSE
+                  , accept = c("text/csv"
+                               , "text/comma-separated-values"
+                               , "text/tab-separated-values"
+                               , "text/plain"
+                               , ".csv")
+                  )
       
       , h4("B. Select columns for merge.")
       , uiOutput("UI_mergefiles_f1_col_merge")
@@ -28,26 +44,32 @@ function() {
       
       , h4("D. Download Output")
       , p("All input and output files will be available in a single zip file.")
-      , shinyjs::disabled(downloadButton("b_mergefiles_download"
+      , shinyjs::disabled(downloadButton("b_download_mergefiles"
                                          , "Download Results"))
       
       #, p(textOutput("fn_input_display"))
     )## sidebarPanel
     , mainPanel(
       tabsetPanel(type = "tabs"
+                  , id = "MF_mp_tsp"
                   , tabPanel(title = "About"
                              , includeHTML(file.path("www"
                                                      , "rmd_html"
                                                      , "ShinyHTML_MergeFiles_1About.html")))
                   , tabPanel(title = "File 1"
                              , h4("File 1 (Samples)")
-                             , tableOutput(outputId = "mf_input1"))
+                             , DT::dataTableOutput("df_import_mf1_DT")
+                             , value = "tab_MF_1")
                   , tabPanel(title = "File 2"
                              , h4("File 2 (Sites)")
-                             , tableOutput(outputId = "mf_input2"))
-                  , tabPanel(title = "Merged File"
-                             , h4("Merged File")
-                             , tableOutput(outputId = "mf_output"))
+                             , DT::dataTableOutput("df_import_mf2_DT")
+                             , value = "tab_MF_2"
+                             )
+                  # , tabPanel(title = "Merged File"
+                  #            , h4("Merged File")
+                  #            , tableOutput(outputId = "df_mf_merge_DT")
+                  #            , value = "tab_MF_merge"
+                  #            )
                   
                   # , tabPanel(title = "Calc_MTTI_Input"
                   #            ,includeHTML(file.path("www"

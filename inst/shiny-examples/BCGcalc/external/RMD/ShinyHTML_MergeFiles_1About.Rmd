@@ -1,6 +1,6 @@
 ---
 title: "Merge Files, About"
-date: "2023-01-24"
+date: "2023-01-31"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -22,13 +22,15 @@ calculations.
 
 * File 2, Sites with Index Class
 
-Merging will retain all rows of file 2 (samples) and add all columns of file 1
-(sites) where the files match.  The user will select a column from each file to
-perform the merge.  Column names that overlap will be have the suffix '.x' or 
-'.y' for files 1 and 2, respectively.
+Merging will retain all rows of file 1 (samples) and add all columns of file 2
+(sites) where the files match.  
 
-The user will have the option of viewing both input files and the merged file
-before download.
+The user will select a **single** column from each file to perform the merge.  
+
+Column names that overlap will have the suffix '.x' or '.y' for files 1 and 2
+, respectively.
+
+The user will have the option of viewing both input files before merging.
 
 
-*Last updated 2023-01-26*
+*Last updated 2023-01-31*
