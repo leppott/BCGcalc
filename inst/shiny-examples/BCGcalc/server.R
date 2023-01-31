@@ -1030,7 +1030,7 @@ shinyServer(function(input, output) {
       ### Calc, 00, Initialize ----
       prog_detail <- "Calculation, Assign Index Class..."
       message(paste0("\n", prog_detail))
-      
+    
       # Number of increments
       prog_n <- 6
       prog_sleep <- 0.25
@@ -1086,8 +1086,15 @@ shinyServer(function(input, output) {
       
       if (sel_col_sampid == "") {
         # end process with pop up
+        msg <- "'SampleID' column name is missing!"
+        shinyalert::shinyalert(title = "Assign Index Class"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
       }## IF ~ sel_col_sampid
-
+      
       # # Check if required fields present in input
       # boo_col_indexclass <- sel_col_indexclass %in% names(df_input)
       # if(boo_col_indexclass == FALSE) {
@@ -1099,7 +1106,7 @@ shinyServer(function(input, output) {
       # if(boo_col_indexname == FALSE) {
       #   df_input[, sel_col_indexname] <- NA_character_
       # }
-      
+    
       boo_col_sampid <- sel_col_sampid %in% names(df_input)
       if (boo_col_sampid == FALSE) {
         df_input[, sel_col_sampid] <- NA_character_
@@ -1147,7 +1154,7 @@ shinyServer(function(input, output) {
       position_IC <- grep(sel_col_indexclass
                           , names(df_input)
                           , ignore.case = TRUE)
-      if (position_IC > 0) {
+      if (!identical(position_IC, integer(0))) {
         names(df_input)[position_IC] <- sel_col_indexclass
       }## IF ~ position_IC
       ### Add (if not present) or Change to NA

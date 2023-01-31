@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9031"
+pkg_version <- "2.0.0.9032"
 
 # Packages----
 library(BCGcalc)
@@ -117,7 +117,7 @@ url_bmt_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/da
 url_bcg_checks <- file.path(url_bcg_base, "MetricFlags.xlsx")
 GET(url_bcg_checks
     , write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
-df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet="Flags"))
+df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet = "Flags"))
 
 # BMT, Taxa Official Pick----
 url_taxa_official_pick <- file.path(url_bmt_base, "taxa_official", "_pick_files.csv")
