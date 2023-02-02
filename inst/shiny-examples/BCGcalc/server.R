@@ -112,15 +112,48 @@ shinyServer(function(input, output) {
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
     # the "i" values default to complex numbers
-    # Will get a 'warning'
-    # coded into BioMonTools::metric.values() but being extra careful
-    df_input <- read.delim(fn_inFile
-                         , header = TRUE
-                         , sep = input$sep
-                         , stringsAsFactors = FALSE
-                         , colClasses = c("BCG_Attr" = "character"
-                                          , "BCG_ATTR" = "character"
-                                          , "bcg_attr" = "character"))
+    # many permutations of BCG_Attr so check for it first then import
+    
+    df_header <- read.delim(fn_inFile
+                            , header = TRUE
+                            , sep = ","
+                            , stringsAsFactors = FALSE
+                            , na.strings = c("", "NA")
+                            , nrows = 0)
+    col_num_bcgattr <- grep("BCG_ATTR", toupper(names(df_header)))
+    
+    if (identical(col_num_bcgattr, integer(0))) {
+      # BCG_Attr present = FALSE
+      # define classes = FALSE
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = ","
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA"))
+    } else {
+      # BCG_Attr present = TRUE
+      # define classes = TRUE
+      classes_df <- sapply(df_header, class)
+      classes_df[col_num_bcgattr] <- "character"
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = ","
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA")
+                             , colClasses = classes_df)
+    }## IF ~ col_num_bcgattr == integer(0)
+    
+    
+    # OLD
+    # Will get a 'warning' for unknown columns but harmless
+    # df_input <- read.delim(fn_inFile
+    #                        , header = TRUE
+    #                        , sep = ","
+    #                        , stringsAsFactors = FALSE
+    #                        , colClasses = c("BCG_Attr" = "character"
+    #                                         , "BCG_ATTR" = "character"
+    #                                         , "bcg_attr" = "character"
+    #                                         , "BCG_attr" = "character"))
     
     # Copy to "Results" folder - Import "as is"
     file.copy(input$fn_input$datapath, file.path(path_results
@@ -1481,15 +1514,48 @@ shinyServer(function(input, output) {
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
     # the "i" values default to complex numbers
-    # Will get a 'warning'
-    # coded into BioMonTools::metric.values() but being extra careful
-    df_input <- read.delim(fn_inFile
-                           , header = TRUE
-                           , sep = ","
-                           , stringsAsFactors = FALSE
-                           , colClasses = c("BCG_Attr" = "character"
-                                            , "BCG_ATTR" = "character"
-                                            , "bcg_attr" = "character"))
+    # many permutations of BCG_Attr so check for it first then import
+    df_header <- read.delim(fn_inFile
+                          , header = TRUE
+                          , sep = ","
+                          , stringsAsFactors = FALSE
+                          , na.strings = c("", "NA")
+                          , nrows = 0)
+    col_num_bcgattr <- grep("BCG_ATTR", toupper(names(df_header)))
+    
+    if (identical(col_num_bcgattr, integer(0))) {
+      # BCG_Attr present = FALSE
+      # define classes = FALSE
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = ","
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA"))
+    } else {
+      # BCG_Attr present = TRUE
+      # define classes = TRUE
+      classes_df <- sapply(df_header, class)
+      classes_df[col_num_bcgattr] <- "character"
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = ","
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA")
+                             , colClasses = classes_df)
+                             
+    }## IF ~ col_num_bcgattr == integer(0)
+    
+
+    # OLD
+    # Will get a 'warning' for unknown columns but harmless
+    # df_input <- read.delim(fn_inFile
+    #                        , header = TRUE
+    #                        , sep = ","
+    #                        , stringsAsFactors = FALSE
+    #                        , colClasses = c("BCG_Attr" = "character"
+    #                                         , "BCG_ATTR" = "character"
+    #                                         , "bcg_attr" = "character"
+    #                                         , "BCG_attr" = "character"))
     
     # Copy to "Results" folder - Import "as is"
     file.copy(inFile$datapath
@@ -1537,15 +1603,48 @@ shinyServer(function(input, output) {
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
     # the "i" values default to complex numbers
-    # Will get a 'warning'
-    # coded into BioMonTools::metric.values() but being extra careful
-    df_input <- read.delim(fn_inFile
-                           , header = TRUE
-                           , sep = ","
-                           , stringsAsFactors = FALSE
-                           , colClasses = c("BCG_Attr" = "character"
-                                            , "BCG_ATTR" = "character"
-                                            , "bcg_attr" = "character"))
+    # many permutations of BCG_Attr so check for it first then import
+    df_header <- read.delim(fn_inFile
+                            , header = TRUE
+                            , sep = ","
+                            , stringsAsFactors = FALSE
+                            , na.strings = c("", "NA")
+                            , nrows = 0)
+    col_num_bcgattr <- grep("BCG_ATTR", toupper(names(df_header)))
+    
+    if (identical(col_num_bcgattr, integer(0))) {
+      # BCG_Attr present = FALSE
+      # define classes = FALSE
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = ","
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA"))
+    } else {
+      # BCG_Attr present = TRUE
+      # define classes = TRUE
+      classes_df <- sapply(df_header, class)
+      classes_df[col_num_bcgattr] <- "character"
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = ","
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA")
+                             , colClasses = classes_df)
+      
+    }## IF ~ col_num_bcgattr == integer(0)
+    
+    
+    # OLD
+    # Will get a 'warning' for unknown columns but harmless
+    # df_input <- read.delim(fn_inFile
+    #                        , header = TRUE
+    #                        , sep = ","
+    #                        , stringsAsFactors = FALSE
+    #                        , colClasses = c("BCG_Attr" = "character"
+    #                                         , "BCG_ATTR" = "character"
+    #                                         , "bcg_attr" = "character"
+    #                                         , "BCG_attr" = "character"))
     
     # Copy to "Results" folder - Import "as is"
     file.copy(inFile$datapath

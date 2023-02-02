@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-31 17:09:10
+2023-02-02 08:51:21
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-31 17:09:10
+    #> Last Update: 2023-02-02 08:51:21
+
+# BCGcalc 2.0.0.9032 (2023-02-02)
+
+- fix: Update file import routine
+  - Account for multiple permutations of BCG_Attr
+  - Add “” to na.strings
 
 # BCGcalc 2.0.0.9032 (2023-01-31)
 

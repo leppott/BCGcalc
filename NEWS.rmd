@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9032 (2023-02-02)
+
+* fix: Update file import routine
+    + Account for multiple permutations of BCG_Attr
+    + Add "" to na.strings 
+
 # BCGcalc 2.0.0.9032 (2023-01-31)
 
 * fix: Adjust QC routine in Shiny app assign index class
