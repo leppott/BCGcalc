@@ -21,7 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# BCGcalc 2.0.0.9032 (2023-02-02)
+# BCGcalc 2.0.0.9034 (2023-02-02)
+
+* refactor: Update Shiny to include change in BioMonTools package
+
+# BCGcalc 2.0.0.9033 (2023-02-02)
 
 * fix: Update file import routine
     + Account for multiple permutations of BCG_Attr
