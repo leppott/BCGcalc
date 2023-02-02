@@ -43,5 +43,6 @@ cap_zip <- "Metrics Thermal Calculation zip file contents."
 knitr::kable(df_zip, caption = cap_zip)
 
 ```
+---
 
 *Last updated 2023-01-20*

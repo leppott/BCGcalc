@@ -546,7 +546,7 @@ shinyServer(function(input, output) {
   ## TaxaTrans, UI ----
   
   output$UI_taxatrans_pick_official <- renderUI({
-    str_col <- "Official Taxa Dataset (Project)"
+    str_col <- "Calculation"
     selectInput("taxatrans_pick_official"
                 , label = str_col
                 , choices = df_pick_taxoff[, "project"]
@@ -580,7 +580,7 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   output$UI_taxatrans_user_col_n_taxa <- renderUI({
-    str_col <- "Column, N_Taxa (taxa count or number of individuals)"
+    str_col <- "Column, Taxa Count (number of individuals or N_Taxa)"
     selectInput("taxatrans_user_col_n_taxa"
                 , label = str_col
                 , choices = c("", names(df_import()))

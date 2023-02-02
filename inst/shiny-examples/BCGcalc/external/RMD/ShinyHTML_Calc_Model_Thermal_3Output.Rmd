@@ -16,4 +16,6 @@ knitr::opts_chunk$set(echo = FALSE
 
 Some text about BCG stlye thermal model outputs.
 
+---
+
 *Last updated 2022-10-14*

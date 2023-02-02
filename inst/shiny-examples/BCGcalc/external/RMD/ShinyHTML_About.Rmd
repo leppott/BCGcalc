@@ -54,4 +54,6 @@ knitr::include_graphics("images/About_Fig1_PNMR_StudyArea.jpg")
 
 ![Figure 2. The Biological Condition Gradient (BCG), modified from Davies and Jackson 2006. The BCG was developed to serve as a scientific framework to synthesize expert knowledge with empirical observations and develop testable hypotheses on the response of aquatic biota to increasing levels of stress.](images/About_Fig2_BCG.jpg)
 
+---
+
 *Last updated 2022-10-13*

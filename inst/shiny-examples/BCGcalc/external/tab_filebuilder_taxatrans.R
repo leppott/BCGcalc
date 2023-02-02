@@ -11,7 +11,7 @@ function() {
             , p("If no file name showing below repeat 'Import File' in the left sidebar.")
             , p(textOutput("fn_input_display_taxatrans"))
             
-            , h4("B. Select Official Taxa File.")
+            , h4("B. Select Calculation.")
             , uiOutput("UI_taxatrans_pick_official")
             #, uiOutput("UI_taxatrans_pick_official_project")
             
@@ -27,7 +27,8 @@ function() {
             , uiOutput("UI_taxatrans_user_col_n_taxa")
             
             , h6("Optional Fields")
-            , p("All columns other than those specified above (required) or below (optional) will be dropped. Do not repeat the required columns.")
+            , p("All columns other than those specified above (required) or below (optional) will be dropped. 
+                IMPORTANT! Do not repeat the required columns, and do not include Life Stage or other fields that might cause a taxon to occur in more than one row for a given sample (which could lead to double-counting of that taxon in the richness metrics) .")
             #, shinyjs::disabled(uiOutput("UI_taxatrans_user_col_groupby"))
             , uiOutput("UI_taxatrans_user_col_groupby")
             

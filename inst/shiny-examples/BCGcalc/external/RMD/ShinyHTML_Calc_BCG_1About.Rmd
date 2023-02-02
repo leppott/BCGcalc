@@ -55,6 +55,8 @@ Valley, Cascades, and North Cascades, excluding xeric regions (< 650 mm mean ann
 
 *	Collection period: summer baseflow period (typically June through mid-October) 
 
-Calibration of the Pacific Northwest Maritime Region (PNMR) BCG model is described in detail in [Stamp 2022](links/PNMR_BCG_report_20220930_minusSupp.zip).  
+Calibration of the Pacific Northwest Maritime Region (PNMR) BCG model is described in detail in [Stamp 2022](links/PNMR_BCG_report_20220930_minusSupp.zip). 
+
+---
 
 *Last updated 2022-10-14*

@@ -50,4 +50,7 @@ Table 2. BCG Level 1 Biodiversity Index (draft, version 1) – overall scores an
 |Low	  |<20    |	Unexceptional biodiversity indicated. Mostly widespread and common taxa present.|
 
 <br>
+
+---
+
 *Last updated 2022-10-13*

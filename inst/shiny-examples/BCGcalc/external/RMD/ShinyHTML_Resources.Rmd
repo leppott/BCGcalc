@@ -78,4 +78,6 @@ and spatially joined with biological sampling sites.
 knitr::include_graphics("images/Resources_Fig3_NorWeST_ProcessingUnits2021.jpg")
 ```
 
+---
+
 *Last updated 2022-10-13*

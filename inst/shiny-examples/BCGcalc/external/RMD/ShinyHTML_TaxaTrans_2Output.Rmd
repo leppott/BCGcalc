@@ -53,5 +53,6 @@ cap_zip <- "Taxa Translator zip file contents."
 knitr::kable(df_zip, caption = cap_zip)
 ```
 
+---
 
 *Last updated 2022-12-14*

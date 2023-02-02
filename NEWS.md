@@ -1,13 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-02-02 08:51:21
+2023-02-02 17:04:16
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-02-02 08:51:21
+    #> Last Update: 2023-02-02 17:04:16
 
-# BCGcalc 2.0.0.9032 (2023-02-02)
+# BCGcalc 2.0.0.9035 (2023-02-02)
+
+- refactor: Update Shiny app text
+
+# BCGcalc 2.0.0.9034 (2023-02-02)
+
+- refactor: Update Shiny to include change in BioMonTools package
+
+# BCGcalc 2.0.0.9033 (2023-02-02)
 
 - fix: Update file import routine
   - Account for multiple permutations of BCG_Attr

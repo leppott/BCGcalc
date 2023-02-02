@@ -49,4 +49,6 @@ Samples were collected from June-October. Stamp et al. employed a systematic, da
 More metrics (beyond thermal indicators) are available in the BioMonTools R package. You can request the addition of new metrics to the R package or Shiny app by emailing Erik (Erik.Leppo@tetratech.com) or posting your request on the 
 <a href="https://github.com/leppott/BioMonTools/discussions" target="_blank">BioMonTools GitHub discussion page</a>.
 
+---
+
 *Last updated 2022-10-13*

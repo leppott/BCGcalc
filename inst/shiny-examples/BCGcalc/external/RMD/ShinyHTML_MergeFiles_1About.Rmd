@@ -32,5 +32,6 @@ Column names that overlap will have the suffix '.x' or '.y' for files 1 and 2
 
 The user will have the option of viewing both input files before merging.
 
+---
 
 *Last updated 2023-01-31*

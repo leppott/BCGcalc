@@ -24,4 +24,6 @@ The MTTI utilizes the weighted average optima values that are being published in
 
 For more information, view this [PDF](links/MTTI_Prelim_20220401.pdf) and contact Shannon Hubler (ODEQ) (Shannon.L.HUBLER@deq.oregon.gov).
 
+---
+
 *Last updated 2022-10-13*

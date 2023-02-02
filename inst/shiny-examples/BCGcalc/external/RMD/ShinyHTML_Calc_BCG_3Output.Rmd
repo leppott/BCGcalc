@@ -62,5 +62,6 @@ knitr::kable(df_zip, caption = cap_zip)
 
 ```
 
+---
 
 *Last updated 2022-11-18*

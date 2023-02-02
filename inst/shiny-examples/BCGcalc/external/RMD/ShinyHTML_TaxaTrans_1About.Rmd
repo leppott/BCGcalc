@@ -1,6 +1,6 @@
 ---
 title: "Taxa Translator, About"
-date: "2022-12-14"
+date: "2023-02-02"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -15,21 +15,36 @@ knitr::opts_chunk$set(echo = FALSE
 ```
 
 # Purpose
-Apply taxa translation before running other calculations to get the proper
-Operational Taxonomic Units (OTU).
+Create an input file with the proper Operational Taxonomic Units (OTUs) and 
+attributes for each calculation. 
 
-# Official Taxa Files
-URL for Official taxa files and metadata files is provided below.
+OTUs differ across calculations. For example, for the BCG model calculation, 
+worms are collapsed to Subclass and mites to Order-level. For the thermal 
+preference metric calculations, mites and worms are kept at the lowest practical
+taxonomic level. 
 
-Both files are included in the output of the taxa translator function.
+This function performs two steps to the input file:
 
-Taxa Translate Official Files on 
-<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official" target = "_blank">GitHub</a>.
+1. "Translates" the original TaxonID to the proper OTU based on the selected 
+calculation
 
-# File Inputs
-Any file can be run through the file builder but it is suggested the file be 
-ready for use in `BioMonTools` or `BCGcalc` functions.  That is, it has the 
-columns:
+2. Appends the Pacific Northwest taxa attributes, which include the Maritime 
+Region BCG taxa attributes, functional feeding group and thermal preference 
+assignments, and more.
+
+The ‘taxa translator’ and attribute tables are based on stream biomonitoring 
+data from Oregon and Washington and will be updated on an annual basis. If you 
+have questions or comments about these tables, or want to request the addition 
+of new taxa, please email Sean Sullivan (ssullivan@rhithron.com).
+
+Click 
+<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official" target = "_blank">here</a> 
+ to download the tables and associated metadata files from GitHub.
+
+![Filebuilder Taxa Translate steps.](images/FileBuilder_TaxaTrans_About_Fig1.jpg){width=80%}
+
+# Input File
+There are three required fields:
 
 * SampleID
 
@@ -39,28 +54,37 @@ columns:
 
     + Unique taxa name
 
-* N_Taxa
+* Count of individuals (e.g., N_Taxa)
 
     + Count of taxa individuals
     
-* Other Optional Columns
+If you named the required fields differently in your input file, it’s ok. Click 
+on the drop-down menus. The list of fields in your input file will appear. 
+Select the correct column headings.
 
-    + For example, station, date, latitude, longitude, elevation, gradient, etc.
-    
-The user will be required to identify the basic fields in their file in the
-select boxes.  The user also has the ability to include additional fields in 
-their output (e.g., collection date, latitude, longitude, station).  These
-additional fields need to be unique to the sample and not the taxa (e.g., do 
-not include notes from the taxonomist as this could cause issues if two or 
-more taxa and combined in to a coarser taxa name).
+Optional - if there are additional fields in the input file that you want to 
+carry through into the output file (e.g., stationID, collection date, latitude,
+longitude), click on the ‘Columns to keep in output’ box. The list of fields in 
+your input file will appear. Click on the fields that you want to include.  If 
+you change your mind and want to remove a field, click on it and hit ‘delete.’ 
 
-The select boxes will contain the columns names of the user file that was 
-already uploaded.
+IMPORTANT: Do not repeat the required columns. Do not include Life Stage or 
+other fields that are unique to the taxa and not the sample (such as notes from 
+the taxonomist). If a taxon occurs in more than one row for a given sample, it 
+will lead to double-counting of that taxon in the richness metrics.
+
+# Test File
+
+Click [here](links/Test1_FileBuilder_TaxaTransAttr.csv) to download a test file.
+
+Note that there is one taxon (Atherix) in the input file that comes out as a 
+‘nonmatch.’ This is because it has a trailing space. R is sensitive to leading 
+and trailing spaces and is also case sensitive (for example, it recognizes 'A'
+and 'a' as different variables).
 
 
 
 
+---
 
-
-
-*Last updated 2022-12-14*
+*Last updated 2023-02-02*

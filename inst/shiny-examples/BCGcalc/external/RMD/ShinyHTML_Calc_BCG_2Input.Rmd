@@ -16,4 +16,6 @@ knitr::opts_chunk$set(echo = FALSE
 
 Some text about BCG model input file requirements.
 
+---
+
 *Last updated 2022-10-14*
