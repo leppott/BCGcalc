@@ -1,6 +1,122 @@
 
 
 
-<p>Same as BCG calculation.</p>
+<div id="required-fields" class="section level1">
+<h1>Required Fields</h1>
+<p>The following fields are required in input files.</p>
+<p>Click <a href="links\ThermPrefMetric_ReqFields_20230203">here</a> to
+download an Excel file with this table plus example data. Column names
+must be match the spelling and symbology exactly as shown.</p>
+<table>
+<caption>Table 1. Required fields.</caption>
+<colgroup>
+<col width="6%" />
+<col width="3%" />
+<col width="19%" />
+<col width="69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Column Name</th>
+<th align="left">Data Type</th>
+<th align="left">Allowable entries</th>
+<th align="left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">SAMPLEID</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">Unique sample identifier</td>
+</tr>
+<tr class="even">
+<td align="left">TAXAID</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">Taxonomic identification of organisms in each
+sample</td>
+</tr>
+<tr class="odd">
+<td align="left">N_TAXA</td>
+<td align="left">numeric</td>
+<td align="left">non-negative real number</td>
+<td align="left">Number of individuals.</td>
+</tr>
+<tr class="even">
+<td align="left">EXCLUDE</td>
+<td align="left">text</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Redundant (non-distinct) taxa should marked “TRUE”.
+Redundant taxa are excluded from richness metric calculations but are
+included in the composition (percent individuals) metrics.</td>
+</tr>
+<tr class="odd">
+<td align="left">NONTARGET</td>
+<td align="left">text</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Non-target taxa should be marked “TRUE”. The R code
+excludes non-target taxa from all metric calculations.</td>
+</tr>
+<tr class="even">
+<td align="left">PHYLUM</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">CLASS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">SUBCLASS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">ORDER</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">FAMILY</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">SUBFAMILY</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">TRIBE</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">GENUS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">THERMAL_INDICATOR</td>
+<td align="left">text</td>
+<td align="left">stenoc, cold, cool, cowa, warm, stenow,
+eurythermal</td>
+<td align="left">Thermal preference assignment based on Stamp et al. (in
+progress): stenoc=cold stenotherm; cold, cool, cowa = cool/warm, warm,
+stenow = warm stenotherm, eurythermal</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<p><em>Last updated 2023-01-19</em></p>
+<p><em>Last updated 2023-02-03</em></p>
+</div>
