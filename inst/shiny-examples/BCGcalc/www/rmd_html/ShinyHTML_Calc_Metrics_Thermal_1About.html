@@ -1,18 +1,14 @@
 
 
 
-<p>Thermal preference metrics – About</p>
-<p>Status:</p>
-<ul>
-<li><p>Shiny app calculator - in progress</p></li>
-<li><p>R code - functional</p></li>
-<li><p>Click <a href="links/ThermalMetrics_Rscript_TestFiles_20221013.zip">here to
-download</a> the R script plus an example input and output
-files</p></li>
-</ul>
-<p>The thermal preference metric calculator calculates three types of
-metrics (number of taxa, % taxa and % individuals) for seven thermal
-preference categories:</p>
+<div id="purpose" class="section level1">
+<h1>Purpose</h1>
+<p>Calculate thermal preference metrics, using thermal preference
+assignments from Stamp et al. (in progress). The thermal preference
+assignments are based on an analysis of a large benthic
+macroinvertebrate dataset from freshwater wadeable streams in Oregon and
+Washington.</p>
+<p>There are seven thermal preference categories:</p>
 <ul>
 <li><p>Cold stenotherm</p></li>
 <li><p>Cold</p></li>
@@ -22,16 +18,35 @@ preference categories:</p>
 <li><p>Warm stenotherm</p></li>
 <li><p>Eurythermal</p></li>
 </ul>
-<p>Thermal preference assignments from Stamp et al. (in progress)<br />
-<a href="ORWA_Shinyapp_ThermPref_20220914.xlsx">are available</a> but
-not yet citable. They are based on a large benthic macroinvertebrate
-dataset from freshwater wadeable streams in Oregon and Washington and
-the Maximum Weekly Maximum Temperature (MWMT) metric from the
-<a href="https://www.fs.usda.gov/rm/boise/AWAE/projects/NorWeST/ModeledStreamTemperatureScenarioMaps.shtml" target="_blank">NorWeST
-modeled stream temperature dataset</a>. Samples were collected from
-June-October. Stamp et al. employed a systematic, data-driven and
-repeatable approach to assign 532 taxa to the seven thermal preference
-categories listed above.</p>
+<p>Three types of metrics are included in the output:</p>
+<ul>
+<li><p>number of taxa</p></li>
+<li><p>% taxa</p></li>
+<li><p>% individuals</p></li>
+</ul>
+</div>
+<div id="input-file" class="section level1">
+<h1>Input File</h1>
+<p>There are two pathways to creating the input file:</p>
+<ol style="list-style-type: decimal">
+<li><p>Generate a file outside of the Shiny app that is ready to go (has
+all the required fields, with exact column heading names – see the
+Calc_Metrics_Thermal_Input subtab for details).</p></li>
+<li><p>Use the File Builder ‘Taxa Translate and Attribute Assignment’
+function to create an input file (minimum required fields = SampleID,
+TaxonID, Count).</p></li>
+</ol>
+<p>The File Builder option ensures that you are using proper Operational
+Taxonomic Units (OTUs) and most current thermal preference assignments
+for Oregon and Washington (Stamp et al. in progress).</p>
+</div>
+<div id="test-file" class="section level1">
+<h1>Test file</h1>
+<p>Click <a href="links\Test1_ThermPrefMetric_input.csv">here</a> to
+download an input file that is ready to be run through the thermal
+metric calculator.</p>
+<p>Click <a href="links\BMT_MetricCalc_ThermalIndicator.R">here</a> to
+download the R script for calculating thermal preference metrics.</p>
 <p>More metrics (beyond thermal indicators) are available in the
 BioMonTools R package. You can request the addition of new metrics to
 the R package or Shiny app by emailing Erik (<a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a>) or posting your request on
@@ -39,4 +54,5 @@ the
 <a href="https://github.com/leppott/BioMonTools/discussions" target="_blank">BioMonTools
 GitHub discussion page</a>.</p>
 <hr />
-<p><em>Last updated 2022-10-13</em></p>
+<p><em>Last updated 2023-02-03</em></p>
+</div>

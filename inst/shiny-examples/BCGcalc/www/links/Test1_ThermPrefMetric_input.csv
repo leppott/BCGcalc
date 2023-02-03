@@ -1,0 +1,728 @@
+SAMPLEID,TAXAID,N_TAXA,NONTARGET,Thermal_indicator,Phylum,Class,Subclass,Order,Suborder,Superfamily,Family,Subfamily,Tribe,Genus
+SampOD_7102_1,Acari,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,,,,,,,
+SampOD_7102_1,Brillia,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampOD_7102_1,Calineuria californica,19,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Calineuria
+SampOD_7102_1,Crenitis,1,FALSE,,Arthropoda,Insecta,Pterygota,Coleoptera,,Hydrophiloidea,Hydrophilidae,,,Crenitis
+SampOD_7102_1,Dicranota,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampOD_7102_1,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampOD_7102_1,Fluminicola,8,FALSE,warm,Mollusca,Gastropoda,Prosobranchia,Neotaenioglossa,,Truncatelloidea,Hydrobiidae,,,Fluminicola
+SampOD_7102_1,Glossosoma,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampOD_7102_1,Hexatoma,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Hexatoma
+SampOD_7102_1,Hydropsyche,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampOD_7102_1,Juga,48,FALSE,cowa,Mollusca,Gastropoda,Prosobranchia,Neotaenioglossa,,,Pleuroceridae,,,Juga
+SampOD_7102_1,Lepidostoma,11,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampOD_7102_1,Limoniidae,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Limoniidae,,,
+SampOD_7102_1,Micropsectra,9,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampOD_7102_1,Neoleptophlebia/Paraleptophlebia,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampOD_7102_1,Optioservus,15,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampOD_7102_1,Oreodytes,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Dytiscidae,Hydroporinae,,Oreodytes
+SampOD_7102_1,Parametriocnemus,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampOD_7102_1,Rhyacophila arnaudi,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7102_1,Rhyacophila blarina,21,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7102_1,Sialis,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Megaloptera,,,Sialidae,,,Sialis
+SampOD_7102_1,Sweltsa,15,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampOD_7102_1,Tanytarsus,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Tanytarsus
+SampOD_7102_1,Thienemannimyia group,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Thienemannimyia group
+SampOD_7102_1,Tvetenia bavarica group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampOD_7102_1,Zapada cinctipes,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampOD_7102_1,Zavrelimyia,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Zavrelimyia
+SampOD_7103_1,Acari,7,FALSE,eurythermal,Arthropoda,Arachnida,Acari,,,,,,,
+SampOD_7103_1,Antocha,12,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Antocha
+SampOD_7103_1,Arctopsyche,8,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,Arctopsychinae,,Arctopsyche
+SampOD_7103_1,Baetis tricaudatus complex,82,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampOD_7103_1,Brillia,9,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampOD_7103_1,Calineuria californica,18,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Calineuria
+SampOD_7103_1,Ceratopogoninae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampOD_7103_1,Chelifera/Metachela,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,,,Chelifera/Metachela
+SampOD_7103_1,Cinygmula,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampOD_7103_1,Despaxia,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,Despaxia
+SampOD_7103_1,Dicranota,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampOD_7103_1,Diphetor,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Diphetor
+SampOD_7103_1,Dixa,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampOD_7103_1,Drunella doddsii,67,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampOD_7103_1,Empididae,6,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,,,
+SampOD_7103_1,Epeorus,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Epeorus
+SampOD_7103_1,Eukiefferiella pseudomontana group,73,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampOD_7103_1,Forcipomyiinae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Forcipomyiinae,,
+SampOD_7103_1,Glossosoma,15,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampOD_7103_1,Glutops,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Pelecorhyncidae,,,Glutops
+SampOD_7103_1,Heptagenia group,5,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Heptagenia group
+SampOD_7103_1,Hesperoperla,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampOD_7103_1,Heterotrissocladius,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Heterotrissocladius
+SampOD_7103_1,Hydropsyche,76,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampOD_7103_1,Juga,17,FALSE,cowa,Mollusca,Gastropoda,Prosobranchia,Neotaenioglossa,,,Pleuroceridae,,,Juga
+SampOD_7103_1,Lepidostoma,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampOD_7103_1,Limnephilidae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,
+SampOD_7103_1,Malenka,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Malenka
+SampOD_7103_1,Micropsectra,22,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampOD_7103_1,Neoleptophlebia/Paraleptophlebia,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampOD_7103_1,Neophylax rickeri,10,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Neophylax
+SampOD_7103_1,Neophylax splendens,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Neophylax
+SampOD_7103_1,Oligochaeta,1,FALSE,eurythermal,Annelida,Clitellata,Oligochaeta,,,,,,,
+SampOD_7103_1,Optioservus,11,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampOD_7103_1,Orthocladiinae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,
+SampOD_7103_1,Orthocladius (Symposiocladius),1,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampOD_7103_1,Orthocladius complex,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius complex
+SampOD_7103_1,Pacifastacus,1,FALSE,warm,Arthropoda,Malacostraca,Eumalacostraca,Decapoda,,,Astacidae,,,Pacifastacus
+SampOD_7103_1,Pagastia,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Diamesinae,Diamesini,Pagastia
+SampOD_7103_1,Parapsyche almota,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,Arctopsychinae,,Parapsyche
+SampOD_7103_1,Polypedilum,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampOD_7103_1,Rheocricotopus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Rheocricotopus
+SampOD_7103_1,Rheotanytarsus,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus
+SampOD_7103_1,Rhithrogena,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampOD_7103_1,Rhyacophila betteni group,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7103_1,Rhyacophila blarina,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7103_1,Rhyacophila brunnea/vemna groups,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7103_1,Rhyacophila hyalinata group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7103_1,Rhyacophila narvae,12,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7103_1,Sialis,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Megaloptera,,,Sialidae,,,Sialis
+SampOD_7103_1,Simulium,27,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampOD_7103_1,Skwala,11,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampOD_7103_1,Sweltsa,22,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampOD_7103_1,Tanypodinae,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,,
+SampOD_7103_1,Tanytarsini,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,
+SampOD_7103_1,Thienemanniella,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Thienemanniella
+SampOD_7103_1,Tvetenia bavarica group,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampOD_7103_1,Zaitzevia,6,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Zaitzevia
+SampOD_7103_1,Zavrelimyia,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Zavrelimyia
+SampOD_7104_1,Acari,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,,,,,,,
+SampOD_7104_1,Alotanypus,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Coelotanypodini,Alotanypus
+SampOD_7104_1,Ceratopogoninae,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampOD_7104_1,Chironomini,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,
+SampOD_7104_1,Dixella,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixella
+SampOD_7104_1,Drunella doddsii,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampOD_7104_1,Heterotrissocladius,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Heterotrissocladius
+SampOD_7104_1,Hexatoma,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Hexatoma
+SampOD_7104_1,Micropsectra,17,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampOD_7104_1,Muscidae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Muscidae,,,
+SampOD_7104_1,Natarsia,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Natarsiini,Natarsia
+SampOD_7104_1,Neoleptophlebia/Paraleptophlebia,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampOD_7104_1,Optioservus,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampOD_7104_1,Ormosia,1,FALSE,,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Ormosia
+SampOD_7104_1,Orthocladius (Symposiocladius),1,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampOD_7104_1,Paratanytarsus,11,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Paratanytarsus
+SampOD_7104_1,Pericomaini,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Psychodidae,Psychodinae,Pericomaini,
+SampOD_7104_1,Phaenopsectra,21,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Phaenopsectra
+SampOD_7104_1,Procladius,11,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Procladiini,Procladius
+SampOD_7104_1,Psectrotanypus,3,FALSE,,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Macropelopiini,Psectrotanypus
+SampOD_7104_1,Sialis,22,FALSE,warm,Arthropoda,Insecta,Pterygota,Megaloptera,,,Sialidae,,,Sialis
+SampOD_7104_1,Sphaeriidae,6,FALSE,warm,Mollusca,Bivalvia,Heterodonta,Veneroida,,Corbiculoidea,Sphaeriidae,,,
+SampOD_7104_1,Tabanidae,9,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Tabanidae,,,
+SampOD_7104_1,Tanypodinae,15,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,,
+SampOD_7104_1,Tanytarsini,72,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,
+SampOD_7104_1,Tanytarsus,76,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Tanytarsus
+SampOD_7104_1,Tribelos,4,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Tribelos
+SampOD_7104_1,Zavrelimyia,9,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Zavrelimyia
+SampOD_7105_1,Acari,13,FALSE,eurythermal,Arthropoda,Arachnida,Acari,,,,,,,
+SampOD_7105_1,Ametor,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,Hydrophiloidea,Hydrophilidae,,,Ametor
+SampOD_7105_1,Anacaena,1,FALSE,,Arthropoda,Insecta,Pterygota,Coleoptera,,Hydrophiloidea,Hydrophilidae,,,Anacaena
+SampOD_7105_1,Baetis tricaudatus complex,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampOD_7105_1,Boreochlus,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Podonominae,Boreochlini,Boreochlus
+SampOD_7105_1,Capniidae,21,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Capniidae,,,
+SampOD_7105_1,Ceratopogoninae,12,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampOD_7105_1,Chironomidae,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,,,
+SampOD_7105_1,Chloroperlidae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,,,
+SampOD_7105_1,Chyrandra,1,FALSE,,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,Chyrandra
+SampOD_7105_1,Cinygmula,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampOD_7105_1,Cladotanytarsus,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Cladotanytarsus
+SampOD_7105_1,Cryptochia,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Cryptochia
+SampOD_7105_1,Dicranota,8,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampOD_7105_1,Diplocladius,57,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Diplocladius
+SampOD_7105_1,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampOD_7105_1,Elmidae,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,
+SampOD_7105_1,Helophorus,1,FALSE,,Arthropoda,Insecta,Pterygota,Coleoptera,,Hydrophiloidea,Helophoridae,,,Helophorus
+SampOD_7105_1,Heterotrissocladius marcidus group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Heterotrissocladius
+SampOD_7105_1,Hexatoma,6,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Hexatoma
+SampOD_7105_1,Hydatophylax,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,Hydatophylax
+SampOD_7105_1,Ironodes,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Ironodes
+SampOD_7105_1,Isoperla,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Isoperla
+SampOD_7105_1,Labrundinia,1,FALSE,,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Labrundinia
+SampOD_7105_1,Lepidostoma,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampOD_7105_1,Leuctridae,39,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,
+SampOD_7105_1,Limnephilidae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,
+SampOD_7105_1,Limoniidae,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Limoniidae,,,
+SampOD_7105_1,Micrasema,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Micrasema
+SampOD_7105_1,Neoleptophlebia/Paraleptophlebia,169,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampOD_7105_1,Neoplasta,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Hemerodromiinae,,Neoplasta
+SampOD_7105_1,Oligochaeta,22,FALSE,eurythermal,Annelida,Clitellata,Oligochaeta,,,,,,,
+SampOD_7105_1,Optioservus,6,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampOD_7105_1,Oreodytes,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Dytiscidae,Hydroporinae,,Oreodytes
+SampOD_7105_1,Orthocladius complex,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius complex
+SampOD_7105_1,Parametriocnemus,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampOD_7105_1,Paratanytarsus,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Paratanytarsus
+SampOD_7105_1,Pericomaini,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Psychodidae,Psychodinae,Pericomaini,
+SampOD_7105_1,Perlodidae,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,
+SampOD_7105_1,Polypedilum,6,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampOD_7105_1,Psectrocladius,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Psectrocladius
+SampOD_7105_1,Psilometriocnemus,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Psilometriocnemus
+SampOD_7105_1,Rheocricotopus,28,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Rheocricotopus
+SampOD_7105_1,Rheotanytarsus,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus
+SampOD_7105_1,Rhyacophila betteni group,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7105_1,Sialis,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Megaloptera,,,Sialidae,,,Sialis
+SampOD_7105_1,Skwala,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampOD_7105_1,Sphaeriidae,1,FALSE,warm,Mollusca,Bivalvia,Heterodonta,Veneroida,,Corbiculoidea,Sphaeriidae,,,
+SampOD_7105_1,Sweltsa,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampOD_7105_1,Tabanidae,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Tabanidae,,,
+SampOD_7105_1,Tanytarsini,34,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,
+SampOD_7105_1,Thienemanniella,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Thienemanniella
+SampOD_7105_1,Thienemannimyia group,8,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Thienemannimyia group
+SampOD_7105_1,Tvetenia bavarica group,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampOD_7105_1,Zapada cinctipes,140,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampOD_7106_1,Acari,13,FALSE,eurythermal,Arthropoda,Arachnida,Acari,,,,,,,
+SampOD_7106_1,Baetis,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampOD_7106_1,Baetis tricaudatus complex,48,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampOD_7106_1,Brillia,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampOD_7106_1,Calineuria californica,10,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Calineuria
+SampOD_7106_1,Chelifera/Metachela,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,,,Chelifera/Metachela
+SampOD_7106_1,Cinygmula,19,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampOD_7106_1,Dicranota,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampOD_7106_1,Diphetor,31,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Diphetor
+SampOD_7106_1,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampOD_7106_1,Drunella doddsii,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampOD_7106_1,Epeorus albertae group,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Epeorus
+SampOD_7106_1,Eukiefferiella claripennis group,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampOD_7106_1,Glossosoma,41,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampOD_7106_1,Hesperoperla,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampOD_7106_1,Hydropsyche,25,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampOD_7106_1,Juga,1,FALSE,cowa,Mollusca,Gastropoda,Prosobranchia,Neotaenioglossa,,,Pleuroceridae,,,Juga
+SampOD_7106_1,Lepidostoma,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampOD_7106_1,Malenka,8,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Malenka
+SampOD_7106_1,Maruina,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Psychodidae,Psychodinae,,Maruina
+SampOD_7106_1,Micropsectra,32,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampOD_7106_1,Neoleptophlebia/Paraleptophlebia,7,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampOD_7106_1,Optioservus,6,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampOD_7106_1,Parametriocnemus,5,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampOD_7106_1,Perlidae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,
+SampOD_7106_1,Polypedilum,13,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampOD_7106_1,Rheocricotopus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Rheocricotopus
+SampOD_7106_1,Rheotanytarsus,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus
+SampOD_7106_1,Rhithrogena,64,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampOD_7106_1,Rhyacophila,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7106_1,Rhyacophila angelita group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7106_1,Rhyacophila betteni group,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7106_1,Rhyacophila blarina,33,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7106_1,Rhyacophila brunnea/vemna groups,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampOD_7106_1,Simulium,91,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampOD_7106_1,Skwala,7,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampOD_7106_1,Sphaeriidae,1,FALSE,warm,Mollusca,Bivalvia,Heterodonta,Veneroida,,Corbiculoidea,Sphaeriidae,,,
+SampOD_7106_1,Sweltsa,32,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampOD_7106_1,Truncatelloidea,1,FALSE,warm,Mollusca,Gastropoda,,Littorinimorpha,,,,,,
+SampOD_7106_1,Tvetenia bavarica group,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampOD_7106_1,Wormaldia,26,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Philopotamoidea,Philopotamidae,,,Wormaldia
+SampOD_7106_1,Zaitzevia,11,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Zaitzevia
+SampOD_7106_1,Zapada cinctipes,41,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampOD_7106_1,Zapada oregonensis group,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10009_15078,Acentrella turbida,13,FALSE,warm,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Acentrella
+SampPSSB_10009_15078,Antocha,5,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Antocha
+SampPSSB_10009_15078,Atractides,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hygrobatidae,,,Atractides
+SampPSSB_10009_15078,Baetis tricaudatus complex,74,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampPSSB_10009_15078,Brachycentrus americanus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Brachycentrus
+SampPSSB_10009_15078,Brillia,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampPSSB_10009_15078,Calineuria californica,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Calineuria
+SampPSSB_10009_15078,Chironomidae,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,,,
+SampPSSB_10009_15078,Cinygmula,21,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampPSSB_10009_15078,Clinocera,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Clinocerinae,,Clinocera
+SampPSSB_10009_15078,Dicosmoecus atripes,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Dicosmoecus
+SampPSSB_10009_15078,Dicosmoecus gilvipes,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Dicosmoecus
+SampPSSB_10009_15078,Dicranomyia,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranomyia
+SampPSSB_10009_15078,Diphetor,21,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Diphetor
+SampPSSB_10009_15078,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampPSSB_10009_15078,Ephydridae,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Ephydridae,,,
+SampPSSB_10009_15078,Eukiefferiella brehmi group,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampPSSB_10009_15078,Eukiefferiella claripennis group,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampPSSB_10009_15078,Glossosoma,13,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampPSSB_10009_15078,Glutops,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Pelecorhyncidae,,,Glutops
+SampPSSB_10009_15078,Hesperoperla,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampPSSB_10009_15078,Heterlimnius,26,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Heterlimnius
+SampPSSB_10009_15078,Hydropsyche,7,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampPSSB_10009_15078,Ironodes,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Ironodes
+SampPSSB_10009_15078,Isoperla,37,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Isoperla
+SampPSSB_10009_15078,Kathroperla,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Paraperlinae,,Kathroperla
+SampPSSB_10009_15078,Lebertia,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampPSSB_10009_15078,Lepidostoma,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampPSSB_10009_15078,Leuctridae,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,
+SampPSSB_10009_15078,Malenka,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Malenka
+SampPSSB_10009_15078,Micropsectra,6,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampPSSB_10009_15078,Narpus,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Narpus
+SampPSSB_10009_15078,Neoleptophlebia/Paraleptophlebia,7,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampPSSB_10009_15078,Neophylax rickeri,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Neophylax
+SampPSSB_10009_15078,Oligochaeta,23,FALSE,eurythermal,Annelida,Clitellata,Oligochaeta,,,,,,,
+SampPSSB_10009_15078,Orthocladius,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampPSSB_10009_15078,Parametriocnemus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampPSSB_10009_15078,Physella,1,FALSE,warm,Mollusca,Gastropoda,,Basommatophora,,,Physidae,,,Physella
+SampPSSB_10009_15078,Polypedilum,49,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampPSSB_10009_15078,Rheotanytarsus,23,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus
+SampPSSB_10009_15078,Rhithrogena,124,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampPSSB_10009_15078,Rhyacophila betteni group,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10009_15078,Rhyacophila narvae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10009_15078,Simulium,6,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampPSSB_10009_15078,Skwala,18,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampPSSB_10009_15078,Sweltsa,8,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampPSSB_10009_15078,Tipulidae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,
+SampPSSB_10009_15078,Torrenticola,1,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Torrenticolidae,,,Torrenticola
+SampPSSB_10009_15078,Trombidiformes,2,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,,,,
+SampPSSB_10009_15078,Tvetenia bavarica group,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampPSSB_10009_15078,Zaitzevia,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Zaitzevia
+SampPSSB_10009_15078,Zapada cinctipes,9,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10009_15078,Zapada oregonensis group,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10010_15079,Ametor,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,Hydrophiloidea,Hydrophilidae,,,Ametor
+SampPSSB_10010_15079,Atractides,2,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hygrobatidae,,,Atractides
+SampPSSB_10010_15079,Baetis tricaudatus complex,25,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampPSSB_10010_15079,Brillia,54,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampPSSB_10010_15079,Capniidae,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Capniidae,,,
+SampPSSB_10010_15079,Ceratopogoninae,9,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampPSSB_10010_15079,Chelifera/Metachela,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,,,Chelifera/Metachela
+SampPSSB_10010_15079,Chironomidae,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,,,
+SampPSSB_10010_15079,Chloroperlidae,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,,,
+SampPSSB_10010_15079,Cinygma,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygma
+SampPSSB_10010_15079,Cinygmula,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampPSSB_10010_15079,Corynoneura,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Corynoneura
+SampPSSB_10010_15079,Crangonyx,1,FALSE,warm,Arthropoda,Malacostraca,Eumalacostraca,Amphipoda,Gammaridea,,Crangonyctidae,,,Crangonyx
+SampPSSB_10010_15079,Dicranota,12,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampPSSB_10010_15079,Diphetor,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Diphetor
+SampPSSB_10010_15079,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampPSSB_10010_15079,Eloeophila,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Eloeophila
+SampPSSB_10010_15079,Eukiefferiella claripennis group,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampPSSB_10010_15079,Eukiefferiella tirolensis group,11,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampPSSB_10010_15079,Ferrissia,1,FALSE,warm,Mollusca,Gastropoda,,Basommatophora,,,Ancylidae,,,Ferrissia
+SampPSSB_10010_15079,Glossosoma,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampPSSB_10010_15079,Glutops,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Pelecorhyncidae,,,Glutops
+SampPSSB_10010_15079,Hesperoperla,8,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampPSSB_10010_15079,Hexatoma,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Hexatoma
+SampPSSB_10010_15079,Hydropsyche,47,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampPSSB_10010_15079,Ironodes,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Ironodes
+SampPSSB_10010_15079,Lara,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Lara
+SampPSSB_10010_15079,Lebertia,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampPSSB_10010_15079,Lepidoptera,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Lepidoptera,,,,,,
+SampPSSB_10010_15079,Lepidostoma,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampPSSB_10010_15079,Malenka,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Malenka
+SampPSSB_10010_15079,Micrasema,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Micrasema
+SampPSSB_10010_15079,Micropsectra,46,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampPSSB_10010_15079,Narpus,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Narpus
+SampPSSB_10010_15079,Neoleptophlebia/Paraleptophlebia,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampPSSB_10010_15079,Neophylax splendens,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Neophylax
+SampPSSB_10010_15079,Neoplasta,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Hemerodromiinae,,Neoplasta
+SampPSSB_10010_15079,Oligochaeta,107,FALSE,eurythermal,Annelida,Clitellata,Oligochaeta,,,,,,,
+SampPSSB_10010_15079,Optioservus,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampPSSB_10010_15079,Pacifastacus,1,FALSE,warm,Arthropoda,Malacostraca,Eumalacostraca,Decapoda,,,Astacidae,,,Pacifastacus
+SampPSSB_10010_15079,Parametriocnemus,17,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampPSSB_10010_15079,Perlodidae,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,
+SampPSSB_10010_15079,Pisidium,3,FALSE,eurythermal,Mollusca,Bivalvia,Heterodonta,Veneroida,,Corbiculoidea,Sphaeriidae,,,Pisidium
+SampPSSB_10010_15079,Polypedilum,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampPSSB_10010_15079,Rheocricotopus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Rheocricotopus
+SampPSSB_10010_15079,Rheotanytarsus,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus
+SampPSSB_10010_15079,Rhyacophila atrata complex,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10010_15079,Rhyacophila betteni group,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10010_15079,Rhyacophila blarina,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10010_15079,Rhyacophila brunnea/vemna groups,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10010_15079,Rhyacophila narvae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10010_15079,Simulium,31,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampPSSB_10010_15079,Skwala,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampPSSB_10010_15079,Sweltsa,9,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampPSSB_10010_15079,Thienemanniella,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Thienemanniella
+SampPSSB_10010_15079,Tipula,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Tipula
+SampPSSB_10010_15079,Trepaxonemata,1,FALSE,eurythermal,Platyhelminthes,Trepaxonemata,,,,,,,,
+SampPSSB_10010_15079,Tvetenia bavarica group,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampPSSB_10010_15079,Wormaldia,5,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Philopotamoidea,Philopotamidae,,,Wormaldia
+SampPSSB_10010_15079,Zapada cinctipes,19,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10010_15079,Zapada oregonensis group,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10011_15080,Americorophium,1,FALSE,,Arthropoda,Malacostraca,Eumalacostraca,Amphipoda,Gammaridea,,Corophiidae,,,Americorophium
+SampPSSB_10011_15080,Arctopsychinae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,Arctopsychinae,,
+SampPSSB_10011_15080,Baetis tricaudatus complex,85,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampPSSB_10011_15080,Brillia,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampPSSB_10011_15080,Capniidae,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Capniidae,,,
+SampPSSB_10011_15080,Ceratopogoninae,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampPSSB_10011_15080,Chaetocladius,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Chaetocladius
+SampPSSB_10011_15080,Chelifera/Metachela,12,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,,,Chelifera/Metachela
+SampPSSB_10011_15080,Chironomidae,7,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,,,
+SampPSSB_10011_15080,Cinygma,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygma
+SampPSSB_10011_15080,Cinygmula,15,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampPSSB_10011_15080,Dicranota,22,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampPSSB_10011_15080,Diphetor,26,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Diphetor
+SampPSSB_10011_15080,Eloeophila,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Eloeophila
+SampPSSB_10011_15080,Eukiefferiella tirolensis group,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampPSSB_10011_15080,Heleniella,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Heleniella
+SampPSSB_10011_15080,Hesperoperla,6,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampPSSB_10011_15080,Hydra,1,FALSE,warm,Cnidaria,Hydrozoa,,Hydroida,,,Hydridae,,,Hydra
+SampPSSB_10011_15080,Hydropsyche,4,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampPSSB_10011_15080,Krenosmittia,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Krenosmittia
+SampPSSB_10011_15080,Lebertia,9,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampPSSB_10011_15080,Lepidoptera,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Lepidoptera,,,,,,
+SampPSSB_10011_15080,Lepidostoma,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampPSSB_10011_15080,Metriocnemus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Metriocnemus
+SampPSSB_10011_15080,Micropsectra,31,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampPSSB_10011_15080,Narpus,21,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Narpus
+SampPSSB_10011_15080,Neoleptophlebia/Paraleptophlebia,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampPSSB_10011_15080,Neoplasta,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Hemerodromiinae,,Neoplasta
+SampPSSB_10011_15080,Oligochaeta,68,FALSE,eurythermal,Annelida,Clitellata,Oligochaeta,,,,,,,
+SampPSSB_10011_15080,Onocosmoecus,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Onocosmoecus
+SampPSSB_10011_15080,Optioservus,14,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampPSSB_10011_15080,Oribatida,1,FALSE,cool,Arthropoda,Arachnida,Acari,Sarcoptiformes,Oribatida,,,,,
+SampPSSB_10011_15080,Orthocladius (Symposiocladius),2,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampPSSB_10011_15080,Parametriocnemus,9,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampPSSB_10011_15080,Perlodidae,9,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,
+SampPSSB_10011_15080,Pisidium,24,FALSE,eurythermal,Mollusca,Bivalvia,Heterodonta,Veneroida,,Corbiculoidea,Sphaeriidae,,,Pisidium
+SampPSSB_10011_15080,Polycelis,1,FALSE,cold,Platyhelminthes,Trepaxonemata,,Neoophora,,,Planariidae,,,Polycelis
+SampPSSB_10011_15080,Polypedilum,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampPSSB_10011_15080,Psychoglypha bella,1,FALSE,,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,Psychoglypha
+SampPSSB_10011_15080,Rhyacophila betteni group,12,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10011_15080,Simulium,98,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampPSSB_10011_15080,Skwala,5,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampPSSB_10011_15080,Sperchonopsis,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Sperchontidae,,,Sperchonopsis
+SampPSSB_10011_15080,Stempellinella,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Stempellinella
+SampPSSB_10011_15080,Sweltsa,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampPSSB_10011_15080,Tvetenia bavarica group,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampPSSB_10011_15080,Wormaldia,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Philopotamoidea,Philopotamidae,,,Wormaldia
+SampPSSB_10011_15080,Zapada cinctipes,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10011_15080,Zapada oregonensis group,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10011_15080,Zavrelimyia,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Zavrelimyia
+SampPSSB_10012_15081,Baetis tricaudatus complex,79,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampPSSB_10012_15081,Brillia,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampPSSB_10012_15081,Capniidae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Capniidae,,,
+SampPSSB_10012_15081,Chelifera/Metachela,25,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,,,Chelifera/Metachela
+SampPSSB_10012_15081,Chironomidae,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,,,
+SampPSSB_10012_15081,Chloroperlidae,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,,,
+SampPSSB_10012_15081,Cinygma,7,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygma
+SampPSSB_10012_15081,Cinygmula,8,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampPSSB_10012_15081,Crangonyx,1,FALSE,warm,Arthropoda,Malacostraca,Eumalacostraca,Amphipoda,Gammaridea,,Crangonyctidae,,,Crangonyx
+SampPSSB_10012_15081,Dicranota,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampPSSB_10012_15081,Diphetor,7,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Diphetor
+SampPSSB_10012_15081,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampPSSB_10012_15081,Eukiefferiella claripennis group,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampPSSB_10012_15081,Eukiefferiella tirolensis group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampPSSB_10012_15081,Forcipomyiinae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Forcipomyiinae,,
+SampPSSB_10012_15081,Glossosoma,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampPSSB_10012_15081,Glutops,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Pelecorhyncidae,,,Glutops
+SampPSSB_10012_15081,Hesperoperla,4,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampPSSB_10012_15081,Heterlimnius,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Heterlimnius
+SampPSSB_10012_15081,Hydatophylax,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,Hydatophylax
+SampPSSB_10012_15081,Hydra,1,FALSE,warm,Cnidaria,Hydrozoa,,Hydroida,,,Hydridae,,,Hydra
+SampPSSB_10012_15081,Hydroporinae,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Coleoptera,,,Dytiscidae,Hydroporinae,,
+SampPSSB_10012_15081,Hydropsyche,23,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampPSSB_10012_15081,Hygrobates,1,FALSE,warm,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hygrobatidae,,,Hygrobates
+SampPSSB_10012_15081,Lara,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Lara
+SampPSSB_10012_15081,Lebertia,3,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampPSSB_10012_15081,Lepidoptera,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Lepidoptera,,,,,,
+SampPSSB_10012_15081,Micropsectra,24,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampPSSB_10012_15081,Narpus,15,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Narpus
+SampPSSB_10012_15081,Nemata,3,FALSE,eurythermal,Nemata,,,,,,,,,
+SampPSSB_10012_15081,Neoleptophlebia/Paraleptophlebia,14,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampPSSB_10012_15081,Neophylax splendens,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Neophylax
+SampPSSB_10012_15081,Oligochaeta,70,FALSE,eurythermal,Annelida,Clitellata,Oligochaeta,,,,,,,
+SampPSSB_10012_15081,Optioservus,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Optioservus
+SampPSSB_10012_15081,Parametriocnemus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampPSSB_10012_15081,Polycelis,1,FALSE,cold,Platyhelminthes,Trepaxonemata,,Neoophora,,,Planariidae,,,Polycelis
+SampPSSB_10012_15081,Polypedilum,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampPSSB_10012_15081,Rhyacophila betteni group,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10012_15081,Rhyacophila blarina,23,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10012_15081,Rhyacophila brunnea/vemna groups,9,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10012_15081,Simulium,51,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampPSSB_10012_15081,Skwala,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampPSSB_10012_15081,Sweltsa,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampPSSB_10012_15081,Thienemanniella,5,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Thienemanniella
+SampPSSB_10012_15081,Tipula,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Tipula
+SampPSSB_10012_15081,Tipulidae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,
+SampPSSB_10012_15081,Tvetenia bavarica group,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampPSSB_10012_15081,Wormaldia,20,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Philopotamoidea,Philopotamidae,,,Wormaldia
+SampPSSB_10012_15081,Zapada cinctipes,61,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10012_15081,Zapada oregonensis group,8,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10013_15082,Attenella delantala,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Attenella
+SampPSSB_10013_15082,Baetis tricaudatus complex,67,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampPSSB_10013_15082,Brachycentrus americanus,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Brachycentrus
+SampPSSB_10013_15082,Capniidae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Capniidae,,,
+SampPSSB_10013_15082,Chironomidae,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,,,
+SampPSSB_10013_15082,Chloroperlidae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,,,
+SampPSSB_10013_15082,Cinygmula,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampPSSB_10013_15082,Corynoneura,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Corynoneura
+SampPSSB_10013_15082,Crangonyx,13,FALSE,warm,Arthropoda,Malacostraca,Eumalacostraca,Amphipoda,Gammaridea,,Crangonyctidae,,,Crangonyx
+SampPSSB_10013_15082,Dicosmoecus gilvipes,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Dicosmoecus
+SampPSSB_10013_15082,Diphetor,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Diphetor
+SampPSSB_10013_15082,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampPSSB_10013_15082,Ephemerella excrucians group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Ephemerella
+SampPSSB_10013_15082,Ephemerella tibialis,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Ephemerella
+SampPSSB_10013_15082,Glossosoma,31,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampPSSB_10013_15082,Hesperoperla,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampPSSB_10013_15082,Heterlimnius,46,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Heterlimnius
+SampPSSB_10013_15082,Hydropsyche,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,,,Hydropsyche
+SampPSSB_10013_15082,Lebertia,2,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampPSSB_10013_15082,Micropsectra,7,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampPSSB_10013_15082,Narpus,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Narpus
+SampPSSB_10013_15082,Nemata,3,FALSE,eurythermal,Nemata,,,,,,,,,
+SampPSSB_10013_15082,Neoleptophlebia/Paraleptophlebia,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampPSSB_10013_15082,Neoplasta,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Hemerodromiinae,,Neoplasta
+SampPSSB_10013_15082,Oligochaeta,99,FALSE,eurythermal,Annelida,Clitellata,Oligochaeta,,,,,,,
+SampPSSB_10013_15082,Perlodidae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,
+SampPSSB_10013_15082,Pisidium,2,FALSE,eurythermal,Mollusca,Bivalvia,Heterodonta,Veneroida,,Corbiculoidea,Sphaeriidae,,,Pisidium
+SampPSSB_10013_15082,Ptychoptera,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ptychopteridae,,,Ptychoptera
+SampPSSB_10013_15082,Rhithrogena,71,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampPSSB_10013_15082,Rhyacophila blarina,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10013_15082,Rhyacophila narvae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampPSSB_10013_15082,Simulium,35,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampPSSB_10013_15082,Skwala,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampPSSB_10013_15082,Stempellinella,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Stempellinella
+SampPSSB_10013_15082,Sweltsa,17,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampPSSB_10013_15082,Thienemanniella,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Thienemanniella
+SampPSSB_10013_15082,Trombidiformes,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,,,,
+SampPSSB_10013_15082,Tvetenia bavarica group,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampPSSB_10013_15082,Wormaldia,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Trichoptera,,Philopotamoidea,Philopotamidae,,,Wormaldia
+SampPSSB_10013_15082,Zapada cinctipes,88,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampPSSB_10013_15082,Zapada oregonensis group,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampWA_6096_1,Ameletus,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ameletidae,,,Ameletus
+SampWA_6096_1,Antocha,8,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Antocha
+SampWA_6096_1,Baetis tricaudatus complex,41,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampWA_6096_1,Brillia,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampWA_6096_1,Calineuria californica,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Calineuria
+SampWA_6096_1,Caudatella,6,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Caudatella
+SampWA_6096_1,Ceratopogoninae,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampWA_6096_1,Corynoneura,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Corynoneura
+SampWA_6096_1,Dixa,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampWA_6096_1,Doroneuria,6,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Doroneuria
+SampWA_6096_1,Drunella,22,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6096_1,Drunella doddsii,8,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6096_1,Ecclisomyia,3,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Ecclisomyia
+SampWA_6096_1,Epeorus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Epeorus
+SampWA_6096_1,Ephemerella alleni,8,FALSE,,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Ephemerella
+SampWA_6096_1,Eukiefferiella,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampWA_6096_1,Glossosoma,55,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampWA_6096_1,Heterlimnius,30,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Heterlimnius
+SampWA_6096_1,Hexatoma,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Hexatoma
+SampWA_6096_1,Ironodes,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Ironodes
+SampWA_6096_1,Isoperla,19,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Isoperla
+SampWA_6096_1,Kathroperla,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Paraperlinae,,Kathroperla
+SampWA_6096_1,Lebertia,3,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampWA_6096_1,Lepidostoma,11,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampWA_6096_1,Leuctridae,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,
+SampWA_6096_1,Limnephilidae,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,
+SampWA_6096_1,Lumbriculidae,1,FALSE,cowa,Annelida,Clitellata,Oligochaeta,Lumbriculida,,,Lumbriculidae,,,
+SampWA_6096_1,Micrasema,108,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Micrasema
+SampWA_6096_1,Micropsectra,9,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampWA_6096_1,Neoleptophlebia/Paraleptophlebia,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,Neoleptophlebia/Paraleptophlebia
+SampWA_6096_1,Oreogeton,7,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Oreogetoninae,,Oreogeton
+SampWA_6096_1,Oropuella,1,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Oropuella
+SampWA_6096_1,Orthocladius,11,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampWA_6096_1,Parametriocnemus,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampWA_6096_1,Pericomaini,19,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Psychodidae,Psychodinae,Pericomaini,
+SampWA_6096_1,Polycelis,17,FALSE,cold,Platyhelminthes,Trepaxonemata,,Neoophora,,,Planariidae,,,Polycelis
+SampWA_6096_1,Protzia,2,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hydryphantidae,,,Protzia
+SampWA_6096_1,Rheotanytarsus,1,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus
+SampWA_6096_1,Rhithrogena,18,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampWA_6096_1,Rhyacophila betteni group,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6096_1,Rhyacophila brunnea/vemna groups,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6096_1,Rhyacophila hyalinata group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6096_1,Simulium,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampWA_6096_1,Sperchon,12,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Sperchontidae,,,Sperchon
+SampWA_6096_1,Stempellina,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Stempellina
+SampWA_6096_1,Sweltsa,13,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampWA_6096_1,Synorthocladius,3,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Synorthocladius
+SampWA_6096_1,Tanytarsus,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Tanytarsus
+SampWA_6096_1,Thienemanniella,7,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Thienemanniella
+SampWA_6096_1,Thienemannimyia group,2,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Thienemannimyia group
+SampWA_6096_1,Torrenticola,2,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Torrenticolidae,,,Torrenticola
+SampWA_6096_1,Tvetenia,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampWA_6096_1,Tvetenia bavarica group,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampWA_6096_1,Visoka,9,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Visoka
+SampWA_6096_1,Yoraperla,21,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Peltoperlidae,,,Yoraperla
+SampWA_6097_1,Ameletus,12,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ameletidae,,,Ameletus
+SampWA_6097_1,Apatania,18,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Apataniidae,,,Apatania
+SampWA_6097_1,Baetis,30,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampWA_6097_1,Baetis tricaudatus complex,20,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampWA_6097_1,Brillia,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampWA_6097_1,Brundiniella,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Macropelopiini,Brundiniella
+SampWA_6097_1,Caudatella,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Caudatella
+SampWA_6097_1,Ceratopogoninae,10,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampWA_6097_1,Chloroperlidae,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,,,
+SampWA_6097_1,Cinygma,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygma
+SampWA_6097_1,Cinygmula,41,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampWA_6097_1,Dicranota,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampWA_6097_1,Doroneuria,15,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Doroneuria
+SampWA_6097_1,Drunella doddsii,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6097_1,Drunella grandis/spinifera,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6097_1,Ecclisocosmoecus scylla,1,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Ecclisocosmoecus
+SampWA_6097_1,Empididae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,,,
+SampWA_6097_1,Enchytraeus,1,FALSE,cool,Annelida,Clitellata,Oligochaeta,Enchytraeida,,,Enchytraeidae,,,Enchytraeus
+SampWA_6097_1,Epeorus,6,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Epeorus
+SampWA_6097_1,Ephemerella,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Ephemerella
+SampWA_6097_1,Eukiefferiella,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampWA_6097_1,Forcipomyiinae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Forcipomyiinae,,
+SampWA_6097_1,Helodon/Prosimulium,1,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Helodon/Prosimulium
+SampWA_6097_1,Heterlimnius,9,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Heterlimnius
+SampWA_6097_1,Heterotrissocladius,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Heterotrissocladius
+SampWA_6097_1,Hexatoma,4,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Hexatoma
+SampWA_6097_1,Hygrobates,5,FALSE,warm,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hygrobatidae,,,Hygrobates
+SampWA_6097_1,Ironodes,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Ironodes
+SampWA_6097_1,Kathroperla,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Paraperlinae,,Kathroperla
+SampWA_6097_1,Lara,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Lara
+SampWA_6097_1,Leptophlebiidae,15,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,
+SampWA_6097_1,Leuctridae,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,
+SampWA_6097_1,Limnephilidae,25,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,
+SampWA_6097_1,Mesenchytraeus,2,FALSE,cold,Annelida,Clitellata,Oligochaeta,Enchytraeida,,,Enchytraeidae,,,Mesenchytraeus
+SampWA_6097_1,Micrasema,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Micrasema
+SampWA_6097_1,Micropsectra,35,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampWA_6097_1,Mideopsis,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Mideopsidae,,,Mideopsis
+SampWA_6097_1,Monodiamesa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Prodiamesinae,,Monodiamesa
+SampWA_6097_1,Moselia,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,Moselia
+SampWA_6097_1,Naididae,2,FALSE,warm,Annelida,Clitellata,Oligochaeta,Tubificida,,,Naididae,,,
+SampWA_6097_1,Neophylax splendens,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Neophylax
+SampWA_6097_1,Odontomesa,2,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Prodiamesinae,,Odontomesa
+SampWA_6097_1,Oreodytes,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Dytiscidae,Hydroporinae,,Oreodytes
+SampWA_6097_1,Oreogeton,17,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Oreogetoninae,,Oreogeton
+SampWA_6097_1,Oribatida,1,FALSE,cool,Arthropoda,Arachnida,Acari,Sarcoptiformes,Oribatida,,,,,
+SampWA_6097_1,Orthocladius,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampWA_6097_1,Parapsyche,5,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,Arctopsychinae,,Parapsyche
+SampWA_6097_1,Paratendipes,6,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Paratendipes
+SampWA_6097_1,Perlodidae,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,
+SampWA_6097_1,Polycelis,10,FALSE,cold,Platyhelminthes,Trepaxonemata,,Neoophora,,,Planariidae,,,Polycelis
+SampWA_6097_1,Polypedilum,12,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampWA_6097_1,Protzia,15,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hydryphantidae,,,Protzia
+SampWA_6097_1,Pteronarcys princeps,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Pteronarcyidae,,,Pteronarcys
+SampWA_6097_1,Rhabdomastix,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Rhabdomastix
+SampWA_6097_1,Rheocricotopus,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Rheocricotopus
+SampWA_6097_1,Rheotanytarsus,6,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus
+SampWA_6097_1,Rhithrogena,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampWA_6097_1,Rhyacophila,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6097_1,Rhyacophila atrata complex,6,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6097_1,Rhyacophila betteni group,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6097_1,Rhyacophila brunnea/vemna groups,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6097_1,Rhyacophila narvae,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6097_1,Rhyacophila vofixa group,3,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6097_1,Rhynchelmis,1,FALSE,cool,Annelida,Clitellata,Oligochaeta,Lumbriculida,,,Lumbriculidae,,,Rhynchelmis
+SampWA_6097_1,Simulium,6,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampWA_6097_1,Sperchon,13,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Sperchontidae,,,Sperchon
+SampWA_6097_1,Sweltsa,42,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampWA_6097_1,Tanypodinae,5,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,,
+SampWA_6097_1,Thaumaleidae,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Thaumaleidae,,,
+SampWA_6097_1,Thienemannimyia group,4,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Thienemannimyia group
+SampWA_6097_1,Torrenticola,1,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Torrenticolidae,,,Torrenticola
+SampWA_6097_1,Tvetenia bavarica group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampWA_6097_1,Visoka,3,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Visoka
+SampWA_6097_1,Yoraperla,18,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Peltoperlidae,,,Yoraperla
+SampWA_6097_1,Zapada columbiana,1,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampWA_6097_1,Zavrelimyia,27,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Zavrelimyia
+SampWA_6098_1,Ameletus,15,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ameletidae,,,Ameletus
+SampWA_6098_1,Apatania,6,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Apataniidae,,,Apatania
+SampWA_6098_1,Atractides,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hygrobatidae,,,Atractides
+SampWA_6098_1,Baetis piscatoris complex,24,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampWA_6098_1,Baetis tricaudatus complex,73,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampWA_6098_1,Brillia,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampWA_6098_1,Caudatella,7,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Caudatella
+SampWA_6098_1,Ceratopogoninae,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampWA_6098_1,Chamaedrilus,1,FALSE,cold,Annelida,Clitellata,Oligochaeta,Enchytraeida,,,Enchytraeidae,,,Chamaedrilus
+SampWA_6098_1,Cinygmula,15,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampWA_6098_1,Corynoneura,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Corynoneura
+SampWA_6098_1,Despaxia,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,Despaxia
+SampWA_6098_1,Dicranota,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampWA_6098_1,Dixa,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Dixidae,,,Dixa
+SampWA_6098_1,Doroneuria,12,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Doroneuria
+SampWA_6098_1,Drunella,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6098_1,Drunella coloradensis/flavilinea,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6098_1,Drunella doddsii,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6098_1,Eloeophila,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Eloeophila
+SampWA_6098_1,Epeorus,12,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Epeorus
+SampWA_6098_1,Ephemerella alleni,4,FALSE,,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Ephemerella
+SampWA_6098_1,Ephemerella tibialis,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Ephemerella
+SampWA_6098_1,Eukiefferiella,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampWA_6098_1,Hesperoperla,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Hesperoperla
+SampWA_6098_1,Heterlimnius,10,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Heterlimnius
+SampWA_6098_1,Ironodes,22,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Ironodes
+SampWA_6098_1,Kogotus/Rickera,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Kogotus/Rickera
+SampWA_6098_1,Lebertia,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampWA_6098_1,Leptophlebiidae,9,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,
+SampWA_6098_1,Limnephilidae,21,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,
+SampWA_6098_1,Limnophyes,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Limnophyes
+SampWA_6098_1,Megarcys,5,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Megarcys
+SampWA_6098_1,Mesenchytraeus,2,FALSE,cold,Annelida,Clitellata,Oligochaeta,Enchytraeida,,,Enchytraeidae,,,Mesenchytraeus
+SampWA_6098_1,Micrasema,29,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Micrasema
+SampWA_6098_1,Micropsectra,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampWA_6098_1,Mideopsis,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Mideopsidae,,,Mideopsis
+SampWA_6098_1,Moselia,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,Moselia
+SampWA_6098_1,Neophylax splendens,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Neophylax
+SampWA_6098_1,Oreogeton,4,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Oreogetoninae,,Oreogeton
+SampWA_6098_1,Paraperla,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Paraperlinae,,Paraperla
+SampWA_6098_1,Parapsyche,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,Arctopsychinae,,Parapsyche
+SampWA_6098_1,Polycelis,37,FALSE,cold,Platyhelminthes,Trepaxonemata,,Neoophora,,,Planariidae,,,Polycelis
+SampWA_6098_1,Protzia,17,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hydryphantidae,,,Protzia
+SampWA_6098_1,Pteronarcys princeps,7,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Pteronarcyidae,,,Pteronarcys
+SampWA_6098_1,Rhithrogena,62,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampWA_6098_1,Rhyacophila,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6098_1,Rhyacophila atrata complex,4,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6098_1,Rhyacophila betteni group,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6098_1,Rhyacophila brunnea/vemna groups,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6098_1,Rhyacophila hyalinata group,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6098_1,Rhyacophila vofixa group,1,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6098_1,Roederiodes,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Clinocerinae,,Roederiodes
+SampWA_6098_1,Simulium,7,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Simuliidae,,,Simulium
+SampWA_6098_1,Sperchon,6,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Sperchontidae,,,Sperchon
+SampWA_6098_1,Sweltsa,30,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampWA_6098_1,Thremmatidae,1,FALSE,,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Thremmatidae,,,
+SampWA_6098_1,Torrenticola,2,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Torrenticolidae,,,Torrenticola
+SampWA_6098_1,Tvetenia bavarica group,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampWA_6098_1,Visoka,26,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Visoka
+SampWA_6098_1,Yoraperla,5,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Peltoperlidae,,,Yoraperla
+SampWA_6098_1,Zapada columbiana,30,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampWA_6098_1,Zavrelimyia,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Zavrelimyia
+SampWA_6099_1,Ameletus,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ameletidae,,,Ameletus
+SampWA_6099_1,Anagapetus,47,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Anagapetus
+SampWA_6099_1,Antocha,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Antocha
+SampWA_6099_1,Apatania,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Apataniidae,,,Apatania
+SampWA_6099_1,Atractides,1,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hygrobatidae,,,Atractides
+SampWA_6099_1,Baetis piscatoris complex,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampWA_6099_1,Baetis tricaudatus complex,24,FALSE,cowa,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Baetidae,,,Baetis
+SampWA_6099_1,Brillia,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Brillia
+SampWA_6099_1,Capniidae,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Capniidae,,,
+SampWA_6099_1,Caudatella hystrix,5,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Caudatella
+SampWA_6099_1,Ceratopogoninae,2,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Ceratopogonidae,Ceratopogoninae,,
+SampWA_6099_1,Cinygmula,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Cinygmula
+SampWA_6099_1,Dicranota,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Dicranota
+SampWA_6099_1,Doroneuria,17,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlidae,,,Doroneuria
+SampWA_6099_1,Drunella doddsii,33,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6099_1,Drunella grandis/spinifera,3,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Drunella
+SampWA_6099_1,Ecclisomyia,9,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,Dicosmoecinae,,Ecclisomyia
+SampWA_6099_1,Eloeophila,2,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Tipulidae,,,Eloeophila
+SampWA_6099_1,Epeorus,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Epeorus
+SampWA_6099_1,Ephemerella,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Ephemerellidae,,,Ephemerella
+SampWA_6099_1,Eukiefferiella,14,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Eukiefferiella
+SampWA_6099_1,Glossosoma,2,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Glossosomatidae,,,Glossosoma
+SampWA_6099_1,Heterlimnius,7,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Heterlimnius
+SampWA_6099_1,Ironodes,34,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Ironodes
+SampWA_6099_1,Lara,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Coleoptera,,,Elmidae,,,Lara
+SampWA_6099_1,Lebertia,2,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Lebertiidae,,,Lebertia
+SampWA_6099_1,Lepidostoma,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Lepidostomatidae,,,Lepidostoma
+SampWA_6099_1,Leptophlebiidae,9,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Leptophlebiidae,,,
+SampWA_6099_1,Leuctridae,3,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,
+SampWA_6099_1,Lumbriculidae,3,FALSE,cowa,Annelida,Clitellata,Oligochaeta,Lumbriculida,,,Lumbriculidae,,,
+SampWA_6099_1,Megarcys,1,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Megarcys
+SampWA_6099_1,Mesenchytraeus,7,FALSE,cold,Annelida,Clitellata,Oligochaeta,Enchytraeida,,,Enchytraeidae,,,Mesenchytraeus
+SampWA_6099_1,Micrasema,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Brachycentridae,,,Micrasema
+SampWA_6099_1,Micropsectra,8,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,Micropsectra
+SampWA_6099_1,Moselia,5,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Leuctridae,,,Moselia
+SampWA_6099_1,Oligophlebodes,1,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Uenoidae,,,Oligophlebodes
+SampWA_6099_1,Oreogeton,5,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Diptera,Brachycera,,Empididae,Oreogetoninae,,Oreogeton
+SampWA_6099_1,Orthocladius,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampWA_6099_1,Orthocladius (Symposiocladius),1,FALSE,cold,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Orthocladius
+SampWA_6099_1,Ostracoda,1,FALSE,eurythermal,Arthropoda,Ostracoda,,,,,,,,
+SampWA_6099_1,Parametriocnemus,1,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Parametriocnemus
+SampWA_6099_1,Parapsyche,10,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Hydropsychidae,Arctopsychinae,,Parapsyche
+SampWA_6099_1,Parochlus,1,FALSE,,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Podonominae,Podonomini,Parochlus
+SampWA_6099_1,Polycelis,51,FALSE,cold,Platyhelminthes,Trepaxonemata,,Neoophora,,,Planariidae,,,Polycelis
+SampWA_6099_1,Polypedilum,4,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Chironomini,Polypedilum
+SampWA_6099_1,Protzia,2,FALSE,cool,Arthropoda,Arachnida,Acari,Trombidiformes,,,Hydryphantidae,,,Protzia
+SampWA_6099_1,Psychoglypha,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Limnephilidae,,,Psychoglypha
+SampWA_6099_1,Pteronarcys,3,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Plecoptera,,,Pteronarcyidae,,,Pteronarcys
+SampWA_6099_1,Rhithrogena,41,FALSE,cool,Arthropoda,Insecta,Pterygota,Ephemeroptera,,,Heptageniidae,,,Rhithrogena
+SampWA_6099_1,Rhyacophila,4,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6099_1,Rhyacophila atrata complex,7,FALSE,cold,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6099_1,Rhyacophila betteni group,8,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6099_1,Rhyacophila brunnea/vemna groups,6,FALSE,cool,Arthropoda,Insecta,Pterygota,Trichoptera,,,Rhyacophilidae,,,Rhyacophila
+SampWA_6099_1,Skwala,1,FALSE,cowa,Arthropoda,Insecta,Pterygota,Plecoptera,,,Perlodidae,,,Skwala
+SampWA_6099_1,Sperchon,5,FALSE,eurythermal,Arthropoda,Arachnida,Acari,Trombidiformes,,,Sperchontidae,,,Sperchon
+SampWA_6099_1,Sweltsa,38,FALSE,cool,Arthropoda,Insecta,Pterygota,Plecoptera,,,Chloroperlidae,Chloroperlinae,,Sweltsa
+SampWA_6099_1,Taeniopterygidae,18,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Taeniopterygidae,,,
+SampWA_6099_1,Tanytarsini,4,FALSE,eurythermal,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Chironominae,Tanytarsini,
+SampWA_6099_1,Thienemannimyia group,3,FALSE,warm,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Thienemannimyia group
+SampWA_6099_1,Thremmatidae,1,FALSE,,Arthropoda,Insecta,Pterygota,Trichoptera,,Limnephiloidea,Thremmatidae,,,
+SampWA_6099_1,Tvetenia bavarica group,5,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Orthocladiinae,,Tvetenia
+SampWA_6099_1,Visoka,17,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Visoka
+SampWA_6099_1,Yoraperla,4,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Peltoperlidae,,,Yoraperla
+SampWA_6099_1,Zapada columbiana,21,FALSE,stenoc,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampWA_6099_1,Zapada oregonensis group,10,FALSE,cold,Arthropoda,Insecta,Pterygota,Plecoptera,,,Nemouridae,,,Zapada
+SampWA_6099_1,Zavrelimyia,1,FALSE,cool,Arthropoda,Insecta,Pterygota,Diptera,Nematocera,,Chironomidae,Tanypodinae,Pentaneurini,Zavrelimyia

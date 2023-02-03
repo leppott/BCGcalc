@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-02-03 12:57:57
+2023-02-03 14:53:02
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-02-03 12:57:57
+    #> Last Update: 2023-02-03 14:53:02
+
+# BCGcalc 2.0.0.9040 (2023-02-03)
+
+- refactor: Update Shiny onscreen text, thermal preference metrics
+  - Add metadata file to calculation thermal metrics results
 
 # BCGcalc 2.0.0.9039 (2023-02-03)
 

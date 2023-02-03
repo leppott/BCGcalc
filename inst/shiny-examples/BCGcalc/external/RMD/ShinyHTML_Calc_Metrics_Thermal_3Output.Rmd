@@ -1,6 +1,6 @@
 ---
 title: "Calculation, Metrics, Thermal, Output"
-date: "2023-01-19"
+date: "2023-02-03"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -39,10 +39,14 @@ file_desc <- c("User input data"
                , "Results metrics, thermal") 
 df_zip <- data.frame(cbind(file_names, file_desc))
 names(df_zip) <- c("File Names", "File Descriptions")
+# add metadata
+df_zip[4, 1] <- "ThermPrefMetrics_metadata.xlsx"
+df_zip[4, 2] <- "Thermal metric metadata"
 cap_zip <- "Metrics Thermal Calculation zip file contents."
 knitr::kable(df_zip, caption = cap_zip)
 
 ```
+
 ---
 
-*Last updated 2023-01-20*
+*Last updated 2023-02-03*

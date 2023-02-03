@@ -1431,6 +1431,10 @@ shinyServer(function(input, output) {
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
+      # Copy metadata (thermal metrics) to results
+      fn_meta <- "ThermPrefMetrics_metadata.xlsx"
+      file.copy(file.path("www", "links", fn_meta)
+                , file.path("results", fn_meta))
       
       # Calc, 05, Clean Up----
       prog_detail <- "Calculate, Clean Up"
