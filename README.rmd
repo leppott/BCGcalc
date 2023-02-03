@@ -45,7 +45,7 @@ To install the current version use the code below to install from GitHub. The
 use of “force = TRUE” ensures the package is installed even if already present. 
 If the package `remotes` is missing the code below will install it.
 
-```{r Install_Vignette, eval=FALSE}
+```{r Install, eval=FALSE}
 if(!require(remotes)){install.packages("remotes")}  #install if needed
 install_github("leppott/BCGcalc", force=TRUE)
 ```

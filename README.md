@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2023-01-27 10:20:18
+2023-02-03 12:47:11
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-01-27 10:20:18
+    #> Last Update: 2023-02-03 12:47:11
 
 # BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
 
@@ -36,21 +36,25 @@ releases](https://img.shields.io/github/downloads/leppott/BCGcalc/total.svg)](ht
 
 To install the current version use the code below to install from
 GitHub. The use of “force = TRUE” ensures the package is installed even
-if already present. If the package devtools is missing the code below
+if already present. If the package `remotes` is missing the code below
 will install it.
+
+``` r
+if(!require(remotes)){install.packages("remotes")}  #install if needed
+install_github("leppott/BCGcalc", force=TRUE)
+```
+
+The vignette (big help file) isn’t created when installing from GitHub
+with the basic `install_github` command. If you want the vignette
+install with the code below.
 
 ``` r
 if(!require(remotes)){install.packages("remotes")}  #install if needed
 install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
-The vignette (big help file) isn’t created when installing from GitHub
-with the basic `install_github` command. If you want the vignette
-install with the command above (or download the compressed file from
-GitHub and install from that file).
-
 All dependent libraries should install with the install_github command
-but occassionally they do not. If you encounter issues the dependant
+but occassionally they do not. If you encounter issues the dependent
 libraries can be installed separately with the command below.
 
 ``` r

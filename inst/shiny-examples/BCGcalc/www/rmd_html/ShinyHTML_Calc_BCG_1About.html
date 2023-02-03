@@ -1,20 +1,11 @@
 
 
 
-<p>The PNMR BCG model was calibrated for macroinvertebrate communities
-in three classes of freshwater wadeable streams:</p>
-<ul>
-<li><p>low gradient/lower elevation (LoGrad-LoElev)</p></li>
-<li><p>higher gradient/lower elevation (HiGrad-LoElev)</p></li>
-<li><p>higher gradient/higher elevation (HiGrad-HiElev)</p></li>
-</ul>
-<p>The classification thresholds are 1% for gradient and 750-m for
-elevation.</p>
-<p>During calibration of the BCG model, we derived gradient from the
-<a href="https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data" target="_blank">NHDPlusV2</a></p>
-<p>Attributes table (flowline slope*100) and elevation from the
-<a href="https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset" target="_blank">EPA
-StreamCat</a> dataset (local catchment scale).</p>
+<div id="purpose" class="section level1">
+<h1>Purpose</h1>
+<p>Calculate outputs for the Pacific Northwest Maritime Region (PNMR)
+BCG model (<a href="links\PNMR_BCG_Report_20220929.pdf">Stamp
+2022</a>).</p>
 <p>The PNMR BCG model is intended to be applied to samples that meet the
 following criteria:</p>
 <ul>
@@ -39,7 +30,47 @@ Taxonomic Effort guidelines</a></p></li>
 <li><p>Collection period: summer baseflow period (typically June through
 mid-October)</p></li>
 </ul>
-<p>Calibration of the Pacific Northwest Maritime Region (PNMR) BCG model
-is described in detail in <a href="links/PNMR_BCG_report_20220930_minusSupp.zip">Stamp 2022</a>.</p>
+<p>The PNMR BCG model was calibrated for macroinvertebrate communities
+in three classes of freshwater wadeable streams:</p>
+<ul>
+<li><p>low gradient/lower elevation (LoGrad-LoElev)</p></li>
+<li><p>higher gradient/lower elevation (HiGrad-LoElev)</p></li>
+<li><p>higher gradient/higher elevation (HiGrad-HiElev)</p></li>
+</ul>
+<p>The classification thresholds are 1% for gradient and 750-m for
+elevation.</p>
+<p>During BCG model development, we derived gradient and elevation
+information from the following sources:</p>
+<ul>
+<li><p>Gradient - NHDPlusV2 flowline slope (x 100) from the NHDPlus
+Attributes table (McKay et a. 2016)</p></li>
+<li><p>Elevation - EPA StreamCat elevation, local catchment scale (Hill
+et al. 2016)</p></li>
+</ul>
+<p>When running the BCG model, we encourage you to use gradient and
+elevation data from the same sources that the BCG model was calibrated
+with. However, that is not a required and we know occasional situations
+will arise when it’s more appropriate to use other data sources</p>
+</div>
+<div id="input-file" class="section level1">
+<h1>Input File</h1>
+<p>There are two pathways to creating the input file:</p>
+<ol style="list-style-type: decimal">
+<li><p>Generate a file outside of the Shiny app that is ready to go (has
+all the required fields, with exact column heading names – see the
+Calc_BCG_Input subtab for details)</p></li>
+<li><p>Use the File Builder functions to create an input file (minimum
+required fields = SampleID, TaxonID, Count, elevation and percent
+slope)</p></li>
+</ol>
+<p>Using the File Builder option ensures that you are using proper
+Operational Taxonomic Units (OTUs) and attributes for the BCG model
+calculation.</p>
+</div>
+<div id="test-file" class="section level1">
+<h1>Test file</h1>
+<p>Click <a href="links/Test1_BCGcalc_input.csv">here</a> to download an
+input file that is ready to be run through the BCG calculator.</p>
 <hr />
-<p><em>Last updated 2022-10-14</em></p>
+<p><em>Last updated 2023-02-03</em></p>
+</div>

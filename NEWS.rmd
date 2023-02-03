@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9039 (2023-02-03)
+
+* refactor: Update Shiny onscreen text, BCG calc
+
 # BCGcalc 2.0.0.9038 (2023-02-03)
 
 * docs: Update readme install section with quick code
