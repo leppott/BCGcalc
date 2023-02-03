@@ -1696,13 +1696,12 @@ shinyServer(function(input, output) {
   #   # QC
   #   validate(need(col_siteid_mf1, "Missing merge column, file 1.")
   #            , need(col_siteid_mf2, "Missing merge column, file 2."))
-  #   # so columns in desired order 1 = y and 2 = x
-  #   df_merge <- merge(df_import_mf2()
-  #                     , df_import_mf1() 
-  #                     , by.x = col_siteid_mf2
-  #                     , by.y = col_siteid_mf1
-  #                     , suffixes = c(".y", ".x")
-  #                     , all.y = TRUE
+  #   df_merge <- merge(df_import_mf1()
+  #                     , df_import_mf2() 
+  #                     , by.x = col_siteid_mf1
+  #                     , by.y = col_siteid_mf2
+  #                     , suffixes = c(".x", ".y")
+  #                     , all.x = TRUE
   #                     , sort = FALSE
   #   )
   #   return(df_merge)
@@ -1845,18 +1844,25 @@ shinyServer(function(input, output) {
       message(paste0("Files in 'results' folder (after removal [should be 2]) = "
                      , length(fn_results2)))
       
-      
+    
       ## Calc, 03, Run Function----
-      # so columns in desired order 1 = y and 2 = x
-      df_merge <- merge(df_import_mf2()
-                        , df_import_mf1() 
-                        , by.x = col_siteid_mf2
-                        , by.y = col_siteid_mf1
-                        , suffixes = c(".y", ".x")
-                        , all.y = TRUE
+      suff_1x <- ".x"
+      suff_2y <- ".y"
+      df_merge <- merge(df_import_mf1()
+                        , df_import_mf2() 
+                        , by.x = col_siteid_mf1
+                        , by.y = col_siteid_mf2
+                        , suffixes = c(suff_1x, suff_2y)
+                        , all.x = TRUE
                         , sort = FALSE
                         )
-      # ***REPEAT*** in DT statement for display on tab
+      # ***REPEAT*** same merge statement in DT statement for display on tab
+
+      # move MF2 columns to the start (at end after merge)
+      ## use index numbers
+      ncol_1x <- ncol(df_import_mf1())
+      ncol_merge <- ncol(df_merge)
+      df_merge <- df_merge[, c(1, seq(ncol_1x + 1, ncol_merge), 2:ncol_1x)]
       
       ## Calc, 04, Save Results ----
       fn_merge <- paste0(fn_input_base, "_MergeFiles_RESULTS.csv")

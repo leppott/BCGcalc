@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-02-02 17:04:16
+2023-02-03 08:48:17
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-02-02 17:04:16
+    #> Last Update: 2023-02-03 08:48:17
+
+# BCGcalc 2.0.0.9036 (2023-02-03)
+
+- refactor: Change Shiny merge files order (x and y)
+  - Samples should be the main file (x) and keep all records and info
 
 # BCGcalc 2.0.0.9035 (2023-02-02)
 
