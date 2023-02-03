@@ -1704,6 +1704,13 @@ shinyServer(function(input, output) {
   #                     , all.x = TRUE
   #                     , sort = FALSE
   #   )
+  #
+  #  # move MF2 columns to the start (at end after merge)
+  #  ## use index numbers
+  #  ncol_1x <- ncol(df_import_mf1())
+  #  ncol_merge <- ncol(df_merge)
+  #  df_merge <- df_merge[, c(1, seq(ncol_1x + 1, ncol_merge), 2:ncol_1x)]
+  #
   #   return(df_merge)
   # }##expression~END
   # , filter = "top"
@@ -1717,7 +1724,7 @@ shinyServer(function(input, output) {
   ## Merge, UI----
   
   output$UI_mergefiles_f1_col_merge <- renderUI({
-    str_col <- "Merge Column, File 1 (Samples)"
+    str_col <- "Merge Identifier, Primary File, Column Name"
     selectInput("mergefiles_f1_col_merge"
                 , label = str_col
                 # , choices = c("SiteID", "feature", "in progress")
@@ -1727,7 +1734,7 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   output$UI_mergefiles_f2_col_merge <- renderUI({
-    str_col <- "Merge Column, File 2 (Site Info)"
+    str_col <- "Merge Identifier, Secondary File, Column Name"
     selectInput("mergefiles_f2_col_merge"
                 , label = str_col
                 #, choices = c("SiteID", "feature", "in progress")

@@ -8,14 +8,14 @@ function() {
     sidebarPanel(
       h2("Merge Sample and Site Files")
       , p("This process will merge two CSV files.")
-      , p("File 1 is the 'sample' file (with benthic counts).")
-      , p("File 2 is the 'site' info file (with index class).")
+      , p("File 1 is the primary file. All rows in the primary file will be carried through into the ouput file.")
+      , p("File 2 is the secondary file. Only rows that match with the common identifier in the primary file will be carried through into the output file.")
       , br()
       
       , h4("A. Upload files.")
       # file input
       , fileInput("fn_input_mf1"
-                  , label = "Import File 1 (Samples)"
+                  , label = "Import Primary File"
                   , multiple = FALSE
                   , accept = c("text/csv"
                                , "text/comma-separated-values"
@@ -24,7 +24,7 @@ function() {
                                , ".csv")
                   )
       , fileInput("fn_input_mf2"
-                  , label = "Import File 2 (Sites)"
+                  , label = "Import Secondary File"
                   , multiple = FALSE
                   , accept = c("text/csv"
                                , "text/comma-separated-values"
@@ -33,7 +33,7 @@ function() {
                                , ".csv")
                   )
       
-      , h4("B. Select columns for merge.")
+      , h4("B. Select common identifier column for the merge.")
       , uiOutput("UI_mergefiles_f1_col_merge")
       , uiOutput("UI_mergefiles_f2_col_merge")
       
@@ -57,11 +57,11 @@ function() {
                                                      , "rmd_html"
                                                      , "ShinyHTML_MergeFiles_1About.html")))
                   , tabPanel(title = "File 1"
-                             , h4("File 1 (Samples)")
+                             , h4("File 1 (Primary)")
                              , DT::dataTableOutput("df_import_mf1_DT")
                              , value = "tab_MF_1")
                   , tabPanel(title = "File 2"
-                             , h4("File 2 (Sites)")
+                             , h4("File 2 (Secondary)")
                              , DT::dataTableOutput("df_import_mf2_DT")
                              , value = "tab_MF_2"
                              )

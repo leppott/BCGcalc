@@ -31,7 +31,7 @@ function(id) {
                                , tabName = "tab_filebuilder_indexclass"
                                , icon = icon("address-book")
                                )
-                 , menuSubItem("Merge Index and Taxa Files"
+                 , menuSubItem("Merge Files"
                                , tabName = "tab_filebuilder_mergefiles"
                                , icon = icon("code-merge")
                                )
