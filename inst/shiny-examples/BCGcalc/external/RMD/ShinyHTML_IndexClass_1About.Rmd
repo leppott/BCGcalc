@@ -1,6 +1,6 @@
 ---
 title: "Assign Index Class, About"
-date: "2023-01-24"
+date: "2023-02-03"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -15,35 +15,75 @@ knitr::opts_chunk$set(echo = FALSE
 ```
 
 # Purpose
-This function adds a BCG class column (Index_Class) to the input file based on 
-elevation and gradient.
+The BCG calculator requires the inclusion of Index Name and Index Class fields 
+in the input file (otherwise the R code won’t know which BCG rules to apply). 
+These are not fields that users normally have in their data files, so we added 
+this function to make that step easier. 
 
-The PNMR BCG model has three classes:
+![Assign Index Class workflow](images\FileBuilder_AssignNameClass_About_Fig1.jpg){width=80%}
 
-* low gradient/lower elevation (LoGrad-LoElev)
+## Index_Name
+At this time, there is only one Index_Name option for the MaritimeNW model:
+BCG_MariNW_Bugs500ct. This is set as the default. In the future, if there are 
+refinements to version 1 of the BCG model, users will have the option of 
+selecting version 1 or version 2 of the model.
 
-* higher gradient/lower elevation (HiGrad-LoElev)
+## Index_Class
+The MaritimeNW model has three classes based on elevation and gradient/slope:
 
-* higher gradient/higher elevation (HiGrad-HiElev)
+*	low gradient/lower elevation (LoGrad-LoElev)
+
+*	higher gradient/lower elevation (HiGrad-LoElev)
+
+*	higher gradient/higher elevation (HiGrad-HiElev)
 
 The classification thresholds are 1% for gradient and 750-m for elevation.
 
-During calibration of the BCG model, we derived gradient from the
-<a href="https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data" target = "_blank">NHDPlusV2</a>
-and elevation from the 
-<a href="https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset" target = "_blank">EPA StreamCat</a> 
-dataset (local catchment scale).
-
 # Required Fields
 
-Index_Name (user defined) – for the PacNW model, enter ‘BCG_MariNW_Bugs500ct’
+*	SampleID or SiteID– unique identifier
 
-SampleID (user defined) – unique identifier
+    +	Tip: pick an identifier that can be linked to other files (such as the file 
+coming out of the File Builder – Taxa Translator/Attribute function)
 
-pslope_nhd (column heading must match exactly) – percent slope 
+*	Gradient of the stream segment/flowline – units must be **percent** (0-100) 
 
-elev_m  (column heading must match exactly) – elevation (meters)
+*	Elevation – units must be **meters**
+
+If you named the required fields differently in your input file, it’s ok. Click
+on the drop-down menus. The list of fields in your input file will appear. 
+Select the correct column headings.
+
+IMPORTANT NOTE:
+
+During BCG model development, we derived gradient and elevation information from
+the following sources:
+
+•	Gradient - NHDPlusV2 flowline slope (x 100) from the 
+<a href="https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data" target = "_blank">NHDPlusV2</a> 
+Attributes table (McKay et a. 2016)
+
+•	Elevation - EPA 
+<a href="https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset" target = "_blank">EPA StreamCat</a>
+elevation, local catchment scale (Hill et al. 2016)
+
+When running the BCG model, we encourage you to use gradient and elevation data 
+from the same sources that the BCG model was calibrated with. However, that is 
+not a required and we know occasional situations will arise when it’s more 
+appropriate to use other data sources. For example, if the stream is too small 
+to show up in the NHDPlusV2 dataset but you can obtain flowline slope elsewhere,
+do so (it is better than leaving it blank and not being able to generate a BCG 
+model output). Another scenario you might encounter is that you have NHDPlusV2 
+slope but you disagree with the slope class assignment (low vs high gradient). 
+In those situations, investigate further. If you find that the NHDPlusV2 slope 
+is not representative of the stream reach where the biological sampling took 
+place, and you have a better, alternate source of slope for that site, use that 
+instead.
+
+# Test file
+Click [here](links/Test1_FileBuilder_AssignNameClass.csv) to download a test 
+file.
 
 ---
 
-*Last updated 2023-01-24*
+*Last updated 2023-02-03*

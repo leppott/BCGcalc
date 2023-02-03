@@ -9,9 +9,9 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE
-                      , collapse=TRUE
+                      , collapse = TRUE
                       , comment = "#>"
-                      , fig.path="README-")
+                      , fig.path = "README-")
 
 ```
 
@@ -19,7 +19,8 @@ knitr::opts_chunk$set(echo = TRUE
 cat(paste0("Last Update: ",Sys.time()))
 ```
 # BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
-Biological Condition Gradient (BCG) calculator.  Perform basic functions needed for metric calculation and model (level) assignments.
+Biological Condition Gradient (BCG) calculator.  Perform basic functions needed 
+for metric calculation and model (level) assignments.
 
 Badges
 -----------
@@ -40,16 +41,27 @@ Badges
 
 Installation
 -----------------
-To install the current version use the code below to install from GitHub. The use of “force = TRUE” ensures the package is installed even if already present. If the package devtools is missing the code below will install it.
+To install the current version use the code below to install from GitHub. The 
+use of “force = TRUE” ensures the package is installed even if already present. 
+If the package `remotes` is missing the code below will install it.
+
+```{r Install_Vignette, eval=FALSE}
+if(!require(remotes)){install.packages("remotes")}  #install if needed
+install_github("leppott/BCGcalc", force=TRUE)
+```
+
+The vignette (big help file) isn't created when installing from GitHub with the 
+basic `install_github` command.  If you want the vignette install with the 
+code below.
 
 ```{r Install_Vignette, eval=FALSE}
 if(!require(remotes)){install.packages("remotes")}  #install if needed
 install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 ```
 
-The vignette (big help file) isn't created when installing from GitHub with the basic `install_github` command.  If you want the vignette install with the command above (or download the compressed file from GitHub and install from that file).
-
-All dependent libraries should install with the install_github command but occassionally they do not.  If you encounter issues the dependant libraries can be installed separately with the command below.
+All dependent libraries should install with the install_github command but 
+occassionally they do not.  If you encounter issues the dependent libraries can
+be installed separately with the command below.
 
 ```{r Install_Libraries, eval=FALSE}
 # Choose a CRAN mirror (dowload site) first (can change number)
@@ -68,7 +80,10 @@ data.packages = c(
 lapply(data.packages,function(x) install.packages(x))
 ```
 
-Additionally Pandoc is required for creating the reports and (sometimes) needs to be installed separately.  Pandoc is installed with RStudio so if you have RStudio you already have Pandoc on your computer.  Install directions are included below.
+Additionally Pandoc is required for creating the reports and (sometimes) needs 
+to be installed separately.  Pandoc is installed with RStudio so if you have 
+RStudio you already have Pandoc on your computer.  Install directions are 
+included below.
 
 ```{r Install_Pandoc, eval=FALSE}
 ## pandoc
@@ -79,7 +94,8 @@ install.pandoc()
 
 Purpose
 --------------
-To aid users in data tasks related to the Biological Condition Gradient for the Pacific Northwest.
+To aid users in data tasks related to the Biological Condition Gradient for the 
+Pacific Northwest.
 
 Usage
 ------------
@@ -89,7 +105,10 @@ Everytime R is launched the `BCGcalc` package needs to be loaded.
 library("BCGcalc")
 ```
 
-The default working directory is based on how R was installed but is typically the user's 'MyDocuments' folder.  You can change it through the menu bar in R (File - Change dir) or RStudio (Session - Set Working Directory).  You can also change it from the command line.
+The default working directory is based on how R was installed but is typically 
+the user's 'MyDocuments' folder.  You can change it through the menu bar in R 
+(File - Change dir) or RStudio (Session - Set Working Directory).  You can also 
+change it from the command line.
 
 ```{r Directory, eval=FALSE}
 # if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).
@@ -106,7 +125,8 @@ https://tetratech-wtr-wne.shinyapps.io/BCGcalc/
 
 Help
 ------------
-Every function has a help file with a working example.  There is also a vignette with descriptions and examples of all functions in the `BCGcalc` library.
+Every function has a help file with a working example.  There is also a vignette
+with descriptions and examples of all functions in the `BCGcalc` library.
 
 ```{r Help_Function, eval=FALSE}
 # To get help on a function
@@ -122,7 +142,10 @@ To see all available functions in the package use the command below.
 help(package="BCGcalc")
 ```
 
-The vignette file is located in the “doc” directory of the library in the R install folder.  Below is the path to the file on my PC.  But it is much easier to use the code below to call the vignette by name.  There is also be a link to the vignette at the top of the help index for the package.
+The vignette file is located in the “doc” directory of the library in the R 
+install folder.  Below is the path to the file on my PC.  But it is much easier 
+to use the code below to call the vignette by name.  There is also be a link to 
+the vignette at the top of the help index for the package.
 
 "C:\\Programs\\R\\R-3.4.3\\library\\BCGcalc\\doc\\vignette_BCGcalc.html"
 
@@ -140,7 +163,10 @@ remotes::install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
 
 Example
 ------------
-A quick example showing the calculation of metrics on a dataset but returning only a select few (e.g., the 12 metrics used in the BCG model for the Pacific NW).  This functionality is built into the `metric.values` function as an optional parameter.
+A quick example showing the calculation of metrics on a dataset but returning 
+only a select few (e.g., the 12 metrics used in the BCG model for the Pacific 
+NW).  This functionality is built into the `metric.values` function as an 
+optional parameter.
 
 ```{r Metric_Select, eval=FALSE, echo=TRUE}
 library(BCGcalc)

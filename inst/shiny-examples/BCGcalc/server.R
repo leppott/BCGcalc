@@ -1038,7 +1038,7 @@ shinyServer(function(input, output) {
   # hard code for expediency for PacNW
   # later change to variable
   output$UI_indexclass_user_col_elev <- renderUI({
-    str_col <- "Column, Elevation (meters) [StreamCat]"
+    str_col <- "Column, Elevation (meters)"
     selectInput("indexclass_user_col_elev"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -1047,7 +1047,7 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   output$UI_indexclass_user_col_slope <- renderUI({
-    str_col <- "Column, Slope (percent) [NHDplus]"
+    str_col <- "Column, Slope (percent)"
     selectInput("indexclass_user_col_slope"
                 , label = str_col
                 , choices = c("", names(df_import()))

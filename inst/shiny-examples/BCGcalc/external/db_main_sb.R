@@ -27,7 +27,7 @@ function(id) {
                                , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
                                )
-                 , menuSubItem("Assign Index Class"
+                 , menuSubItem("Assign BCG Index Name and Class"
                                , tabName = "tab_filebuilder_indexclass"
                                , icon = icon("address-book")
                                )
