@@ -739,7 +739,9 @@ shinyServer(function(input, output) {
       url_taxoff <- file.path(url_bmt_base
                               , "taxa_official"
                               , fn_taxoff)
-      GET(url_taxoff, write_disk(temp_taxoff <- tempfile(fileext = ".csv")))
+      httr::GET(url_taxoff
+                , write_disk(temp_taxoff <- tempfile(fileext = ".csv")))
+      
       df_taxoff <- read.csv(temp_taxoff)
       
       ### Data, Official Taxa, Meta Data----
@@ -747,8 +749,9 @@ shinyServer(function(input, output) {
         url_taxoff_meta <- file.path(url_bmt_base
                                      , "taxa_official"
                                      , fn_taxoff_meta)
-        GET(url_taxoff_meta
+        httr::GET(url_taxoff_meta
             , write_disk(temp_taxoff_meta <- tempfile(fileext = ".csv")))
+        
         df_taxoff_meta <- read.csv(temp_taxoff_meta)
       }## IF ~ fn_taxaoff_meta
 
@@ -757,8 +760,9 @@ shinyServer(function(input, output) {
         url_taxoff_attr <- file.path(url_bmt_base
                                      , "taxa_official"
                                      , fn_taxoff_attr)
-        GET(url_taxoff_attr
+        httr::GET(url_taxoff_attr
             , write_disk(temp_taxoff_attr <- tempfile(fileext = ".csv")))
+        
         df_taxoff_attr <- read.csv(temp_taxoff_attr)
       }## IF ~ fn_taxoff_attr
       
@@ -1424,7 +1428,7 @@ shinyServer(function(input, output) {
       # }## IF ~ length(col_rules_keep)
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
-  
+
       # Calc, 04, Save Results ----
       fn_metval <- paste0(fn_input_base, "_met_therm_RESULTS.csv")
       dn_metval <- path_results
@@ -1927,5 +1931,9 @@ shinyServer(function(input, output) {
     }##content~END
     #, contentType = "application/zip"
   )##download ~ MergeFiles
+  
+  # FUZZY THERMAL ----
+  
+  # MTTI ----
 
 })##shinyServer ~ END

@@ -23,6 +23,14 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # BCGcalc 2.0.0.9041 (2023-02-03)
 
+* feature: Add example scripts and data for Shiny File Builder functions
+    + Taxa Translate
+    + Assign Index_Class
+    + Merge Files
+* feature: Add Fuzzy Thermal narrative to Shiny operation
+
+# BCGcalc 2.0.0.9041 (2023-02-03)
+
 * refactor: Update Shiny onscreen text, inputs BCG calc
 * refactor: Update Shiny onscreen text, inputs thermal metrics
 
