@@ -21,7 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# BCGcalc 2.0.0.9041 (2023-02-03)
+# BCGcalc 2.0.0.9043 (2023-02-07)
+
+* refactor: Update taxa translate 0fileversion output
+    + Shiny, server.R
+    + example code, taxa translate
+
+# BCGcalc 2.0.0.9042 (2023-02-07)
 
 * feature: Add example scripts and data for Shiny File Builder functions
     + Taxa Translate

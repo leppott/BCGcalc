@@ -1,13 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-02-07 10:32:54
+2023-02-07 14:40:47
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-02-07 10:32:54
+    #> Last Update: 2023-02-07 14:40:47
 
-# BCGcalc 2.0.0.9041 (2023-02-03)
+# BCGcalc 2.0.0.9043 (2023-02-07)
+
+- refactor: Update taxa translate 0fileversion output
+  - Shiny, server.R
+  - example code, taxa translate
+
+# BCGcalc 2.0.0.9042 (2023-02-07)
 
 - feature: Add example scripts and data for Shiny File Builder functions
   - Taxa Translate

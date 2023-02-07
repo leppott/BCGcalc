@@ -264,12 +264,10 @@ if (boo_req_names == TRUE) {
 # Save files
 
 ## File version names
-df_save <- data.frame(project = sel_proj
-                      , file_translations = fn_taxoff
-                      , taxaid_translations = col_taxaid_official_project
-                      , file_metadata = fn_taxoff_attr
-                      , file_attributes = fn_taxoff_attr
-                      , taxaid_attributes = col_taxaid_attr)
+df_save <- data.frame(Calculation = sel_proj
+                      , OperationalTaxonomicUnit = fn_taxoff
+                      , TranslationTable = col_taxaid_official_project
+                      , AttributeTable = fn_taxoff_attr)
 fn_part <- paste0("_taxatrans_", "0fileversions", ".csv")
 write.csv(df_save
           , file.path(dn_output, paste0(fn_input_base, fn_part))
