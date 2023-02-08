@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9045 (2023-02-08)
+
+* refactor: Create Shiny Merge Files Output tab
+
 # BCGcalc 2.0.0.9044 (2023-02-08)
 
 * refactor: Update Shiny output tabs
