@@ -8,71 +8,133 @@ will be CSV format.</p>
 with the date and time.</p>
 <p>The individual files will include the same basename along with a
 suffix to represent each step of the calculation process.</p>
-<p>As an example if the input file was “Data_BCG_PacNW.csv” the result
-files will look like those in the table below.</p>
+<p>As an example if the input file was “xxx.csv” the result files will
+look like those in the table below.</p>
 <table>
-<caption>BCG Calculation zip file contents.</caption>
-<colgroup>
-<col width="39%" />
-<col width="61%" />
-</colgroup>
+<caption>
+Calculation, BCG, zip file contents.
+</caption>
 <thead>
-<tr class="header">
-<th align="left">File Names</th>
-<th align="left">File Descriptions</th>
+<tr>
+<th style="text-align:left;">
+Output file
+</th>
+<th style="text-align:left;">
+Description
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW.csv</td>
-<td align="left">User input data</td>
+<tr>
+<td style="text-align:left;">
+xxx
+</td>
+<td style="text-align:left;">
+original input file
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_bcgcalc_1markexcl.csv</td>
-<td align="left">Exclude taxa revised, if checked
-(BioMonTools::markExcluded)</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_1markexcl
+</td>
+<td style="text-align:left;">
+original input file with an ‘EXCLUDE’ taxa column added in. It is a
+TRUE/FALSE field in which R marks redundant taxa as ‘TRUE’ based on the
+phylogeny fields in the input file. All ‘Exclude’ decisions are
+sample-specific. A detailed description of the process that the R tool
+uses for marking redundant taxa is available upon request (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>)
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW_bcgcalc_2metval_all.csv</td>
-<td align="left">Metric values, all (BioMonTools::metric.values)</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_2metval_all
+</td>
+<td style="text-align:left;">
+values for all bug metrics in the BioMonTools R package (<a href="https://github.com/leppott/BioMonTools" class="uri">https://github.com/leppott/BioMonTools</a>)
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_bcgcalc_2metval_BCG.csv</td>
-<td align="left">Metric values, only those used in index and flags</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_2metval_BCG
+</td>
+<td style="text-align:left;">
+values for bug metrics used in the MaritimeNW BCG (model + flags); the
+calculations are done with the BioMonTools R package (<a href="https://github.com/leppott/BioMonTools" class="uri">https://github.com/leppott/BioMonTools</a>)
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW_bcgcalc_3metmemb.csv</td>
-<td align="left">Metric membership (BCGcalc::BCG.Metric.Membership)</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_3metmemb
+</td>
+<td style="text-align:left;">
+values for bug metrics used in the MaritimeNW BCG model; each metric is
+assigned to assigned metric membership values (0-1)
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_bcgcalc_3metrules.csv</td>
-<td align="left">BCG rules</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_3metrules
+</td>
+<td style="text-align:left;">
+Rules for each BCG gradient/elevation class x BCG level (metrics,
+thresholds, symbols). Rules are similar but not exactly the same. long
+data format
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW_bcgcalc_4levmemb.csv</td>
-<td align="left">Level membership (BCGcalc::BCG.Level.Membership)</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_4levmemb
+</td>
+<td style="text-align:left;">
+for each sample, membership in each BCG level (0-1). Includes Index_Name
+and Index_Class
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_bcgcalc_5levassign.csv</td>
-<td align="left">Level assignment (BCGcalc::BCG.Level.Assignment)</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_5levassign
+</td>
+<td style="text-align:left;">
+results without the flags (primary, secondary BCG levels and membership,
+continuous BCG score, narrative with and without pluses and minuses)
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW_bcgcalc_6levflags.csv</td>
-<td align="left">BCG flags summary</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_6levflags
+</td>
+<td style="text-align:left;">
+summary of how many samples had flagged metrics (and not flagged) based
+on the input file; count of # flagged (flag) and not flagged (NA)
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_bcgcalc_6metflags.csv</td>
-<td align="left">Flag evaluations with metric values</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_6metflags
+</td>
+<td style="text-align:left;">
+results of flag calculations for all metrics and samples
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW_bcgcalc_RESULTS.csv</td>
-<td align="left">Results, levels and flags</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_RESULTS (csv)
+</td>
+<td style="text-align:left;">
+for each sample, BCG model output (primary, secondary BCG levels and
+membership, continuous BCG score, narrative with and without pluses and
+minuses) plus flags (flag or NA)
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_RESULTS.html</td>
-<td align="left">Results summary report</td>
+<tr>
+<td style="text-align:left;">
+xxx_bcgcalc_RESULTS (html)
+</td>
+<td style="text-align:left;">
+histogram showing distribution of samples across BCG levels.
+</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<p><em>Last updated 2022-11-18</em></p>
+<p><em>Last updated 2023-02-08</em></p>

@@ -1,6 +1,6 @@
 ---
 title: "Calculation, Metrics, Thermal, Output"
-date: "2023-02-03"
+date: "2023-02-08"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -24,29 +24,24 @@ date and time.
 The individual files will include the same basename along with a suffix to 
 represent each step of the calculation process.
 
-As an example if the input file was "Data_BCG_PacNW.csv" the result files will
+As an example if the input file was "xxx.csv" the result files will
 look like those in the table below.
 
 ```{r}
-fn_base <- "Data_BCG_PacNW"
-suffix <- c(paste0("_met_therm_"
-            , c("1markexcl"
-                , "RESULTS")))
-file_names <- c(paste0(fn_base, ".csv")
-       , paste0(fn_base, suffix, ".csv"))
-file_desc <- c("User input data"
-               , "Exclude taxa revised, if checked (BioMonTools::markExcluded)"
-               , "Results metrics, thermal") 
-df_zip <- data.frame(cbind(file_names, file_desc))
-names(df_zip) <- c("File Names", "File Descriptions")
-# add metadata
-df_zip[4, 1] <- "ThermPrefMetrics_metadata.xlsx"
-df_zip[4, 2] <- "Thermal metric metadata"
-cap_zip <- "Metrics Thermal Calculation zip file contents."
-knitr::kable(df_zip, caption = cap_zip)
+# Packages
+library(readxl)
+library(knitr)
 
+# Data
+fn_data <- "OutputFileSubtabs.xlsx"
+path_data <- file.path("files", fn_data)
+df_data <- read_excel(path_data, sheet = "Calc_ThermPref")
+
+# Display
+cap_data <- "Calculation, Thermal Preference Metrics, zip file contents."
+knitr::kable(df_data, "html", caption = cap_data)
 ```
 
 ---
 
-*Last updated 2023-02-03*
+*Last updated 2023-02-08*

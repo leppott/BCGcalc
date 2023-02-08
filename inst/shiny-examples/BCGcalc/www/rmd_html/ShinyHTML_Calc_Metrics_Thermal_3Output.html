@@ -8,39 +8,61 @@ will be CSV format.</p>
 with the date and time.</p>
 <p>The individual files will include the same basename along with a
 suffix to represent each step of the calculation process.</p>
-<p>As an example if the input file was “Data_BCG_PacNW.csv” the result
-files will look like those in the table below.</p>
+<p>As an example if the input file was “xxx.csv” the result files will
+look like those in the table below.</p>
 <table>
-<caption>Metrics Thermal Calculation zip file contents.</caption>
-<colgroup>
-<col width="39%" />
-<col width="61%" />
-</colgroup>
+<caption>
+Calculation, Thermal Preference Metrics, zip file contents.
+</caption>
 <thead>
-<tr class="header">
-<th align="left">File Names</th>
-<th align="left">File Descriptions</th>
+<tr>
+<th style="text-align:left;">
+Output file
+</th>
+<th style="text-align:left;">
+Description
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW.csv</td>
-<td align="left">User input data</td>
+<tr>
+<td style="text-align:left;">
+xxx
+</td>
+<td style="text-align:left;">
+original input file
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_met_therm_1markexcl.csv</td>
-<td align="left">Exclude taxa revised, if checked
-(BioMonTools::markExcluded)</td>
+<tr>
+<td style="text-align:left;">
+xxx_met_therm_1markexcl
+</td>
+<td style="text-align:left;">
+original input file with an ‘EXCLUDE’ taxa column added in. It is a
+TRUE/FALSE field in which R marks redundant taxa as ‘TRUE’ based on the
+phylogeny fields in the input file. All ‘Exclude’ decisions are
+sample-specific. A detailed description of the process that the R tool
+uses for marking redundant taxa is available upon request (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>)
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW_met_therm_RESULTS.csv</td>
-<td align="left">Results metrics, thermal</td>
+<tr>
+<td style="text-align:left;">
+xxx_met_therm_RESULTS
+</td>
+<td style="text-align:left;">
+values for all thermal and hydrologic indicator metrics; calculated with
+the BioMonTools R package (<a href="https://github.com/leppott/BioMonTools" class="uri">https://github.com/leppott/BioMonTools</a>)
+</td>
 </tr>
-<tr class="even">
-<td align="left">ThermPrefMetrics_metadata.xlsx</td>
-<td align="left">Thermal metric metadata</td>
+<tr>
+<td style="text-align:left;">
+ThermPrefMetrics_metadata
+</td>
+<td style="text-align:left;">
+metadata for the the ’_met_therm_RESULTS’ file
+</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<p><em>Last updated 2023-02-03</em></p>
+<p><em>Last updated 2023-02-08</em></p>

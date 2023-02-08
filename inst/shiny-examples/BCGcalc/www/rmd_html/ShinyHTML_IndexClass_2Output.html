@@ -10,34 +10,51 @@ with the date and time.</p>
 suffix to represent each step of the calculation process.</p>
 <p>The entire criteria file is included to allow the user to check for
 non-matching Index Name and/or criteria columns.</p>
-<p>As an example if the input file was “Data_BCG_PacNW.csv” the result
-files will look like those in the table below.</p>
+<p>As an example if the input file was “xxx.csv” the result files will
+look like those in the table below.</p>
 <table>
-<caption>Taxa Translator zip file contents.</caption>
-<colgroup>
-<col width="45%" />
-<col width="54%" />
-</colgroup>
+<caption>
+File Builder, Assign Index_Class, zip file contents.
+</caption>
 <thead>
-<tr class="header">
-<th align="left">File Names</th>
-<th align="left">File Descriptions</th>
+<tr>
+<th style="text-align:left;">
+Output file
+</th>
+<th style="text-align:left;">
+Description
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW.csv</td>
-<td align="left">All index criteria</td>
+<tr>
+<td style="text-align:left;">
+xxx
+</td>
+<td style="text-align:left;">
+Original input file
+</td>
 </tr>
-<tr class="even">
-<td align="left">Data_BCG_PacNW_indexclass_0criteria.csv</td>
-<td align="left">Result file (original with updated Index_Class)</td>
+<tr>
+<td style="text-align:left;">
+xxx_indexclass_0criteria
+</td>
+<td style="text-align:left;">
+Criteria that were used for the Index Class assignment
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Data_BCG_PacNW_indexclass_1results.csv</td>
-<td align="left">All index criteria</td>
+<tr>
+<td style="text-align:left;">
+xxx_taxatrans_indexclass_1results
+</td>
+<td style="text-align:left;">
+Original input file with Index_Name and Index_Class fields added in;
+this file can be merged with the final output file from the ‘Taxa
+Translator and Add Attribute’ function via the ‘Merge Files’ function.
+The file will then be ready to run through the BCG calculator
+</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<p><em>Last updated 2023-01-24</em></p>
+<p><em>Last updated 2023-02-08</em></p>

@@ -1,6 +1,6 @@
 ---
-title: "Calculation, BCG, Output"
-date: "2023-01-24"
+title: "File Builder, Assign Index_Class, Output"
+date: "2023-02-08"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -27,25 +27,24 @@ represent each step of the calculation process.
 The entire criteria file is included to allow the user to check for non-matching
 Index Name and/or criteria columns.
 
-As an example if the input file was "Data_BCG_PacNW.csv" the result files will
+As an example if the input file was "xxx.csv" the result files will
 look like those in the table below.
 
 ```{r}
-fn_base <- "Data_BCG_PacNW"
-suffix <- c(paste0("_indexclass_"
-            , c("0criteria"
-                , "1results")))
-file_names <- c(paste0(fn_base, ".csv")
-       , paste0(fn_base, suffix, ".csv"))
-file_desc <- c("All index criteria"
-               , "Result file (original with updated Index_Class)") 
-df_zip <- data.frame(cbind(file_names, file_desc))
-names(df_zip) <- c("File Names", "File Descriptions")
-cap_zip <- "Taxa Translator zip file contents."
-knitr::kable(df_zip, caption = cap_zip)
-cat("\n\n")
+# Packages
+library(readxl)
+library(knitr)
+
+# Data
+fn_data <- "OutputFileSubtabs.xlsx"
+path_data <- file.path("files", fn_data)
+df_data <- read_excel(path_data, sheet = "FileBuild_IndexNameClass")
+
+# Display
+cap_data <- "File Builder, Assign Index_Class, zip file contents."
+knitr::kable(df_data, "html", caption = cap_data)
 ```
 
 ---
 
-*Last updated 2023-01-24*
+*Last updated 2023-02-08*

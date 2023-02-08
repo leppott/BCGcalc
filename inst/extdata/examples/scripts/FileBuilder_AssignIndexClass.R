@@ -21,7 +21,7 @@ library(BioMonTools)
 dn_input <- file.path(tempdir(), "examples", "data")
 dn_output <- file.path(tempdir(), "examples", "results")
 dn_data <- file.path(dn_input)
-fn_data <- "Test2_AssignIndexClass.csv"
+fn_data <- "TestData_FileBuilder_AssignIndexClass.csv"
 path_data <- file.path(dn_data, fn_data)
 
 ## Data, Define Parameters ----
@@ -128,6 +128,7 @@ df_indexclass_results <- BioMonTools::assign_IndexClass(data = df_data
                                           , data_shape = "WIDE")
 
 # Save ----
+fn_input_base <- tools::file_path_sans_ext(fn_data)
 
 ## save, criteria
 df_save <- df_indexclass_crit
@@ -144,3 +145,4 @@ write.csv(df_save
           , file.path(dn_output, paste0(fn_input_base, fn_part))
           , row.names = FALSE)
 rm(df_save, fn_part)
+

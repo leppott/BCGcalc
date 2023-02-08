@@ -24,7 +24,7 @@ path_shiny_www <- file.path("inst"
                             , "rmd_html")
 
 
-for(i in myFiles) {
+for (i in myFiles) {
   # file name w/o extension
   #i_fn <- tools::file_path_sans_ext(basename(i))
   # save to HTML

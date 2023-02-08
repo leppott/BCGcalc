@@ -1,6 +1,6 @@
 ---
-title: "Calculation, BCG, Output"
-date: "2022-12-14"
+title: "File Builder, Taxa Translate, Output"
+date: "20223-02-08"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -24,35 +24,24 @@ date and time.
 The individual files will include the same basename along with a suffix to 
 represent each step of the calculation process.
 
-As an example if the input file was "Data_BCG_PacNW.csv" the result files will
+As an example if the input file was "xxx.csv" the result files will
 look like those in the table below.
 
 ```{r}
-fn_base <- "Data_BCG_PacNW"
-suffix <- c(paste0("_taxatrans_"
-            , c("0fileversions"
-                , "1official"
-                , "1attributes"
-                , "1metadata"
-                , "2taxatrans"
-                , "3nonmatch"
-                , "MERGED")))
-file_names <- c(paste0(fn_base, ".csv")
-       , paste0(fn_base, suffix, ".csv"))
-file_desc <- c("User input data"
-               , "File name versions"
-               , "Official taxa list"
-               , "Official taxa attributes (only if separate from official list)"
-               , "Metadata for Official taxa list"
-               , "Crosswalk taxa table (translations), input to official"
-               , "Non-matching taxa"
-               , "Merged data results") 
-df_zip <- data.frame(cbind(file_names, file_desc))
-names(df_zip) <- c("File Names", "File Descriptions")
-cap_zip <- "Taxa Translator zip file contents."
-knitr::kable(df_zip, caption = cap_zip)
+# Packages
+library(readxl)
+library(knitr)
+
+# Data
+fn_data <- "OutputFileSubtabs.xlsx"
+path_data <- file.path("files", fn_data)
+df_data <- read_excel(path_data, sheet = "FileBuild_TTAA")
+
+# Display
+cap_data <- "File Builder, Taxa Trans, zip file contents."
+knitr::kable(df_data, "html", caption = cap_data)
 ```
 
 ---
 
-*Last updated 2022-12-14*
+*Last updated 2023-02-08*

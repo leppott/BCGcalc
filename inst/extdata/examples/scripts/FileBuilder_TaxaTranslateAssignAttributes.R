@@ -19,7 +19,7 @@ library(BioMonTools)
 dn_input <- file.path(tempdir(), "examples", "data")
 dn_output <- file.path(tempdir(), "examples", "results")
 dn_data <- file.path(dn_input)
-fn_data <- "Test1_TaxaTrans.csv"
+fn_data <- "TestData_FileBuilder_TaxaTrans.csv"
 path_data <- file.path(dn_data, fn_data)
 ## Data, Column Info
 # Fun Param, Define

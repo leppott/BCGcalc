@@ -20,8 +20,8 @@ dn_input <- file.path(tempdir(), "examples", "data")
 dn_output <- file.path(tempdir(), "examples", "results")
 dn_mf1 <- file.path(dn_input)
 dn_mf2 <- file.path(dn_input)
-fn_mf1 <- "Test3_Merge_Samples.csv"
-fn_mf2 <- "Test3_Merge_Sites.csv"
+fn_mf1 <- "TestData_FileBuilder_Merge_Samples.csv"
+fn_mf2 <- "TestData_FileBuilder_Merge_Sites.csv"
 path_mf1 <- file.path(dn_mf1, fn_mf1)
 path_mf2 <- file.path(dn_mf2, fn_mf2)
 ## Data, Column Info

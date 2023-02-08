@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9044 (2023-02-08)
+
+* refactor: Update Shiny output tabs
+
 # BCGcalc 2.0.0.9043 (2023-02-07)
 
 * refactor: Update taxa translate 0fileversion output
