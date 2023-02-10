@@ -1,11 +1,23 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-02-08 08:16:31
+2023-02-10 12:35:35
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-02-08 08:16:31
+    #> Last Update: 2023-02-10 12:35:35
+
+# BCGcalc 2.0.0.9047 (2023-02-10)
+
+- docs: Update `BCG.Level.Assignment` example code
+- refactor: Update example script (BCG calc)
+
+# BCGcalc 2.0.0.9046 (2023-02-08)
+
+- refactor: Create ‘process’ file in data-raw for creating zip file of
+  examples for Shiny app (‘www’)
+- refactor: Update example scripts
+- refactor: Add link to download example zip file in Shiny app
 
 # BCGcalc 2.0.0.9045 (2023-02-08)
 

@@ -14,14 +14,16 @@
 library(readxl)
 library(knitr)
 library(dplyr)
-library(lazyeval)
 library(BioMonTools)
+library(reshape2)
 
 # Data ----
-# wd <-'C:/Users/Jen.Stamp/Documents/R_BioMonTools'
-# setwd(wd)
+fn_data <- "TestData_Calc_BobBDVI.csv"
+dn_data <- file.path(tempdir(), "examples", "data")
+dn_output <- file.path(tempdir(), "examples", "results")
+path_data <- file.path(dn_data, fn_data)
 
-df_data <- read.csv("~/R_BioMonTools/BobBDVI_20230205.csv")
+df_data <- read.csv(path_data)
 
 
 SampID     <- "SampleID"
@@ -37,85 +39,84 @@ TaxaLevels <- c("Phylum"
                 , "Genus")
 Exceptions <- NA
 
-df_example <- markExcluded(df_data, SampID = "SampleID", TaxaID = "TaxaID", TaxaCount =  "N_Taxa"
-                           , Exclude = "Exclude", TaxaLevels = TaxaLevels, Exceptions = NA)
+df_example <- BioMonTools::markExcluded(df_data
+                           , SampID = "SampleID"
+                           , TaxaID = "TaxaID"
+                           , TaxaCount =  "N_Taxa"
+                           , Exclude = "Exclude"
+                           , TaxaLevels = TaxaLevels
+                           , Exceptions = NA)
+# Save Results
+fn_met_memb <- "Test1_BCGcalc.Metric.Membership.tsv"
+fn_input_base <- tools::file_path_sans_ext(fn_data)
+fn_excl <- paste0(fn_input_base, "_wExclude.csv")
+path_excl <- file.path(dn_output, fn_excl)
+write.csv(df_example, path_excl)
 
-write.csv(df_example, "BobBDVI_wExclude_20230206.csv")
 
+# Calculate Metrics ----
 
-
-# Calculate Metrics of Interest
-
-# Load libraries
-library(readxl)
-library(knitr)
-library(BioMonTools)
-
-# set working directory
-wd <-'C:/Users/Jen.Stamp/Documents/R_BioMonTools'
-setwd(wd)
-
-# load data
-df.data <- read.csv("C:/Users/Jen.Stamp/Documents/R_BioMonTools/BobBDVI_wExclude_20230206.csv")
+# File
 
 
 # Calculate Bob's BioDiversity Index
-
-library(devtools) 
-library(BioMonTools)
-library(readxl)
-library(reshape2)
-
-help(package = "BioMonTools")
 
 # Thresholds (came with package installation, in the MetricScoring Excel file in the extdata folder)
 fn_thresh <- file.path(system.file(package = "BioMonTools"), "extdata", "MetricScoring.xlsx")
 df_thresh_metric <- read_excel(fn_thresh, sheet = "metric.scoring")
 df_thresh_index <- read_excel(fn_thresh, sheet = "index.scoring")
 
-
-# Directory
-# dn_rp <- "C:/Users/Jen.Stamp/Documents/R_code/BCGcalc"
-dn_rp <- getwd()
-
-# File
-fn_rp <- "BobBDVI_wExclude_20230206.csv"
-fp_rp <- file.path(dn_rp, fn_rp)
-df_rp <- read.csv(fp_rp)
+# load data
+## use excluded taxa output
+path_rp <- path_excl
+df_rp <- read.csv(path_data, stringsAsFactors = FALSE)
 
 
-# calculate metrics for Bob's Biodiversity Index; limit output to index input metrics only
+# calculate metrics for Bob's Biodiversity Index; 
+# limit output to index input metrics only
 myIndex <- "BCG_PacNW_L1"
 df_rp$INDEX_NAME   <- myIndex
 df_rp$INDEX_REGION <- "ALL"
 (myMetrics.Bugs <- unique(as.data.frame(df_thresh_metric)[df_thresh_metric[,"INDEX_NAME"] == myIndex,"METRIC_NAME"]))
 
 
-# tell R to ignore these fields so you don't get a warning. Just added this. Not sure it will work yet.
-df_rp[, c("FFG2", "TOLVAL2")] <- NA
+# tell R to ignore these fields so you don't get a warning
+col2NA_char <- c("SUBPHYLUM", "SUBCLASS", "INFRAORDER", "HABIT", "LIFE_CYCLE"
+                 , "FFG2", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
+                 , "WSAREA_ATTR", "HABSTRUCT", "BCG_ATTR2")
+col2NA_num <- c("TOLVAL", "TOLVAL2", "UFC")
+col2NA_boo <- c("AIRBREATHER")
+df_rp[, col2NA_char] <- NA_character_
+df_rp[, col2NA_num] <- NA_real_
+df_rp[, col2NA_boo] <- NA
 
 
 # Run Function - YOU'LL NEED TO STOP TO ANSWER YES (1)
-df_metric_values_bugs <- metric.values(df_rp, "bugs", fun.MetricNames = myMetrics.Bugs)
+df_metric_values_bugs <- metric.values(df_rp
+                                       , "bugs"
+                                       , fun.MetricNames = myMetrics.Bugs)
+
+#~~~~~~~~~~~~
+#WAIT to run this until you get through the Yes/No prompt. 
+#~~~~~~~~~~~~~
 
 
-# index to BCG_PacNW_L1
-df_metric_values_bugs$INDEX_NAME <- myIndex
-df_metric_values_bugs$INDEX_REGION <- "ALL"
-
-
-# SCORE Metrics
-df_metric_scores_bugs <- metric.scores(df_metric_values_bugs
-                                       , myMetrics.Bugs
-                                       , "INDEX_NAME"
-                                       , "INDEX_CLASS"
-                                       , df_thresh_metric
-                                       , df_thresh_index)
+# SCORE Metrics ----
+df_metric_scores_bugs <- metric.scores(DF_Metrics = df_metric_values_bugs
+                                       , col_MetricNames = myMetrics.Bugs
+                                       , col_IndexName = "INDEX_NAME"
+                                       , col_IndexRegion = "INDEX_CLASS"
+                                       , DF_Thresh_Metric = df_thresh_metric
+                                       , DF_Thresh_Index = df_thresh_index)
 
 
 # Create csv file with Results
-write.csv(df_metric_scores_bugs, "BobBDVI_Results.csv")
+fn_results <- "BobBDVI_Results.csv"
+path_results <- file.path(dn_output, fn_results)
+write.csv(df_metric_scores_bugs, path_results, row.names = FALSE)
 
+#~~~~~~~~~~~~
 # QC, table
 table(df_metric_scores_bugs$Index, df_metric_scores_bugs$Index_Nar)
+#~~~~~~~~~~~~
 

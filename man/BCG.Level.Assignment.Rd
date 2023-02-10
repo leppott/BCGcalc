@@ -101,8 +101,7 @@ df_samps_bugs <- readxl::read_excel(system.file(
                                         
 # Run Function
 myDF <- df_samps_bugs
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-            , "INDEX_CLASS")
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
 #' # populate missing columns prior to metric calculation
 col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
@@ -157,6 +156,7 @@ df_lev_flags <- merge(df_Levels
              
 # Summarize Results
 table(df_flags[, "CHECKNAME"], df_flags[, "FLAG"], useNA = "ifany")
+table(df_lev_flags$BCG_Status)
 
 # Show Results
 # View(df_lev_flags)
@@ -164,16 +164,16 @@ table(df_flags[, "CHECKNAME"], df_flags[, "FLAG"], useNA = "ifany")
 # Save Results
 write.csv(df_lev_flags, file.path(tempdir(), "Level_Flags.csv"))
 
-# Summary Report
- strFile.RMD <- system.file(paste0("rmd/Results_Summary.Rmd")
-                            , package = "BCGcalc")
-strFile.RMD.format <- "html_document"
-strFile.out <- "_bcgcalc_RESULTS.html"
-dir.export <- tempdir()
-rmarkdown::render(strFile.RMD
-                  , output_format = strFile.RMD.format
-                  , output_file = strFile.out
-                  , output_dir = dir.export
-                  , quiet = TRUE)
+# # Summary Report
+# strFile.RMD <- system.file(paste0("rmd/Results_Summary.Rmd")
+#                              , package = "BCGcalc")
+# strFile.RMD.format <- "html_document"
+# strFile.out <- "_bcgcalc_RESULTS.html"
+# dir.export <- tempdir()
+# rmarkdown::render(strFile.RMD
+#                    , output_format = strFile.RMD.format
+#                    , output_file = strFile.out
+#                    , output_dir = dir.export
+#                    , quiet = TRUE)
 
 }

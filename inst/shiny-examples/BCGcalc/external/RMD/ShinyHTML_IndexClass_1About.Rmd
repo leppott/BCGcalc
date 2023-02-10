@@ -84,6 +84,9 @@ instead.
 Click [here](links/Test1_FileBuilder_AssignNameClass.csv) to download a test 
 file.
 
+Click [here](links\examples_all.zip) to download example R scripts and data (all
+functions).
+
 ---
 
 *Last updated 2023-02-03*

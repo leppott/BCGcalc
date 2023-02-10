@@ -29,7 +29,9 @@ dn_data <- file.path(tempdir(), "examples", "data")
 dn_output <- file.path(tempdir(), "examples", "results")
 path_data <- file.path(dn_data, fn_data)
 
-df_data <- read.csv(path_data)
+df_data <- read.csv(path_data
+                    , stringsAsFactors = FALSE
+                    , colClasses = c("BCG_Attr" = "character"))
 
 # Excl Taxa ----
 # STEP 3 - Mark redundant taxa (this will add the 'Exclude - TRUE/FALSE' column to the input file)
@@ -49,14 +51,14 @@ TaxaLevels <- c("Phylum"
 
 Exceptions <- NA
 
-df_example <- markExcluded(df_data
+df_example <- BioMonTools::markExcluded(df_data
                            , SampID = "SampleID"
                            , TaxaID = "TaxaID"
                            , TaxaCount =  "N_Taxa"
                            , Exclude = "Exclude"
                            , TaxaLevels = TaxaLevels
                            , Exceptions = NA)
-
+# Save
 fn_input_base <- tools::file_path_sans_ext(fn_data)
 fn_excl <- paste0(fn_input_base, "_wExclude.csv")
 path_excl <- file.path(dn_output, fn_excl)
@@ -171,9 +173,10 @@ write.table(df_met_val_all
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Flags ----
-# Flags (metrics) - this directs R to the extdata folder and tells it to look at the MetricFlags Excel file
+# Flags (metrics) - this directs R to the extdata folder and 
+# tells it to look at the MetricFlags Excel file
 path_checks <- system.file("./extdata/MetricFlags.xlsx", package = "BCGcalc")
-df_checks <- read_excel(path_checks, sheet = "Flags")
+df_checks <- readxl::read_excel(path_checks, sheet = "Flags")
 file.copy(path_checks, dn_output)
 
 # 2021-12-20, Index_Region to upper
@@ -217,7 +220,10 @@ df_flag_summary <- table(df_flags[, "CHECKNAME"]
                          , df_flags[, "FLAG"]
                          , useNA = "ifany")
 kable(df_flag_summary, caption = "Flag summary.")
+
+#~~~~~~~~~~~~~~~~
 View(df_flag_summary)
+#~~~~~~~~~~~~~~~~
 
 ## Save
 fn_flags_met <- "Test1_BCGcalc.metval.flags.tsv"
@@ -233,13 +239,13 @@ write.table(df_flag_summary
 ## BCG, Metric Memb ----
 # Calculate Metric Scores (BCG)
 # this directs R to the extdata folder and tells it to look at the Rules Excel file
-df_rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                                   , package = "BCGcalc"), sheet = "Rules") 
+df_rules <- read_excel(system.file("./extdata/Rules.xlsx", package = "BCGcalc")
+                       , sheet = "Rules") 
 
 
 # Tell R to look for the Site_Type column instead of an Index_Region column (rules vary slightly btw hi vs. lo)
 
-df_met_val$SITE_TYPE <- df_met_val$INDEX_REGION
+df_met_val$SITE_TYPE <- df_met_val$INDEX_REGION # old code
 
 # Run function
 df_met_memb <- BCG.Metric.Membership(df_met_val, df_rules)
@@ -279,5 +285,8 @@ df_summary_levels <- table(df_levels_flags$Primary_BCG_Level
                            , df_levels_flags$Secondary_BCG_Level
                            , useNA = "ifany")
 knitr::kable(df_summary_levels
-             , caption = "Level assignments (1st on Left, 2nd on Top) (NA are no 2nd).")
+    , caption = "Level assignments (1st on Left, 2nd on Top) (NA are no 2nd).")
 
+# QC Note
+# if all sites 5 or 6 then most likely BCG_Attr imported as a complex number
+# read.csv(..., colClasses = c("BCG_Attr" = "character"))
