@@ -1,6 +1,6 @@
 ---
-title: "Calculation, Model Thermal"
-date: "2022-10-13"
+title: "Calculation, Fuzzy Model Thermal"
+date: "2023-03-17"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -67,8 +67,12 @@ Rules for the current version of the model are as follows:
 ||% warm + warm stenotherm taxa	|≤ 30% (25-35)|
 
 <br>
+Click [here](links\examples_all.zip) to download example R scripts and data (all
+functions).
+
+<br>
 For more information, contact Jen Stamp (Tetra Tech) (Jen.Stamp@tetratech.com).
 
 ---
 
-*Last updated 2022-10-13*
+*Last updated 2023-03-17*
