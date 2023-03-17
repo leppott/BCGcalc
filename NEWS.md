@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-03-17 10:51:58
+2023-03-17 15:54:24
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-03-17 10:51:58
+    #> Last Update: 2023-03-17 15:54:24
+
+# BCGcalc 2.0.0.9049 (2023-03-17)
+
+- fix: Remove example file link in fuzzy thermal about page
+  - No fuzzy thermal examples
+- feat: Add fuzzy thermal calculation and associated pages to Shiny,
+  Issue \#65
 
 # BCGcalc 2.0.0.9048 (2023-03-17)
 

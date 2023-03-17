@@ -1,6 +1,6 @@
 ---
 title: "Calculation, Model Thermal, Output"
-date: "2022-10-14"
+date: "2023-03-17"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -14,8 +14,35 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-Some text about BCG stlye thermal model outputs.
+The BCG style thermal model uses the same style files as the BCG calculation.
 
+A single zip file will be available for download.  It will include all result
+files along with the original data file.  All result data files will be CSV 
+format.
+
+The zip file will included the base name of the original file along with the 
+date and time.
+
+The individual files will include the same basename along with a suffix to 
+represent each step of the calculation process.
+
+As an example if the input file was "xxx.csv" the result files will
+look like those in the table below.
+
+```{r}
+# Packages
+library(readxl)
+library(knitr)
+
+# Data
+fn_data <- "OutputFileSubtabs.xlsx"
+path_data <- file.path("files", fn_data)
+df_data <- read_excel(path_data, sheet = "Calc_ModTherm")
+
+# Display
+cap_data <- "Calculation, Thermal Model, zip file contents."
+knitr::kable(df_data, "html", caption = cap_data)
+```
 ---
 
-*Last updated 2022-10-14*
+*Last updated 2023-03-17*

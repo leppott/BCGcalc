@@ -1,6 +1,6 @@
 ---
 title: "Calculation, Model Thermal, Input"
-date: "2022-10-14"
+date: "2023-03-17"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -14,8 +14,80 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-Some text about BCG stlye thermal model input file requirements.
+The thermal model uses the same style files as the BCG calculation.
 
+# Required Fields
+The following fields are required in input files. 
+
+Click [here](links\BCGcalc_ReqFields_20230203.xlsx) to download an Excel file 
+with this table plus example data.
+
+```{r table_req}
+# Packages
+library(readxl)
+#library(DT)
+
+# Data
+fn_req <- "ModTherm_ReqFields_20230203.xlsx"
+path_req <- file.path("files", fn_req)
+df_req <- read_excel(path_req, sheet = "RequiredFields")
+
+# Table (DT)
+cap_req <- "Table 1. Required fields."
+# DT::datatable(df_req
+#               , filter = "top"
+#               , caption = cap_req
+#               , options = list(scrollX = TRUE
+#                                , autoWidth = TRUE)
+#               )
+# DT::datatable(iris) # not working correctly in fragment
+knitr::kable(df_req, caption = cap_req)
+```
+
+# Optional Fields
+Fields necessary to calculate other metrics can be included and do not affect
+the thermal model output.  Additional metrics are available in the '*metval_all.csv'
+file.
+
+```{r table_optional}
+# Packages
+#library(DT)
+
+# Table
+col1 <- rep("Optional", 5)
+col2 <- c("THERMAL_INDICATOR"
+          , "TOLVAL"
+          , "HABIT"
+          , "NOTEWORTHY"
+          , "LONGLIVED") 
+col3 <- c("text", "numeric", rep("text", 3))
+col4 <- c("stenoc, cold, cool, cowa, warm, stenow, eurythermal"
+          , "number ranging from 0-10"
+          , "BU, CB, CN, SP, SW"
+          , "TRUE, FALSE"
+          , "TRUE, FALSE")
+d1 <- "Thermal preference assignment based on Stamp et al. (in progress): stenoc=cold stenotherm; cold, cool, cowa = cool/warm, warm, stenow = warm stenotherm, eurythermal."
+d2 <- "Taxa with tolerance values ranging from 0 to 3 are considered 'intolerant' to anthropogenic disturbance and are included in the 'intolerant' metric calculations. Those with values ranging from 7 to 10 are included in the 'tolerant' metrics."
+d3 <- "Habit. Multiple entries are allowed and should be separated with a comma. Entries: burrowers (BU), climbers (CB), clingers (CN), sprawlers (SP), swimmers (SW)."
+d4 <- "Noteworthy taxa occur most often at sites with complex and resilient habitat structure that supports high overall freshwater biodiversity. Most of these taxa are rarely or occasionally encountered in benthic macroinvertebrate biomonitoring samples."
+d5 <- "These invertebrates require more than one year to complete their life cycles; thus, they are exposed to all the human activities that influence the stream throughout one or more years. If the stream is dry part of the year or subject to flooding, these animals may disappear. Loss of long-lived taxa may also indicate an on-going problem that repeatedly interrupts their life cycles"
+col5 <- c(d1, d2, d3, d4, d5)
+
+df_opt <- data.frame(cbind(col1, col2, col3, col4, col5))
+names(df_opt) <- c("Column Type"
+                   , "Column Name"
+                   , "Data Type"
+                   , "Allowable Entries"
+                   , "Comment")
+cap_opt <- "Table 2. Optional fields"
+# DT::datatable(df_opt
+#               , filter = "top"
+#               , caption = cap_opt
+#               , options = list(scrollX = TRUE
+#                                , autoWidth = TRUE)
+#               )
+knitr::kable(df_opt, caption = cap_opt)
+```
 ---
 
-*Last updated 2022-10-14*
+*Last updated 2023-03-17*

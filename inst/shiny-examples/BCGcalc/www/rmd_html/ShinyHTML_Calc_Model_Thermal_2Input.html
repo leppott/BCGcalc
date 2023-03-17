@@ -1,6 +1,234 @@
 
 
 
-<p>Some text about BCG stlye thermal model input file requirements.</p>
+<p>The thermal model uses the same style files as the BCG
+calculation.</p>
+<div id="required-fields" class="section level1">
+<h1>Required Fields</h1>
+<p>The following fields are required in input files.</p>
+<p>Click <a href="links\BCGcalc_ReqFields_20230203.xlsx">here</a> to
+download an Excel file with this table plus example data.</p>
+<table>
+<caption>Table 1. Required fields.</caption>
+<colgroup>
+<col width="3%" />
+<col width="2%" />
+<col width="10%" />
+<col width="84%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Column Name</th>
+<th align="left">Data Type</th>
+<th align="left">Allowable entries</th>
+<th align="left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Index_Name</td>
+<td align="left">text</td>
+<td align="left">Therm_ORWA_Bugs500ct</td>
+<td align="left">Directs the R code to the correct overall model to use
+(it references the INDEX_NAME column in the Rules table in the BCGcalc
+extdata folder)</td>
+</tr>
+<tr class="even">
+<td align="left">Index_Class</td>
+<td align="left">text</td>
+<td align="left">ORWA</td>
+<td align="left">Directs the R code to the correct submodel to use (it
+looks in the INDEX_CLASS column in the Rules table in the BCGcalc
+extdata folder)</td>
+</tr>
+<tr class="odd">
+<td align="left">SAMPLEID</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">Unique sample identifier</td>
+</tr>
+<tr class="even">
+<td align="left">TAXAID</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">Taxonomic identification of organisms in each
+sample</td>
+</tr>
+<tr class="odd">
+<td align="left">N_TAXA</td>
+<td align="left">numeric</td>
+<td align="left">non-negative real number</td>
+<td align="left">Number of individuals.</td>
+</tr>
+<tr class="even">
+<td align="left">EXCLUDE</td>
+<td align="left">text</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Redundant (non-distinct) taxa should marked “TRUE”.
+Redundant taxa are excluded from richness metric calculations but are
+included in the composition (percent individuals) metrics.</td>
+</tr>
+<tr class="odd">
+<td align="left">NONTARGET</td>
+<td align="left">text</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Non-target taxa should be marked “TRUE”. The R code
+excludes non-target taxa from all metric calculations.</td>
+</tr>
+<tr class="even">
+<td align="left">PHYLUM</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">CLASS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">SUBCLASS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">ORDER</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">FAMILY</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">SUBFAMILY</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">TRIBE</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">GENUS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">BCG_ATTR</td>
+<td align="left">text</td>
+<td align="left">1i, 1m, 2, 3, 4, 5, 6</td>
+<td align="left">Biological Condition Gradient (BCG) attribute
+assignments</td>
+</tr>
+<tr class="odd">
+<td align="left">FFG</td>
+<td align="left">text</td>
+<td align="left">CG, CF, PR, SC, SH, MH, OM, PA, PH, XY</td>
+<td align="left">Primary Functional Feeding Group. Multiple entries are
+allowed and should be separated with a comma (and no space; e.g.,
+CG,CF). Entries: collector-gatherer (CG), collector-filterer (CF),
+predator (PR), scraper (SC), shredder (SH), macrophyte herbivore (MH),
+omnivore (OM), parasite (PA), piercer-herbivore (PH), xylophage
+(XY).</td>
+</tr>
+<tr class="even">
+<td align="left">LIFE_CYCLE</td>
+<td align="left">text</td>
+<td align="left">uni, semi, multi</td>
+<td align="left">Number of broods or generations of an organism in a
+year (also referred to as ‘voltinism’): univoltine (UNI), semivoltine
+(SEMI), or multivoltine (MULTI).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="optional-fields" class="section level1">
+<h1>Optional Fields</h1>
+<p>Fields necessary to calculate other metrics can be included and do
+not affect the thermal model output. Additional metrics are available in
+the ’*metval_all.csv’ file.</p>
+<table>
+<caption>Table 2. Optional fields</caption>
+<colgroup>
+<col width="2%" />
+<col width="3%" />
+<col width="2%" />
+<col width="10%" />
+<col width="80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Column Type</th>
+<th align="left">Column Name</th>
+<th align="left">Data Type</th>
+<th align="left">Allowable Entries</th>
+<th align="left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Optional</td>
+<td align="left">THERMAL_INDICATOR</td>
+<td align="left">text</td>
+<td align="left">stenoc, cold, cool, cowa, warm, stenow,
+eurythermal</td>
+<td align="left">Thermal preference assignment based on Stamp et al. (in
+progress): stenoc=cold stenotherm; cold, cool, cowa = cool/warm, warm,
+stenow = warm stenotherm, eurythermal.</td>
+</tr>
+<tr class="even">
+<td align="left">Optional</td>
+<td align="left">TOLVAL</td>
+<td align="left">numeric</td>
+<td align="left">number ranging from 0-10</td>
+<td align="left">Taxa with tolerance values ranging from 0 to 3 are
+considered ‘intolerant’ to anthropogenic disturbance and are included in
+the ‘intolerant’ metric calculations. Those with values ranging from 7
+to 10 are included in the ‘tolerant’ metrics.</td>
+</tr>
+<tr class="odd">
+<td align="left">Optional</td>
+<td align="left">HABIT</td>
+<td align="left">text</td>
+<td align="left">BU, CB, CN, SP, SW</td>
+<td align="left">Habit. Multiple entries are allowed and should be
+separated with a comma. Entries: burrowers (BU), climbers (CB), clingers
+(CN), sprawlers (SP), swimmers (SW).</td>
+</tr>
+<tr class="even">
+<td align="left">Optional</td>
+<td align="left">NOTEWORTHY</td>
+<td align="left">text</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Noteworthy taxa occur most often at sites with complex
+and resilient habitat structure that supports high overall freshwater
+biodiversity. Most of these taxa are rarely or occasionally encountered
+in benthic macroinvertebrate biomonitoring samples.</td>
+</tr>
+<tr class="odd">
+<td align="left">Optional</td>
+<td align="left">LONGLIVED</td>
+<td align="left">text</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">These invertebrates require more than one year to
+complete their life cycles; thus, they are exposed to all the human
+activities that influence the stream throughout one or more years. If
+the stream is dry part of the year or subject to flooding, these animals
+may disappear. Loss of long-lived taxa may also indicate an on-going
+problem that repeatedly interrupts their life cycles</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<p><em>Last updated 2022-10-14</em></p>
+<p><em>Last updated 2023-03-17</em></p>
+</div>

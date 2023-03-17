@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9049 (2023-03-17)
+
+* fix: Remove example file link in fuzzy thermal about page 
+    + No fuzzy thermal examples
+* feat: Add fuzzy thermal calculation and associated pages to Shiny, Issue #65
+
 # BCGcalc 2.0.0.9048 (2023-03-17)
 
 * refactor: Add link for example scripts to fuzzy thermal about page

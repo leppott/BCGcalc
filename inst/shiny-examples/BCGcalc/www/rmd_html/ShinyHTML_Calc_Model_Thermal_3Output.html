@@ -1,6 +1,141 @@
 
 
 
-<p>Some text about BCG stlye thermal model outputs.</p>
+<p>The BCG style thermal model uses the same style files as the BCG
+calculation.</p>
+<p>A single zip file will be available for download. It will include all
+result files along with the original data file. All result data files
+will be CSV format.</p>
+<p>The zip file will included the base name of the original file along
+with the date and time.</p>
+<p>The individual files will include the same basename along with a
+suffix to represent each step of the calculation process.</p>
+<p>As an example if the input file was “xxx.csv” the result files will
+look like those in the table below.</p>
+<table>
+<caption>
+Calculation, Thermal Model, zip file contents.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Output file
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+xxx
+</td>
+<td style="text-align:left;">
+original input file
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_1markexcl
+</td>
+<td style="text-align:left;">
+original input file with an ‘EXCLUDE’ taxa column added in. It is a
+TRUE/FALSE field in which R marks redundant taxa as ‘TRUE’ based on the
+phylogeny fields in the input file. All ‘Exclude’ decisions are
+sample-specific. A detailed description of the process that the R tool
+uses for marking redundant taxa is available upon request (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_2metval_all
+</td>
+<td style="text-align:left;">
+values for all bug metrics in the BioMonTools R package (<a href="https://github.com/leppott/BioMonTools" class="uri">https://github.com/leppott/BioMonTools</a>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_2metval_BCG
+</td>
+<td style="text-align:left;">
+values for bug metrics used in the Thermal Model (model + flags); the
+calculations are done with the BioMonTools R package (<a href="https://github.com/leppott/BioMonTools" class="uri">https://github.com/leppott/BioMonTools</a>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_3metmemb
+</td>
+<td style="text-align:left;">
+values for bug metrics used in the MaritimeNW BCG model; each metric is
+assigned to assigned metric membership values (0-1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_3metrules
+</td>
+<td style="text-align:left;">
+Rules for each class x BCG level (metrics, thresholds, symbols). Rules
+are similar but not exactly the same. long data format
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_4levmemb
+</td>
+<td style="text-align:left;">
+for each sample, membership in each BCG level (0-1). Includes Index_Name
+and Index_Class
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_5levassign
+</td>
+<td style="text-align:left;">
+results without the flags (primary, secondary levels and membership,
+continuous score, narrative with and without pluses and minuses)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_6levflags
+</td>
+<td style="text-align:left;">
+summary of how many samples had flagged metrics (and not flagged) based
+on the input file; count of # flagged (flag) and not flagged (NA)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_6metflags
+</td>
+<td style="text-align:left;">
+results of flag calculations for all metrics and samples
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_RESULTS (csv)
+</td>
+<td style="text-align:left;">
+for each sample, thermal model output (primary, secondary levels and
+membership, continuous model score, narrative with and without pluses
+and minuses) plus flags (flag or NA)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_modtherm_RESULTS (html)
+</td>
+<td style="text-align:left;">
+histogram showing distribution of samples across Thermal Model levels.
+</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<p><em>Last updated 2022-10-14</em></p>
+<p><em>Last updated 2023-03-17</em></p>
