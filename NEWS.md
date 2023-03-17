@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-03-17 15:54:24
+2023-03-17 17:02:58
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-03-17 15:54:24
+    #> Last Update: 2023-03-17 17:02:58
+
+# BCGcalc 2.0.0.9050 (2023-03-17)
+
+- feat: Add placeholder for map, Issue \#67
 
 # BCGcalc 2.0.0.9049 (2023-03-17)
 

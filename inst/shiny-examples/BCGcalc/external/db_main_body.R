@@ -30,6 +30,8 @@ function(id) {
                 , tab_code_calc_mtti())
       , tabItem(tabName = "tab_calc_biodivind"
                 , tab_code_calc_biodivind())
+      , tabItem(tabName = "tab_map"
+                , tab_code_map())
       , tabItem(tabName = "tab_rep_ss_ss"
                 , tab_code_rep_ss_ss())
       , tabItem(tabName = "tab_rep_ss_ms"

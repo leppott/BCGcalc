@@ -76,6 +76,9 @@ function(id) {
       #                          , tabName = "tab_about"
       #                          , icon = icon("calculator"))
       #            )## menuItem ~ Analysis ~ END
+      , menuItem(text = "Map"
+                 , tabName = "tab_map"
+                 , icon = icon("map"))## menuItem ~ Map
       , menuItem(text = "Reports"
                  , icon = icon("clipboard-check")
                  , menuSubItem("Single Site, Single Sample"

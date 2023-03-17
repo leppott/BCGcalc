@@ -55,6 +55,8 @@ tab_code_calc_mtti             <- source("external/tab_calc_mtti.R"
                                          , local = TRUE)$value
 tab_code_calc_biodivind        <- source("external/tab_calc_biodivind.R"
                                          , local = TRUE)$value
+tab_code_map                   <- source("external/tab_map.R"
+                                         , local = TRUE)$value
 tab_code_rep_ss_ss      <- source("external/tab_report_singlesite_singlesamp.R"
                                   , local = TRUE)$value
 tab_code_rep_ss_ms      <- source("external/tab_report_singlesite_multisamp.R"
