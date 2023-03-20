@@ -23,6 +23,7 @@ library(readxl)
 library(httr)
 library(reshape2)
 library(knitr)
+library(leaflet)
 
 # Source ----
 # tabs
@@ -165,5 +166,3 @@ httr::GET(url_fuzzytherm_crit
 
 df_fuzzytherm_crit <- readxl::read_excel(temp_fuzzytherm_crit
                                          , sheet = "Current")
-
-

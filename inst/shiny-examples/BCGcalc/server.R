@@ -12,7 +12,8 @@ library(shiny)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
-  # Misc Names ####
+  # INPUT Display Names ####
+  
   output$fn_input_display_bcg <- renderText({
     inFile <- input$fn_input
     
@@ -89,6 +90,17 @@ shinyServer(function(input, output) {
     return(paste0("'", inFile$name, "'"))
     
   })## fn_input_display_bdi
+  
+  output$fn_input_display_map <- renderText({
+    inFile <- input$fn_input
+
+    if (is.null(inFile)) {
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+
+    return(paste0("'", inFile$name, "'"))
+
+  })## fn_input_display_map
   
   # IMPORT ----
   file_watch <- reactive({
@@ -2308,5 +2320,84 @@ shinyServer(function(input, output) {
   
   
   # MTTI ----
+  
+  # MAP ----
+  ## Map, UI ----
+  output$UI_map_col_xlong <- renderUI({
+    str_col <- "Column, X (Longitude)"
+    selectInput("taxatrans_map_col_xlong"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Longitude"
+                , multiple = FALSE)
+  })## UI_colnames
 
+  output$UI_map_col_ylat <- renderUI({
+    str_col <- "Column, Y (Latitude)"
+    selectInput("taxatrans_map_col_ylat"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Latitude"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  ## Map, Leaflet ----
+  output$map_leaflet <- renderLeaflet({
+    
+    # data for plot
+    # df_map <- df_import()
+    
+    # Rename columns based on user selection
+    
+    
+   
+    # 
+    # col_Stations <- "blue"
+    # col_Segs     <- "black" # "grey59"
+    # fill_Segs    <- "lightskyblue" 
+          
+    # Map
+    leaflet() %>%
+    #leaflet(data = df_map) %>%
+      # Groups, Base
+      #addTiles(group="OSM (default)") %>%  #default tile too cluttered
+      addProviderTiles("CartoDB.Positron"
+                       , group = "Positron") %>%
+      addProviderTiles(providers$Stamen.TonerLite
+                       , group = "Toner Lite") %>%
+      addProviderTiles(providers$OpenStreetMap
+                       , group = "Open Street Map") %>%
+      # # Groups, Overlay
+      # addCircles(lng = ~longitude
+      #            , lat = ~latitude
+      #            , color = col_Stations
+      #            , popup = ~paste0("Station: ", station, as.character("<br>")
+      #                            , "Latitude: ", latitude, as.character("<br>")
+      #                            , "Longitude: ", longitude, as.character("<br>")
+      #                            )
+      #            , radius = 30
+      #            , group = "Stations") %>%
+      # # Legend
+      # addLegend("bottomleft"
+      #           , colors = c(col_Stations, col_Segs)
+      #           , labels = c("Stations", "CB Outline")
+      #           , values = NA) %>%
+      # # Layers
+      # # addLayersControl(baseGroups = c("OSM (default)"
+      # #                                 , "Positron"
+      # #                                 , "Toner Lite")
+      addLayersControl(baseGroups = c("Positron"
+                                      , "Toner Lite"
+                                      , "Open Street Map")
+                       # , overlayGroups = c("Stations"
+                       #                     , "CB Outline")
+                       ) %>%
+      # # Mini map
+      addMiniMap(toggleDisplay = TRUE) #%>%
+      # # Hide Groups
+      # hideGroup("CB Outline")
+    
+        
+  })## map_leaflet ~ END
+  
 })##shinyServer ~ END

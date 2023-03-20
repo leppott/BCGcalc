@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-03-17 17:02:58
+2023-03-20 11:42:57
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-03-17 17:02:58
+    #> Last Update: 2023-03-20 11:42:57
+
+# BCGcalc 2.0.0.9051 (2023-03-20)
+
+- refactor: Add map column select and base map, Issue \#67
+  - Not complete
 
 # BCGcalc 2.0.0.9050 (2023-03-17)
 
