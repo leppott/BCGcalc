@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9052 (2023-05-16)
+
+* feat: Add Shiny tab for generating index class parameters, Issue #42
+    + Placeholder only
+
 # BCGcalc 2.0.0.9051 (2023-03-20)
 
 * refactor: Add map column select and base map, Issue #67

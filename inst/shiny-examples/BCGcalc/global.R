@@ -24,6 +24,7 @@ library(httr)
 library(reshape2)
 library(knitr)
 library(leaflet)
+library(rioja)   # MTTI model predict
 
 # Source ----
 # tabs
@@ -42,9 +43,14 @@ tab_code_filebuilder           <- source("external/tab_filebuilder.R"
                                          , local = TRUE)$value
 tab_code_filebuilder_taxatrans <- source("external/tab_filebuilder_taxatrans.R"
                                          , local = TRUE)$value
-tab_code_filebuilder_indexclass<- source("external/tab_filebuilder_indexclass.R"
+tab_code_filebuilder_indexclass <- source(
+                                         "external/tab_filebuilder_indexclass.R"
                                          , local = TRUE)$value
-tab_code_filebuilder_mergefiles<- source("external/tab_filebuilder_mergefiles.R"
+tab_code_filebuilder_indexclassparam <- source(
+                                    "external/tab_filebuilder_indexclassparam.R"
+                                         , local = TRUE)$value
+tab_code_filebuilder_mergefiles <- source(
+                                         "external/tab_filebuilder_mergefiles.R"
                                          , local = TRUE)$value
 tab_code_calc_bcg              <- source("external/tab_calc_bcg.R"
                                          , local = TRUE)$value
@@ -145,6 +151,10 @@ df_indexclass_crit <- readxl::read_excel(temp_indexclass_crit
 
 ## Index Class, Index Names----
 sel_indexclass_indexnames <- sort(unique(df_indexclass_crit[, "INDEX_NAME"
+                                                            , TRUE]))
+
+## Index Class, Index Names----
+sel_indexclass_params <- sort(unique(df_indexclass_crit[, "FIELD"
                                                             , TRUE]))
 
 # BMT, Metric Names ----

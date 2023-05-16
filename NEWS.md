@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-03-20 11:42:57
+2023-05-16 14:34:35.642168
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-03-20 11:42:57
+    #> Last Update: 2023-05-16 14:34:35.672548
+
+# BCGcalc 2.0.0.9052 (2023-05-16)
+
+- feat: Add Shiny tab for generating index class parameters, Issue \#42
+  - Placeholder only
 
 # BCGcalc 2.0.0.9051 (2023-03-20)
 

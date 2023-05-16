@@ -1336,6 +1336,18 @@ shinyServer(function(input, output) {
     #, contentType = "application/zip"
   )##download ~ TaxaTrans
   
+  # INDEX_CLASS_PARAM ----
+  
+  ## IndexClassParam, UI ----
+  output$UI_indexclassparam_indexname <- renderUI({
+    str_col <- "Index Name"
+    selectInput("indexclassparam_indexname"
+                , label = str_col
+                , choices = c("", sel_indexclassparam_indexnames)
+                , selected = "BCG_MariNW_Bugs500ct"
+                , multiple = FALSE)
+  })## UI_colnames 
+  
   # THERMAL METRICS ----
   
   # b_Calc_Met_Therm ----
