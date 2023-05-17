@@ -210,7 +210,7 @@ shinyServer(function(input, output) {
     shinyjs::enable("b_indexclass_calc")
     shinyjs::enable("b_calc_met_therm")
     shinyjs::enable("b_calc_modtherm")
-    # shinyjs::enable("b_calc_mtti")
+    shinyjs::enable("b_calc_mtti")
     # shinyjs::enable("b_calc_bdi")
     
     # update cb_taxatrans_sum 
@@ -272,7 +272,7 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # button, disable, download
-      shinyjs::disable("b_bcg_download")
+      shinyjs::disable("b_download_bcg")
     
       # data
       inFile <- input$fn_input
@@ -572,7 +572,7 @@ shinyServer(function(input, output) {
   )##observeEvent ~ b_bcg_calc ~ END
   
   # b_download_BCG ----
-  output$b_bcg_download <- downloadHandler(
+  output$b_download_bcg <- downloadHandler(
     
     filename = function() {
       inFile <- input$fn_input
@@ -690,7 +690,7 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # button, disable, download
-      shinyjs::disable("b_taxatrans_download")
+      shinyjs::disable("b_download_taxatrans")
       
       # Import data
       # data
@@ -1027,7 +1027,7 @@ shinyServer(function(input, output) {
   )##observeEvent ~ b_taxatrans_calc
   
   ## b_download_TaxaTrans ----
-  output$b_taxatrans_download <- downloadHandler(
+  output$b_download_taxatrans <- downloadHandler(
     
     filename = function() {
       inFile <- input$fn_input
@@ -1126,7 +1126,7 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # button, disable, download
-      shinyjs::disable("b_indexclass_download")
+      shinyjs::disable("b_download_indexclass")
       
       # Import data
       # data
@@ -1318,7 +1318,7 @@ shinyServer(function(input, output) {
   )##observeEvent ~ b_indexclass_calc
   
   ## b_download_IndexClass ----
-  output$b_indexclass_download <- downloadHandler(
+  output$b_download_indexclass <- downloadHandler(
     
     filename = function() {
       inFile <- input$fn_input
@@ -2012,7 +2012,7 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # button, disable, download
-      shinyjs::disable("b_bcg_download")
+      shinyjs::disable("b_download_modtherm")
       
       # data
       inFile <- input$fn_input
@@ -2328,10 +2328,237 @@ shinyServer(function(input, output) {
       
     }##content~END
     #, contentType = "application/zip"
-  )##download ~ BCG
+  )##download ~ Model (Fuzzy) Thermal
   
   
   # MTTI ----
+  
+  ## MTTI, UI ----
+  output$UI_mtti_user_col_taxaid <- renderUI({
+    str_col <- "Column, TaxaID"
+    selectInput("mtti_user_col_taxaid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "TaxaID"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  output$UI_mtti_user_col_ntaxa <- renderUI({
+    str_col <- "Column, Taxa Count (number of individuals or N_Taxa)"
+    selectInput("mtti_user_col_ntaxa"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "N_Taxa"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_mtti_user_col_sampid <- renderUI({
+    str_col <- "Column, Unique Sample Identifier (e.g., SampleID)"
+    selectInput("mtti_user_col_sampid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  ## b_Calc_MTTI ----
+  observeEvent(input$b_calc_mtti, {
+    shiny::withProgress({
+    
+      ## Calc, 00, Set Up Shiny Code ----
+      
+      prog_detail <- "Calculation, MTTI..."
+      message(paste0("\n", prog_detail))
+      
+      # Number of increments
+      prog_n <- 5
+      prog_sleep <- 0.25
+      
+      ## Calc, 01, Initialize ----
+      prog_detail <- "Initialize Data"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, disable, download
+      #shinyjs::disable("b_download_mtti")
+      
+      ## Calc, 02, Gather and Test Inputs  ----
+      prog_detail <- "QC Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+      df_input <- read.delim(inFile$datapath
+                             , header = TRUE
+                             , sep = input$sep
+                             , stringsAsFactors = FALSE)
+      # QC, FAIL if TRUE
+      if (is.null(df_input)) {
+        return(NULL)
+      }
+      
+      df_data <- df_input
+      
+      # Fun Param, Define
+      sel_col_sampid <- input$mtti_user_col_sampid
+      sel_col_taxaid <- input$mtti_user_col_taxaid
+      sel_col_ntaxa  <- input$mtti_user_col_ntaxa
+      
+      # Data, Model
+      fn_model <- "wa_MTTI.mar23.Rdata"
+      dn_model <- file.path("external", "MTTI_model")
+      load(file.path(dn_model, fn_model))
+      # **FUTURE** load from GitHub repo
+      
+      # Data, Taxa List Official
+      ## get from BioMonTools_SupportFiles GitHub Repo
+      # df_pick_taxoff from GLOBAL
+      fn_taxoff <- df_pick_taxoff[df_pick_taxoff$project == 
+                                    "MTTI (Pacific Northwest)"
+                                  , "filename"]
+      
+      url_taxa_official <- file.path(url_bmt_base
+                                          , "taxa_official"
+                                          , fn_taxoff)
+      
+      # download so ensure have it before read
+      httr::GET(url_taxa_official
+          , httr::write_disk(temp_taxa_official <- tempfile(fileext = ".csv")))
+      
+      df_tax <- read.csv(temp_taxa_official)
+      
+      ## Calc, 03, Run Function----
+      
+      # Munge
+      ### Munge, Data ----
+      df_data <- df_data %>%
+        dplyr::rename(sample.id = dplyr::all_of(sel_col_sampid)) %>%
+        dplyr::rename(Taxon_orig = dplyr::all_of(sel_col_taxaid)) %>%
+        dplyr::rename(Count = dplyr::all_of(sel_col_ntaxa))
+      
+      ### Munge, Taxa Main----
+      
+      if (input$MTTI_OTU) {
+        # Leave alone for now
+        # Don't think an issue if already converted to OTU names
+        # OTU names should be in the taxa_orig column
+      }## MTTI_OTU
+      
+      # limit to necessary fields to void messy joins
+      df_tax_otu <- df_tax %>%
+        dplyr::select(Taxon_orig, OTU_MTTI) 
+      
+      ### Calc----
+      # need relative abundances
+      
+      df_abunds <- df_data %>% 			
+        dplyr::group_by(sample.id) %>% 
+        dplyr::summarize(tot.abund = sum(Count))
+      
+      df_abunds <- as.data.frame(df_abunds)
+      
+      df_data <- df_data %>%
+        dplyr::left_join(df_abunds, by = 'sample.id')
+      
+      df_data_RA <- df_data %>%
+        dplyr::group_by(sample.id, Taxon_orig) %>%
+        dplyr::summarize(RA = (Count / tot.abund), .groups = "drop_last")
+      
+      #	join bugs and OTUs, filter out 'DNI' taxa, sum across OTUs within a sample
+      # join
+      df_bugs_otu <- df_data_RA %>%
+        # join dataframes
+        dplyr::left_join(df_tax_otu, by = 'Taxon_orig') %>% 
+        # filter out DNI taxa
+        dplyr::filter(OTU_MTTI != 'DNI')						
+      
+      # sum RA's across all OTUs--should see a reduction in rows.  
+      # Also limits to the following: dataset (CAL/VAL/not), sample, OTU, (summed) RA
+      
+      df_data_otu_sum_RA <- plyr::ddply(.data = df_bugs_otu
+                                        , c('sample.id', 'OTU_MTTI')
+                                        , plyr::summarize
+                                        , RA = sum(RA))
+      
+      #	Prepare data sets for modeling
+      #	need to crosstab the bug data (turn into a wide format) so that OTUs are columns
+      # then split into separate CAl and VAl datasets 
+      
+      df_data_cross <- df_data_otu_sum_RA %>% 
+        tidyr::pivot_wider(id_cols = c(sample.id)
+                           , names_from = OTU_MTTI
+                           , values_from = RA
+                           , values_fn = sum) 
+      
+      
+      df_data_cross[is.na(df_data_cross)] <- 0 
+      
+      df_data_cross <-	tibble::column_to_rownames(df_data_cross, 'sample.id') 
+      
+      ### Model----
+      ## Model, Calculation
+      model_pred <- predict(wa_MTTI.mar23
+                            , newdata = df_data_cross)
+      # , sse = TRUE
+      # , nboot = 100
+      # , match.data = TRUE
+      # , verbose = TRUE)
+      
+      ## Model, Munge
+      df_results_model <- as.data.frame(model_pred$fit)
+      
+      df_results_model <- df_results_model %>%
+        dplyr::select(WA.cla.tol)
+      
+      # rownames to column 1
+      df_results_model <- tibble::rownames_to_column(df_results_model
+                                                     , sel_col_sampid)
+      
+      
+      ## Calc, 04, Save Results ----
+      fn_save <- paste0(fn_input_base, "_MTTI_RESULTS.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_results_model, pn_save, row.names = FALSE)
+browser()      
+      ## Calc, 05, Zip Results ----
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      
+      # button, enable, download
+      shinyjs::enable("b_download_mtti")
+      
+    }## expr ~ withProgress ~ END
+    , message = "Calculating MTTI"
+    )## withProgress ~ END
+  }##expr ~ ObserveEvent ~ END
+  )##observeEvent ~ b_calc_mtti ~ END
+  
+  ### b_download_mtti ----
+  output$b_download_mtti <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_MTTI_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {##content~START
+      
+      file.copy(file.path(path_results, "results.zip"), fname)
+      
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ MTTI
   
   # MAP ----
   ## Map, UI ----

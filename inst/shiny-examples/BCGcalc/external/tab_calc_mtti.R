@@ -8,7 +8,30 @@ function() {
       , br()
       , h4("A. Upload a file.")
       , p("If no file name showing below repeat 'Import File' in the left sidebar.")
-      #, p(textOutput("fn_input_display"))
+      , p(textOutput("fn_input_display_mtti"))
+      
+      , h4("B. Convert User Taxa Names to Operational Taxonomic Units")
+      , checkboxInput("MTTI_OTU", "Covert to OTU", TRUE)
+      
+      , h4("C. User File Column Names")
+      
+      , h6("Required Fields")
+      , p("If the default values are present they will be auto-populated.")
+
+      , uiOutput("UI_mtti_user_col_sampid")
+      , uiOutput("UI_mtti_user_col_taxaid")
+      , uiOutput("UI_mtti_user_col_ntaxa")
+      
+      , h4("D. Run Operation")
+      , p("This button will generate the MTTI")
+      , shinyjs::disabled(shinyBS::bsButton("b_calc_mtti"
+                                            , label = "Run Operation"))
+      
+      , h4("E. Download Output")
+      , p("All input and output files will be available in a single zip file.")
+      , shinyjs::disabled(downloadButton("b_download_mtti"
+                                         , "Download Results"))
+      
     )## sidebarPanel
     , mainPanel(
       tabsetPanel(type = "tabs"

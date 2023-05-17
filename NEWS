@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-05-16 14:34:35.642168
+2023-05-17 09:00:52.199726
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-05-16 14:34:35.672548
+    #> Last Update: 2023-05-17 09:00:52.237686
+
+# BCGcalc 2.0.0.9053 (2023-05-17)
+
+- refactor: Update Shiny MTTI calculation (was placeholder)
 
 # BCGcalc 2.0.0.9052 (2023-05-16)
 

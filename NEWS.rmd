@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9053 (2023-05-17)
+
+* refactor: Update Shiny MTTI calculation (was placeholder)
+
 # BCGcalc 2.0.0.9052 (2023-05-16)
 
 * feat: Add Shiny tab for generating index class parameters, Issue #42

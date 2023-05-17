@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9047"
+pkg_version <- "2.0.0.9053"
 
 # Packages----
 library(BCGcalc)
@@ -25,6 +25,11 @@ library(reshape2)
 library(knitr)
 library(leaflet)
 library(rioja)   # MTTI model predict
+# MTTI
+# library(plyr)
+# library(dplyr)
+# library(tidyr)
+# library(tibble)
 
 # Source ----
 # tabs
