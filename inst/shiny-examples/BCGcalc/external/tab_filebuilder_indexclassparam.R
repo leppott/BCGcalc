@@ -10,6 +10,7 @@ function() {
             
             , h4("B. Define Index Name")
             , uiOutput("UI_indexclassparam_indexname")
+            #, p("Only the Maritime NW BCG model is included for now.")
             
             , h4("C. Define Index Class Fields")
             , h6("Required Fields")
@@ -25,7 +26,7 @@ function() {
 
             , h4("D. Run Operation")
             , p("This button will generate the index class parameters based on the above inputs")
-            , shinyjs::disabled(shinyBS::bsButton("b_indexclassparam_calc"
+            , shinyjs::disabled(shinyBS::bsButton("b_calc_indexclassparam"
                                                   , label = "Run Operation"))
 
             , h4("E. Download Output")

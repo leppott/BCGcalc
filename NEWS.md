@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-05-17 09:00:52.199726
+2023-05-19 13:16:37.313935
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-05-17 09:00:52.237686
+    #> Last Update: 2023-05-19 13:16:37.355267
+
+# BCGcalc 2.0.0.9054 (2023-05-19)
+
+- fix: Shiny index class parameter generation, Issue \#42
+- refactor: Shiny MTTI change language
+  - ‘Pacific Northwest’ to ‘Oregon/Washington’
+- fix: Change utils::zip to zip::zip in Shiny
+  - Not working locally or on ShinyApps.io
 
 # BCGcalc 2.0.0.9053 (2023-05-17)
 

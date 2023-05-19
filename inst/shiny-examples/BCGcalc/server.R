@@ -47,6 +47,17 @@ shinyServer(function(input, output) {
     
   })## fn_input_display_indexclass
   
+  output$fn_input_display_indexclassparam <- renderText({
+    inFile <- input$fn_input
+    
+    if (is.null(inFile)) {
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+    
+    return(paste0("'", inFile$name, "'"))
+    
+  })## fn_input_display_indexclassparam
+  
   output$fn_input_display_met_therm <- renderText({
     inFile <- input$fn_input
     
@@ -204,10 +215,11 @@ shinyServer(function(input, output) {
     file.copy(input$fn_input$datapath, file.path(path_results
                                                  , input$fn_input$name))
     
-    # button, enable, calc
+    ### button, enable, calc ----
     shinyjs::enable("b_bcg_calc")
     shinyjs::enable("b_taxatrans_calc")
     shinyjs::enable("b_indexclass_calc")
+    shinyjs::enable("b_calc_indexclassparam")
     shinyjs::enable("b_calc_met_therm")
     shinyjs::enable("b_calc_modtherm")
     shinyjs::enable("b_calc_mtti")
@@ -560,7 +572,7 @@ shinyServer(function(input, output) {
       # Create zip file of results
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
-      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
       shinyjs::enable("b_bcg_download")
@@ -1005,7 +1017,7 @@ shinyServer(function(input, output) {
       # Create zip file for download
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
-      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       
       ## Calc, 06, Clean Up ----
@@ -1296,7 +1308,7 @@ shinyServer(function(input, output) {
       # Create zip file for download
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
-      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       
       ## Calc, 06, Clean Up ----
@@ -1343,7 +1355,8 @@ shinyServer(function(input, output) {
     str_col <- "Index Name"
     selectInput("indexclassparam_indexname"
                 , label = str_col
-                , choices = c("", sel_indexclassparam_indexnames)
+                #, choices = c("", sel_indexclassparam_indexnames)
+                , choices = c("", "BCG_MariNW_Bugs500ct")
                 , selected = "BCG_MariNW_Bugs500ct"
                 , multiple = FALSE)
   })## UI_colnames 
@@ -1508,7 +1521,7 @@ shinyServer(function(input, output) {
       # Calc, 5, Create zip file of results
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
-      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
       shinyjs::enable("b_download_met_therm")
@@ -1959,7 +1972,7 @@ shinyServer(function(input, output) {
       ## Calc, 06, Zip Results ----
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
-      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
       shinyjs::enable("b_download_mergefiles")
@@ -2300,7 +2313,7 @@ shinyServer(function(input, output) {
       # Create zip file of results
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
-      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
       shinyjs::enable("b_download_modtherm")
@@ -2364,7 +2377,7 @@ shinyServer(function(input, output) {
   ## b_Calc_MTTI ----
   observeEvent(input$b_calc_mtti, {
     shiny::withProgress({
-    
+ 
       ## Calc, 00, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, MTTI..."
@@ -2421,7 +2434,7 @@ shinyServer(function(input, output) {
       ## get from BioMonTools_SupportFiles GitHub Repo
       # df_pick_taxoff from GLOBAL
       fn_taxoff <- df_pick_taxoff[df_pick_taxoff$project == 
-                                    "MTTI (Pacific Northwest)"
+                                    "MTTI (Oregon/Washington)"
                                   , "filename"]
       
       url_taxa_official <- file.path(url_bmt_base
@@ -2526,11 +2539,11 @@ shinyServer(function(input, output) {
       fn_save <- paste0(fn_input_base, "_MTTI_RESULTS.csv")
       pn_save <- file.path(path_results, fn_save)
       write.csv(df_results_model, pn_save, row.names = FALSE)
-browser()      
+     
       ## Calc, 05, Zip Results ----
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
-      utils::zip(file.path(path_results, "results.zip"), fn_4zip)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
       shinyjs::enable("b_download_mtti")
