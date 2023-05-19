@@ -827,7 +827,7 @@ shinyServer(function(input, output) {
       }## IF ~ fn_taxoff_attr
       
 
-      ## Calc, 03, Run Function ----
+      ### Calc, 03, Run Function ----
       prog_detail <- "Calculate, Taxa Trans"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -1360,6 +1360,251 @@ shinyServer(function(input, output) {
                 , selected = "BCG_MariNW_Bugs500ct"
                 , multiple = FALSE)
   })## UI_colnames 
+  
+  output$UI_indexclassparam_user_col_sampid <- renderUI({
+    str_col <- "Column, SampleID"
+    selectInput("indexclassparam_user_col_sampid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames 
+  
+  output$UI_indexclassparam_user_col_lat <- renderUI({
+    str_col <- "Column, Latitude"
+    selectInput("indexclassparam_user_col_lat"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Latitude"
+                , multiple = FALSE)
+  })## UI_colnames 
+  
+  output$UI_indexclassparam_user_col_lon <- renderUI({
+    str_col <- "Column, Longitude"
+    selectInput("indexclassparam_user_col_lon"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Longitude"
+                , multiple = FALSE)
+  })## UI_colnames 
+  
+  ## b_Calc_IndexClass ----
+  observeEvent(input$b_calc_indexclassparam, {
+    shiny::withProgress({
+   
+      ### Calc, 00, Initialize ----
+      prog_detail <- "Calculation, Generate Index Class Parameters..."
+      message(paste0("\n", prog_detail))
+      
+      # Number of increments
+      prog_n <- 7
+      prog_sleep <- 0.25
+      
+      ## Calc, 01, Import User Data ----
+      prog_detail <- "Import Data, User"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, disable, download
+      shinyjs::disable("b_download_indexclassparam")
+      
+      # Import data
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+      df_input <- read.delim(inFile$datapath
+                             , header = TRUE
+                             , sep = input$sep
+                             , stringsAsFactors = FALSE)
+      # QC, FAIL if TRUE
+      if (is.null(df_input)) {
+        return(NULL)
+      }
+      
+      df_sites <- df_input
+      
+      
+      # get StreamCat data?
+      # Load with file, 240 MB, don't want to do every time app is used
+      
+      
+      ## Calc, 02, Gather and Test Inputs  ----
+      prog_detail <- "QC Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # # Fun Param, Define
+      sel_col_sampid <- input$indexclassparam_user_col_sampid
+      sel_col_lat    <- input$indexclassparam_user_col_lat
+      sel_col_lon    <- input$indexclassparam_user_col_lon
+     
+      # Test each input
+      if (sel_col_sampid == "") {
+        # end process with pop up
+        msg <- "'SampleID' column name is missing!"
+        shinyalert::shinyalert(title = "Generate Index Class Parameters"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_col_sampid
+      
+      if (sel_col_lat == "") {
+        # end process with pop up
+        msg <- "'Latitude' column name is missing!"
+        shinyalert::shinyalert(title = "Generate Index Class Parameters"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_col_lat
+      
+      if (sel_col_lon == "") {
+        # end process with pop up
+        msg <- "'Longitude' column name is missing!"
+        shinyalert::shinyalert(title = "Generate Index Class Parameters"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_col_lon
+      
+      ## Calc, 03A, Run Function, StreamCat ----
+      prog_detail <- "Stream Cat; COMID and elev"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # COMID
+      ### assume WGS 84 (4326)
+      comid <- StreamCatTools::sc_get_comid(df_sites
+                                            , xcoord = sel_col_lon
+                                            , ycoord = sel_col_lat
+                                            , crsys = 4326)
+      
+      # Add COMID to data
+      df_sites[, "COMID"] <- strsplit(comid, ",")
+      
+      ## elevation
+      df_sc <- StreamCatTools::sc_get_data(
+                              comid = paste(df_sites[, "COMID"], collapse = ",")
+                           , metric = "elev")
+      # add elev to sites
+      df_results <- merge(df_sites
+                          , df_sc
+                          , by.x = "COMID"
+                          , by.y = "COMID"
+                          , all.x = TRUE)
+      
+      
+      ## Calc, 03B, Run Function, NHD+ ----
+      prog_detail <- "NHDplus; slope"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # NHDplus
+      ## download VAA
+      nhdplusTools::nhdplusTools_data_dir(file.path("data")) # set dir
+      nhdplusTools::download_vaa(path = nhdplusTools::get_vaa_path()
+                                 , force = FALSE
+                                 , updated_network = FALSE)
+      # get_vaa_names() # VAA table names
+      vaa_names2get <- c("gnis_name"
+                         , "ftype"
+                         , "fcode"
+                         , "streamorde"
+                         , "lengthkm"
+                         , "totdasqkm"
+                         , "areasqkm"
+                         , "slope"
+                         , "slopelenkm")
+      nhdplus_vaa <- nhdplusTools::get_vaa(vaa_names2get)
+      ## merge with sites_sc
+      df_results <- merge(df_results
+                          , nhdplus_vaa
+                          , by.x = "COMID"
+                          , by.y = "comid"
+                          , all.x = TRUE)
+      
+      
+      
+      ## Calc, 04, Save Results ----
+      prog_detail <- "Save Results"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Save files 
+      
+      ## save, results
+      df_save <- df_results
+      fn_part <- paste0("_indexclassparam_", "RESULTS", ".csv")
+      write.csv(df_save
+                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , row.names = FALSE)
+      rm(df_save, fn_part)
+      
+      
+      ## Calc, 05, Create Zip ----
+      prog_detail <- "Create Zip File For Download"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Create zip file for download
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
+      
+      
+      ## Calc, 06, Clean Up ----
+      prog_detail <- "Calculate, Clean Up"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, enable, download
+      shinyjs::enable("b_download_indexclassparam")
+      
+    }## expr ~ withProgress ~ END
+    , message = "Generating Index Class Parameters"
+    )## withProgress
+    
+  }##expr ~ ObserveEvent
+  )##observeEvent ~ b_calc_indexclassparam
+  
+  # b_download_indexclassparam ----
+  output$b_download_indexclassparam <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_IndexClassParam_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {##content~START
+      
+      file.copy(file.path(path_results, "results.zip"), fname)
+      
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ IndexClassParam
   
   # THERMAL METRICS ----
   
@@ -2004,11 +2249,12 @@ shinyServer(function(input, output) {
   )##download ~ MergeFiles
   
   # FUZZY THERMAL ----
-  # b_Calc_modtherm ----
+  
+  ## b_Calc_modtherm ----
   observeEvent(input$b_calc_modtherm, {
     shiny::withProgress({
       
-      ## Calc, 0, Set Up Shiny Code ----
+      ### Calc, 0, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, Thermal Model..."
       message(paste0("\n", prog_detail))
@@ -2017,7 +2263,7 @@ shinyServer(function(input, output) {
       prog_n <- 10
       prog_sleep <- 0.25
       
-      # Calc, 1, Initialize ----
+      ## Calc, 1, Initialize ----
       prog_detail <- "Initialize Data"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2043,7 +2289,7 @@ shinyServer(function(input, output) {
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
       
-      # Calc, 2, Exclude Taxa ----
+      ## Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2093,7 +2339,7 @@ shinyServer(function(input, output) {
       }## IF ~ input$ExclTaxa
       
       
-      # Calc, 3, BCG Flag Cols ----
+      ## Calc, 3, BCG Flag Cols ----
       # get columns from Flags (non-metrics) to carry through
       prog_detail <- "Calculate, Keep BCG Model Columns"
       message(paste0("\n", prog_detail))
@@ -2111,7 +2357,7 @@ shinyServer(function(input, output) {
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
       
       
-      # Calc, 3b, Rules ----
+      ## Calc, 3b, Rules ----
       prog_detail <- "Calculate, BCG Rules"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -2127,7 +2373,7 @@ shinyServer(function(input, output) {
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
       
-      # Calc, 4, MetVal----
+      ## Calc, 4, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -2179,7 +2425,7 @@ shinyServer(function(input, output) {
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
       
       
-      # Calc, 5, MetMemb----
+      ## Calc, 5, MetMemb----
       prog_detail <- "Calculate, Metric, Membership"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2194,7 +2440,7 @@ shinyServer(function(input, output) {
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
       
       
-      # Calc, 6, LevMemb----
+      ## Calc, 6, LevMemb----
       prog_detail <- "Calculate, Level, Membership"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2209,7 +2455,7 @@ shinyServer(function(input, output) {
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
       
       
-      # Calc, 7, LevAssign----
+      ## Calc, 7, LevAssign----
       prog_detail <- "Calculate, Level, Assignment"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2224,7 +2470,7 @@ shinyServer(function(input, output) {
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
       
       
-      # Calc, 8, QC Flags----
+      ## Calc, 8, QC Flags----
       prog_detail <- "Calculate, QC Flags"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2274,7 +2520,7 @@ shinyServer(function(input, output) {
       write.csv(df_results, pn_results, row.names = FALSE)
       
       
-      # Calc, 8b, QC Flag Metrics ----
+      ## Calc, 8b, QC Flag Metrics ----
       # create
       col2keep <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS", "METRIC_NAME"
                     , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
@@ -2286,7 +2532,7 @@ shinyServer(function(input, output) {
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
       
       
-      # Calc, 9, RMD----
+      ## Calc, 9, RMD----
       prog_detail <- "Calculate, Create Report"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2303,7 +2549,7 @@ shinyServer(function(input, output) {
                         , output_dir = dir.export
                         , quiet = TRUE)
       
-      # Calc, 9, Clean Up----
+      ## Calc, 9, Clean Up----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2324,7 +2570,7 @@ shinyServer(function(input, output) {
   }##expr ~ ObserveEvent ~ END
   )##observeEvent ~ b_calc_modtherm ~ END
   
-  # b_download_modtherm ----
+  ## b_download_modtherm ----
   output$b_download_modtherm <- downloadHandler(
     
     filename = function() {
@@ -2374,11 +2620,11 @@ shinyServer(function(input, output) {
                 , multiple = FALSE)
   })## UI_colnames  
   
-  ## b_Calc_MTTI ----
+  ### b_Calc_MTTI ----
   observeEvent(input$b_calc_mtti, {
     shiny::withProgress({
  
-      ## Calc, 00, Set Up Shiny Code ----
+      ### Calc, 00, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, MTTI..."
       message(paste0("\n", prog_detail))
@@ -2387,7 +2633,7 @@ shinyServer(function(input, output) {
       prog_n <- 5
       prog_sleep <- 0.25
       
-      ## Calc, 01, Initialize ----
+      ### Calc, 01, Initialize ----
       prog_detail <- "Initialize Data"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2397,7 +2643,7 @@ shinyServer(function(input, output) {
       # button, disable, download
       #shinyjs::disable("b_download_mtti")
       
-      ## Calc, 02, Gather and Test Inputs  ----
+      ### Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2447,7 +2693,7 @@ shinyServer(function(input, output) {
       
       df_tax <- read.csv(temp_taxa_official)
       
-      ## Calc, 03, Run Function----
+      ### Calc, 03, Run Function----
       
       # Munge
       ### Munge, Data ----
@@ -2554,7 +2800,7 @@ shinyServer(function(input, output) {
   }##expr ~ ObserveEvent ~ END
   )##observeEvent ~ b_calc_mtti ~ END
   
-  ### b_download_mtti ----
+  #### b_download_mtti ----
   output$b_download_mtti <- downloadHandler(
     
     filename = function() {
@@ -2574,6 +2820,7 @@ shinyServer(function(input, output) {
   )##download ~ MTTI
   
   # MAP ----
+  
   ## Map, UI ----
   output$UI_map_col_xlong <- renderUI({
     str_col <- "Column, X (Longitude)"

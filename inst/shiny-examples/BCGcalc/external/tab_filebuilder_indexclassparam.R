@@ -15,24 +15,25 @@ function() {
             , h4("C. Define Index Class Fields")
             , h6("Required Fields")
             , p("For the Maritime NW BCG model, the input file needs to include latitude and longitude.")
-            , p("Reach slope (0-100) from the NHDPlusV2 and elevation (m) from the EPA StreamCat dataset (local catchment scale).")
-            # Only PacNW for now so hard code (short on hours)
-            # text box for all names of input DF.  
-            # Default to Latitude and Longitude
-            # Need SampID ???
-
-            # SampleID (only for group_by)
+            # Only OR-WA for now so hard code (short on hours)
             , uiOutput("UI_indexclassparam_user_col_sampid")
+            , uiOutput("UI_indexclassparam_user_col_lat")
+            , uiOutput("UI_indexclassparam_user_col_lon")
 
             , h4("D. Run Operation")
             , p("This button will generate the index class parameters based on the above inputs")
+             , p("Reach slope (0-100) from the NHDPlusV2 and elevation (m) from the EPA StreamCat dataset (local catchment scale).")
+           
             , shinyjs::disabled(shinyBS::bsButton("b_calc_indexclassparam"
                                                   , label = "Run Operation"))
 
             , h4("E. Download Output")
             , p("All input and output files will be available in a single zip file.")
-            , shinyjs::disabled(downloadButton("b_indexclassparam_download"
+            , shinyjs::disabled(downloadButton("b_download_indexclassparam"
                                                , "Download Results"))
+            
+            , p("Reach slope (0-100) from the NHDPlusV2 and elevation (m) from the EPA StreamCat dataset (local catchment scale).")
+            
            
     )## sidebarPanel ~ END
        , mainPanel(
