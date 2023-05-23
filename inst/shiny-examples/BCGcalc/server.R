@@ -123,7 +123,7 @@ shinyServer(function(input, output) {
   ## IMPORT, df_import ####
   df_import <- eventReactive(file_watch(), {
     # use a multi-item reactive so keep on a single line (if needed later)
-    
+ 
     # input$df_import will be NULL initially. After the user selects
     # and uploads a file, it will be a data frame with 'name',
     # 'size', 'type', and 'datapath' columns. The 'datapath'
@@ -178,7 +178,8 @@ shinyServer(function(input, output) {
                             , na.strings = c("", "NA")
                             , nrows = 0)
     col_num_bcgattr <- grep("BCG_ATTR", toupper(names(df_header)))
-    
+    classes_df <- sapply(df_header, class)
+  
     if (identical(col_num_bcgattr, integer(0))) {
       # BCG_Attr present = FALSE
       # define classes = FALSE
@@ -187,10 +188,21 @@ shinyServer(function(input, output) {
                              , sep = ","
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
+    } else if (classes_df[col_num_bcgattr] != "complex") {
+      # BCG_Attr present = FALSE
+      # BCG_Attr Class is complex = FALSE
+      # define classes on import = FALSE (change to text after import)
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = ","
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA"))
+      df_input[, col_num_bcgattr] <- as.character(df_input[, col_num_bcgattr])
     } else {
       # BCG_Attr present = TRUE
-      # define classes = TRUE
-      classes_df <- sapply(df_header, class)
+      # BCG_Attr Class is complex = TRUE
+      # define classes on import = TRUE
+      #classes_df <- sapply(df_header, class)
       classes_df[col_num_bcgattr] <- "character"
       df_input <- read.delim(fn_inFile
                              , header = TRUE

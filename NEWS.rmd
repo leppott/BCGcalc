@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9059 (2023-05-23)
+
+* fix: Update Shiny app import to better handle BCG_ATTR (complex)
+    + Added exception for only integer values
+
 # BCGcalc 2.0.0.9058 (2023-05-23)
 
 * fix: Ensure all Shiny buttons use same terminology

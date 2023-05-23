@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-05-23 14:59:07.363728
+2023-05-23 16:36:31.203637
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-05-23 14:59:07.408026
+    #> Last Update: 2023-05-23 16:36:31.235689
+
+# BCGcalc 2.0.0.9059 (2023-05-23)
+
+- fix: Update Shiny app import to better handle BCG_ATTR (complex)
+  - Added exception for only integer values
 
 # BCGcalc 2.0.0.9058 (2023-05-23)
 
