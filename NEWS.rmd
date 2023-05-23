@@ -21,9 +21,21 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9056 (2023-05-23)
+
+* docs: Update DESCRIPTION R >= 2.1 to >= 3.5.0 due to code dependency
+    + Loading of MTTI model file in Shiny app
+* refactor: Add data-raw Process Data script for nhdplusTools vaa file
+    + Only VPUID 16, 17, and 18 for use with OR and WA.
+    + Add fst package to Suggests in DESCRIPTION
+    + Unable to upload full file to GitHub
+
 # BCGcalc 2.0.0.9055 (2023-05-19)
 
 * refactor: Shiny index class parameter generation, Issue #42
+* docs: Add packages used in Shiny app to DESCRTION Suggests
+    + StreamCatTools
+    + nhdplusTools
 
 # BCGcalc 2.0.0.9054 (2023-05-19)
 
@@ -32,6 +44,7 @@ cat(paste0("Last Update: ",Sys.time()))
     + 'Pacific Northwest' to 'Oregon/Washington'
 * fix: Change utils::zip to zip::zip in Shiny
     + Not working locally or on ShinyApps.io
+* docs: Add zips to DESCRIPTION Suggests
 
 # BCGcalc 2.0.0.9053 (2023-05-17)
 

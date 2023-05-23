@@ -1,15 +1,27 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-05-19 16:19:38.111706
+2023-05-23 10:05:48.210062
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-05-19 16:19:38.13759
+    #> Last Update: 2023-05-23 10:05:48.277498
+
+# BCGcalc 2.0.0.9056 (2023-05-23)
+
+- docs: Update DESCRIPTION R \>= 2.1 to \>= 3.5.0 due to code dependency
+  - Loading of MTTI model file in Shiny app
+- refactor: Add data-raw Process Data script for nhdplusTools vaa file
+  - Only VPUID 16, 17, and 18 for use with OR and WA.
+  - Add fst package to Suggests in DESCRIPTION
+  - Unable to upload full file to GitHub
 
 # BCGcalc 2.0.0.9055 (2023-05-19)
 
 - refactor: Shiny index class parameter generation, Issue \#42
+- docs: Add packages used in Shiny app to DESCRTION Suggests
+  - StreamCatTools
+  - nhdplusTools
 
 # BCGcalc 2.0.0.9054 (2023-05-19)
 
@@ -18,6 +30,7 @@ BCGcalc-NEWS
   - ‘Pacific Northwest’ to ‘Oregon/Washington’
 - fix: Change utils::zip to zip::zip in Shiny
   - Not working locally or on ShinyApps.io
+- docs: Add zips to DESCRIPTION Suggests
 
 # BCGcalc 2.0.0.9053 (2023-05-17)
 
