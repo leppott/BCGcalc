@@ -217,8 +217,8 @@ shinyServer(function(input, output) {
                                                  , input$fn_input$name))
     
     ### button, enable, calc ----
-    shinyjs::enable("b_bcg_calc")
-    shinyjs::enable("b_taxatrans_calc")
+    shinyjs::enable("b_calc_bcg")
+    shinyjs::enable("b_calc_taxatrans")
     shinyjs::enable("b_calc_indexclass")
     shinyjs::enable("b_calc_indexclassparam")
     shinyjs::enable("b_calc_met_therm")
@@ -345,7 +345,7 @@ shinyServer(function(input, output) {
   
   
   ## b_Calc_TaxaTrans ----
-  observeEvent(input$b_taxatrans_calc, {
+  observeEvent(input$b_calc_taxatrans, {
     shiny::withProgress({
  
       ### Calc, 00, Initialize ----
@@ -690,7 +690,7 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # button, enable, download
-      shinyjs::enable("b_taxatrans_download")
+      shinyjs::enable("b_download_taxatrans")
       
     }## expr ~ withProgress ~ END
     , message = "Calculating BCG"
@@ -1258,7 +1258,7 @@ shinyServer(function(input, output) {
     
   }##expr ~ ObserveEvent
   
-  )##observeEvent ~ b_indexclass_calc
+  )##observeEvent ~ b_calc_indexclass
   
   ## b_download_IndexClassAssign ----
   output$b_download_indexclass <- downloadHandler(
@@ -1371,7 +1371,7 @@ shinyServer(function(input, output) {
               , file.path(path_results, inFile$name))
     
     # button, enable, calc
-    shinyjs::enable("b_mergefiles_calc")
+    shinyjs::enable("b_calc_mergefiles")
     
     # activate tab Panel with table of imported data
     updateTabsetPanel(session = getDefaultReactiveDomain()
@@ -1460,7 +1460,7 @@ shinyServer(function(input, output) {
               , file.path(path_results, inFile$name))
     
     # button, enable, calc
-    shinyjs::enable("b_mergefiles_calc")
+    shinyjs::enable("b_calc_mergefiles")
     
     # activate tab Panel with table of imported data
     updateTabsetPanel(session = getDefaultReactiveDomain()
@@ -1553,7 +1553,7 @@ shinyServer(function(input, output) {
   })## UI_colnames  
   
   ## b_Calc_MergeFiles ----
-  observeEvent(input$b_mergefiles_calc, {
+  observeEvent(input$b_calc_mergefiles, {
     shiny::withProgress({
       
       ### Calc, 00, Set Up Shiny Code ----
@@ -1737,7 +1737,7 @@ shinyServer(function(input, output) {
   
   # BCG Calc ----
   ## b_Calc_BCG ----
-  observeEvent(input$b_bcg_calc, {
+  observeEvent(input$b_calc_bcg, {
     shiny::withProgress({
       
       ### Calc, 0, Set Up Shiny Code ----
@@ -2048,13 +2048,13 @@ shinyServer(function(input, output) {
       zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
-      shinyjs::enable("b_bcg_download")
+      shinyjs::enable("b_download_bcg")
       
     }## expr ~ withProgress ~ END
     , message = "Calculating BCG"
     )## withProgress ~ END
   }##expr ~ ObserveEvent ~ END
-  )##observeEvent ~ b_bcg_calc ~ END
+  )##observeEvent ~ b_calc_bcg ~ END
   
   ## b_download_BCG ----
   output$b_download_bcg <- downloadHandler(

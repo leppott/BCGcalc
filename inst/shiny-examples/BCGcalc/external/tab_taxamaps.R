@@ -30,10 +30,10 @@ function() {
                        #                          , "bottomleft", "bottomright")
                        #               , selected = "bottomleft")
                        , p("4. Run Function")
-                       , bsButton("b_taxamaps_run", label = "Run Function")
+                       , bsButton("b_calc_taxamaps", label = "Run Function")
                        , p("5. Download Results")
                        , useShinyjs()
-                     , shinyjs::disabled(downloadButton("b_taxamaps_download"
+                     , shinyjs::disabled(downloadButton("b_download_taxamaps"
                                                         , "Download Results"))
                      ,
                 )## sidebarPanel ~ END

@@ -22,10 +22,10 @@ function() {
       , uiOutput("UI_col_markexcl_Phylo")
       #, p("Current version uses all phylogenetic names present in file.")
       , p("4. Run Function")
-      , bsButton("b_markexcl_run", label = "Run Function")
+      , bsButton("b_calc_markexcl", label = "Run Function")
       , p("5. Download Results")
       , useShinyjs()
-      , shinyjs::disabled(downloadButton("b_markexcl_download"
+      , shinyjs::disabled(downloadButton("b_download_markexcl"
                                          , "Download Results"))
     )## sidebarPanel ~ END
     , mainPanel(

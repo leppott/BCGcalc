@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9058 (2023-05-23)
+
+* fix: Ensure all Shiny buttons use same terminology
+    + b_calc_x
+    + b_download_x
+
 # BCGcalc 2.0.0.9057 (2023-05-23)
 
 * fix: Update names of assign indec class buttons

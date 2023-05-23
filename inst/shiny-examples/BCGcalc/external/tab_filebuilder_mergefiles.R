@@ -39,7 +39,7 @@ function() {
       
       , h4("C. Run Operation")
       , p("This button will merge the two files based on inputs")
-      , shinyjs::disabled(shinyBS::bsButton("b_mergefiles_calc"
+      , shinyjs::disabled(shinyBS::bsButton("b_calc_mergefiles"
                                             , label = "Run Operation"))
       
       , h4("D. Download Output")

@@ -15,10 +15,10 @@ function() {
          , numericInput("subsamp_target", label = "Target Size", value = 300)
          , numericInput("subsamp_seed", label = "Numeric Seed", value = NA)
          , p("4. Run Function")
-         , bsButton("b_subsample_run", label = "Run Function")
+         , bsButton("b_calc_subsample", label = "Run Function")
          , p("5. Download Results")
          , useShinyjs()
-         , shinyjs::disabled(downloadButton("b_subsample_download"
+         , shinyjs::disabled(downloadButton("b_download_subsample"
                                          , "Download Results"))
 
         #                                                 , "Download Results"))
