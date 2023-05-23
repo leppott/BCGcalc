@@ -21,6 +21,15 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9057 (2023-05-23)
+
+* fix: Update names of assign indec class buttons
+    + calc and download
+* style: Modify outlining in server.R
+* refactor: Modify Shiny Generate Index Class Param
+    + Add column names to match Shiny Assign Index Class
+        - Allows user to upload file with no modifications
+
 # BCGcalc 2.0.0.9056 (2023-05-23)
 
 * docs: Update DESCRIPTION R >= 2.1 to >= 3.5.0 due to code dependency

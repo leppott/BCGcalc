@@ -24,12 +24,12 @@ function() {
 
             , h4("D. Run Operation")
             , p("This button will assign Index_Class based on inputs")
-            , shinyjs::disabled(shinyBS::bsButton("b_indexclass_calc"
+            , shinyjs::disabled(shinyBS::bsButton("b_calc_indexclass"
                                                   , label = "Run Operation"))
 
             , h4("E. Download Output")
             , p("All input and output files will be available in a single zip file.")
-            , shinyjs::disabled(downloadButton("b_indexclass_download"
+            , shinyjs::disabled(downloadButton("b_download_indexclass"
                                                , "Download Results"))
            
     )## sidebarPanel ~ END

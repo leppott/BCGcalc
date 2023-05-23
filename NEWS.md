@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-05-23 10:05:48.210062
+2023-05-23 11:10:06.875849
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-05-23 10:05:48.277498
+    #> Last Update: 2023-05-23 11:10:06.901973
+
+# BCGcalc 2.0.0.9057 (2023-05-23)
+
+- fix: Update names of assign indec class buttons
+  - calc and download
+- style: Modify outlining in server.R
+- refactor: Modify Shiny Generate Index Class Param
+  - Add column names to match Shiny Assign Index Class
+    - Allows user to upload file with no modifications
 
 # BCGcalc 2.0.0.9056 (2023-05-23)
 
