@@ -50,10 +50,10 @@ BCG.ContLevelText <- function(ContValue) {
   
   # QC
   boo_QC <- FALSE
-  if(isTRUE(boo_QC)) {
+  if (isTRUE(boo_QC)) {
     # QC dataset
     data_QC <- 3
-    if(data_QC == 1) {
+    if (data_QC == 1) {
       # construct a dummy dataset
       L1 <- c(rep(0, 12))
       L2 <- c(0.4, 0, 0.4, rep(0,7), 0, 0)
@@ -61,7 +61,7 @@ BCG.ContLevelText <- function(ContValue) {
       L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67, 0.5, 0)
       L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4), 0, 1)
       L6 <- c(rep(0, length(L1)))
-      SAMPLEID <- LETTERS[1:length(L1)]
+      SAMPLEID <- LETTERS[seq_len(L1)]
       df_lev_memb <- data.frame(SAMPLEID = SAMPLEID
                                 , L1 = L1
                                 , L2 = L2
@@ -73,7 +73,7 @@ BCG.ContLevelText <- function(ContValue) {
       df_Levels <- BCG.Level.Assignment(df_lev_memb)
       # function inputs
       ContValue <- df_Levels$Continuous_BCG_Level 
-    } else if(data_QC == 2) {
+    } else if (data_QC == 2) {
       # Random Values
       ContValue <- sort(round(runif(100, 2, 6), 2))
     } else {
@@ -151,7 +151,7 @@ BCG.ContLevelText <- function(ContValue) {
   
   
   # QC, check output
-  if(isTRUE(boo_QC)) {
+  if (isTRUE(boo_QC)) {
     # QC vs. Jen's file
     write.table(df_data, "clipboard", sep = "\t", row.names = FALSE)
     write.csv(df_data, file.path(tempdir(), "calc_lev.csv"), row.names = FALSE)

@@ -4,6 +4,7 @@
 pkg_version <- "2.0.0.9053"
 
 # Packages----
+# nolint start
 library(BCGcalc)
 library(BioMonTools)
 library(shiny)
@@ -30,6 +31,7 @@ library(rioja)   # MTTI model predict
 # library(dplyr)
 # library(tidyr)
 # library(tibble)
+# nolint end
 
 # Source ----
 # tabs
@@ -123,7 +125,7 @@ df_bcg_models <- as.data.frame(read_excel(temp_bcg_models
 sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
 
 ## Metric Suites
-sel_metric_suites <- c("ThermalHydro")
+sel_metric_suites <- ("ThermalHydro")
 
 ## URL BioMonTools
 url_bmt_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data"

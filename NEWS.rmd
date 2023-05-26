@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9060 (2023-05-26)
+
+* refactor: Update Shiny MTTI calculation to include flags
+* style: Modify some lines based on lintr suggestions
+    + Add nolint to Shiny library calls
+
 # BCGcalc 2.0.0.9059 (2023-05-23)
 
 * fix: Update Shiny app import to better handle BCG_ATTR (complex)

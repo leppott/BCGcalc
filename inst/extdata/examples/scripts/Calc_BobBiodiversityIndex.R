@@ -85,7 +85,7 @@ col2NA_char <- c("SUBPHYLUM", "SUBCLASS", "INFRAORDER", "HABIT", "LIFE_CYCLE"
                  , "FFG2", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
                  , "WSAREA_ATTR", "HABSTRUCT", "BCG_ATTR2")
 col2NA_num <- c("TOLVAL", "TOLVAL2", "UFC")
-col2NA_boo <- c("AIRBREATHER")
+col2NA_boo <- ("AIRBREATHER")
 df_rp[, col2NA_char] <- NA_character_
 df_rp[, col2NA_num] <- NA_real_
 df_rp[, col2NA_boo] <- NA

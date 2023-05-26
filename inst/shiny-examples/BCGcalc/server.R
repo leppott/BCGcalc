@@ -7,7 +7,9 @@
 #    http://shiny.rstudio.com/
 #
 
+# nolint start
 library(shiny)
+# nolint end
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -2661,7 +2663,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 5
+      prog_n <- 8
       prog_sleep <- 0.25
       
       ## Calc, 01, Initialize ----
@@ -2727,13 +2729,17 @@ shinyServer(function(input, output) {
       ## Calc, 03, Run Function----
       
       # Munge
+      prog_detail <- "Calculation, Munge"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
       ## Munge, Data ----
       df_data <- df_data %>%
         dplyr::rename(sample.id = dplyr::all_of(sel_col_sampid)) %>%
         dplyr::rename(Taxon_orig = dplyr::all_of(sel_col_taxaid)) %>%
         dplyr::rename(Count = dplyr::all_of(sel_col_ntaxa))
-      
-      ## Munge, Taxa Main----
       
       if (input$MTTI_OTU) {
         # Leave alone for now
@@ -2745,8 +2751,13 @@ shinyServer(function(input, output) {
       df_tax_otu <- df_tax %>%
         dplyr::select(Taxon_orig, OTU_MTTI) 
       
-      ## Calc----
+      ## Data Prep----
       # need relative abundances
+      prog_detail <- "Calculation, Data Prep"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       
       df_abunds <- df_data %>% 			
         dplyr::group_by(sample.id) %>% 
@@ -2793,6 +2804,13 @@ shinyServer(function(input, output) {
       df_data_cross <-	tibble::column_to_rownames(df_data_cross, 'sample.id') 
       
       ## Model----
+      
+      prog_detail <- "Calculation, Model"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
       ## Model, Calculation
       model_pred <- predict(wa_MTTI.mar23
                             , newdata = df_data_cross)
@@ -2811,13 +2829,73 @@ shinyServer(function(input, output) {
       df_results_model <- tibble::rownames_to_column(df_results_model
                                                      , sel_col_sampid)
       
+      ## Flags----
+      prog_detail <- "Calculation, Flags"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+ 
+      # Import Checks
+      df_checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+                                           , package = "BioMonTools")
+                             , sheet = "Flags")
+      # Data
+      ## Data, Optima
+      df_optima <- dplyr::add_rownames(data.frame(wa_MTTI.mar23$coefficients)
+                                       , "TAXAID")
+      ## Data, bug samples for metric calc
+      df_bugs_met <- df_data %>%
+        # join dataframes
+        dplyr::left_join(df_tax_otu, by = 'Taxon_orig') %>%
+        dplyr::rename("SAMPLEID" = "sample.id"
+                      , "TAXAID" = "OTU_MTTI"
+                      , "N_TAXA" = "Count") %>%
+        dplyr::mutate("EXCLUDE" = FALSE
+                      , "NONTARGET" = FALSE
+                      , "INDEX_NAME" = "MTTI"
+                      , "INDEX_CLASS" = "MTTI") %>%
+        dplyr::left_join(df_optima, by = "TAXAID") %>%
+        dplyr::rename("TOLVAL2" = "Optima")
+      
+      # Calc Metrics (MTTI)
+      df_met <- BioMonTools::metric.values(df_bugs_met
+                                           , "bugs"
+                                           , boo.Shiny = TRUE
+                                           , metric_subset = "MTTI")
+      # Generate Flags
+      df_met_flags <- qc.checks(df_met, df_checks)
+      df_met_flags_summary <- table(df_met_flags[, "CHECKNAME"]
+                                    , df_met_flags[, "FLAG"]
+                                    , useNA = "ifany")
       
       ## Calc, 04, Save Results ----
+      prog_detail <- "Save Results"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
       fn_save <- paste0(fn_input_base, "_MTTI_RESULTS.csv")
       pn_save <- file.path(path_results, fn_save)
       write.csv(df_results_model, pn_save, row.names = FALSE)
+      
+      
+      fn_save <- paste0(fn_input_base, "_MTTI_flags_long.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_met_flags, pn_save, row.names = FALSE)
+      
+      fn_save <- paste0(fn_input_base, "_MTTI_flags_summary.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_met_flags_summary, pn_save, row.names = TRUE)
      
       ## Calc, 05, Zip Results ----
+      prog_detail <- "Create Zip File"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
       zip::zip(file.path(path_results, "results.zip"), fn_4zip)

@@ -164,7 +164,7 @@ BCG.Level.Assignment <- function(df.level.membership
   
   # QC
   boo_QC <- FALSE
-  if(isTRUE(boo_QC)) {
+  if (isTRUE(boo_QC)) {
     # construct a dummy dataset
     L1 <- c(rep(0, 12))
     L2 <- c(0.4, 0, 0.4, rep(0,7), 0, 0)
@@ -172,7 +172,7 @@ BCG.Level.Assignment <- function(df.level.membership
     L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67, 0.5, 0)
     L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4), 0, 1)
     L6 <- c(rep(0, length(L1)))
-    SAMPLEID <- LETTERS[1:length(L1)]
+    SAMPLEID <- LETTERS[seq_len(L1)]
     df_lev_memb <- data.frame(SAMPLEID = SAMPLEID
                               , INDEX_NAME = "TEST_NAME"
                               , INDEX_CLASS = "TEST_CLASS"
@@ -266,7 +266,7 @@ BCG.Level.Assignment <- function(df.level.membership
   # Secondary Level Value; 2nd Max
   df.result[, "Secondary_Membership"] <- apply(df.result[, c(paste0("L", 1:6)
                                                       , "Primary_BCG_Level")], 1
-                                  , function(x) max(x[1:6][-x[7]], na.rm=TRUE))
+                                 , function(x) max(x[1:6][-x[7]], na.rm = TRUE))
   # Force 2nd Value to be 0 if 1st is "1"
   df.result[df.result[, "Primary_Membership"] == 1, "Secondary_Membership"] <- 0
   # Secondary Level Name; 2nd Max (but NA if Secondary Value is 0)
