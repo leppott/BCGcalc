@@ -2674,7 +2674,7 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # button, disable, download
-      #shinyjs::disable("b_download_mtti")
+      shinyjs::disable("b_download_mtti")
       
       ## Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
@@ -2828,7 +2828,7 @@ shinyServer(function(input, output) {
       # rownames to column 1
       df_results_model <- tibble::rownames_to_column(df_results_model
                                                      , sel_col_sampid)
-      
+ 
       ## Flags----
       prog_detail <- "Calculation, Flags"
       message(paste0("\n", prog_detail))
@@ -2857,12 +2857,25 @@ shinyServer(function(input, output) {
                       , "INDEX_CLASS" = "MTTI") %>%
         dplyr::left_join(df_optima, by = "TAXAID") %>%
         dplyr::rename("TOLVAL2" = "Optima")
-      
+  
+ 
       # Calc Metrics (MTTI)
       df_met <- BioMonTools::metric.values(df_bugs_met
                                            , "bugs"
                                            , boo.Shiny = TRUE
                                            , metric_subset = "MTTI")
+      
+      # Add site score
+      df_met <-  merge(df_met
+                       , df_results_model
+                       , by.x = "SAMPLEID"
+                       , by.y = "SampleID"
+                       , all.x = TRUE)
+      
+      # WAopt range check
+      df_met[, "MTTI_LO"] <- df_met[, "WA.cla.tol"] < df_met[, "x_tv2_min"]
+      df_met[, "MTTI_HI"] <- df_met[, "WA.cla.tol"] > df_met[, "x_tv2_max"]
+      
       # Generate Flags
       df_met_flags <- qc.checks(df_met, df_checks)
       df_met_flags_summary <- table(df_met_flags[, "CHECKNAME"]
@@ -2880,12 +2893,15 @@ shinyServer(function(input, output) {
       pn_save <- file.path(path_results, fn_save)
       write.csv(df_results_model, pn_save, row.names = FALSE)
       
+      fn_save <- paste0(fn_input_base, "_MTTI_flags_1_metrics.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_met, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, "_MTTI_flags_long.csv")
+      fn_save <- paste0(fn_input_base, "_MTTI_flags_2_eval_long.csv")
       pn_save <- file.path(path_results, fn_save)
       write.csv(df_met_flags, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, "_MTTI_flags_summary.csv")
+      fn_save <- paste0(fn_input_base, "_MTTI_flags_3_eval_summary.csv")
       pn_save <- file.path(path_results, fn_save)
       write.csv(df_met_flags_summary, pn_save, row.names = TRUE)
      
