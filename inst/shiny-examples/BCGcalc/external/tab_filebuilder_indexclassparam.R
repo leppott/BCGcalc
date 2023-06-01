@@ -14,15 +14,16 @@ function() {
             
             , h4("C. Define Index Class Fields")
             , h6("Required Fields")
-            , p("For the Maritime NW BCG model, the input file needs to include latitude and longitude.")
+            , p("For the Maritime NW BCG model, the input file needs to include latitude, longitude, and epsg (datum).")
             # Only OR-WA for now so hard code (short on hours)
             , uiOutput("UI_indexclassparam_user_col_sampid")
             , uiOutput("UI_indexclassparam_user_col_lat")
             , uiOutput("UI_indexclassparam_user_col_lon")
+            , uiOutput("UI_indexclassparam_user_col_epsg")
 
             , h4("D. Run Operation")
             , p("This button will generate the index class parameters based on the above inputs")
-             , p("Reach slope (0-100) from the NHDPlusV2 and elevation (m) from the EPA StreamCat dataset (local catchment scale).")
+            , p("Reach slope (0-100) from the NHDPlusV2 and elevation (m) from the EPA StreamCat dataset (local catchment scale).")
            
             , shinyjs::disabled(shinyBS::bsButton("b_calc_indexclassparam"
                                                   , label = "Run Operation"))
@@ -32,8 +33,7 @@ function() {
             , shinyjs::disabled(downloadButton("b_download_indexclassparam"
                                                , "Download Results"))
             
-            , p("Reach slope (0-100) from the NHDPlusV2 and elevation (m) from the EPA StreamCat dataset (local catchment scale).")
-            
+           
            
     )## sidebarPanel ~ END
        , mainPanel(

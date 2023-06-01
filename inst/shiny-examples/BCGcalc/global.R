@@ -183,3 +183,8 @@ httr::GET(url_fuzzytherm_crit
 
 df_fuzzytherm_crit <- readxl::read_excel(temp_fuzzytherm_crit
                                          , sheet = "Current")
+
+# EPSG ----
+epsg_wgs84 <- 4326
+epsg_nad83_na <- 4269
+epsg_default <- epsg_nad83_na

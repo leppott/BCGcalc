@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-05-26 16:20:27.802726
+2023-06-01 13:46:12.998292
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-05-26 16:20:27.824196
+    #> Last Update: 2023-06-01 13:46:13.025777
+
+# BCGcalc 2.0.0.9062 (2023-06-01)
+
+- refactor: Shiny get Site Class Params, Issue \#42
+  - Allow for user defined column
+    - Default is NAD83 North America, EPSG = 4269
+  - Trim output
 
 # BCGcalc 2.0.0.9061 (2023-05-26)
 

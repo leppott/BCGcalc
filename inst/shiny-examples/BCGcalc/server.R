@@ -756,7 +756,7 @@ shinyServer(function(input, output) {
   })## UI_colnames 
   
   output$UI_indexclassparam_user_col_lat <- renderUI({
-    str_col <- "Column, Latitude"
+    str_col <- "Column, Latitude (decimal degrees)"
     selectInput("indexclassparam_user_col_lat"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -765,11 +765,20 @@ shinyServer(function(input, output) {
   })## UI_colnames 
   
   output$UI_indexclassparam_user_col_lon <- renderUI({
-    str_col <- "Column, Longitude"
+    str_col <- "Column, Longitude (decimal degrees)"
     selectInput("indexclassparam_user_col_lon"
                 , label = str_col
                 , choices = c("", names(df_import()))
                 , selected = "Longitude"
+                , multiple = FALSE)
+  })## UI_colnames 
+  
+  output$UI_indexclassparam_user_col_epsg <- renderUI({
+    str_col <- "Column, EPSG (datum) [1st value used in calculation]"
+    selectInput("indexclassparam_user_col_epsg"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "EPSG"
                 , multiple = FALSE)
   })## UI_colnames 
   
@@ -827,6 +836,7 @@ shinyServer(function(input, output) {
       sel_col_sampid <- input$indexclassparam_user_col_sampid
       sel_col_lat    <- input$indexclassparam_user_col_lat
       sel_col_lon    <- input$indexclassparam_user_col_lon
+      sel_col_epsg   <- input$indexclassparam_user_col_epsg
       
       # Test each input
       if (sel_col_sampid == "") {
@@ -862,6 +872,27 @@ shinyServer(function(input, output) {
         validate(msg)
       }## IF ~ sel_col_lon
       
+      epsg_user <- unique(df_sites[, sel_col_epsg])
+      if (sel_col_epsg == "") {
+        # No Field selected
+        # use default EPSG
+        value_epsg <- epsg_default
+      } else if (all(is.na(epsg_user))) {
+        # All user values are NA
+        # use default EPSG
+        value_epsg <- epsg_default
+      } else {
+        # user provided value
+        epsg_user <- unique(df_sites[, sel_col_epsg])
+        value_epsg <- as.numeric(epsg_user[!is.na(epsg_user)])
+      }## IF ~ sel_col_epsg
+ 
+      msg <- paste0("EPSG = ", value_epsg)
+      message(msg)
+      
+      # add EPSG to data (in case changed)
+      df_sites[, "EPSG_CALC"] <- value_epsg
+      
       ## Calc, 03, Run Function, StreamCat ----
       prog_detail <- "Stream Cat; COMID and elev"
       message(paste0("\n", prog_detail))
@@ -870,26 +901,49 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # COMID
-      ### assume WGS 84 (4326)
       comid <- StreamCatTools::sc_get_comid(df_sites
                                             , xcoord = sel_col_lon
                                             , ycoord = sel_col_lat
-                                            , crsys = 4326)
+                                            , crsys = value_epsg)
       
       # Add COMID to data
       df_sites[, "COMID"] <- strsplit(comid, ",")
       
+      # END if COMID all NA
+      comid_unique <- unique(df_sites[, "COMID"])
+      if (length(comid_unique) == 1 & any(comid_unique == "NA")) {
+        # end process with pop up
+        m1 <- "'COMID' all NA!"
+        m2 <- "Lat-Long and/or EPSG not valid."
+        m3 <- "Or try again with existing Lat-Long with default EPSG (WGS84)"
+        msg <- paste(m1, m2, m3, sep = "\n")
+        shinyalert::shinyalert(title = "Generate Index Class Parameters"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_col_lat
+ 
+   
       ## elevation
       df_sc <- StreamCatTools::sc_get_data(
         comid = paste(df_sites[, "COMID"], collapse = ",")
         , metric = "elev")
+      
+      # cols to keep
+      sc_names_drop <- c("CATAREASQKM", "ELEVWS")
+      sc_names_keep <- names(df_sc)[!names(df_sc) %in% sc_names_drop]
+      
       # add elev to sites
       df_results <- merge(df_sites
-                          , df_sc
+                          , df_sc[, sc_names_keep]
                           , by.x = "COMID"
                           , by.y = "COMID"
                           , all.x = TRUE)
       
+      # rename StreamCat ELEVCAT to elev_m
+      df_results <- dplyr::rename(df_results, elev_m = ELEVCAT)
       
       ## Calc, 04, Run Function, NHD+ ----
       prog_detail <- "NHDplus; slope"
@@ -905,15 +959,16 @@ shinyServer(function(input, output) {
                                  , force = FALSE
                                  , updated_network = FALSE)
       # get_vaa_names() # VAA table names
-      vaa_names2get <- c("gnis_name"
+      vaa_names2get <- c("slope"
+                         , "slopelenkm"
+                         , "gnis_name"
+                         , "streamorde"
                          , "ftype"
                          , "fcode"
-                         , "streamorde"
-                         , "lengthkm"
-                         , "totdasqkm"
-                         , "areasqkm"
-                         , "slope"
-                         , "slopelenkm")
+                         #, "lengthkm"
+                         #, "totdasqkm"
+                         #, "areasqkm"
+                         )
       nhdplus_vaa <- nhdplusTools::get_vaa(vaa_names2get)
       ## merge with sites_sc
       df_results <- merge(df_results
@@ -931,8 +986,8 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # Modify names to match Assign Index Class function
-      df_results[, "elev_m"] <- df_results[, "ELEVCAT"]
-      df_results[, "pslope_nhd"] <- 100 * df_results[, "slope"]
+      df_results <- dplyr::rename(df_results, pslope_nhd = slope)
+      df_results[, "pslope_nhd"] <- 100 * df_results[, "pslope_nhd"]
       
       
       ## Calc, 06, Save Results ----
