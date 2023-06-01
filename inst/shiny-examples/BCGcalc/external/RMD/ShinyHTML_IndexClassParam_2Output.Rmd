@@ -1,6 +1,6 @@
 ---
 title: "File Builder, Generate Index_Class Parameters, Output"
-date: "2023-05-16"
+date: "2023-06-01"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -28,9 +28,11 @@ The entire criteria file is included to allow the user to check for non-matching
 Index Name and/or criteria columns.
 
 As an example if the input file was "xxx.csv" the result files will
-look like those in the table below.
+look like those in Table 1 below.
 
-**NEED TO UPDATE**
+The results file will retain all columns from the input file.  Additional fields
+will be added from the StreamCat and NHDplus datasets as described in the Table 
+2 below.
 
 ```{r}
 # Packages
@@ -40,13 +42,32 @@ library(knitr)
 # Data
 fn_data <- "OutputFileSubtabs.xlsx"
 path_data <- file.path("files", fn_data)
-df_data <- read_excel(path_data, sheet = "FileBuild_IndexNameClass")
+df_data <- read_excel(path_data, sheet = "FileBuild_IndexClassParam")
 
 # Display
-cap_data <- "File Builder, Generate Index_Class Parameters, zip file contents."
+cap_data <- "Table 1. File Builder, Generate Index_Class Parameters, zip file contents."
+knitr::kable(df_data, "html", caption = cap_data)
+```
+
+   
+    
+   
+
+```{r}
+# Packages
+library(readxl)
+library(knitr)
+
+# Data
+fn_data <- "OutputFileSubtabs.xlsx"
+path_data <- file.path("files", fn_data)
+df_data <- read_excel(path_data, sheet = "FB_IndexClassParam_Cols")
+
+# Display
+cap_data <- "Table 2. File Builder, Generate Index_Class Parameters, result file columns."
 knitr::kable(df_data, "html", caption = cap_data)
 ```
 
 ---
 
-*Last updated 2023-05-16*
+*Last updated 2023-06-01*

@@ -16,6 +16,6 @@ file.copy(rmd_orig, rmd_shiny, overwrite = TRUE)
 
 # And copy to R package dir for quick testing without rebuilding package
 
-rmd_r <- file.copy(system.file(package="BCGcalc", "rmd"), fn_rmd)
+rmd_r <- file.copy(system.file(package = "BCGcalc", "rmd"), fn_rmd)
 
 file.copy(rmd_orig, rmd_shiny, overwrite = TRUE)

@@ -23,6 +23,10 @@ cat(paste0("Last Update: ",Sys.time()))
 
 # BCGcalc 2.0.0.9062 (2023-06-01)
 
+* refactor: Update Site Class Param onscreen help in Shiny, Issue #42
+
+# BCGcalc 2.0.0.9062 (2023-06-01)
+
 * refactor: Shiny get Site Class Params, Issue #42
     +  Allow for user defined column
         - Default is NAD83 North America, EPSG = 4269

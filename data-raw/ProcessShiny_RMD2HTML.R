@@ -33,3 +33,4 @@ for (i in myFiles) {
 }## FOR ~ i
 
 shell.exec(normalizePath(path_shiny_www))
+

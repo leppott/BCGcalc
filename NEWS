@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-01 13:46:12.998292
+2023-06-01 14:51:45.805597
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-01 13:46:13.025777
+    #> Last Update: 2023-06-01 14:51:45.841609
+
+# BCGcalc 2.0.0.9062 (2023-06-01)
+
+- refactor: Update Site Class Param onscreen help in Shiny, Issue \#42
 
 # BCGcalc 2.0.0.9062 (2023-06-01)
 
