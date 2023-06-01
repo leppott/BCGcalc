@@ -1,19 +1,25 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-01 14:51:45.805597
+2023-06-01 16:38:59.306219
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-01 14:51:45.841609
+    #> Last Update: 2023-06-01 16:38:59.33012
+
+# BCGcalc 2.0.0.9064 (2023-06-01)
+
+- refactor: Error checking for missing variables, Shiny
+  - Fuzzy Thermal Model
+  - Index Class Param, Issue \#42
+
+# BCGcalc 2.0.0.9063 (2023-06-01)
+
+- refactor: Update Index Class Param onscreen help in Shiny, Issue \#42
 
 # BCGcalc 2.0.0.9062 (2023-06-01)
 
-- refactor: Update Site Class Param onscreen help in Shiny, Issue \#42
-
-# BCGcalc 2.0.0.9062 (2023-06-01)
-
-- refactor: Shiny get Site Class Params, Issue \#42
+- refactor: Shiny get Index Class Params, Issue \#42
   - Allow for user defined column
     - Default is NAD83 North America, EPSG = 4269
   - Trim output

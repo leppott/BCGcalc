@@ -774,7 +774,9 @@ shinyServer(function(input, output) {
   })## UI_colnames 
   
   output$UI_indexclassparam_user_col_epsg <- renderUI({
-    str_col <- "Column, EPSG (datum) [1st value used in calculation]"
+    m1 <- "Column, EPSG (datum), e.g., NAD83 North America is 4269."
+    m2 <- "Column can be left blank and default of 4269 will be used."
+    str_col <- paste(m1, m2, sep = "\n")
     selectInput("indexclassparam_user_col_epsg"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -785,7 +787,7 @@ shinyServer(function(input, output) {
   ## b_Calc_IndexClassParam ----
   observeEvent(input$b_calc_indexclassparam, {
     shiny::withProgress({
-      
+    
       ### Calc, 00, Initialize ----
       prog_detail <- "Calculation, Generate Index Class Parameters..."
       message(paste0("\n", prog_detail))
@@ -872,7 +874,14 @@ shinyServer(function(input, output) {
         validate(msg)
       }## IF ~ sel_col_lon
       
-      epsg_user <- unique(df_sites[, sel_col_epsg])
+      # need a value to evaluate in the next IF..
+      if (sel_col_epsg == "") {
+        epsg_user <- NA
+      } else {
+        epsg_user <- unique(df_sites[, sel_col_epsg])
+      }## IF ~ sel_col_epsg
+      
+      # Define default EPSG if not provided
       if (sel_col_epsg == "") {
         # No Field selected
         # use default EPSG
@@ -1153,7 +1162,7 @@ shinyServer(function(input, output) {
       if (is.null(df_input)) {
         return(NULL)
       }
-      
+    
      
       ## Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
@@ -2341,7 +2350,7 @@ shinyServer(function(input, output) {
   ## b_Calc_modtherm ----
   observeEvent(input$b_calc_modtherm, {
     shiny::withProgress({
-      
+    
       ### Calc, 0, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, Thermal Model..."
@@ -2351,7 +2360,7 @@ shinyServer(function(input, output) {
       prog_n <- 10
       prog_sleep <- 0.25
       
-      ## Calc, 1, Initialize ----
+      ## Calc, 1, Initialize and Test ----
       prog_detail <- "Initialize Data"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2376,6 +2385,32 @@ shinyServer(function(input, output) {
       
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
+      
+      # Test, INDEX_NAME
+      if (!"INDEX_NAME" %in% names(df_input)) {
+        # end process with pop up
+        msg <- "'INDEX_NAME' column name is missing!"
+        shinyalert::shinyalert(title = "Fuzzy Thermal Calculation"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ INDEX_NAME
+
+      # Test, INDEX_CLASS
+      if (!"INDEX_CLASS" %in% names(df_input)) {
+        # end process with pop up
+        msg <- "'INDEX_CLASS' column name is missing!"
+        shinyalert::shinyalert(title = "Fuzzy Thermal Calculation"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ INDEX_CLASS
+      
+      
       
       ## Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -2512,7 +2547,7 @@ shinyServer(function(input, output) {
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
       
-      
+     
       ## Calc, 5, MetMemb----
       prog_detail <- "Calculate, Metric, Membership"
       message(paste0("\n", prog_detail))
