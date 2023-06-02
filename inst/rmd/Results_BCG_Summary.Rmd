@@ -1,6 +1,6 @@
 ---
 title: "BCGcalc"
-subtitle: "Result Summary"
+subtitle: "Results BCG Summary"
 author: "`r Sys.getenv('USERNAME')`"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output:
@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE)
+knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE)
 ```
 
 # Plot
@@ -94,11 +94,11 @@ knitr::kable(table(df_flags[, "CHECKNAME"]
 ```{r results}
 cap_data <- "Summary results."
 DT::datatable(df_lev_flags 
-              , filter="top"
+              , filter = "top"
               , caption = cap_data
-              , options=list(scrollX=TRUE
-                             , lengthMenu = c(5, 10, 25, 50, 100, 1000)
-                             , autoWidth = TRUE
+              , options = list(scrollX = TRUE
+                               , lengthMenu = c(5, 10, 25, 50, 100, 1000)
+                               , autoWidth = TRUE
               ))
 ```
 

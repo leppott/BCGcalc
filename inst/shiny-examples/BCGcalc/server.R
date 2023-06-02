@@ -2094,8 +2094,8 @@ shinyServer(function(input, output) {
       dn_metflags <- path_results
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
-      
-      
+
+       
       ## Calc, 9, RMD----
       prog_detail <- "Calculate, Create Report"
       message(paste0("\n", prog_detail))
@@ -2103,7 +2103,7 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
       
-      strFile.RMD <- file.path("external", "Results_Summary.Rmd")
+      strFile.RMD <- file.path("external", "Results_BCG_Summary.Rmd")
       strFile.RMD.format <- "html_document"
       strFile.out <- paste0(fn_input_base, "_bcgcalc_RESULTS.html")
       dir.export <- path_results
@@ -2291,7 +2291,7 @@ shinyServer(function(input, output) {
       # }## IF ~ length(col_rules_keep)
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
-
+        
       ## Calc, 04, Save Results ----
       fn_metval <- paste0(fn_input_base, "_met_therm_RESULTS.csv")
       dn_metval <- path_results
@@ -2357,7 +2357,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 10
+      prog_n <- 11
       prog_sleep <- 0.25
       
       ## Calc, 1, Initialize and Test ----
@@ -2480,7 +2480,7 @@ shinyServer(function(input, output) {
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
       
       
-      ## Calc, 3b, Rules ----
+      ## Calc, 4, Rules ----
       prog_detail <- "Calculate, BCG Rules"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -2496,7 +2496,7 @@ shinyServer(function(input, output) {
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
       
-      ## Calc, 4, MetVal----
+      ## Calc, 5, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -2523,13 +2523,13 @@ shinyServer(function(input, output) {
       }## IF ~ length(col_rules_keep)
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
-      ## Save Results ----
+      ### Save Results ----
       fn_metval <- paste0(fn_input_base, "_modtherm_2metval_all.csv")
       dn_metval <- path_results
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
-      ## Save Results (BCG) ----
+      ### Save Results (BCG) ----
       # Munge
       ## Model and QC Flag metrics only
       # cols_flags defined above
@@ -2548,7 +2548,7 @@ shinyServer(function(input, output) {
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
       
      
-      ## Calc, 5, MetMemb----
+      ## Calc, 6, MetMemb----
       prog_detail <- "Calculate, Metric, Membership"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2563,7 +2563,7 @@ shinyServer(function(input, output) {
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
       
     
-      ## Calc, 6, LevMemb----
+      ## Calc, 7, LevMemb----
       prog_detail <- "Calculate, Level, Membership"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2578,7 +2578,7 @@ shinyServer(function(input, output) {
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
       
       
-      ## Calc, 7, LevAssign----
+      ## Calc, 8, LevAssign----
       prog_detail <- "Calculate, Level, Assignment"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2586,6 +2586,20 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       # Calc
       df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
+      
+      # Munge Results
+      # Change names from BCG-centric to Thermal model specific
+      colnames(df_levassign)[colnames(df_levassign) %in% "Primary_BCG_Level"] <- 
+        "Primary_Therm"
+      colnames(df_levassign)[colnames(df_levassign) %in% "Secondary_BCG_Level"] <- 
+        "Secondary_Therm"
+      colnames(df_levassign)[colnames(df_levassign) %in% "Continuous_BCG_Level"] <- 
+        "Continuous_Therm"
+      colnames(df_levassign)[colnames(df_levassign) %in% "BCG_Status"] <- 
+        "Therm_Status"
+      colnames(df_levassign)[colnames(df_levassign) %in% "BCG_Status2"] <- 
+        "Therm_Status2"
+      
       # Save Results
       fn_levassign <- paste0(fn_input_base, "_modtherm_5levassign.csv")
       dn_levassign <- path_results
@@ -2593,7 +2607,7 @@ shinyServer(function(input, output) {
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
       
       
-      ## Calc, 8, QC Flags----
+      ## Calc, 9, QC Flags----
       prog_detail <- "Calculate, QC Flags"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -2615,6 +2629,7 @@ shinyServer(function(input, output) {
       # Rearrange columns
       NumCols <- ncol(df_flags_wide)
       df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
+      
       # Merge Levels and Flags
       df_lev_flags <- merge(df_levassign
                             , df_flags_wide
@@ -2643,7 +2658,7 @@ shinyServer(function(input, output) {
       write.csv(df_results, pn_results, row.names = FALSE)
       
       
-      ## Calc, 8b, QC Flag Metrics ----
+      ### Calc, 9b, QC Flag Metrics ----
       # create
       col2keep <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS", "METRIC_NAME"
                     , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
@@ -2653,16 +2668,16 @@ shinyServer(function(input, output) {
       dn_metflags <- path_results
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
-      
-      
-      ## Calc, 9, RMD----
+
+   
+      ## Calc, 10, RMD----
       prog_detail <- "Calculate, Create Report"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
       
-      strFile.RMD <- file.path("external", "Results_Summary.Rmd")
+      strFile.RMD <- file.path("external", "Results_Thermal_Summary.Rmd")
       strFile.RMD.format <- "html_document"
       strFile.out <- paste0(fn_input_base, "_modtherm_RESULTS.html")
       dir.export <- path_results
@@ -2672,7 +2687,7 @@ shinyServer(function(input, output) {
                         , output_dir = dir.export
                         , quiet = TRUE)
       
-      ## Calc, 9, Clean Up----
+      ## Calc, 11, Clean Up----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
