@@ -38,8 +38,7 @@
 #'                                              , package = "BCGcalc")
 #'                            , guess_max = 10^6)
 #' myDF <- df_samps_bugs
-#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-#'             , "INDEX_CLASS")
+#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
 #' # populate missing columns prior to metric calculation
 #' col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
 #'                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
@@ -100,7 +99,7 @@ BCG.Metric.Membership <- function(df.metrics
   
   # QC
   # DEPRECATE SITE_TYPE
-  if(exists("col_SITE_TYPE")) {
+  if (exists("col_SITE_TYPE")) {
     col_INDEX_CLASS <- col_SITE_TYPE
     msg <- "The parameter 'col_SITE_TYPE' was deprecated in v2.0.0.9001. \n
     Use 'col_INDEX_CLASS' instead."
@@ -117,7 +116,7 @@ BCG.Metric.Membership <- function(df.metrics
   # Metrics to long
   if (input.shape == "wide") {##IF.input.shape.START
     df.long <- reshape2::melt(df.metrics
-                        , id.vars=c(col_SAMPLEID
+                        , id.vars = c(col_SAMPLEID
                                     , col_INDEX_NAME
                                     , col_INDEX_CLASS)
                               , variable.name = col_METRIC_NAME
@@ -155,19 +154,19 @@ BCG.Metric.Membership <- function(df.metrics
     , col_METRIC_NAME])
   rules.metrics.len <- length(rules.metrics.names)
   #
-  if(sum(rules.metrics.TF)!= rules.metrics.len) {##IF.RulesCount.START
+  if (sum(rules.metrics.TF) != rules.metrics.len) {##IF.RulesCount.START
     Msg <- paste0("Data provided does not include all metrics in rules table. "
                   , "The following metrics are missing: "
                   , paste(rules.metrics.names[!rules.metrics.TF]
-                          , collapse=", "))
+                          , collapse = ", "))
     stop(Msg)
   }##IF.RulesCount.END
   
   
   # merge metrics and checks
   df.merge <- merge(df.long, df.rules
-                    , by.x=c(col_INDEX_NAME, col_INDEX_CLASS, col_METRIC_NAME)
-                    , by.y=c(col_INDEX_NAME, col_INDEX_CLASS, col_METRIC_NAME))
+                    , by.x = c(col_INDEX_NAME, col_INDEX_CLASS, col_METRIC_NAME)
+                    , by.y = c(col_INDEX_NAME, col_INDEX_CLASS, col_METRIC_NAME))
   #
   # The above only returns a single match, not all.
   # dplyr version

@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9063c"
+pkg_version <- "2.0.0.9065"
 
 # Packages----
 # nolint start

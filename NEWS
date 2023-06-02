@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-01 16:38:59.306219
+2023-06-02 13:18:57.341449
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-01 16:38:59.33012
+    #> Last Update: 2023-06-02 13:18:57.355986
+
+# BCGcalc 2.0.0.9065 (2023-06-02)
+
+- fix: BCG.Level.Membership account for less than 5 rules, Issue \#68
+- fix: Update examples so don’t get duplicate columns kept in output
+  - Can cause successive examples to fail
+  - BCG.Metric.Membership
+  - BCG.Level.Membership
 
 # BCGcalc 2.0.0.9064 (2023-06-01)
 

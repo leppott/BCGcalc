@@ -68,8 +68,7 @@
 #'                                              , package="BCGcalc")
 #'                            , guess_max = 10^6)
 #' myDF <- df_samps_bugs
-#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-#'             , "INDEX_CLASS")
+#' myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
 #' # populate missing columns prior to metric calculation
 #' col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
 #'                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
@@ -196,7 +195,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                  , ...) {
   #
   boo_QC <- FALSE
-  if(isTRUE(boo_QC)) {
+  if (isTRUE(boo_QC)) {
     df.metric.membership <- df_met_memb
     df.rules <- df_rules
     col_SAMPLEID <- "SAMPLEID"
@@ -216,7 +215,7 @@ BCG.Level.Membership <- function(df.metric.membership
   
   # QC
   # DEPRECATE SITE_TYPE.
-  if(exists("col_SITE_TYPE")) {
+  if (exists("col_SITE_TYPE")) {
     col_INDEX_CLASS <- col_SITE_TYPE
     msg <- "The parameter 'col_SITE_TYPE' was deprecated in v2.0.0.9001. \n
     Use 'col_INDEX_CLASS' instead."
@@ -287,7 +286,7 @@ BCG.Level.Membership <- function(df.metric.membership
   # Min of Rule0 (with alt above)
   
   # QC
-  if(nrow(df.merge) == 0){
+  if (nrow(df.merge) == 0) {
     msg <- "Merging of Metric Membership and Rules data frames failed.
     Check columns col_INDEX_NAME, col_INDEX_CLASS, col_LEVEL, col_METRIC_NAME, col_RULE_TYPE, and col_EXC_RULE."
     stop(msg)
@@ -341,13 +340,13 @@ BCG.Level.Membership <- function(df.metric.membership
                               #
                 # Min of Rule2 (Alt2)
                 , MembCalc_Rule2_min = min(MEMBERSHIP[RULE_TYPE == "Rule2"]
-                                        , na.rm=TRUE)
+                                        , na.rm = TRUE)
                 # Max of Rule1 (Alt1)
                 , MembCalc_Rule1_max = max(MEMBERSHIP[RULE_TYPE == "Rule1"]
-                                          , na.rm=TRUE)
+                                          , na.rm = TRUE)
                 # Min of Rule0 (with alt above)
                 , MembCalc_Rule0_min = min(MEMBERSHIP[RULE_TYPE == "Rule0"]
-                                           , na.rm=TRUE)
+                                           , na.rm = TRUE)
                 # Exceptions for CT
                 , MembCalc_Exc0_min = min(MEMBERSHIP[EXC_RULE == "ExcMem0"]
                                           , na.rm = TRUE)
@@ -391,7 +390,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                                       , "MembCalc_Rule1_max")]
                                           , 1
                                           , max
-                                          , na.rm=TRUE)
+                                          , na.rm = TRUE)
   )
   # replace Inf with NA
   df.lev[!is.finite(df.lev[,"MembCalc_Rule12_max"])
@@ -405,13 +404,13 @@ BCG.Level.Membership <- function(df.metric.membership
   # Assign Level ----
   df.lev[,"Level.Membership"] <- apply(df.lev[,c("MembCalc_Rule12_max"
                                                  , "MembCalc_Rule0_min")]
-                                       , 1, min, na.rm=TRUE)
+                                       , 1, min, na.rm = TRUE)
   
   
   # ## Exceptions, Level Mem ----
   boo_exceptions <- FALSE
   #
-  if(isTRUE(boo_exceptions)) {
+  if (isTRUE(boo_exceptions)) {
     ## CT_F1_L4
     boo_CT_F1_L4 <- df.lev[, col_INDEX_NAME] == "BCG_CT_2015" &
       df.lev[, col_INDEX_CLASS] == "fish01" &
@@ -495,53 +494,108 @@ BCG.Level.Membership <- function(df.metric.membership
   ### Level Membership affected by previous level assignments.
   # 20180613, added "round" 8 for floating point error 
   # (e.g., a value of 1.1E-16).
-  rnd_dig <- 8
-  df.subtotal[, "L1"] <- df.subtotal[,"L1.Sub"]
+  # 20230602, add check no L5 and trigger to calc L5 instead of L6
   
-  df.subtotal[, "L2"] <- apply(df.subtotal[,c("L1", "L2.Sub")], 1
-                              , function(x) min(round(1 - x[1]
-                                                      , rnd_dig)
-                                                , x[2]
-                                                , na.rm = TRUE))
-  df.subtotal[, "L3"] <- apply(df.subtotal[,c("L1", "L2", "L3.Sub")], 1
-                              , function(x) min(round(1 - sum(x[1],
-                                                            x[2]
-                                                            , na.rm = TRUE)
-                                                      , rnd_dig)
-                                                , x[3]
-                                                , na.rm = TRUE))
-  df.subtotal[, "L4"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4.Sub")], 1
+  # Num Rules by model
+  df.rules.numruleslev <- dplyr::summarize(dplyr::group_by(df.rules
+                                                           , INDEX_NAME
+                                                           , INDEX_CLASS)
+                                           , .groups = "drop_last"
+                                           , rules_lev_min = min(LEVEL
+                                                                 , na.rm = TRUE)
+                                           , rules_lev_max = max(LEVEL
+                                                                 , na.rm = TRUE)
+                                    )## summarize ~ END
+  # Merge num rules
+  df.subtotal <- merge(df.subtotal
+                       , df.rules.numruleslev
+                       , by = c("INDEX_NAME", "INDEX_CLASS")
+                       , all.x = TRUE
+                       )
+  # name columns so can remove later
+  col.ruleslev <- c("rules_lev_min", "rules_lev_max")
+  
+  rnd_dig <- 8
+  
+  df.subtotal[, "L1"] <- df.subtotal[, "L1.Sub"]
+  
+  df.subtotal[, "L2"] <- apply(df.subtotal[, c("L1", "L2.Sub")]
+                               , 1
+                               , function(x) min(round(1 - x[1], rnd_dig)
+                                                 , x[2]
+                                                 , na.rm = TRUE))
+  
+  df.subtotal[, "L3"] <- apply(df.subtotal[, c("L1", "L2", "L3.Sub")]
+                               , 1
+                               , function(x) min(round(1 - sum(x[1]
+                                                               , x[2]
+                                                               , na.rm = TRUE)
+                                                       , rnd_dig)
+                                                 , x[3]
+                                                 , na.rm = TRUE))
+  
+  df.subtotal[, "L4"] <- apply(df.subtotal[, c("L1", "L2", "L3", "L4.Sub")]
+                               , 1
                               , function(x) min(round(1 - sum(x[1]
                                                             , x[2]
                                                             , x[3]
                                                             , na.rm = TRUE)
                                                       , rnd_dig)
                                                 , x[4], na.rm = TRUE))
-  df.subtotal[, "L5"] <- apply(df.subtotal[,c("L1"
+  
+  df.subtotal[, "L5"] <- apply(df.subtotal[, c("L1"
                                               , "L2"
                                               , "L3"
                                               , "L4"
-                                              , "L5.Sub")], 1
-                              , function(x) min(round(1 - sum(x[1]
-                                                            , x[2]
-                                                            , x[3]
-                                                            , x[4]
-                                                            , na.rm = TRUE)
-                                                      , rnd_dig)
-                                                , x[5], na.rm = TRUE))
-  df.subtotal[, "L6"] <- apply(df.subtotal[,c("L1", "L2", "L3", "L4", "L5")], 1
-                              , function(x) round(1 - sum(x[1]
-                                                        , x[2]
-                                                        , x[3]
-                                                        , x[4]
-                                                        , x[5]
-                                                        , na.rm = TRUE)
-                                                  , rnd_dig))
+                                              , "L5.Sub")]
+                               , 1
+                               , function(x) min(round(1 - sum(x[1]
+                                                               , x[2]
+                                                               , x[3]
+                                                               , x[4]
+                                                               , na.rm = TRUE)
+                                                       , rnd_dig)
+                                                 , x[5], na.rm = TRUE))
+  
+ 
+  # Exception for only 4 rules
+  # df.subtotal[, "L5"] <- ifelse(df.subtotal[, "rules_lev_max"] == 4
+  #                               , 1 - sum(df.subtotal[, c("L1", "L2", "L3", "L4")])
+  #                               , df.subtotal[, "L5"])
+  boo_L5fix <- df.subtotal[, "rules_lev_max"] == 4
+  if (sum(boo_L5fix) > 0) {
+    df.subtotal[boo_L5fix, "L5"] <- apply(df.subtotal[boo_L5fix
+                                           , c("L1", "L2", "L3", "L4")]
+                               , 1
+                               , function(x) round(1 - sum(x[1]
+                                                           , x[2]
+                                                           , x[3]
+                                                           , x[4]
+                                                           , x[5]
+                                                           , na.rm = TRUE)
+                                                   , rnd_dig))
+  }## IF ~ L5fix
+  
+  
+  
+  df.subtotal[, "L6"] <- apply(df.subtotal[,c("L1"
+                                              , "L2"
+                                              , "L3"
+                                              , "L4"
+                                              , "L5")]
+                               , 1
+                               , function(x) round(1 - sum(x[1]
+                                                           , x[2]
+                                                           , x[3]
+                                                           , x[4]
+                                                           , x[5]
+                                                           , na.rm = TRUE)
+                                                   , rnd_dig))
 
-  #
+  
   # Return RESULTS ####
   # Remove sub fields
-  df.results <- df.subtotal[,!(names(df.subtotal) %in% col.sub)]
+  df.results <- df.subtotal[, !(names(df.subtotal) %in% c(col.sub, col.ruleslev))]
   # Results are for each SAMPLEID, INDEX_NAME, INDEX_CLASS, and 
   #                                                  LEVEL Assignment/Membership
   # create output

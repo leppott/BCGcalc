@@ -76,8 +76,7 @@ df_samps_bugs <- readxl::read_excel(
                                              , package = "BCGcalc")
                            , guess_max = 10^6)
 myDF <- df_samps_bugs
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2"
-            , "INDEX_CLASS")
+myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
 # populate missing columns prior to metric calculation
 col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
                  , "WSAREA_ATTR", "HABSTRUCT", "UFC")
