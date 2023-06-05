@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9069 (2023-06-05)
+
+* fix: MetricFlags.xlsx 'pcSLOPE' to 'pctSLOPE' (typo)
+* fix: MetricFlags.xlsx 'DrArea_mi2' to 'WSAREASQKM' (and values)
+
 # BCGcalc 2.0.0.9068 (2023-06-05)
 
 * fix: Remove `browser` call in fuzzy thermal model

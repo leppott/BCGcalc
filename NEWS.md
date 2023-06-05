@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-05 12:53:40.195828
+2023-06-05 13:37:41.156667
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-05 12:53:40.219279
+    #> Last Update: 2023-06-05 13:37:41.18653
+
+# BCGcalc 2.0.0.9069 (2023-06-05)
+
+- fix: MetricFlags.xlsx ‘pcSLOPE’ to ‘pctSLOPE’ (typo)
+- fix: MetricFlags.xlsx ‘DrArea_mi2’ to ‘WSAREASQKM’ (and values)
 
 # BCGcalc 2.0.0.9068 (2023-06-05)
 
