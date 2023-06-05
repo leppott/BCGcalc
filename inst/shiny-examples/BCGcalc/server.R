@@ -2600,6 +2600,72 @@ shinyServer(function(input, output) {
       colnames(df_levassign)[colnames(df_levassign) %in% "BCG_Status2"] <- 
         "Therm_Status2"
       
+      df_levassign <- dplyr::mutate(df_levassign
+                                    , "Primary_Therm_Nar" = NA
+                                    , .after = "Primary_Therm")
+      df_levassign <- dplyr::mutate(df_levassign
+                                    , "Secondary_Therm_Nar" = NA
+                                    , .after = "Secondary_Therm")
+      # df_levassign[, "ThermClass"] <- NA
+      
+      # dplyr::case_match not working
+      lab_therm <- c("VeryCold", "Cold", "Cool", "Warm")
+      df_levassign[, "Primary_Therm_Nar"] <- cut(df_levassign$Primary_Therm
+                                                 , breaks = c(2:6)
+                                                 , labels = lab_therm
+                                                 , include.lowest = TRUE
+                                                 , right = FALSE
+                                                 , ordered_result = TRUE)
+      df_levassign[, "Secondary_Therm_Nar"] <- cut(df_levassign$Secondary_Therm
+                                                 , breaks = c(2:6)
+                                                 , labels = lab_therm
+                                                 , include.lowest = TRUE
+                                                 , right = FALSE
+                                                 , ordered_result = TRUE)
+    
+      status2_val <- c("2"
+                       , "2-"
+                       , "2/3 tie"
+                       , "3+"
+                       , "3"
+                       , "3-"
+                       , "3/4 tie"
+                       , "4+"
+                       , "4"
+                       , "4-"
+                       , "4/5 tie"
+                       , "5+"
+                       , "5"
+                       , "5-"
+                       #, "6+"
+                       #, "6"
+                       )
+      Therm_Class <- c("VeryCold"
+                       , "VCold_Cold"
+                       , "TIE_VCold_Cold"
+                       , "Cold_VCold"
+                       , "Cold"
+                       , "Cold_Cool"
+                       , "TIE_Cold_Cool"
+                       , "Cool_Cold"
+                       , "Cool"
+                       , "Cool_Warm"
+                       , "TIE_Cool_Warm"
+                       , "Warm_Cool"
+                       , "Warm"
+                       , "Warm"
+                       #, "unless I screwed something up (entirely possible) we shouldn't get 6s"
+                       #, "unless I screwed something up (entirely possible) we shouldn't get 6s"
+                      )
+      df_status2 <- data.frame(cbind(status2_val, Therm_Class))
+      df_levassign <- merge(df_levassign
+                            , df_status2
+                            , by.x = "Therm_Status2"
+                            , by.y = "status2_val"
+                            , all.x = TRUE
+                            , sort = FALSE)  
+      
+      
       # Save Results
       fn_levassign <- paste0(fn_input_base, "_modtherm_5levassign.csv")
       dn_levassign <- path_results

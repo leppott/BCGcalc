@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-05 13:37:41.156667
+2023-06-05 14:45:53.134995
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-05 13:37:41.18653
+    #> Last Update: 2023-06-05 14:45:53.169808
+
+# BCGcalc 2.0.0.9070 (2023-06-05)
+
+- refactor: Add columns and classifications to Fuzzy Thermal model,
+  Issue \#70
 
 # BCGcalc 2.0.0.9069 (2023-06-05)
 

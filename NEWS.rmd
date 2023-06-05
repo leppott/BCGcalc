@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9070 (2023-06-05)
+
+* refactor: Add columns and classifications to Fuzzy Thermal model, Issue #70
+
 # BCGcalc 2.0.0.9069 (2023-06-05)
 
 * fix: MetricFlags.xlsx 'pcSLOPE' to 'pctSLOPE' (typo)
