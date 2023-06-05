@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9071 (2023-06-05)
+
+* fix: Update overlapping Fuzzy Thermal CheckNames in MetricFlags.xlsx, Issue #72
+
 # BCGcalc 2.0.0.9070 (2023-06-05)
 
 * refactor: Add columns and classifications to Fuzzy Thermal model, Issue #70

@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-05 14:45:53.134995
+2023-06-05 15:55:52.986989
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-05 14:45:53.169808
+    #> Last Update: 2023-06-05 15:55:53.017904
+
+# BCGcalc 2.0.0.9071 (2023-06-05)
+
+- fix: Update overlapping Fuzzy Thermal CheckNames in MetricFlags.xlsx,
+  Issue \#72
 
 # BCGcalc 2.0.0.9070 (2023-06-05)
 
