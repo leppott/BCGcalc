@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-05 12:42:03.111804
+2023-06-05 12:53:40.195828
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-05 12:42:03.136035
+    #> Last Update: 2023-06-05 12:53:40.219279
+
+# BCGcalc 2.0.0.9068 (2023-06-05)
+
+- fix: Remove `browser` call in fuzzy thermal model
 
 # BCGcalc 2.0.0.9067 (2023-06-05)
 

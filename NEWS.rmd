@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9068 (2023-06-05)
+
+* fix: Remove `browser` call in fuzzy thermal model
+
 # BCGcalc 2.0.0.9067 (2023-06-05)
 
 * refactor: Additional flags for fuzzy thermal model
