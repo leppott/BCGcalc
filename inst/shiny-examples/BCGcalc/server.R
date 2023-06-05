@@ -2663,7 +2663,12 @@ shinyServer(function(input, output) {
                             , by.x = "Therm_Status2"
                             , by.y = "status2_val"
                             , all.x = TRUE
-                            , sort = FALSE)  
+                            , sort = FALSE
+                            )
+      # move columns
+      df_levassign <- dplyr::relocate(df_levassign
+                                      , "Therm_Status2"
+                                      , .after = "Therm_Status")
       
       
       # Save Results

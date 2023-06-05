@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9072 (2023-06-05)
+
+* refactor: Change order of columns for Fuzzy Thermal, Issue #70
+    +  modtherm_5levassign.csv
+
 # BCGcalc 2.0.0.9071 (2023-06-05)
 
 * fix: Update overlapping Fuzzy Thermal CheckNames in MetricFlags.xlsx, Issue #72
