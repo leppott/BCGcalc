@@ -2611,13 +2611,13 @@ shinyServer(function(input, output) {
       # dplyr::case_match not working
       lab_therm <- c("VeryCold", "Cold", "Cool", "Warm")
       df_levassign[, "Primary_Therm_Nar"] <- cut(df_levassign$Primary_Therm
-                                                 , breaks = c(2:6)
+                                                 , breaks = 2:6
                                                  , labels = lab_therm
                                                  , include.lowest = TRUE
                                                  , right = FALSE
                                                  , ordered_result = TRUE)
       df_levassign[, "Secondary_Therm_Nar"] <- cut(df_levassign$Secondary_Therm
-                                                 , breaks = c(2:6)
+                                                 , breaks = 2:6
                                                  , labels = lab_therm
                                                  , include.lowest = TRUE
                                                  , right = FALSE
