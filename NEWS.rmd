@@ -21,6 +21,21 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9076 (2023-06-06)
+
+* fix: MetricFlags.xlsx 'pctSLOPE' to 'pslope_nhd' 
+    + Align with index class assignment
+    + Add PRECIP8110CAT for BCG_MariNW_Bugs500ct (all classes)
+* refactor: Add more StreamCat variables to get index parameters, Issue #75
+    + PRECIP8110CAT
+    + ICI
+    + IWI
+
+# BCGcalc 2.0.0.9075 (2023-06-06)
+
+fix: Update MTTI routine for user SampleID, Issue #74
+    + One instance was hard-coded
+
 # BCGcalc 2.0.0.9074 (2023-06-06)
 
 refactor: Update MTTI output, Issue #74

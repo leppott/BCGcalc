@@ -1,11 +1,22 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-06 10:17:57.313986
+2023-06-06 12:20:13.777432
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-06 10:17:57.336545
+    #> Last Update: 2023-06-06 12:20:13.808926
+
+# BCGcalc 2.0.0.9076 (2023-06-06)
+
+- fix: MetricFlags.xlsx ‘pctSLOPE’ to ‘pslope_nhd’
+  - Align with index class assignment
+  - Add PRECIP8110CAT for BCG_MariNW_Bugs500ct (all classes)
+- refactor: Add more StreamCat variables to get index parameters, Issue
+  \#75
+  - PRECIP8110CAT
+  - ICI
+  - IWI
 
 # BCGcalc 2.0.0.9075 (2023-06-06)
 

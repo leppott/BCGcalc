@@ -825,7 +825,7 @@ shinyServer(function(input, output) {
       
       # get StreamCat data?
       # Load with file, 240 MB, don't want to do every time app is used
-      
+   
       
       ## Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
@@ -934,14 +934,14 @@ shinyServer(function(input, output) {
         validate(msg)
       }## IF ~ sel_col_lat
  
-   
-      ## elevation
+
+      ## elevation and precip (PRISM 1981-2010)
       df_sc <- StreamCatTools::sc_get_data(
         comid = paste(df_sites[, "COMID"], collapse = ",")
-        , metric = "elev")
+        , metric = "elev,Precip8110,ICI,IWI")
       
       # cols to keep
-      sc_names_drop <- c("CATAREASQKM", "ELEVWS")
+      sc_names_drop <- c("CATAREASQKM", "ELEVWS", "PRECIP8110WS")
       sc_names_keep <- names(df_sc)[!names(df_sc) %in% sc_names_drop]
       
       # add elev to sites
@@ -2831,7 +2831,7 @@ shinyServer(function(input, output) {
   ## b_Calc_MTTI ----
   observeEvent(input$b_calc_mtti, {
     shiny::withProgress({
-browser() 
+
       ### Calc, 00, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, MTTI..."
