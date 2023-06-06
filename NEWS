@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-06 09:05:13.035291
+2023-06-06 10:17:57.313986
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-06 09:05:13.078352
+    #> Last Update: 2023-06-06 10:17:57.336545
+
+# BCGcalc 2.0.0.9075 (2023-06-06)
+
+fix: Update MTTI routine for user SampleID, Issue \#74 + One instance
+was hard-coded
 
 # BCGcalc 2.0.0.9074 (2023-06-06)
 

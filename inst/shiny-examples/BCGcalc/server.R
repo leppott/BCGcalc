@@ -2831,7 +2831,7 @@ shinyServer(function(input, output) {
   ## b_Calc_MTTI ----
   observeEvent(input$b_calc_mtti, {
     shiny::withProgress({
- 
+browser() 
       ### Calc, 00, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, MTTI..."
@@ -3045,7 +3045,7 @@ shinyServer(function(input, output) {
       df_met <-  merge(df_met
                        , df_results_model
                        , by.x = "SAMPLEID"
-                       , by.y = "SampleID"
+                       , by.y = sel_col_sampid
                        , all.x = TRUE)
       
       # WAopt range check
