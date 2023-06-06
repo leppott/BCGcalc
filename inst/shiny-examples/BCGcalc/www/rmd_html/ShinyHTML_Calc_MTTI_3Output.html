@@ -1,0 +1,83 @@
+
+
+
+<p>A single zip file will be available for download. It will include all
+result files along the the original data file. All result data files
+will be CSV format.</p>
+<p>The zip file will included the base name of the original file along
+with the date and time.</p>
+<p>The individual files will include the same basename along with a
+suffix to represent each step of the calculation process.</p>
+<p>The entire criteria file is included to allow the user to check for
+non-matching Index Name and/or criteria columns.</p>
+<p>As an example if the input file was “xxx.csv” the result files will
+look like those in the table below.</p>
+<table>
+<caption>
+Calculation, MTTI, zip file contents.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Output file
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+xxx
+</td>
+<td style="text-align:left;">
+original input file
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_MTTI_flags_1_metrics.csv
+</td>
+<td style="text-align:left;">
+Metrics needed for flags. Including min and max MTTI values per sample
+taxa.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_MTTI_flags_2_eval_long.csv
+</td>
+<td style="text-align:left;">
+results of flag calculations for all metrics and samples
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_MTT_flags_3_eval_summary.csv
+</td>
+<td style="text-align:left;">
+summary of how many samples had flagged metrics (and not flagged) based
+on the input file; count of # flagged (flag) and not flagged (NA)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_MTTI_RESULTS.csv
+</td>
+<td style="text-align:left;">
+for each sample, MTTI model output plus flags (flag or NA)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xxx_MTTI_RESULTS.html
+</td>
+<td style="text-align:left;">
+boxplot showing distribution of samples across MTTI values.
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Last updated 2023-06-06</em></p>

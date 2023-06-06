@@ -1,0 +1,49 @@
+---
+title: "Calculation, MTTI, Input"
+date: "2023-06-06"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+# Required Fields
+The following fields are required in input files. However, the names can be 
+different.  The user will select the matching column names on screen before 
+calculation.
+
+Click [here](links\MTTI_ReqFields_20230606.xlsx) to download an Excel file 
+with this table plus example data.
+
+```{r table_req}
+# Packages
+library(readxl)
+#library(DT)
+
+# Data
+fn_req <- "MTTI_ReqFields_20230606.xlsx"
+path_req <- file.path("files", fn_req)
+df_req <- read_excel(path_req, sheet = "RequiredFields")
+
+# Table (DT)
+cap_req <- "Table 1. Required fields."
+# DT::datatable(df_req
+#               , filter = "top"
+#               , caption = cap_req
+#               , options = list(scrollX = TRUE
+#                                , autoWidth = TRUE)
+#               )
+# DT::datatable(iris) # not working correctly in fragment
+knitr::kable(df_req, caption = cap_req)
+```
+
+---
+
+*Last updated 2023-06-06*

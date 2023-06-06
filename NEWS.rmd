@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9077 (2023-06-06)
+
+* refactor: Update Shiny MTTI, Issue #74
+    + Onscreen text
+    + Example files
+* style: Move MTTI model file location
+
 # BCGcalc 2.0.0.9076 (2023-06-06)
 
 * fix: MetricFlags.xlsx 'pctSLOPE' to 'pslope_nhd' 

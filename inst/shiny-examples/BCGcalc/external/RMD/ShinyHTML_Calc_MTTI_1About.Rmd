@@ -1,0 +1,74 @@
+---
+title: "Calculation, MTTI, About"
+date: "2023-06-06"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+# Purpose
+
+The Macroinvertebrate Thermal Tolerance Index (MTTI) (Hubler et al.) was 
+developed for freshwater wadeable streams in Oregon and Washington. The MTTI 
+calculator generates Maximum Weekly Maximum Temperature (MWMT) values for each macroinvertebrate sample based on the relative abundances and MWMT weighted 
+average optima values of the taxa in the sample (Stamp et al., in progress). 
+MWMT is the metric that Oregon and Washington use for their numeric water 
+temperature standard to protect salmonid habitat and is available from the 
+ <a href="https://www.fs.usda.gov/rm/boise/AWAE/projects/NorWeST/ModeledStreamTemperatureScenarioMaps.shtml" target="_blank">NorWeST modeled stream temperature database</a>.. 
+
+The MTTI builds on earlier work by ODEQ (Huff et al. 2006) in which ODEQ 
+developed a thermal tolerance index, but with many fewer samples (328 sites vs. 
+3658 sites). The MTTI value is not a direct measure of temperature. Rather it is
+a measure of the response of the macroinvertebrate assemblage to temperature, 
+and can help detect deviation from natural thermal regimes. It may also provide 
+important insights on resiliency. For example, if cold stenotherm taxa are 
+persisting at a site with a NorWeST MWMT value greater than 16°C, investigating 
+what factors make that site suitable for those taxa could inform tactics for 
+restoring or protecting cold water refugia in other streams. Factors likely 
+include habitat quality and complexity, groundwater, refugia, food quality and 
+availability, and level of watershed disturbance. 
+
+For more information, contact Shannon Hubler (ODEQ) (Shannon.L.HUBLER@deq.oregon.gov).
+
+# Input File
+
+There are three required fields:
+
+*	SampleID
+    + Unique sample identifier. Includes any replicate/duplicate information.
+* TaxaID
+    + Unique taxa name
+* Count of individuals
+
+If you named the required fields differently in your input file, it’s ok. Click
+on the drop-down menus. The list of fields in your input file will appear. 
+Select the correct column headings.
+
+All columns in the input file are carried over into the output file.
+
+IMPORTANT
+
+After uploading the input file, users can skip the File Builder step and go 
+right to the MTTI calculator. Unlike the BCG calculators, users do not have to 
+specify INDEX_NAME or INDEX_CLASS and the taxa translation and attribute 
+addition steps are built into the MTTI R code. 
+
+# Test File
+
+Click [here](links/Test1_Calc_MTTI_20230605.csv) to download a test 
+file.
+
+Click [here](links\examples_all.zip) to download example R scripts and data (all
+functions).
+
+---
+
+*Last updated 2023-06-06*

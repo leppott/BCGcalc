@@ -2103,7 +2103,9 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
       
-      strFile.RMD <- file.path("external", "Results_BCG_Summary.Rmd")
+      strFile.RMD <- file.path("external"
+                               , "RMD_Results"
+                               , "Results_BCG_Summary.Rmd")
       strFile.RMD.format <- "html_document"
       strFile.out <- paste0(fn_input_base, "_bcgcalc_RESULTS.html")
       dir.export <- path_results
@@ -2747,7 +2749,9 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
       
-      strFile.RMD <- file.path("external", "Results_Thermal_Summary.Rmd")
+      strFile.RMD <- file.path("external"
+                               , "RMD_Results"
+                               , "Results_Thermal_Summary.Rmd")
       strFile.RMD.format <- "html_document"
       strFile.out <- paste0(fn_input_base, "_modtherm_RESULTS.html")
       dir.export <- path_results
@@ -2838,7 +2842,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 8
+      prog_n <- 10
       prog_sleep <- 0.25
       
       ## Calc, 01, Initialize ----
@@ -2857,7 +2861,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      
+   
       # data
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
@@ -2880,7 +2884,7 @@ shinyServer(function(input, output) {
     
       # Data, Model
       fn_model <- "wa_MTTI.mar23.Rdata"
-      dn_model <- file.path("external", "MTTI_model")
+      dn_model <- file.path("data", "MTTI_model")
       load(file.path(dn_model, fn_model))
       # **FUTURE** load from GitHub repo
       
@@ -3062,7 +3066,49 @@ shinyServer(function(input, output) {
                                     , df_met_flags[, "FLAG"]
                                     , useNA = "ifany")
       
-      ## Calc, 04, Save Results ----
+      # Change terminology; PASS/FAIL to NA/flag
+      df_met_flags[, "FLAG"][df_met_flags[, "FLAG"] == "FAIL"] <- "flag"
+      df_met_flags[, "FLAG"][df_met_flags[, "FLAG"] == "PASS"] <- NA
+      # long to wide format
+      df_flags_wide <- reshape2::dcast(df_met_flags
+                                       , SAMPLEID ~ CHECKNAME
+                                       , value.var = "FLAG")
+      
+      
+      # Calc number of "flag"s by row.
+      df_flags_wide$NumFlags <- rowSums(df_flags_wide == "flag", na.rm = TRUE)
+      # Rearrange columns
+      NumCols <- ncol(df_flags_wide)
+      df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
+      
+      # Merge model results and Flags
+      df_results <- merge(df_results_model
+                            , df_flags_wide
+                            , by.x = sel_col_sampid
+                            , by.y = "SAMPLEID"
+                            , all.x = TRUE)
+      
+      
+      ## Calc, 08, RMD ----
+      prog_detail <- "Calculate, Create Report"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+      
+      strFile.RMD <- file.path("external"
+                               , "RMD_Results"
+                               , "Results_MTTI_Summary.Rmd")
+      strFile.RMD.format <- "html_document"
+      strFile.out <- paste0(fn_input_base, "_MTTI_RESULTS.html")
+      dir.export <- path_results
+      rmarkdown::render(strFile.RMD
+                        , output_format = strFile.RMD.format
+                        , output_file = strFile.out
+                        , output_dir = dir.export
+                        , quiet = TRUE)
+      
+      ## Calc, 09, Save Results ----
       prog_detail <- "Save Results"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -3071,7 +3117,7 @@ shinyServer(function(input, output) {
       
       fn_save <- paste0(fn_input_base, "_MTTI_RESULTS.csv")
       pn_save <- file.path(path_results, fn_save)
-      write.csv(df_results_model, pn_save, row.names = FALSE)
+      write.csv(df_results, pn_save, row.names = FALSE)
       
       fn_save <- paste0(fn_input_base, "_MTTI_flags_1_metrics.csv")
       pn_save <- file.path(path_results, fn_save)
@@ -3085,7 +3131,7 @@ shinyServer(function(input, output) {
       pn_save <- file.path(path_results, fn_save)
       write.csv(df_met_flags_summary, pn_save, row.names = TRUE)
      
-      ## Calc, 05, Zip Results ----
+      ## Calc, 10, Zip Results ----
       prog_detail <- "Create Zip File"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.

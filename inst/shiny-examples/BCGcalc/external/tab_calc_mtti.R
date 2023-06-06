@@ -38,18 +38,18 @@ function() {
                   , tabPanel(title = "Calc_MTTI_About"
                              ,includeHTML(file.path("www"
                                                     , "rmd_html"
-                                                    , "ShinyHTML_Calc_MTTI.html"))
+                                                    , "ShinyHTML_Calc_MTTI_1About.html"))
                   )
-                  # , tabPanel(title = "Calc_MTTI_Input"
-                  #            ,includeHTML(file.path("www"
-                  #                                   , "rmd_html"
-                  #                                   , "ShinyHTML_Calc_MTTI_2Input.html"))
-                  # )
-                  # , tabPanel(title = "Calc_MTTI_Output"
-                  #            ,includeHTML(file.path("www"
-                  #                                   , "rmd_html"
-                  #                                   , "ShinyHTML_Calc_MTTI_3Output.html"))
-                  # )
+                  , tabPanel(title = "Calc_MTTI_Input"
+                             ,includeHTML(file.path("www"
+                                                    , "rmd_html"
+                                                    , "ShinyHTML_Calc_MTTI_2Input.html"))
+                  )
+                  , tabPanel(title = "Calc_MTTI_Output"
+                             ,includeHTML(file.path("www"
+                                                    , "rmd_html"
+                                                    , "ShinyHTML_Calc_MTTI_3Output.html"))
+                  )
       )## tabsetPanel ~ END
       
     )## mainPanel ~ END
