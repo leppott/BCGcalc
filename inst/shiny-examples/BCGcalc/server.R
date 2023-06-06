@@ -2877,7 +2877,7 @@ shinyServer(function(input, output) {
       sel_col_sampid <- input$mtti_user_col_sampid
       sel_col_taxaid <- input$mtti_user_col_taxaid
       sel_col_ntaxa  <- input$mtti_user_col_ntaxa
-      
+    
       # Data, Model
       fn_model <- "wa_MTTI.mar23.Rdata"
       dn_model <- file.path("external", "MTTI_model")
@@ -2998,7 +2998,8 @@ shinyServer(function(input, output) {
       df_results_model <- as.data.frame(model_pred$fit)
       
       df_results_model <- df_results_model %>%
-        dplyr::select(WA.cla.tol)
+        dplyr::select(WA.cla.tol) %>% 
+        dplyr::rename("MTTI" = "WA.cla.tol")
       
       # rownames to column 1
       df_results_model <- tibble::rownames_to_column(df_results_model
@@ -3048,9 +3049,13 @@ shinyServer(function(input, output) {
                        , all.x = TRUE)
       
       # WAopt range check
-      df_met[, "MTTI_LO"] <- df_met[, "WA.cla.tol"] < df_met[, "x_tv2_min"]
-      df_met[, "MTTI_HI"] <- df_met[, "WA.cla.tol"] > df_met[, "x_tv2_max"]
-      
+      df_met[, "MTTI_LO"] <- df_met[, "MTTI"] < df_met[, "x_tv2_min"]
+      df_met[, "MTTI_HI"] <- df_met[, "MTTI"] > df_met[, "x_tv2_max"]
+
+      # Munge
+      df_met <- df_met %>% 
+        dplyr::relocate("MTTI", "MTTI_LO", "MTTI_HI", .after = "INDEX_CLASS")
+        
       # Generate Flags
       df_met_flags <- qc.checks(df_met, df_checks)
       df_met_flags_summary <- table(df_met_flags[, "CHECKNAME"]
