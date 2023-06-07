@@ -49,7 +49,7 @@ function(id) {
                  , menuSubItem("Thermal Preference Metrics"
                                , tabName = "tab_calc_thermalmetrics"
                                , icon = icon("temperature-empty"))
-                 , menuSubItem("Fuzzy set temperature model"
+                 , menuSubItem("Fuzzy Set Temperature Model"
                                , tabName = "tab_calc_thermalfuzzy"
                                , icon = icon("square-check"))
                  , menuSubItem("MTTI"

@@ -14,6 +14,10 @@ output:
 knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE)
 ```
 
+```{r}
+cat("**Filename:** ", inFile$name, "\n\n", sep = "")
+```
+
 # Plot
 
 ```{r plot}
@@ -89,6 +93,30 @@ knitr::kable(table(df_flags[, "CHECKNAME"]
              , caption = cap_flags)
 ```
 
+```{r upset}
+# # Data
+# df_plot2 <- df_flags_wide
+# # Munge
+# ## SampleID to row names 
+# row.names(df_plot2) <- df_plot2[, "SAMPLEID"]
+# ## Remove columns
+# df_plot2 <- df_plot2[, -c(1:2)]
+# ## Change terminology; NA/flag to 0/1
+# df_plot2[!is.na(df_plot2)] <- 1 
+# df_plot2[is.na(df_plot2)] <- 0
+# ## Convert character to numeric
+# col2fix <- 2:ncol(df_plot2)
+# df_plot2[, col2fix] <- apply(df_plot2[, col2fix]
+#                   , 2
+#                   , function(x) as.numeric(as.character(x)))
+# 
+# # plot
+# p2 <- ComplexUpset::upset(df_plot2
+#                           , intersect = names(df_plot2)
+#                           , name = "Flags")
+# p2
+```
+
 # Results
 
 ```{r results}
@@ -101,4 +129,3 @@ DT::datatable(df_lev_flags
                                , autoWidth = TRUE
               ))
 ```
-

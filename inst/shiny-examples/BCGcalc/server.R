@@ -1813,7 +1813,7 @@ shinyServer(function(input, output) {
   
   #~~~~CALC~~~~----
   
-  # BCG Calc ----
+  # Calc, BCG ----
   ## b_Calc_BCG ----
   observeEvent(input$b_calc_bcg, {
     shiny::withProgress({
@@ -2155,7 +2155,7 @@ shinyServer(function(input, output) {
     #, contentType = "application/zip"
   )##download ~ BCG
   
-  # THERMAL METRICS ----
+  ## Calc, THERMAL METRICS ----
   
   ## b_Calc_Met_Therm ----
   observeEvent(input$b_calc_met_therm, {
@@ -2347,7 +2347,7 @@ shinyServer(function(input, output) {
   
   
   
-  # FUZZY THERMAL ----
+  # Calc, FUZZY THERMAL ----
   
   ## b_Calc_modtherm ----
   observeEvent(input$b_calc_modtherm, {
@@ -2741,7 +2741,6 @@ shinyServer(function(input, output) {
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
 
-   
       ## Calc, 10, RMD----
       prog_detail <- "Calculate, Create Report"
       message(paste0("\n", prog_detail))
@@ -2751,7 +2750,7 @@ shinyServer(function(input, output) {
       
       strFile.RMD <- file.path("external"
                                , "RMD_Results"
-                               , "Results_Thermal_Summary.Rmd")
+                               , "Results_FuzzyThermal_Summary.Rmd")
       strFile.RMD.format <- "html_document"
       strFile.out <- paste0(fn_input_base, "_modtherm_RESULTS.html")
       dir.export <- path_results
@@ -2802,7 +2801,7 @@ shinyServer(function(input, output) {
   )##download ~ Model (Fuzzy) Thermal
   
   
-  # MTTI ----
+  # Calc, MTTI ----
   
   ## MTTI, UI ----
   output$UI_mtti_user_col_taxaid <- renderUI({

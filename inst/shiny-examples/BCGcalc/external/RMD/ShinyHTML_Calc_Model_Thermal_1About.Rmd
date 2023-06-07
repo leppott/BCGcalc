@@ -1,6 +1,6 @@
 ---
 title: "Calculation, Fuzzy Model Thermal"
-date: "2023-03-17"
+date: "2023-06-07"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -14,62 +14,79 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-Status:
+# Purpose
 
-*	Online Shiny app calculator - in progress
+The fuzzy set temperature model is an exploratory model. Instead of assigning 
+macroinvertebrate samples to a BCG level, it assigns them to one of the 
+following temperature classes:
 
-*	R code – in progress
+*	VERY COLD
 
-The BCG-style temperature model is an exploratory model. Instead of assigning samples to a BCG level, it assigns them to one of the following temperature classes, which are based on the Maximum Weekly Maximum Temperature (MWMT) metric from the 
-<a href="https://www.fs.usda.gov/rm/boise/AWAE/projects/NorWeST/ModeledStreamTemperatureScenarioMaps.shtml" target="_blank">NorWeST modeled stream temperature dataset</a>: 
+*	COLD
 
-*	VERY COLD (MWMT < 15 C)
+*	COOL
 
-*	COLD (MWMT 15-17.9 C)
+*	WARM
 
-*	TRANSITIONAL (MWMT 18-21.9 C)
+The model works the same way as a BCG model, with an output that includes
+probability of membership in a primary and secondary class. Input metrics 
+include:
 
-*	WARM (MWMT ≥ 22 C)
+*	number cold stenotherm taxa
 
-The model works the same way as a BCG model, with an output that includes probability of membership in a primary and secondary class, as shown below.
+*	number cold stenotherm + cold taxa
 
-Example of an output from the BCG-style temperature model.
+*	percent cold stenotherm + cold taxa
 
-|SampleID	            |ThermBug1|ThermBug1_memb|ThermBug2|ThermBug2_memb|
-|:--------------------|:--------|:------------:|:--------|:------------:|
-|SampPSSB_10055_15126	|Cold	    |0.85	         |CoolWarm |0.15          |
-|SampPSSB_9245_14248	|Warm	    |0.63	         |CoolWarm |0.38          |
+*	percent cold stenotherm + cold indiv
 
-<br>
-We calibrated the model with the same datasets (CAL and VAL) that were used to calibrate the MTTI.
+*	percent warm + warm stenotherm taxa
 
-Click [here](links/BoxPlots_CALVAL_20220914.pdf) to view the box plots that helped inform selection of metrics and thresholds.
+*	percent warm + warm stenotherm indiv
 
-Rules for the current version of the model are as follows:
+The thermal preference metrics are based on assignments from Stamp et al. 
+(in progress), which were derived from an analysis of a large benthic 
+macroinvertebrate dataset from freshwater wadeable streams in Oregon and 
+Washington coupled with the Maximum Weekly Maximum Temperature (MWMT) metric 
+from the 
+<a href="https://www.fs.usda.gov/rm/boise/AWAE/projects/NorWeST/ModeledStreamTemperatureScenarioMaps.shtml" target="_blank">NorWeST modeled stream temperature dataset</a>.
 
-|CLASS | METRIC | RULE |
-|:-----|:-------|:----:|
-|VERY COLD (MWMT < 15 C)||
-||# cold stenotherm taxa|	≥ 2 (1-3)|
-||# cold stenotherm + cold taxa	|≥ 8 (4-12)|
-||% cold stenotherm + cold taxa	|≥ 20% (15-25)|
-||% cold stenotherm + cold indiv	|≥ 10% (5-15)|
-||% warm + warm stenotherm taxa	|≤ 10% (5-15)|
-||% warm + warm stenotherm indiv	|≤ 5% (2-8)|
-|COLD (MWMT 15-17.9 C)|||
-||# cold stenotherm + cold taxa	|≥ 3 (1-5)|
-||% cold stenotherm + cold taxa	|≥ 5% (3-7)|
-||% cold stenotherm + cold indiv	|≥ 1% (0-2)|
-||% cold stenotherm + cold + cool taxa	|≥ 45% (40-50)|
-||% warm + warm stenotherm taxa	|≤ 15% (10-20)|
-||% warm + warm stenotherm indiv	|≤ 15% (10-20)|
-|TRANSITIONAL (MWMT 18-21.9 C)||
-||% warm + warm stenotherm taxa	|≤ 30% (25-35)|
+Click [here](links/Memo_FuzzySet_Thermal_20230606.docx) to read more about the 
+model and to view the box plots that helped inform selection of metrics and 
+thresholds. For more information, contact Jen Stamp (Tetra Tech) 
+(Jen.Stamp@tetratech.com).
 
+# Input File
 
-<br>
-For more information, contact Jen Stamp (Tetra Tech) (Jen.Stamp@tetratech.com).
+There are two pathways to creating the input file:
+
+1.	Generate a file outside of the Shiny app that is ready to go (has all the 
+required fields, with exact column heading names – see the Calc_ModTherm_Input 
+subtab for details)
+
+2.	Use the File Builder functions to create an input file (minimum required 
+fields = SampleID, TaxonID, Count)
+
+Using the File Builder option ensures that you are using proper Operational 
+Taxonomic Units (OTUs) and attributes for the BCG model calculation.
+
+IMPORTANT: 
+Your input file needs to include the following two fields (which the File 
+Builder function does not automatically populate - you’ll need to add them in 
+manually) -
+
+*	INDEX_NAME = Therm_ORWA_Bugs500ct
+
+*	INDEX_CLASS = orwa
+
+# Test File
+
+Click [here](links/Test1_Calc_FuzzyTemp_20230605.csv) to download a test 
+file.
+
+Click [here](links/examples_all.zip) to download example R scripts and data (all
+functions).
 
 ---
 
-*Last updated 2023-03-17*
+*Last updated 2023-06-07*

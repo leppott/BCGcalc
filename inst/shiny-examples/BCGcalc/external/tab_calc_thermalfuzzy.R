@@ -3,7 +3,7 @@
 function() {
   sidebarLayout(
     sidebarPanel(
-       h2("Calculate Fuzzy Thermal Model")
+       h2("Calculate Fuzzy Set Temperature Model")
        , p("This function will render all steps and make available files for download.")
        , br()
        , h4("A. Upload a file.")
@@ -35,17 +35,17 @@ function() {
         )## sidebarPanel ~ END
     , mainPanel(
         tabsetPanel(type = "tabs"
-                  , tabPanel(title = "Calc_ModTherm_About"
+                  , tabPanel(title = "Calc_FuzzySet_About"
                              , includeHTML(file.path("www"
                                                      , "rmd_html"
                                                      , "ShinyHTML_Calc_Model_Thermal_1About.html"))
                   )
-                  , tabPanel(title = "Calc_ModTherm_Input"
+                  , tabPanel(title = "Calc_FuzzySet_Input"
                              ,includeHTML(file.path("www"
                                                     , "rmd_html"
                                                     , "ShinyHTML_Calc_Model_Thermal_2Input.html"))
                   )
-                  , tabPanel(title = "Calc_ModTherm_Output"
+                  , tabPanel(title = "Calc_FuzzySet_Output"
                              ,includeHTML(file.path("www"
                                                     , "rmd_html"
                                                     , "ShinyHTML_Calc_Model_Thermal_3Output.html"))

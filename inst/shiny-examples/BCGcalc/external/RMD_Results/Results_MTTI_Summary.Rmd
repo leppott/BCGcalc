@@ -72,8 +72,6 @@ p2 <- ComplexUpset::upset(df_plot2
 p2
 ```
 
-
-
 # Results
 
 ```{r results}
@@ -86,4 +84,3 @@ DT::datatable(df_results
                                , autoWidth = TRUE
               ))
 ```
-

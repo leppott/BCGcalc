@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9079 (2023-06-07)
+
+* refactor: Update Shiny Fuzzy Set
+
 # BCGcalc 2.0.0.9078 (2023-06-07)
 
 * feature: Add upset plot to MTTI results report

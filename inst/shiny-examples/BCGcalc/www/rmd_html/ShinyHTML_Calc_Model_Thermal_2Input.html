@@ -6,15 +6,15 @@ calculation.</p>
 <div id="required-fields" class="section level1">
 <h1>Required Fields</h1>
 <p>The following fields are required in input files.</p>
-<p>Click <a href="links\BCGcalc_ReqFields_20230203.xlsx">here</a> to
+<p>Click <a href="links\FuzzySet_ReqFields_20230606.xlsx">here</a> to
 download an Excel file with this table plus example data.</p>
 <table>
 <caption>Table 1. Required fields.</caption>
 <colgroup>
+<col width="6%" />
 <col width="3%" />
-<col width="2%" />
-<col width="10%" />
-<col width="84%" />
+<col width="19%" />
+<col width="69%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -124,30 +124,13 @@ excludes non-target taxa from all metric calculations.</td>
 <td align="left">taxonomic hierarchy</td>
 </tr>
 <tr class="even">
-<td align="left">BCG_ATTR</td>
+<td align="left">THERMAL_INDICATOR</td>
 <td align="left">text</td>
-<td align="left">1i, 1m, 2, 3, 4, 5, 6</td>
-<td align="left">Biological Condition Gradient (BCG) attribute
-assignments</td>
-</tr>
-<tr class="odd">
-<td align="left">FFG</td>
-<td align="left">text</td>
-<td align="left">CG, CF, PR, SC, SH, MH, OM, PA, PH, XY</td>
-<td align="left">Primary Functional Feeding Group. Multiple entries are
-allowed and should be separated with a comma (and no space; e.g.,
-CG,CF). Entries: collector-gatherer (CG), collector-filterer (CF),
-predator (PR), scraper (SC), shredder (SH), macrophyte herbivore (MH),
-omnivore (OM), parasite (PA), piercer-herbivore (PH), xylophage
-(XY).</td>
-</tr>
-<tr class="even">
-<td align="left">LIFE_CYCLE</td>
-<td align="left">text</td>
-<td align="left">uni, semi, multi</td>
-<td align="left">Number of broods or generations of an organism in a
-year (also referred to as ‘voltinism’): univoltine (UNI), semivoltine
-(SEMI), or multivoltine (MULTI).</td>
+<td align="left">stenoc, cold, cool, cowa, warm, stenow,
+eurythermal</td>
+<td align="left">Thermal preference assignment based on Stamp et al. (in
+progress): stenoc=cold stenotherm; cold, cool, cowa = cool/warm, warm,
+stenow = warm stenotherm, eurythermal.</td>
 </tr>
 </tbody>
 </table>
@@ -161,33 +144,46 @@ the ’*metval_all.csv’ file.</p>
 <caption>Table 2. Optional fields</caption>
 <colgroup>
 <col width="2%" />
-<col width="3%" />
 <col width="2%" />
-<col width="10%" />
-<col width="80%" />
+<col width="8%" />
+<col width="86%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Column Type</th>
 <th align="left">Column Name</th>
 <th align="left">Data Type</th>
-<th align="left">Allowable Entries</th>
+<th align="left">Allowable entries</th>
 <th align="left">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Optional</td>
-<td align="left">THERMAL_INDICATOR</td>
+<td align="left">BCG_ATTR</td>
 <td align="left">text</td>
-<td align="left">stenoc, cold, cool, cowa, warm, stenow,
-eurythermal</td>
-<td align="left">Thermal preference assignment based on Stamp et al. (in
-progress): stenoc=cold stenotherm; cold, cool, cowa = cool/warm, warm,
-stenow = warm stenotherm, eurythermal.</td>
+<td align="left">1i, 1m, 2, 3, 4, 5, 6</td>
+<td align="left">Biological Condition Gradient (BCG) attribute
+assignments</td>
 </tr>
 <tr class="even">
-<td align="left">Optional</td>
+<td align="left">FFG</td>
+<td align="left">text</td>
+<td align="left">CG, CF, PR, SC, SH, MH, OM, PA, PH, XY</td>
+<td align="left">Primary Functional Feeding Group. Multiple entries are
+allowed and should be separated with a comma (and no space; e.g.,
+CG,CF). Entries: collector-gatherer (CG), collector-filterer (CF),
+predator (PR), scraper (SC), shredder (SH), macrophyte herbivore (MH),
+omnivore (OM), parasite (PA), piercer-herbivore (PH), xylophage
+(XY).</td>
+</tr>
+<tr class="odd">
+<td align="left">LIFE_CYCLE</td>
+<td align="left">text</td>
+<td align="left">uni, semi, multi</td>
+<td align="left">Number of broods or generations of an organism in a
+year (also referred to as ‘voltinism’): univoltine (UNI), semivoltine
+(SEMI), or multivoltine (MULTI).</td>
+</tr>
+<tr class="even">
 <td align="left">TOLVAL</td>
 <td align="left">numeric</td>
 <td align="left">number ranging from 0-10</td>
@@ -197,7 +193,6 @@ the ‘intolerant’ metric calculations. Those with values ranging from 7
 to 10 are included in the ‘tolerant’ metrics.</td>
 </tr>
 <tr class="odd">
-<td align="left">Optional</td>
 <td align="left">HABIT</td>
 <td align="left">text</td>
 <td align="left">BU, CB, CN, SP, SW</td>
@@ -206,7 +201,6 @@ separated with a comma. Entries: burrowers (BU), climbers (CB), clingers
 (CN), sprawlers (SP), swimmers (SW).</td>
 </tr>
 <tr class="even">
-<td align="left">Optional</td>
 <td align="left">NOTEWORTHY</td>
 <td align="left">text</td>
 <td align="left">TRUE, FALSE</td>
@@ -216,7 +210,6 @@ biodiversity. Most of these taxa are rarely or occasionally encountered
 in benthic macroinvertebrate biomonitoring samples.</td>
 </tr>
 <tr class="odd">
-<td align="left">Optional</td>
 <td align="left">LONGLIVED</td>
 <td align="left">text</td>
 <td align="left">TRUE, FALSE</td>
@@ -230,5 +223,5 @@ problem that repeatedly interrupts their life cycles</td>
 </tbody>
 </table>
 <hr />
-<p><em>Last updated 2023-03-17</em></p>
+<p><em>Last updated 2023-06-07</em></p>
 </div>
