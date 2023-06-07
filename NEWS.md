@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-06 16:30:34.499265
+2023-06-07 08:45:40.092126
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-06 16:30:34.557588
+    #> Last Update: 2023-06-07 08:45:40.133954
+
+# BCGcalc 2.0.0.9078 (2023-06-07)
+
+- feature: Add upset plot to MTTI results report
+- docs: Add `ComplexUpset` to DESCRIPTION Suggests and Shiny global
 
 # BCGcalc 2.0.0.9077 (2023-06-06)
 

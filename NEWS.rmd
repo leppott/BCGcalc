@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9078 (2023-06-07)
+
+* feature: Add upset plot to MTTI results report
+* docs: Add `ComplexUpset` to DESCRIPTION Suggests and Shiny global
+
 # BCGcalc 2.0.0.9077 (2023-06-06)
 
 * refactor: Update Shiny MTTI, Issue #74

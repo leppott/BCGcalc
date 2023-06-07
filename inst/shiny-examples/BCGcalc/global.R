@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9077"
+pkg_version <- "2.0.0.9078"
 
 # Packages----
 # nolint start
@@ -26,6 +26,7 @@ library(reshape2)
 library(knitr)
 library(leaflet)
 library(rioja)   # MTTI model predict
+library(ComplexUpset)
 # MTTI
 # library(plyr)
 # library(dplyr)
