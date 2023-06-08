@@ -181,7 +181,8 @@ shinyServer(function(input, output) {
                             , nrows = 0)
     col_num_bcgattr <- grep("BCG_ATTR", toupper(names(df_header)))
     classes_df <- sapply(df_header, class)
-  
+    col_name_bcgattr <- names(df_header)[col_num_bcgattr]
+
     if (identical(col_num_bcgattr, integer(0))) {
       # BCG_Attr present = FALSE
       # define classes = FALSE
@@ -190,8 +191,8 @@ shinyServer(function(input, output) {
                              , sep = ","
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
-    } else if (classes_df[col_num_bcgattr] != "complex") {
-      # BCG_Attr present = FALSE
+    } else if (as.vector(classes_df[col_num_bcgattr]) != "complex") {
+      # BCG_Attr present = TRUE
       # BCG_Attr Class is complex = FALSE
       # define classes on import = FALSE (change to text after import)
       df_input <- read.delim(fn_inFile
@@ -206,12 +207,14 @@ shinyServer(function(input, output) {
       # define classes on import = TRUE
       #classes_df <- sapply(df_header, class)
       classes_df[col_num_bcgattr] <- "character"
-      df_input <- read.delim(fn_inFile
+      df_input <- read.table(fn_inFile
                              , header = TRUE
                              , sep = ","
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA")
-                             , colClasses = classes_df)
+                             , colClasses = c(col_name_bcgattr = "character"))
+                             #, colClasses = classes_df)
+      # get a Warning but it works
     }## IF ~ col_num_bcgattr == integer(0)
     
     
@@ -290,7 +293,6 @@ shinyServer(function(input, output) {
   })## UI_colnames
   
   # output$UI_taxatrans_pick_official_project <- renderUI({
-  #   browser()
   #   str_col <- "Official Taxa Data, Column Taxa_ID"
   #   selectInput("taxatrans_pick_official_project"
   #               , label = str_col
@@ -501,8 +503,8 @@ shinyServer(function(input, output) {
         
         df_taxoff_attr <- read.csv(temp_taxoff_attr)
       }## IF ~ fn_taxoff_attr
-      
 
+      
       ## Calc, 03, Run Function ----
       prog_detail <- "Calculate, Taxa Trans"
       message(paste0("\n", prog_detail))
@@ -610,6 +612,12 @@ shinyServer(function(input, output) {
         names(taxatrans_results$merge)[names(taxatrans_results$merge) 
                                        %in% sel_user_ntaxa] <- "N_Taxa"
       }## IF ~ boo_req_names
+      
+      # Hack/Fix
+      # Noteworthy NA causing issue later in Shiny app
+      taxatrans_results$merge$Noteworthy <- ifelse(is.na(taxatrans_results$merge$Noteworthy)
+                                                   , FALSE
+                                                   , TRUE)
       
       
       ## Calc, 04, Save Results ----
@@ -2835,6 +2843,7 @@ shinyServer(function(input, output) {
   observeEvent(input$b_calc_mtti, {
     shiny::withProgress({
 
+    
       ### Calc, 00, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, MTTI..."
@@ -3021,8 +3030,9 @@ shinyServer(function(input, output) {
                              , sheet = "Flags")
       # Data
       ## Data, Optima
-      df_optima <- dplyr::add_rownames(data.frame(wa_MTTI.mar23$coefficients)
+      df_optima <- tibble::rownames_to_column(data.frame(wa_MTTI.mar23$coefficients)
                                        , "TAXAID")
+
       ## Data, bug samples for metric calc
       df_bugs_met <- df_data %>%
         # join dataframes
@@ -3031,13 +3041,16 @@ shinyServer(function(input, output) {
                       , "TAXAID" = "OTU_MTTI"
                       , "N_TAXA" = "Count") %>%
         dplyr::mutate("EXCLUDE" = FALSE
-                      , "NONTARGET" = FALSE
                       , "INDEX_NAME" = "MTTI"
                       , "INDEX_CLASS" = "MTTI") %>%
-        dplyr::left_join(df_optima, by = "TAXAID") %>%
-        dplyr::rename("TOLVAL2" = "Optima")
-  
- 
+        dplyr::left_join(df_optima, by = "TAXAID")
+      
+     # if checked Convert to OTU  
+     if (input$MTTI_OTU == TRUE) {
+       df_bugs_met <- dplyr::rename(df_bugs_met, "TOLVAL2" = "Optima")
+       # NONTARGET
+     }## IF ~ input$MTTI_OTU
+      
       # Calc Metrics (MTTI)
       df_met <- BioMonTools::metric.values(df_bugs_met
                                            , "bugs"

@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-08 12:56:48.99446
+2023-06-08 19:32:06.122316
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-08 12:56:49.022614
+    #> Last Update: 2023-06-08 19:32:06.143859
+
+# BCGcalc 2.0.0.9081 (2023-06-08)
+
+- fix: Modify code for complex number (BCG_ATTR), Issue \#77
+  - Other logical fields could cause issues with older import method
 
 # BCGcalc 2.0.0.9080 (2023-06-08)
 
