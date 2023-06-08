@@ -55,11 +55,11 @@ function() {
                   , tabPanel(title = "About"
                              , includeHTML(file.path("www"
                                                      , "rmd_html"
-                                                     , "ShinyHTML_MergeFiles_1About.html")))
+                                                     , "ShinyHTML_FB_MergeFiles_1About.html")))
                   , tabPanel(title = "Output"
                              , includeHTML(file.path("www"
                                                      , "rmd_html"
-                                                     , "ShinyHTML_MergeFiles_2Output.html")))
+                                                     , "ShinyHTML_FB_MergeFiles_2Output.html")))
                   , tabPanel(title = "File 1"
                              , h4("File 1 (Primary)")
                              , DT::dataTableOutput("df_import_mf1_DT")

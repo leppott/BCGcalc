@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = FALSE
                       , warning = FALSE
                       , message = FALSE)
 ```
+
 # Purpose
 Calculate thermal preference metrics, using thermal preference assignments from
 Stamp et al. (in progress).  The thermal preference assignments are based on an 
@@ -58,10 +59,10 @@ Units (OTUs) and most current thermal preference assignments for Oregon and
 Washington (Stamp et al. in progress).
 
 # Test file
-Click [here](links\Test1_ThermPrefMetric_input.csv) to download an input file that is 
+Click [here](links/Test1_ThermPrefMetric_input.csv) to download an input file that is 
 ready to be run through the thermal metric calculator.
 
-Click [here](links\BMT_MetricCalc_ThermalIndicator.R) to download the R script 
+Click [here](links/BMT_MetricCalc_ThermalIndicator.R) to download the R script 
 for calculating thermal preference metrics.
 
 More metrics (beyond thermal indicators) are available in the BioMonTools R 
@@ -69,7 +70,7 @@ package. You can request the addition of new metrics to the R package or Shiny
 app by emailing Erik (Erik.Leppo@tetratech.com) or posting your request on the
 <a href="https://github.com/leppott/BioMonTools/discussions" target="_blank">BioMonTools GitHub discussion page</a>.
 
-Click [here](links\examples_all.zip) to download example R scripts and data (all
+Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ---

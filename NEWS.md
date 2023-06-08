@@ -1,11 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-07 15:20:31.331903
+2023-06-08 12:56:48.99446
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-07 15:20:31.361651
+    #> Last Update: 2023-06-08 12:56:49.022614
+
+# BCGcalc 2.0.0.9080 (2023-06-08)
+
+- fix: Change links to files in Shiny from “" to”/”
+- refactor: Update Index Class Parameter, Issue \#73
+- refactor: Update to text for Fuzzy Set Input File, Issue \#70
+
+# BCGcalc 2.0.0.9079 (2023-06-07)
+
+- refactor: Update Index Class Parameter, Issue \#73
 
 # BCGcalc 2.0.0.9079 (2023-06-07)
 

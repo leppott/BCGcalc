@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE
 
 # Purpose
 Calculate outputs for the Pacific Northwest Maritime Region (PNMR) BCG model 
-([Stamp 2022](links\PNMR_BCG_Report_20220929.pdf)).
+([Stamp 2022](links/PNMR_BCG_Report_20220929.pdf)).
 
 The PNMR BCG model is intended to be applied to samples that meet the following
 criteria:
@@ -86,7 +86,7 @@ Taxonomic Units (OTUs) and attributes for the BCG model calculation.
 Click [here](links/Test1_BCGcalc_input.csv) to download an input file that is 
 ready to be run through the BCG calculator.
 
-Click [here](links\examples_all.zip) to download example R scripts and data (all
+Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ---

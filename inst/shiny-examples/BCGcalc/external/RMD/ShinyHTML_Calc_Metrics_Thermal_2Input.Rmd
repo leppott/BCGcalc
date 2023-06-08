@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE
 # Required Fields
 The following fields are required in input files. 
 
-Click [here](links\ThermPrefMetric_ReqFields_20230203) to download an Excel file
+Click [here](links/ThermPrefMetric_ReqFields_20230203) to download an Excel file
 with this table plus example data. Column names must be match the spelling and 
 symbology exactly as shown.
 

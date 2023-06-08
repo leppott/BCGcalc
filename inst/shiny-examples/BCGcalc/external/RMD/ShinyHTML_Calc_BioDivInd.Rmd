@@ -51,7 +51,7 @@ Table 2. BCG Level 1 Biodiversity Index (draft, version 1) – overall scores an
 
 <br>
 
-Click [here](links\examples_all.zip) to download example R scripts and data (all
+Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ---

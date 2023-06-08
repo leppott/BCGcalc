@@ -38,12 +38,12 @@ function() {
                         , tabPanel(title = "IndexClass_About"
                                    ,includeHTML(file.path("www"
                                                           , "rmd_html"
-                                          , "ShinyHTML_IndexClass_1About.html"))
+                                          , "ShinyHTML_FB_IndexClass_1About.html"))
                                    )
                             , tabPanel(title = "IndexClass_Output"
                                        ,includeHTML(file.path("www"
                                                               , "rmd_html"
-                                          , "ShinyHTML_IndexClass_2Output.html"))
+                                          , "ShinyHTML_FB_IndexClass_2Output.html"))
                             )
             )## tabsetPanel ~ END
     )## mainPanel ~ END

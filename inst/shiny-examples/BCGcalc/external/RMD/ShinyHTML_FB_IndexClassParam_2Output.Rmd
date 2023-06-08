@@ -49,9 +49,8 @@ cap_data <- "Table 1. File Builder, Generate Index_Class Parameters, zip file co
 knitr::kable(df_data, "html", caption = cap_data)
 ```
 
-   
-    
-   
+<br>   
+<br>
 
 ```{r}
 # Packages

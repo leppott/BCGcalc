@@ -19,7 +19,7 @@ The following fields are required in input files. However, the names can be
 different.  The user will select the matching column names on screen before 
 calculation.
 
-Click [here](links\MTTI_ReqFields_20230606.xlsx) to download an Excel file 
+Click [here](links/MTTI_ReqFields_20230606.xlsx) to download an Excel file 
 with this table plus example data.
 
 ```{r table_req}

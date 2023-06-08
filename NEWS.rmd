@@ -21,6 +21,16 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9080 (2023-06-08)
+
+* fix: Change links to files in Shiny from "\" to "/"
+* refactor: Update Index Class Parameter, Issue #73
+* refactor: Update to text for Fuzzy Set Input File, Issue #70
+
+# BCGcalc 2.0.0.9079 (2023-06-07)
+
+* refactor: Update Index Class Parameter, Issue #73
+
 # BCGcalc 2.0.0.9079 (2023-06-07)
 
 * refactor: Update Shiny Fuzzy Set

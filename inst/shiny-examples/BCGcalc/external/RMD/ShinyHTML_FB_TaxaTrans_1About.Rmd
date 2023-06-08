@@ -82,7 +82,7 @@ Note that there is one taxon (Atherix) in the input file that comes out as a
 and trailing spaces and is also case sensitive (for example, it recognizes 'A'
 and 'a' as different variables).
 
-Click [here](links\examples_all.zip) to download example R scripts and data (all
+Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ---

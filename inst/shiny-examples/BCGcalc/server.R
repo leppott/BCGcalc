@@ -747,7 +747,7 @@ shinyServer(function(input, output) {
   })## UI_colnames 
   
   output$UI_indexclassparam_user_col_sampid <- renderUI({
-    str_col <- "Column, SampleID"
+    str_col <- "Column, SampleID (unique station or sample identifier)"
     selectInput("indexclassparam_user_col_sampid"
                 , label = str_col
                 , choices = c("", names(df_import()))

@@ -33,7 +33,7 @@ uploads input files to the website, which will generate the outputs without the
 use of R code. Those who prefer to work with R can download the R packages from 
 the GitHub sites.  
 
-Click [here](links\examples_all.zip) to download example R scripts and data (all
+Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ## Funding 

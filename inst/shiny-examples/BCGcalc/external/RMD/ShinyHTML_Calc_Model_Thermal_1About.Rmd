@@ -61,14 +61,14 @@ thresholds. For more information, contact Jen Stamp (Tetra Tech)
 There are two pathways to creating the input file:
 
 1.	Generate a file outside of the Shiny app that is ready to go (has all the 
-required fields, with exact column heading names – see the Calc_ModTherm_Input 
+required fields, with exact column heading names – see the Calc_FuzzySet_Input 
 subtab for details)
 
 2.	Use the File Builder functions to create an input file (minimum required 
 fields = SampleID, TaxonID, Count)
 
 Using the File Builder option ensures that you are using proper Operational 
-Taxonomic Units (OTUs) and attributes for the BCG model calculation.
+Taxonomic Units (OTUs) and attributes for the Fuzzy Set calculation.
 
 IMPORTANT: 
 Your input file needs to include the following two fields (which the File 

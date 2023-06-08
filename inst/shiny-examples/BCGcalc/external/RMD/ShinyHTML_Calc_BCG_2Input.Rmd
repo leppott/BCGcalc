@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE
 # Required Fields
 The following fields are required in input files. 
 
-Click [here](links\BCGcalc_ReqFields_20230203.xlsx) to download an Excel file 
+Click [here](links/BCGcalc_ReqFields_20230203.xlsx) to download an Excel file 
 with this table plus example data.
 
 ```{r table_req}

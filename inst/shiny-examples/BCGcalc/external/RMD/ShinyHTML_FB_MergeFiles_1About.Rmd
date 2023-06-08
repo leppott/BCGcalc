@@ -57,7 +57,7 @@ alteration).
 Click [here](links/Test1_FileBuilder_MergeFiles.zip) to download a pair of 
 test files.
 
-Click [here](links\examples_all.zip) to download example R scripts and data (all
+Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ---

@@ -15,7 +15,6 @@ knitr::opts_chunk$set(echo = FALSE
 ```
 
 # Purpose
-
 The Macroinvertebrate Thermal Tolerance Index (MTTI) (Hubler et al.) was 
 developed for freshwater wadeable streams in Oregon and Washington. The MTTI 
 calculator generates Maximum Weekly Maximum Temperature (MWMT) values for each macroinvertebrate sample based on the relative abundances and MWMT weighted 
@@ -39,7 +38,6 @@ availability, and level of watershed disturbance.
 For more information, contact Shannon Hubler (ODEQ) (Shannon.L.HUBLER@deq.oregon.gov).
 
 # Input File
-
 There are three required fields:
 
 *	SampleID
@@ -62,11 +60,10 @@ specify INDEX_NAME or INDEX_CLASS and the taxa translation and attribute
 addition steps are built into the MTTI R code. 
 
 # Test File
-
 Click [here](links/Test1_Calc_MTTI_20230605.csv) to download a test 
 file.
 
-Click [here](links\examples_all.zip) to download example R scripts and data (all
+Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ---

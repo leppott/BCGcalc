@@ -19,7 +19,7 @@ The thermal model uses the same style files as the BCG calculation.
 # Required Fields
 The following fields are required in input files. 
 
-Click [here](links\FuzzySet_ReqFields_20230606.xlsx) to download an Excel file 
+Click [here](links/FuzzySet_ReqFields_20230606.xlsx) to download an Excel file 
 with this table plus example data.
 
 ```{r table_req}

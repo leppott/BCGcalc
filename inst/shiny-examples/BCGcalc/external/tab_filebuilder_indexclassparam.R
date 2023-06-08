@@ -9,8 +9,8 @@ function() {
             , p(textOutput("fn_input_display_indexclassparam"))
             
             , h4("B. Define Index Name")
-            , uiOutput("UI_indexclassparam_indexname")
-            #, p("Only the Maritime NW BCG model is included for now.")
+            #, uiOutput("UI_indexclassparam_indexname")
+            , p("Only the Maritime NW BCG model is included for now.")
             
             , h4("C. Define Index Class Fields")
             , h6("Required Fields")
@@ -19,6 +19,9 @@ function() {
             , uiOutput("UI_indexclassparam_user_col_sampid")
             , uiOutput("UI_indexclassparam_user_col_lat")
             , uiOutput("UI_indexclassparam_user_col_lon")
+            , p("Datum (EPSG) column is optional.")
+            , p("If left blank the default EPSG value of 4269 (NAD83 North America) will be used.")
+            , p("If populated the column should contain the same EPSG value for all sites.")
             , uiOutput("UI_indexclassparam_user_col_epsg")
 
             , h4("D. Run Operation")
@@ -41,12 +44,12 @@ function() {
                         , tabPanel(title = "IndexClassParam_About"
                                    ,includeHTML(file.path("www"
                                                           , "rmd_html"
-                                          , "ShinyHTML_IndexClassParam_1About.html"))
+                                          , "ShinyHTML_FB_IndexClassParam_1About.html"))
                                    )
                             , tabPanel(title = "IndexClassParam_Output"
                                        ,includeHTML(file.path("www"
                                                               , "rmd_html"
-                                          , "ShinyHTML_IndexClassParam_2Output.html"))
+                                          , "ShinyHTML_FB_IndexClassParam_2Output.html"))
                             )
             )## tabsetPanel ~ END
     )## mainPanel ~ END
