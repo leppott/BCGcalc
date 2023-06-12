@@ -288,7 +288,7 @@ shinyServer(function(input, output) {
     str_col <- "Calculation"
     selectInput("taxatrans_pick_official"
                 , label = str_col
-                , choices = df_pick_taxoff[, "project"]
+                , choices = c("", df_pick_taxoff[, "project"])
                 , multiple = FALSE)
   })## UI_colnames
   
@@ -3187,8 +3187,8 @@ shinyServer(function(input, output) {
   
   ## Map, UI ----
   output$UI_map_col_xlong <- renderUI({
-    str_col <- "Column, X (Longitude)"
-    selectInput("taxatrans_map_col_xlong"
+    str_col <- "Column, Longitude (decimal degrees))"
+    selectInput("map_col_xlong"
                 , label = str_col
                 , choices = c("", names(df_import()))
                 , selected = "Longitude"
@@ -3196,32 +3196,59 @@ shinyServer(function(input, output) {
   })## UI_colnames
 
   output$UI_map_col_ylat <- renderUI({
-    str_col <- "Column, Y (Latitude)"
-    selectInput("taxatrans_map_col_ylat"
+    str_col <- "Column, Latitude (decimal degrees)"
+    selectInput("map_col_ylat"
                 , label = str_col
                 , choices = c("", names(df_import()))
                 , selected = "Latitude"
                 , multiple = FALSE)
   })## UI_colnames
   
+  output$UI_map_col_sampid <- renderUI({
+    str_col <- "Column, SampleID (unique station or sample identifier)"
+    selectInput("map_col_sampid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames 
+  
+  output$UI_map_col_mapval <- renderUI({
+    str_col <- "Column, Value to Map (e.g., BCG, MTTI, or metric value)"
+    selectInput("map_col_mapval"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames 
+  
+  output$UI_map_col_keep <- renderUI({
+    str_col <- "Additional Columns to Keep in Map Popup"
+    selectInput("map_col_keep"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , multiple = TRUE)
+  })## UI_colnames  
+  
+  
   ## Map, Leaflet ----
   output$map_leaflet <- renderLeaflet({
     
     # data for plot
-    # df_map <- df_import()
+    df_map <- df_import()
+# browser()    
+#     # Rename columns based on user selection
+#     df_map[, ]
     
-    # Rename columns based on user selection
-    
-    
-   
+
     # 
     # col_Stations <- "blue"
     # col_Segs     <- "black" # "grey59"
     # fill_Segs    <- "lightskyblue" 
           
     # Map
-    leaflet() %>%
-    #leaflet(data = df_map) %>%
+    #leaflet() %>%
+    leaflet(data = df_map) %>%
       # Groups, Base
       #addTiles(group="OSM (default)") %>%  #default tile too cluttered
       addProviderTiles("CartoDB.Positron"
@@ -3230,7 +3257,7 @@ shinyServer(function(input, output) {
                        , group = "Toner Lite") %>%
       addProviderTiles(providers$OpenStreetMap
                        , group = "Open Street Map") %>%
-      # # Groups, Overlay
+      # # # Groups, Overlay
       # addCircles(lng = ~longitude
       #            , lat = ~latitude
       #            , color = col_Stations

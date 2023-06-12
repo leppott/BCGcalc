@@ -12,6 +12,8 @@ function() {
       , h4("B. Define Column Names")
       , uiOutput("UI_map_col_xlong")
       , uiOutput("UI_map_col_ylat")
+      , uiOutput("UI_map_col_sampid")
+      , uiOutput("UI_map_col_keep")
       
       # , h4("C. Exclude Taxa")
       # , checkboxInput("ExclTaxa_modtherm", "Generate Exclude Taxa Column", TRUE)
