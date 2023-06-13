@@ -137,6 +137,8 @@ shinyServer(function(input, output) {
     if (is.null(inFile)) {
       return(NULL)
     }##IF~is.null~END
+  
+    sep_user <- input$sep
     
     # Define file
     fn_inFile <- inFile$datapath
@@ -168,6 +170,7 @@ shinyServer(function(input, output) {
     message(paste0("Files in 'results' folder (after removal [should be 0]) = "
                    , length(fn_results2)))
     
+    ### Mod, BCG_ATTR----
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
     # the "i" values default to complex numbers
@@ -175,7 +178,7 @@ shinyServer(function(input, output) {
     
     df_header <- read.delim(fn_inFile
                             , header = TRUE
-                            , sep = ","
+                            , sep = sep_user
                             , stringsAsFactors = FALSE
                             , na.strings = c("", "NA")
                             , nrows = 0)
@@ -188,7 +191,7 @@ shinyServer(function(input, output) {
       # define classes = FALSE
       df_input <- read.delim(fn_inFile
                              , header = TRUE
-                             , sep = ","
+                             , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
     } else if (as.vector(classes_df[col_num_bcgattr]) != "complex") {
@@ -197,7 +200,7 @@ shinyServer(function(input, output) {
       # define classes on import = FALSE (change to text after import)
       df_input <- read.delim(fn_inFile
                              , header = TRUE
-                             , sep = ","
+                             , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
       df_input[, col_num_bcgattr] <- as.character(df_input[, col_num_bcgattr])
@@ -209,11 +212,11 @@ shinyServer(function(input, output) {
       classes_df[col_num_bcgattr] <- "character"
       df_input <- read.table(fn_inFile
                              , header = TRUE
-                             , sep = ","
+                             , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA")
-                             , colClasses = c(col_name_bcgattr = "character"))
-                             #, colClasses = classes_df)
+                             #, colClasses = c(col_name_bcgattr = "character"))
+                             , colClasses = classes_df)
       # get a Warning but it works
     }## IF ~ col_num_bcgattr == integer(0)
     
@@ -1397,6 +1400,8 @@ shinyServer(function(input, output) {
       return(NULL)
     }##IF~is.null~END
     
+    sep_user <- input$sep
+    
     # Define file
     fn_inFile <- inFile$datapath
     
@@ -1406,26 +1411,39 @@ shinyServer(function(input, output) {
     
     # Move Results folder clean up to calc button
     
+    #### Mod, BCG_ATTR----
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
     # the "i" values default to complex numbers
     # many permutations of BCG_Attr so check for it first then import
     df_header <- read.delim(fn_inFile
                             , header = TRUE
-                            , sep = ","
+                            , sep = sep_user
                             , stringsAsFactors = FALSE
                             , na.strings = c("", "NA")
                             , nrows = 0)
     col_num_bcgattr <- grep("BCG_ATTR", toupper(names(df_header)))
+    classes_df <- sapply(df_header, class)
+    col_name_bcgattr <- names(df_header)[col_num_bcgattr]
     
     if (identical(col_num_bcgattr, integer(0))) {
       # BCG_Attr present = FALSE
       # define classes = FALSE
       df_input <- read.delim(fn_inFile
                              , header = TRUE
-                             , sep = ","
+                             , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
+    } else if (as.vector(classes_df[col_num_bcgattr]) != "complex") {
+      # BCG_Attr present = TRUE
+      # BCG_Attr Class is complex = FALSE
+      # define classes on import = FALSE (change to text after import)
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = sep_user
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA"))
+      df_input[, col_num_bcgattr] <- as.character(df_input[, col_num_bcgattr])
     } else {
       # BCG_Attr present = TRUE
       # define classes = TRUE
@@ -1433,10 +1451,11 @@ shinyServer(function(input, output) {
       classes_df[col_num_bcgattr] <- "character"
       df_input <- read.delim(fn_inFile
                              , header = TRUE
-                             , sep = ","
+                             , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA")
                              , colClasses = classes_df)
+                             #, colClasses = c(col_name_bcgattr = "character"))
       
     }## IF ~ col_num_bcgattr == integer(0)
     
@@ -1489,32 +1508,47 @@ shinyServer(function(input, output) {
     # Define file
     fn_inFile <- inFile$datapath
     
+    sep_user <- input$sep
+    
     #message(getwd())
     #message(paste0("Import, separator: '", input$sep,"'"))
     message(paste0("Import, file name: ", inFile$name))
     
     # Move Results folder clean up to calc button
     
+    #### Mod, BCG_ATTR----
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
     # the "i" values default to complex numbers
     # many permutations of BCG_Attr so check for it first then import
     df_header <- read.delim(fn_inFile
                             , header = TRUE
-                            , sep = ","
+                            , sep = sep_user
                             , stringsAsFactors = FALSE
                             , na.strings = c("", "NA")
                             , nrows = 0)
     col_num_bcgattr <- grep("BCG_ATTR", toupper(names(df_header)))
+    classes_df <- sapply(df_header, class)
+    col_name_bcgattr <- names(df_header)[col_num_bcgattr]
     
     if (identical(col_num_bcgattr, integer(0))) {
       # BCG_Attr present = FALSE
       # define classes = FALSE
       df_input <- read.delim(fn_inFile
                              , header = TRUE
-                             , sep = ","
+                             , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
+    } else if (as.vector(classes_df[col_num_bcgattr]) != "complex") {
+      # BCG_Attr present = TRUE
+      # BCG_Attr Class is complex = FALSE
+      # define classes on import = FALSE (change to text after import)
+      df_input <- read.delim(fn_inFile
+                             , header = TRUE
+                             , sep = sep_user
+                             , stringsAsFactors = FALSE
+                             , na.strings = c("", "NA"))
+      df_input[, col_num_bcgattr] <- as.character(df_input[, col_num_bcgattr])
     } else {
       # BCG_Attr present = TRUE
       # define classes = TRUE
@@ -1522,10 +1556,11 @@ shinyServer(function(input, output) {
       classes_df[col_num_bcgattr] <- "character"
       df_input <- read.delim(fn_inFile
                              , header = TRUE
-                             , sep = ","
+                             , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA")
                              , colClasses = classes_df)
+                             #, colClasses = c(col_name_bcgattr = "character"))
       
     }## IF ~ col_num_bcgattr == integer(0)
     

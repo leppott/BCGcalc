@@ -1,13 +1,22 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-12 07:29:06.848404
+2023-06-13 13:40:03.71703
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-12 07:29:06.894575
+    #> Last Update: 2023-06-13 13:40:03.757458
 
-# BCGcalc 2.0.0.9082 (2023-06-xx)
+# BCGcalc 2.0.0.9083 (2023-06-13)
+
+- refactor: Modify code for import and merge files, Issue \#77
+  - Only specify BCG_ATTR column
+  - Undoes some edits in v2.0.0.9081
+- fix: Adjust import function to allow for user selection of tab or
+  comma
+  - Comma was hard coded even though gave user the choice of separators
+
+# BCGcalc 2.0.0.9082 (2023-06-12)
 
 - refactor: Updates to Shiny map, Issue \#67
   - INCOMPLETE
