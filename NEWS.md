@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-13 13:40:03.71703
+2023-06-19 10:09:47.730627
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-13 13:40:03.757458
+    #> Last Update: 2023-06-19 10:09:47.762879
+
+# BCGcalc 2.0.0.9084 (2023-06-19)
+
+- fix: Update complex number import code (BCG_ATTR), Issue \#77
+  - Should work in all cases and not cause issues with other fields
+- feature: Enable BDI calculation in Shiny app, Issue \#66
+  - PARTIAL
 
 # BCGcalc 2.0.0.9083 (2023-06-13)
 

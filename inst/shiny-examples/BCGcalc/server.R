@@ -131,7 +131,7 @@ shinyServer(function(input, output) {
     # 'size', 'type', and 'datapath' columns. The 'datapath'
     # column will contain the local filenames where the data can
     # be found.
- 
+
     inFile <- input$fn_input
     
     if (is.null(inFile)) {
@@ -216,7 +216,8 @@ shinyServer(function(input, output) {
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA")
                              #, colClasses = c(col_name_bcgattr = "character"))
-                             , colClasses = classes_df)
+                            # , colClasses = classes_df)
+                             , colClasses = classes_df[col_name_bcgattr])
       # get a Warning but it works
     }## IF ~ col_num_bcgattr == integer(0)
     
@@ -236,7 +237,7 @@ shinyServer(function(input, output) {
     file.copy(input$fn_input$datapath, file.path(path_results
                                                  , input$fn_input$name))
     
-    ### button, enable, calc ----
+    ## button, enable, calc ----
     shinyjs::enable("b_calc_bcg")
     shinyjs::enable("b_calc_taxatrans")
     shinyjs::enable("b_calc_indexclass")
@@ -244,7 +245,7 @@ shinyServer(function(input, output) {
     shinyjs::enable("b_calc_met_therm")
     shinyjs::enable("b_calc_modtherm")
     shinyjs::enable("b_calc_mtti")
-    # shinyjs::enable("b_calc_bdi")
+    shinyjs::enable("b_calc_bdi")
     
     # update cb_taxatrans_sum 
     # doesn't work here as timing is after the file is created
@@ -1454,8 +1455,9 @@ shinyServer(function(input, output) {
                              , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA")
-                             , colClasses = classes_df)
+                             #, colClasses = classes_df)
                              #, colClasses = c(col_name_bcgattr = "character"))
+                             , colClasses = classes_df[col_name_bcgattr])
       
     }## IF ~ col_num_bcgattr == integer(0)
     
@@ -1559,8 +1561,9 @@ shinyServer(function(input, output) {
                              , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA")
-                             , colClasses = classes_df)
+                             # , colClasses = classes_df)
                              #, colClasses = c(col_name_bcgattr = "character"))
+                             , colClasses = classes_df[col_name_bcgattr])
       
     }## IF ~ col_num_bcgattr == integer(0)
     
@@ -3216,6 +3219,602 @@ shinyServer(function(input, output) {
     }##content~END
     #, contentType = "application/zip"
   )##download ~ MTTI
+  
+  # Calc, BDI ----
+  
+  ## BDI, UI ----
+  output$UI_bdi_user_col_taxaid <- renderUI({
+    str_col <- "Column, TaxaID"
+    selectInput("bdi_user_col_taxaid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "TaxaID"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  output$UI_bdi_user_col_ntaxa <- renderUI({
+    str_col <- "Column, Taxa Count (number of individuals or N_Taxa)"
+    selectInput("bdi_user_col_ntaxa"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "N_Taxa"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_bdi_user_col_sampid <- renderUI({
+    str_col <- "Column, Unique Sample Identifier (e.g., SampleID)"
+    selectInput("bdi_user_col_sampid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames  
+  
+  output$UI_bdi_user_col_exclude <- renderUI({
+    str_col <- "Column, Exclude"
+    selectInput("bdi_user_col_exclude"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Exclude"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  ## b_Calc_BDI ----
+  observeEvent(input$b_calc_bdi, {
+    shiny::withProgress({
+      
+      ### Calc, 00, Set Up Shiny Code ----
+      
+      prog_detail <- "Calculation, BDI..."
+      message(paste0("\n", prog_detail))
+      
+      # Number of increments
+      prog_n <- 10
+      prog_sleep <- 0.25
+      
+      ## Calc, 01, Initialize ----
+      prog_detail <- "Initialize Data"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, disable, download
+      shinyjs::disable("b_download_bdi")
+      
+      ## Calc, 02, Gather and Test Inputs  ----
+      prog_detail <- "QC Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+      df_input <- read.delim(inFile$datapath
+                             , header = TRUE
+                             , sep = input$sep
+                             , stringsAsFactors = FALSE)
+      # QC, FAIL if TRUE
+      if (is.null(df_input)) {
+        return(NULL)
+      }
+      
+      df_data <- df_input
+     
+      # Fun Param, Define
+      sel_col_sampid  <- input$bdi_user_col_sampid
+      sel_col_taxaid  <- input$bdi_user_col_taxaid
+      sel_col_ntaxa   <- input$bdi_user_col_ntaxa
+      sel_col_exclude <- input$bdi_user_col_exclude
+      
+      
+      
+      #***_BROWSER_***----
+      browser() 
+      
+      ## Calc, 2, OTU----
+      prog_detail <- "Calculation, OTU"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      ## Munge, Data ----
+      df_data <- df_data %>%
+        dplyr::rename(sample.id = dplyr::all_of(sel_col_sampid)) %>%
+        dplyr::rename(Taxon_orig = dplyr::all_of(sel_col_taxaid)) %>%
+        dplyr::rename(Count = dplyr::all_of(sel_col_ntaxa))
+      
+      if (input$MTTI_OTU) {
+        # Leave alone for now
+        # Don't think an issue if already converted to OTU names
+        # OTU names should be in the taxa_orig column
+      }## MTTI_OTU
+      
+      
+      
+      ## Calc, 2, Exclude Taxa ----
+      prog_detail <- "Calculate, Exclude Taxa"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # Calc
+      
+      message(paste0("User response to generate ExclTaxa = "
+                     , input$BDI_ExclTaxa))
+      
+      if (input$BDI_ExclTaxa) {
+        ## Get TaxaLevel names present in user file
+        phylo_all <- c("Kingdom"
+                       , "Phylum"
+                       , "SubPhylum"
+                       , "Class"
+                       , "SubClass"
+                       , "Order"
+                       , "SubOrder"
+                       , "InfraOrder"
+                       , "SuperFamily"
+                       , "Family"
+                       , "SubFamily"
+                       , "Tribe"
+                       , "Genus"
+                       , "SubGenus"
+                       , "Species"
+                       , "Variety")
+        phylo_all <- toupper(phylo_all) # so matches rest of file
+        
+        # case and matching of taxa levels handled inside of markExluded 
+        
+        # overwrite current data frame
+        df_input <- BioMonTools::markExcluded(df_samptax = df_input
+                                              , SampID = sel_col_sampid
+                                              , TaxaID = sel_col_taxaid
+                                              , TaxaCount = sel_col_ntaxa
+                                              , Exclude = "EXCLUDE"
+                                              , TaxaLevels = phylo_all
+                                              , Exceptions = NA)
+        
+        # Save Results
+        fn_excl <- paste0(fn_input_base, "_bdi_1markexcl.csv")
+        dn_excl <- path_results
+        pn_excl <- file.path(dn_excl, fn_excl)
+        write.csv(df_input, pn_excl, row.names = FALSE)
+        
+      }## IF ~ input$ExclTaxa
+      
+      
+      # CODE~~~~~start
+      
+      # Calculate Bob's BioDiversity Index
+      
+      # Thresholds (came with package installation, in the MetricScoring Excel file in the extdata folder)
+      fn_thresh <- file.path(system.file(package = "BioMonTools"), "extdata", "MetricScoring.xlsx")
+      df_thresh_metric <- read_excel(fn_thresh, sheet = "metric.scoring")
+      df_thresh_index <- read_excel(fn_thresh, sheet = "index.scoring")
+      
+      # load data
+      ## use excluded taxa output
+      path_rp <- path_excl
+      df_rp <- read.csv(path_data, stringsAsFactors = FALSE)
+      
+      
+      # calculate metrics for Bob's Biodiversity Index; 
+      # limit output to index input metrics only
+      myIndex <- "BCG_PacNW_L1"
+      df_rp$INDEX_NAME   <- myIndex
+      df_rp$INDEX_REGION <- "ALL"
+      (myMetrics.Bugs <- unique(as.data.frame(df_thresh_metric)[df_thresh_metric[,"INDEX_NAME"] == myIndex,"METRIC_NAME"]))
+      
+      
+      # tell R to ignore these fields so you don't get a warning
+      col2NA_char <- c("SUBPHYLUM", "SUBCLASS", "INFRAORDER", "HABIT", "LIFE_CYCLE"
+                       , "FFG2", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
+                       , "WSAREA_ATTR", "HABSTRUCT", "BCG_ATTR2")
+      col2NA_num <- c("TOLVAL", "TOLVAL2", "UFC")
+      col2NA_boo <- c("AIRBREATHER")
+      df_rp[, col2NA_char] <- NA_character_
+      df_rp[, col2NA_num] <- NA_real_
+      df_rp[, col2NA_boo] <- NA
+      
+      
+      # Run Function - YOU'LL NEED TO STOP TO ANSWER YES (1)
+      df_metric_values_bugs <- metric.values(df_rp
+                                             , "bugs"
+                                             , fun.MetricNames = myMetrics.Bugs)
+      
+      #~~~~~~~~~~~~
+      #WAIT to run this until you get through the Yes/No prompt. 
+      #~~~~~~~~~~~~~
+      
+      
+      # SCORE Metrics ----
+      df_metric_scores_bugs <- metric.scores(DF_Metrics = df_metric_values_bugs
+                                             , col_MetricNames = myMetrics.Bugs
+                                             , col_IndexName = "INDEX_NAME"
+                                             , col_IndexRegion = "INDEX_CLASS"
+                                             , DF_Thresh_Metric = df_thresh_metric
+                                             , DF_Thresh_Index = df_thresh_index)
+      
+      
+      # Create csv file with Results
+      fn_results <- "BobBDVI_Results.csv"
+      path_results <- file.path(dn_output, fn_results)
+      write.csv(df_metric_scores_bugs, path_results, row.names = FALSE)
+      
+      
+      # CODE~~~~~end
+      
+      ## Calc, 3, BCG Flag Cols ----
+      # get columns from Flags (non-metrics) to carry through
+      prog_detail <- "Calculate, Keep BCG Model Columns"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # Rules - should all be metrics but leaving here just in case
+      # Flags - not always metrics,
+      # Index Name for import data
+      import_IndexName <- unique(df_input$INDEX_NAME)
+      # QC Flags for chosen BCG model (non-metrics)
+      cols_flags <- unique(df_checks[df_checks$Index_Name == import_IndexName
+                                     , "Metric_Name"])
+      # can also add other columns to keep if feel so inclined
+      cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
+      
+      
+      ## Calc, 3b, Rules ----
+      prog_detail <- "Calculate, BCG Rules"
+      message(paste0("\n", prog_detail))
+      message(paste0("Community = ", input$si_community))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # filter for data Index_Name in data (drop 2 extra columns)
+      df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
+                                , !names(df_bcg_models) %in% c("SITE_TYPE"
+                                                              , "INDEX_REGION")]
+      # Save
+      fn_rules <- paste0(fn_input_base, "_bcgcalc_3metrules.csv")
+      dn_rules <- path_results
+      pn_rules <- file.path(dn_rules, fn_rules)
+      write.csv(df_rules, pn_rules, row.names = FALSE)
+      
+      ## Calc, 4, MetVal----
+      prog_detail <- "Calculate, Metric, Values"
+      message(paste0("\n", prog_detail))
+      message(paste0("Community = ", input$si_community))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      # Calc
+      # QC
+      # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
+      # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
+      
+      if (length(cols_flags_keep) > 0) {
+        # keep extra cols from Flags (non-metric)
+        df_metval <- BioMonTools::metric.values(df_input
+                                                , input$si_community
+                                              , fun.cols2keep = cols_flags_keep
+                                                , boo.Shiny = TRUE
+                                                , verbose = TRUE)
+      } else {
+        df_metval <- BioMonTools::metric.values(df_input
+                                                , input$si_community
+                                                , boo.Shiny = TRUE
+                                                , verbose = TRUE)
+      }## IF ~ length(col_rules_keep)
+      
+      #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
+      ## Save Results ----
+      fn_metval <- paste0(fn_input_base, "_bdi_2metval_all.csv")
+      dn_metval <- path_results
+      pn_metval <- file.path(dn_metval, fn_metval)
+      write.csv(df_metval, pn_metval, row.names = FALSE)
+      
+      
+      
+      
+      
+      
+      
+      ##~~ COPY from MTTI~~----
+      
+      # Data, Model
+      fn_model <- "wa_MTTI.mar23.Rdata"
+      dn_model <- file.path("data", "BDI_model")
+      load(file.path(dn_model, fn_model))
+      # **FUTURE** load from GitHub repo
+      
+      # Data, Taxa List Official
+      ## get from BioMonTools_SupportFiles GitHub Repo
+      # df_pick_taxoff from GLOBAL
+      fn_taxoff <- df_pick_taxoff[df_pick_taxoff$project == 
+                                    "BDI (Oregon/Washington)"
+                                  , "filename"]
+      
+      url_taxa_official <- file.path(url_bmt_base
+                                     , "taxa_official"
+                                     , fn_taxoff)
+      
+      # download so ensure have it before read
+      httr::GET(url_taxa_official
+                , httr::write_disk(temp_taxa_official <- tempfile(fileext = ".csv")))
+      
+      df_tax <- read.csv(temp_taxa_official)
+      
+      ## Calc, 03, Run Function----
+      
+      # Munge
+      prog_detail <- "Calculation, Munge"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      ## Munge, Data ----
+      df_data <- df_data %>%
+        dplyr::rename(sample.id = dplyr::all_of(sel_col_sampid)) %>%
+        dplyr::rename(Taxon_orig = dplyr::all_of(sel_col_taxaid)) %>%
+        dplyr::rename(Count = dplyr::all_of(sel_col_ntaxa))
+      
+      if (input$MTTI_OTU) {
+        # Leave alone for now
+        # Don't think an issue if already converted to OTU names
+        # OTU names should be in the taxa_orig column
+      }## MTTI_OTU
+      
+      # limit to necessary fields to void messy joins
+      df_tax_otu <- df_tax %>%
+        dplyr::select(Taxon_orig, OTU_MTTI) 
+      
+      ## Data Prep----
+      # need relative abundances
+      prog_detail <- "Calculation, Data Prep"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      df_abunds <- df_data %>% 			
+        dplyr::group_by(sample.id) %>% 
+        dplyr::summarize(tot.abund = sum(Count))
+      
+      df_abunds <- as.data.frame(df_abunds)
+      
+      df_data <- df_data %>%
+        dplyr::left_join(df_abunds, by = 'sample.id')
+      
+      df_data_RA <- df_data %>%
+        dplyr::group_by(sample.id, Taxon_orig) %>%
+        dplyr::summarize(RA = (Count / tot.abund), .groups = "drop_last")
+      
+      #	join bugs and OTUs, filter out 'DNI' taxa, sum across OTUs within a sample
+      # join
+      df_bugs_otu <- df_data_RA %>%
+        # join dataframes
+        dplyr::left_join(df_tax_otu, by = 'Taxon_orig') %>% 
+        # filter out DNI taxa
+        dplyr::filter(OTU_MTTI != 'DNI')						
+      
+      # sum RA's across all OTUs--should see a reduction in rows.  
+      # Also limits to the following: dataset (CAL/VAL/not), sample, OTU, (summed) RA
+      
+      df_data_otu_sum_RA <- plyr::ddply(.data = df_bugs_otu
+                                        , c('sample.id', 'OTU_MTTI')
+                                        , plyr::summarize
+                                        , RA = sum(RA))
+      
+      #	Prepare data sets for modeling
+      #	need to crosstab the bug data (turn into a wide format) so that OTUs are columns
+      # then split into separate CAl and VAl datasets 
+      
+      df_data_cross <- df_data_otu_sum_RA %>% 
+        tidyr::pivot_wider(id_cols = c(sample.id)
+                           , names_from = OTU_MTTI
+                           , values_from = RA
+                           , values_fn = sum) 
+      
+      
+      df_data_cross[is.na(df_data_cross)] <- 0 
+      
+      df_data_cross <-	tibble::column_to_rownames(df_data_cross, 'sample.id') 
+      
+      ## Model----
+      
+      prog_detail <- "Calculation, Model"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      ## Model, Calculation
+      model_pred <- predict(wa_MTTI.mar23
+                            , newdata = df_data_cross)
+      # , sse = TRUE
+      # , nboot = 100
+      # , match.data = TRUE
+      # , verbose = TRUE)
+      
+      ## Model, Munge
+      df_results_model <- as.data.frame(model_pred$fit)
+      
+      df_results_model <- df_results_model %>%
+        dplyr::select(WA.cla.tol) %>% 
+        dplyr::rename("MTTI" = "WA.cla.tol")
+      
+      # rownames to column 1
+      df_results_model <- tibble::rownames_to_column(df_results_model
+                                                     , sel_col_sampid)
+      
+      ## Flags----
+      prog_detail <- "Calculation, Flags"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Import Checks
+      df_checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
+                                          , package = "BioMonTools")
+                              , sheet = "Flags")
+      # Data
+      ## Data, Optima
+      df_optima <- tibble::rownames_to_column(data.frame(wa_MTTI.mar23$coefficients)
+                                              , "TAXAID")
+      
+      ## Data, bug samples for metric calc
+      df_bugs_met <- df_data %>%
+        # join dataframes
+        dplyr::left_join(df_tax_otu, by = 'Taxon_orig') %>%
+        dplyr::rename("SAMPLEID" = "sample.id"
+                      , "TAXAID" = "OTU_BDI"
+                      , "N_TAXA" = "Count") %>%
+        dplyr::mutate("EXCLUDE" = FALSE
+                      , "INDEX_NAME" = "BDI"
+                      , "INDEX_CLASS" = "BDI") %>%
+        dplyr::left_join(df_optima, by = "TAXAID")
+      
+      # if checked Convert to OTU  
+      if (input$MTTI_OTU == TRUE) {
+        df_bugs_met <- dplyr::rename(df_bugs_met, "TOLVAL2" = "Optima")
+        # NONTARGET
+      }## IF ~ input$MTTI_OTU
+      
+      # Calc Metrics (MTTI)
+      df_met <- BioMonTools::metric.values(df_bugs_met
+                                           , "bugs"
+                                           , boo.Shiny = TRUE
+                                           , metric_subset = "MTTI")
+      
+      # Add site score
+      df_met <-  merge(df_met
+                       , df_results_model
+                       , by.x = "SAMPLEID"
+                       , by.y = sel_col_sampid
+                       , all.x = TRUE)
+      
+      # WAopt range check
+      df_met[, "MTTI_LO"] <- df_met[, "MTTI"] < df_met[, "x_tv2_min"]
+      df_met[, "MTTI_HI"] <- df_met[, "MTTI"] > df_met[, "x_tv2_max"]
+      
+      # Munge
+      df_met <- df_met %>% 
+        dplyr::relocate("MTTI", "MTTI_LO", "MTTI_HI", .after = "INDEX_CLASS")
+      
+      # Generate Flags
+      df_met_flags <- qc.checks(df_met, df_checks)
+      df_met_flags_summary <- table(df_met_flags[, "CHECKNAME"]
+                                    , df_met_flags[, "FLAG"]
+                                    , useNA = "ifany")
+      
+      # Change terminology; PASS/FAIL to NA/flag
+      df_met_flags[, "FLAG"][df_met_flags[, "FLAG"] == "FAIL"] <- "flag"
+      df_met_flags[, "FLAG"][df_met_flags[, "FLAG"] == "PASS"] <- NA
+      # long to wide format
+      df_flags_wide <- reshape2::dcast(df_met_flags
+                                       , SAMPLEID ~ CHECKNAME
+                                       , value.var = "FLAG")
+      
+      
+      # Calc number of "flag"s by row.
+      df_flags_wide$NumFlags <- rowSums(df_flags_wide == "flag", na.rm = TRUE)
+      # Rearrange columns
+      NumCols <- ncol(df_flags_wide)
+      df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
+      
+      # Merge model results and Flags
+      df_results <- merge(df_results_model
+                          , df_flags_wide
+                          , by.x = sel_col_sampid
+                          , by.y = "SAMPLEID"
+                          , all.x = TRUE)
+      
+      
+      ## Calc, 08, RMD ----
+      prog_detail <- "Calculate, Create Report"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+      
+      strFile.RMD <- file.path("external"
+                               , "RMD_Results"
+                               , "Results_BDI_Summary.Rmd")
+      strFile.RMD.format <- "html_document"
+      strFile.out <- paste0(fn_input_base, "_BDI_RESULTS.html")
+      dir.export <- path_results
+      rmarkdown::render(strFile.RMD
+                        , output_format = strFile.RMD.format
+                        , output_file = strFile.out
+                        , output_dir = dir.export
+                        , quiet = TRUE)
+      
+      ## Calc, 09, Save Results ----
+      prog_detail <- "Save Results"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      fn_save <- paste0(fn_input_base, "_BDI_RESULTS.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_results, pn_save, row.names = FALSE)
+      
+      fn_save <- paste0(fn_input_base, "_BDI_flags_1_metrics.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_met, pn_save, row.names = FALSE)
+      
+      fn_save <- paste0(fn_input_base, "_BDI_flags_2_eval_long.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_met_flags, pn_save, row.names = FALSE)
+      
+      fn_save <- paste0(fn_input_base, "_BDI_flags_3_eval_summary.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_met_flags_summary, pn_save, row.names = TRUE)
+      
+      ## Calc, 10, Zip Results ----
+      prog_detail <- "Create Zip File"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
+      
+      # button, enable, download
+      shinyjs::enable("b_download_bdi")
+      
+    }## expr ~ withProgress ~ END
+    , message = "Calculating BDI"
+    )## withProgress ~ END
+  }##expr ~ ObserveEvent ~ END
+  )##observeEvent ~ b_calc_bdi ~ END
+  
+  #### b_download_mtti ----
+  output$b_download_bdi <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_MTTI_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {##content~START
+      
+      file.copy(file.path(path_results, "results.zip"), fname)
+      
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ BDI
   
   #~~~~MAP~~~~----
   # MAP ----

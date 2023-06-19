@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9083"
+pkg_version <- "2.0.0.9084"
 
 # Packages----
 # nolint start
@@ -68,7 +68,7 @@ tab_code_calc_thermalfuzzy     <- source("external/tab_calc_thermalfuzzy.R"
                                          , local = TRUE)$value
 tab_code_calc_mtti             <- source("external/tab_calc_mtti.R"
                                          , local = TRUE)$value
-tab_code_calc_biodivind        <- source("external/tab_calc_biodivind.R"
+tab_code_calc_bdi              <- source("external/tab_calc_bdi.R"
                                          , local = TRUE)$value
 tab_code_map                   <- source("external/tab_map.R"
                                          , local = TRUE)$value

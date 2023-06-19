@@ -30,8 +30,8 @@ function(id) {
                 , tab_code_calc_thermalfuzzy())
       , tabItem(tabName = "tab_calc_mtti"
                 , tab_code_calc_mtti())
-      , tabItem(tabName = "tab_calc_biodivind"
-                , tab_code_calc_biodivind())
+      , tabItem(tabName = "tab_calc_bdi"
+                , tab_code_calc_bdi())
       , tabItem(tabName = "tab_map"
                 , tab_code_map())
       , tabItem(tabName = "tab_rep_ss_ss"

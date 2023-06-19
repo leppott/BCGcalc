@@ -1,6 +1,6 @@
 ---
 title: "Calculation, BioDiversity Index"
-date: "2022-10-13"
+date: "2023-06-13"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -14,14 +14,26 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-We will add version 1 of the BioDiversity Index to this website when resources permit.
+# Purpose
+The BioDiversity Index was developed for moderate to high gradient, low to 
+mid-elevation streams in the Pacific Northwest Maritime Region with coarse 
+mineral substrates and extensive erosional habitat. It can be used to help 
+identify sites with high habitat complexity and resilience to disturbance that 
+support macroinvertebrate communities with high and/or unique taxa richness 
+representative of a BCG level 1 stream. During preliminary evaluations, there 
+was good correspondence between Biodiversity Index scores and BCG model outputs 
+(index scores followed the expected pattern, with highest median index scores 
+occurring in BCG level 2 samples and lowest in BCG level 5-6 samples). 
+Practitioners can use both tools together to help to identify sites that harbor 
+exemplary biodiversity and help inform prioritization of sites for protection.
 
-The BioDiversity Index was developed for moderate to high gradient, low to mid-elevation streams in the Pacific Northwest Maritime Region with coarse mineral substrates and extensive erosional habitat. It can be used to help identify sites with high habitat complexity and resilience to disturbance that support macroinvertebrate communities with high and/or unique taxa richness representative of a BCG level 1 stream. During preliminary evaluations, there was good correspondence between Biodiversity Index scores and BCG model outputs (index scores followed the expected pattern, with highest median index scores occurring in BCG level 2 samples and lowest in BCG level 5-6 samples). Practitioners can use both tools together to help to identify sites that harbor exemplary biodiversity and help inform prioritization of sites for protection.
-
-The BioDiversity Index is a multi-metric index calculated with the metrics and scoring criteria shown in Table 1, and the accompanying narrative ratings in Table 2. For more information, view this [PDF](links/BCGLevel1_BiodiversityIndex_MaritimePNW_4-19-2019.pdf) and 
+The BioDiversity Index is a multi-metric index calculated with the metrics and 
+scoring criteria shown in Table 1, and the accompanying narrative ratings in 
+Table 2. For more information, view this [PDF](links/BCGLevel1_BiodiversityIndex_MaritimePNW_4-19-2019.pdf) and 
 contact Bob Wisseman (bobwisseman@mac.com).
 
-Table 1. BCG Level 1 Biodiversity Index (draft, version 1) - community composition metrics and scoring thresholds.
+Table 1. BCG Level 1 Biodiversity Index (draft, version 1) - community 
+composition metrics and scoring thresholds.
 
 Scoring criteria (points )
 
@@ -39,9 +51,11 @@ Scoring criteria (points )
 |Rhyacophila taxa richness       |	0-2|3-4      |	5     |	≥ 6|
 |Predator taxa richness	         |<10  |10-12    |13-15   |	≥ 16|
 
-Noteworthy taxa richness	Add an additional score point for each noteworthy taxa present
+Noteworthy taxa richness	Add an additional score point for each noteworthy taxa
+present
 
-Table 2. BCG Level 1 Biodiversity Index (draft, version 1) – overall scores and ratings, as well as recommendations.
+Table 2. BCG Level 1 Biodiversity Index (draft, version 1) – overall scores and 
+ratings, as well as recommendations.
 
 |Rating	|Score	|Description|
 |:------|:------|:----------|
@@ -49,8 +63,9 @@ Table 2. BCG Level 1 Biodiversity Index (draft, version 1) – overall scores an
 |Medium	|21-29  |	Moderate habitat complexity/resilience and biodiversity indicated. Further evaluation of the site and watershed is recommended.|
 |Low	  |<20    |	Unexceptional biodiversity indicated. Mostly widespread and common taxa present.|
 
-<br>
+# Input File
 
+# Test File
 Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 

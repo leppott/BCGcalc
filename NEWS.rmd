@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9084 (2023-06-19)
+
+* fix: Update complex number import code (BCG_ATTR), Issue #77
+    + Should work in all cases and not cause issues with other fields
+* feature: Enable BDI calculation in Shiny app, Issue #66
+    + PARTIAL
+
 # BCGcalc 2.0.0.9083 (2023-06-13)
 
 * refactor: Modify code for import and merge files, Issue #77

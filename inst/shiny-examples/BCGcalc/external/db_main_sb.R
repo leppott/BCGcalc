@@ -56,7 +56,7 @@ function(id) {
                                , tabName = "tab_calc_mtti"
                                , icon = icon("microscope"))
                  , menuSubItem("BioDiversity Index"
-                               , tabName = "tab_calc_biodivind"
+                               , tabName = "tab_calc_bdi"
                                , icon = icon("flask"))
                  )## menuItem ~ BCG
       # , menuItem(text = "Temperature"
