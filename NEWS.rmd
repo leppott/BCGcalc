@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9085 (2023-07-11)
+
+* refactor: Updates to BDI calculation, Issue #66
+    + INCOMPLETE
+
 # BCGcalc 2.0.0.9084 (2023-06-19)
 
 * fix: Update complex number import code (BCG_ATTR), Issue #77

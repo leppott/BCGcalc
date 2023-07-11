@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-06-19 10:09:47.730627
+2023-07-11 14:37:53.116675
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-06-19 10:09:47.762879
+    #> Last Update: 2023-07-11 14:37:53.149018
+
+# BCGcalc 2.0.0.9085 (2023-07-11)
+
+- refactor: Updates to BDI calculation, Issue \#66
+  - INCOMPLETE
 
 # BCGcalc 2.0.0.9084 (2023-06-19)
 

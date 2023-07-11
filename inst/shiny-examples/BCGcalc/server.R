@@ -218,7 +218,6 @@ shinyServer(function(input, output) {
                              #, colClasses = c(col_name_bcgattr = "character"))
                             # , colClasses = classes_df)
                              , colClasses = classes_df[col_name_bcgattr])
-      # get a Warning but it works
     }## IF ~ col_num_bcgattr == integer(0)
     
     
@@ -2960,7 +2959,7 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
-      ## Munge, Data ----
+      ## Munge, Data 
       df_data <- df_data %>%
         dplyr::rename(sample.id = dplyr::all_of(sel_col_sampid)) %>%
         dplyr::rename(Taxon_orig = dplyr::all_of(sel_col_taxaid)) %>%
@@ -3310,39 +3309,84 @@ shinyServer(function(input, output) {
       sel_col_ntaxa   <- input$bdi_user_col_ntaxa
       sel_col_exclude <- input$bdi_user_col_exclude
       
+      # Test Params
       
+      if (!sel_col_sampid %in% names(df_input)) {
+        # end process with pop up
+        msg <- "'SampleID' column name is missing!"
+        shinyalert::shinyalert(title = "BDI Calculation"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_col_sampid
       
-      #***_BROWSER_***----
-      browser() 
+      if (!sel_col_taxaid %in% names(df_input)) {
+        # end process with pop up
+        msg <- "'TaxaID' column name is missing!"
+        shinyalert::shinyalert(title = "BDI Calculation"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_col_taxaid
       
-      ## Calc, 2, OTU----
+      if (!sel_col_ntaxa %in% names(df_input)) {
+        # end process with pop up
+        msg <- "'N_Taxa' column name is missing!"
+        shinyalert::shinyalert(title = "BDI Calculation"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_col_ntaxa
+ 
+      if (!sel_col_exclude %in% names(df_input)) {
+        if (input$BDI_ExclTaxa == FALSE) {
+          # end process with pop up
+          msg <- "'Exclude' column name is missing!"
+          shinyalert::shinyalert(title = "BDI Calculation"
+                                 , text = msg
+                                 , type = "error"
+                                 , closeOnEsc = TRUE
+                                 , closeOnClickOutside = TRUE)
+          validate(msg)
+        } else {
+          # Add column
+          sel_col_exclude <- "Exclude"
+          df_input[, sel_col_exclude] <- NA
+        }## IF ~ Calc ExclTaxa
+      } ## IF ~ sel_col_exclude
+      
+      ## Calc, 03, OTU----
       prog_detail <- "Calculation, OTU"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
-      ## Munge, Data ----
+      # Munge, Data 
       df_data <- df_data %>%
         dplyr::rename(sample.id = dplyr::all_of(sel_col_sampid)) %>%
         dplyr::rename(Taxon_orig = dplyr::all_of(sel_col_taxaid)) %>%
         dplyr::rename(Count = dplyr::all_of(sel_col_ntaxa))
       
+      ## ****ADD CODE FROM MTTI***----
       if (input$MTTI_OTU) {
         # Leave alone for now
         # Don't think an issue if already converted to OTU names
         # OTU names should be in the taxa_orig column
       }## MTTI_OTU
       
-      
-      
-      ## Calc, 2, Exclude Taxa ----
+      ## Calc, 04, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      # Calc
       
       message(paste0("User response to generate ExclTaxa = "
                      , input$BDI_ExclTaxa))
@@ -3370,14 +3414,15 @@ shinyServer(function(input, output) {
         # case and matching of taxa levels handled inside of markExluded 
         
         # overwrite current data frame
-        df_input <- BioMonTools::markExcluded(df_samptax = df_input
-                                              , SampID = sel_col_sampid
-                                              , TaxaID = sel_col_taxaid
-                                              , TaxaCount = sel_col_ntaxa
-                                              , Exclude = "EXCLUDE"
+        df_input <- BioMonTools::markExcluded(df_samptax   = df_input
+                                              , SampID     = sel_col_sampid
+                                              , TaxaID     = sel_col_taxaid
+                                              , TaxaCount  = sel_col_ntaxa
+                                              , Exclude    = sel_col_exclude
                                               , TaxaLevels = phylo_all
                                               , Exceptions = NA)
         
+
         # Save Results
         fn_excl <- paste0(fn_input_base, "_bdi_1markexcl.csv")
         dn_excl <- path_results
@@ -3386,10 +3431,14 @@ shinyServer(function(input, output) {
         
       }## IF ~ input$ExclTaxa
       
-      
-      # CODE~~~~~start
-      
-      # Calculate Bob's BioDiversity Index
+      # CODE~~BDI~~~start
+
+      ## Calc, 05, BDI, Metric, Values ----
+      prog_detail <- "Calculate, BDI, Metric, Values"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       
       # Thresholds (came with package installation, in the MetricScoring Excel file in the extdata folder)
       fn_thresh <- file.path(system.file(package = "BioMonTools"), "extdata", "MetricScoring.xlsx")
@@ -3398,9 +3447,9 @@ shinyServer(function(input, output) {
       
       # load data
       ## use excluded taxa output
-      path_rp <- path_excl
-      df_rp <- read.csv(path_data, stringsAsFactors = FALSE)
-      
+      #path_rp <- path_excl
+      #df_rp <- read.csv(path_data, stringsAsFactors = FALSE)
+      df_rp <- df_input
       
       # calculate metrics for Bob's Biodiversity Index; 
       # limit output to index input metrics only
@@ -3408,30 +3457,22 @@ shinyServer(function(input, output) {
       df_rp$INDEX_NAME   <- myIndex
       df_rp$INDEX_REGION <- "ALL"
       (myMetrics.Bugs <- unique(as.data.frame(df_thresh_metric)[df_thresh_metric[,"INDEX_NAME"] == myIndex,"METRIC_NAME"]))
-      
-      
-      # tell R to ignore these fields so you don't get a warning
-      col2NA_char <- c("SUBPHYLUM", "SUBCLASS", "INFRAORDER", "HABIT", "LIFE_CYCLE"
-                       , "FFG2", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
-                       , "WSAREA_ATTR", "HABSTRUCT", "BCG_ATTR2")
-      col2NA_num <- c("TOLVAL", "TOLVAL2", "UFC")
-      col2NA_boo <- c("AIRBREATHER")
-      df_rp[, col2NA_char] <- NA_character_
-      df_rp[, col2NA_num] <- NA_real_
-      df_rp[, col2NA_boo] <- NA
-      
-      
-      # Run Function - YOU'LL NEED TO STOP TO ANSWER YES (1)
+
+      # Run Function
       df_metric_values_bugs <- metric.values(df_rp
                                              , "bugs"
-                                             , fun.MetricNames = myMetrics.Bugs)
-      
-      #~~~~~~~~~~~~
-      #WAIT to run this until you get through the Yes/No prompt. 
-      #~~~~~~~~~~~~~
+                                             , fun.MetricNames = myMetrics.Bugs
+                                             , boo.Shiny = TRUE)
       
       
-      # SCORE Metrics ----
+      ## Calc, 06, BDI, Metric, Scores ----
+      prog_detail <- "Calculate, BDI, Metric, Scores"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # SCORE Metrics
       df_metric_scores_bugs <- metric.scores(DF_Metrics = df_metric_values_bugs
                                              , col_MetricNames = myMetrics.Bugs
                                              , col_IndexName = "INDEX_NAME"
@@ -3441,20 +3482,30 @@ shinyServer(function(input, output) {
       
       
       # Create csv file with Results
-      fn_results <- "BobBDVI_Results.csv"
-      path_results <- file.path(dn_output, fn_results)
-      write.csv(df_metric_scores_bugs, path_results, row.names = FALSE)
+      fn_save <- paste0(fn_input_base, "_BDI_RESULTS.csv")
+      pn_save <- file.path(path_results, fn_save)
+      write.csv(df_metric_scores_bugs, pn_save, row.names = FALSE)
       
       
       # CODE~~~~~end
       
-      ## Calc, 3, BCG Flag Cols ----
+            ##***_BROWSER_***----
+      browser() 
+      
+      ## Calc, 07, BDI, Flags ----
+      prog_detail <- "Calculate, BDI, Flags"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
       # get columns from Flags (non-metrics) to carry through
       prog_detail <- "Calculate, Keep BCG Model Columns"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
       # Rules - should all be metrics but leaving here just in case
       # Flags - not always metrics,
       # Index Name for import data
@@ -3466,7 +3517,7 @@ shinyServer(function(input, output) {
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
       
       
-      ## Calc, 3b, Rules ----
+      ## Calc, 08, Rules ----
       prog_detail <- "Calculate, BCG Rules"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -3477,13 +3528,14 @@ shinyServer(function(input, output) {
       df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
                                 , !names(df_bcg_models) %in% c("SITE_TYPE"
                                                               , "INDEX_REGION")]
+      
       # Save
       fn_rules <- paste0(fn_input_base, "_bcgcalc_3metrules.csv")
       dn_rules <- path_results
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
       
-      ## Calc, 4, MetVal----
+      ## Calc, 09, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
       message(paste0("Community = ", input$si_community))
@@ -3510,7 +3562,7 @@ shinyServer(function(input, output) {
       }## IF ~ length(col_rules_keep)
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
-      ## Save Results ----
+      ## Calc, 10, Save Results ----
       fn_metval <- paste0(fn_input_base, "_bdi_2metval_all.csv")
       dn_metval <- path_results
       pn_metval <- file.path(dn_metval, fn_metval)
@@ -3524,11 +3576,7 @@ shinyServer(function(input, output) {
       
       ##~~ COPY from MTTI~~----
       
-      # Data, Model
-      fn_model <- "wa_MTTI.mar23.Rdata"
-      dn_model <- file.path("data", "BDI_model")
-      load(file.path(dn_model, fn_model))
-      # **FUTURE** load from GitHub repo
+     
       
       # Data, Taxa List Official
       ## get from BioMonTools_SupportFiles GitHub Repo
