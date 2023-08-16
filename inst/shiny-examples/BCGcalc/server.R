@@ -1681,7 +1681,7 @@ shinyServer(function(input, output) {
       
       ### Calc, 00, Set Up Shiny Code ----
       
-      prog_detail <- "Calculation, Thermal Metrics..."
+      prog_detail <- "Calculation, Merge Files..."
       message(paste0("\n", prog_detail))
       
       # Number of increments

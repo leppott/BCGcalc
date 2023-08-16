@@ -1,4 +1,4 @@
-# BCGcalc ####
+# BCGcalc ----
 test_that("bcgcalc", {
   #
   # Metrics
@@ -7,8 +7,8 @@ test_that("bcgcalc", {
   
   # Import Rules
   df.rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
-                                     , package="BCGcalc")
-                                 , sheet="Rules") 
+                                     , package = "BCGcalc")
+                                 , sheet = "Rules") 
   
   # Calculate Metric Memberships
   df.Metric.Membership <- BCGcalc::BCG.Metric.Membership(df.metric.values.bugs
@@ -60,7 +60,7 @@ test_that("bcgcalc", {
 })## Test ~ BCGcalc ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Num Digits, Rules ----
+# Num Digits, xlRules ----
 
 test_that("thresholds, num digits, rules", {
   # Packages
@@ -93,7 +93,7 @@ test_that("thresholds, num digits, rules", {
 })## Test ~ thresholds, num digits ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Num Digits, Flags ----
+# Num Digits, xlFlags ----
 
 test_that("thresholds, num digits, flags", {
   # Packages
@@ -122,7 +122,7 @@ test_that("thresholds, num digits, flags", {
 })## Test ~ thresholds, num digits ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Flags, symbols ----
+# Flags, xlFlags, symbols ----
 
 test_that("Flags, symbols", {
   # Packages
@@ -150,13 +150,14 @@ test_that("Flags, symbols", {
 })## Test ~ thresholds, num digits ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Flags, Metric Names, BioMonTools ----
+# Flags, Metric Names, xlFlags,  BioMonTools xlNames ----
 test_that("Flags, Metrics, BioMonTools", {
   # Import Flags
   fn_flags <- file.path(system.file(package = "BCGcalc")
                         , "extdata"
                         , "MetricFlags.xlsx")
   df_flags <- readxl::read_excel(fn_flags, sheet = "Flags")
+  
   # Import MetricNames
   fn_metnam <- file.path(system.file(package = "BioMonTools")
                         , "extdata"
@@ -193,7 +194,10 @@ test_that("Flags, Metrics, BioMonTools", {
                         , "Precip8110Cat"
                         , "SfcArea_ft2"
                         , "Subsample_percent"
-                        , "SurfaceArea")
+                        , "SurfaceArea"
+                        , "pslope_nhd"
+                        , "WSAREASQKM"
+                        , "PRECIP8110CAT")
   metnam_flags_check <- metnam_flags_all[!metnam_flags_all %in% 
                                            names_notmetrics]
   # Compare
@@ -217,8 +221,38 @@ test_that("Flags, Metrics, BioMonTools", {
   
   
 })## Test ~ flags, metrics, BioMonTools
-
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Metric Names, BCGcalc xlRules, BioMonTools xlNames----
+test_that("Rules, Metrics, BioMonTools", {
+  # Import Flags
+  fn_rules <- file.path(system.file(package = "BCGcalc")
+                        , "extdata"
+                        , "Rules.xlsx")
+  df_rules <- readxl::read_excel(fn_rules, sheet = "Rules")
+  
+  # Import MetricNames
+  fn_metnam <- file.path(system.file(package = "BioMonTools")
+                         , "extdata"
+                         , "MetricNames.xlsx")
+  df_metnam <- readxl::read_excel(fn_metnam
+                                  , sheet = "MetricMetadata"
+                                  , skip = 4)
+  #
+  metnam_rules <- unique(df_rules[, "Metric_Name", TRUE])
+  metnam_bmt <- unique(df_metnam$METRIC_NAME)
+  
+  # Check Rules vs. BioMonTools
+  len_metnam_rules <- length(metnam_rules)
+  sum_metnam_match <- sum(metnam_rules %in% metnam_bmt)
+  
+  ## Show Failures
+  metnam_rules[!metnam_rules %in% metnam_bmt]
+  
+  ## test, BMT == TRUE ----
+  # ensure all rules metrics are included in BioMonTools metric names
+  testthat::expect_equal(sum_metnam_match, len_metnam_rules)
+  
+})## Test ~ flags, metrics, BioMonTools
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

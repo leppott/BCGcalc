@@ -26,6 +26,9 @@ library(reshape2)
 library(knitr)
 library(leaflet)
 library(rioja)   # MTTI model predict
+library(zip)
+library(StreamCatTools)
+library(nhdplusTools)
 library(ComplexUpset)
 # MTTI
 # library(plyr)
