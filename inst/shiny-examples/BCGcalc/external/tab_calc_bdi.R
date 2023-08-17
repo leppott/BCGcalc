@@ -39,21 +39,21 @@ function() {
     )## sidebarPanel
     , mainPanel(
       tabsetPanel(type = "tabs"
-                  , tabPanel(title = "Calc_MTTI_About"
+                  , tabPanel(title = "Calc_BDI_About"
                              ,includeHTML(file.path("www"
                                                     , "rmd_html"
                                                     , "ShinyHTML_Calc_BDI_1About.html"))
                   )
-                  # , tabPanel(title = "Calc_MTTI_Input"
-                  #            ,includeHTML(file.path("www"
-                  #                                   , "rmd_html"
-                  #                                   , "ShinyHTML_Calc_BDI_2Input.html"))
-                  # )
-                  # , tabPanel(title = "Calc_MTTI_Output"
-                  #            ,includeHTML(file.path("www"
-                  #                                   , "rmd_html"
-                  #                                   , "ShinyHTML_Calc_BDI_3Output.html"))
-                  
+                  , tabPanel(title = "Calc_BDI_Input"
+                             ,includeHTML(file.path("www"
+                                                    , "rmd_html"
+                                                    , "ShinyHTML_Calc_BDI_2Input.html"))
+                  )
+                  , tabPanel(title = "Calc_BDI_Output"
+                             ,includeHTML(file.path("www"
+                                                    , "rmd_html"
+                                                    , "ShinyHTML_Calc_BDI_3Output.html"))
+                  )
       )## tabsetPanel ~ END
       
     )## mainPanel ~ END

@@ -1,0 +1,172 @@
+
+
+
+<div id="required-fields" class="section level1">
+<h1>Required Fields</h1>
+<p>The following fields are required in input files. However, the names
+can be different. The user will select the matching column names on
+screen before calculation.</p>
+<p>Click <a href="links/BDI_ReqFields_20230817.xlsx">here</a> to
+download an Excel file with this table plus example data.</p>
+<table>
+<caption>Table 1. Required fields.</caption>
+<colgroup>
+<col width="4%" />
+<col width="2%" />
+<col width="12%" />
+<col width="80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Column Name</th>
+<th align="left">Data Type</th>
+<th align="left">Allowable entries</th>
+<th align="left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Index_Name</td>
+<td align="left">text</td>
+<td align="left">BCG_PacNW_L1</td>
+<td align="left">OPTIONAL. (Will be added if not present). Directs the R
+code to the correct overall model to use (it references the INDEX_NAME
+column in the Rules table in the BCGcalc extdata folder)</td>
+</tr>
+<tr class="even">
+<td align="left">Index_Class</td>
+<td align="left">text</td>
+<td align="left">ALL</td>
+<td align="left">OPTIONAL. (Will be added if not present). Directs the R
+code to the correct submodel to use (it looks in the INDEX_CLASS column
+in the Rules table in the BCGcalc extdata folder)</td>
+</tr>
+<tr class="odd">
+<td align="left">SAMPLEID</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">Unique sample identifier. User can select the proper
+column if spelling doesn’t match.</td>
+</tr>
+<tr class="even">
+<td align="left">TAXAID</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">Taxonomic identification of organisms in each sample.
+User can select the proper column if spelling doesn’t match.</td>
+</tr>
+<tr class="odd">
+<td align="left">N_TAXA</td>
+<td align="left">numeric</td>
+<td align="left">non-negative real number</td>
+<td align="left">Number of individuals. User can select the proper
+column if spelling doesn’t match.</td>
+</tr>
+<tr class="even">
+<td align="left">EXCLUDE</td>
+<td align="left">text</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Redundant (non-distinct) taxa should marked “TRUE”.
+Redundant taxa are excluded from richness metric calculations but are
+included in the composition (percent individuals) metrics. User can
+select the proper column if spelling doesn’t match.</td>
+</tr>
+<tr class="odd">
+<td align="left">NONTARGET</td>
+<td align="left">logical</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Non-target taxa should be marked “TRUE”. The R code
+excludes non-target taxa from all metric calculations.</td>
+</tr>
+<tr class="even">
+<td align="left">PHYLUM</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">CLASS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">SUBCLASS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">ORDER</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">FAMILY</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">SUBFAMILY</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">TRIBE</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="odd">
+<td align="left">GENUS</td>
+<td align="left">text</td>
+<td align="left">NA</td>
+<td align="left">taxonomic hierarchy</td>
+</tr>
+<tr class="even">
+<td align="left">BCG_ATTR</td>
+<td align="left">text</td>
+<td align="left">1i, 1m, 2, 3, 4, 5, 6</td>
+<td align="left">Biological Condition Gradient (BCG) attribute
+assignments</td>
+</tr>
+<tr class="odd">
+<td align="left">THERMAL_INDICATOR</td>
+<td align="left">text</td>
+<td align="left">stenoc, cold, cool, cowa, warm, stenow,
+eurythermal</td>
+<td align="left">Thermal preference assignment based on Stamp et al. (in
+progress): stenoc=cold stenotherm; cold, cool, cowa = cool/warm, warm,
+stenow = warm stenotherm, eurythermal.</td>
+</tr>
+<tr class="even">
+<td align="left">FFG</td>
+<td align="left">text</td>
+<td align="left">CG, CF, PR, SC, SH, MH, OM, PA, PH, XY</td>
+<td align="left">Primary Functional Feeding Group. Multiple entries are
+allowed and should be separated with a comma (and no space; e.g.,
+CG,CF). Entries: collector-gatherer (CG), collector-filterer (CF),
+predator (PR), scraper (SC), shredder (SH), macrophyte herbivore (MH),
+omnivore (OM), parasite (PA), piercer-herbivore (PH), xylophage
+(XY).</td>
+</tr>
+<tr class="odd">
+<td align="left">LONG_LIVED</td>
+<td align="left">logical</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Is the taxon long-lived? TRUE or FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">NOTEWORTHY</td>
+<td align="left">logical</td>
+<td align="left">TRUE, FALSE</td>
+<td align="left">Is the taxon “noteworthy”? TRUE or FALSE</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Last updated 2023-08-17</em></p>
+</div>

@@ -1,0 +1,54 @@
+---
+title: "BCGcalc"
+subtitle: "Results BioDiversity Index (BDI)"
+author: "`r Sys.getenv('USERNAME')`"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE)
+```
+
+# Plot
+
+```{r plot}
+df_plot <- df_metric_scores_bugs
+plot_mean <- mean(df_plot[, "Index"])
+
+p1 <- ggplot2::ggplot(df_plot, ggplot2::aes(x = Index, fill = Index_Nar)) + 
+  ggplot2::geom_histogram(binwidth = 1, color = "black") +  
+  ggplot2::geom_vline( ggplot2::aes(xintercept = mean(Index))
+                       , color = "black"
+                       , linetype = "dashed") +
+  ggplot2::labs(title = "BioDiversity Index"
+                , caption = paste0("mean (black dashed line) = "
+                                   , round(plot_mean, 2))) +
+  guides(fill = guide_legend(reverse = TRUE)) + 
+  ggplot2::theme_light()
+
+# plotly::ggplotly(p1)
+p1
+```
+
+# Results
+
+```{r results}
+cap_data <- "Summary results."
+# DT::datatable(df_lev_flags 
+#               , filter = "top"
+#               , caption = cap_data
+#               , options = list(scrollX = TRUE
+#                                , lengthMenu = c(5, 10, 25, 50, 100, 1000)
+#                                , autoWidth = TRUE
+#               ))
+tab_summary <- table(df_metric_scores_bugs$Index
+                     , df_metric_scores_bugs$Index_Nar
+                     , useNA = "ifany")
+knitr::kable(tab_summary, caption = cap_data)
+```
+

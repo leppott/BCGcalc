@@ -1,6 +1,6 @@
 ---
 title: "Calculation, BioDiversity Index"
-date: "2023-06-13"
+date: "2023-08-16"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -37,18 +37,18 @@ composition metrics and scoring thresholds.
 
 Scoring criteria (points )
 
-|Metric                          |	0  | 1	     | 2	    | 3  |
-|:-------------------------------|:---:|:-------:|:------:|:--:|
-|Total taxa richness	           |<40  |40-49	   |50-59   |≥ 60|
-|EPT taxa richness 	             |<20  |	20-24  |25-29   |	≥ 30|
-|BCG attribute 1i, 1m & 2 taxa   |<2   |	2-5	   |6-8     |	≥ 9|
-|Shannon-Weaver diversity (logex)|<2.75|2.75-2.99|3.0-3.24|	≥ 3.25|
-|Long-lived taxa richness	       |<6	 |6-8	     |9-11    |	≥ 12|
-|Ephemerellidae taxa richness    |	0-2|	3	     | 4      |	≥ 5|
-|Heptageniidae taxa richness     |	0-2|3        |	4     |	≥ 5|
-|Nemouridae taxa richness	       |0-2	 |3	       |4	      |≥ 5|
-|Perlidae taxa richness          |	0  |	1      |	2     |	≥ 3|
-|Rhyacophila taxa richness       |	0-2|3-4      |	5     |	≥ 6|
+|Metric                          |	0  | 1	     | 2	    | 3    |
+|:-------------------------------|:---:|:-------:|:------:|:----:|
+|Total taxa richness	           |<40  |40-49	   |50-59   |  ≥ 60|
+|EPT taxa richness 	             |<20  |	20-24  |25-29   |  ≥ 30|
+|BCG attribute 1i, 1m & 2 taxa   |<2   |	2-5	   |6-8     |	  ≥ 9|
+|Shannon-Weaver diversity (logex)|<2.75|2.75-2.99|3.0-3.24|≥ 3.25|
+|Long-lived taxa richness	       |<6	 |6-8	     |9-11    |  ≥ 12|
+|Ephemerellidae taxa richness    |<3   |	3	     | 4      |	  ≥ 5|
+|Heptageniidae taxa richness     |<3   |3        |	4     |	  ≥ 5|
+|Nemouridae taxa richness	       |<3   |3	       |4	      |   ≥ 5|
+|Perlidae taxa richness          |	<1 |	1      |	2     |	  ≥ 3|
+|Rhyacophila taxa richness       |	<3 |3-4      |	5     |	  ≥ 6|
 |Predator taxa richness	         |<10  |10-12    |13-15   |	≥ 16|
 
 Noteworthy taxa richness	Add an additional score point for each noteworthy taxa
@@ -63,12 +63,10 @@ ratings, as well as recommendations.
 |Medium	|21-29  |	Moderate habitat complexity/resilience and biodiversity indicated. Further evaluation of the site and watershed is recommended.|
 |Low	  |<20    |	Unexceptional biodiversity indicated. Mostly widespread and common taxa present.|
 
-# Input File
-
 # Test File
 Click [here](links/examples_all.zip) to download example R scripts and data (all
 functions).
 
 ---
 
-*Last updated 2022-10-13*
+*Last updated 2023-08-16*

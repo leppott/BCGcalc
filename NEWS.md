@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-08-16 14:28:50.255049
+2023-08-17 15:07:08.321025
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-16 14:28:50.279182
+    #> Last Update: 2023-08-17 15:07:08.363007
+
+# BCGcalc 2.0.0.9088 (2023-08-17)
+
+- feature: Add BDI calculation to Shiny, Issue \#66
+  - COMPLETE
+- refactor: Shiny required fields type for TRUE/FALSE changed text to
+  logical
 
 # BCGcalc 2.0.0.9087 (2023-07-13)
 
