@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-08-17 15:07:08.321025
+2023-08-24 10:50:34.833404
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-17 15:07:08.363007
+    #> Last Update: 2023-08-24 10:50:34.861235
+
+# BCGcalc 2.0.0.9089 (2023-08-24)
+
+- feature: Automate Index Name and Class for fuzzy set calculation,
+  Issue \#84
+  - Shiny
 
 # BCGcalc 2.0.0.9088 (2023-08-17)
 
@@ -25,7 +31,7 @@ BCGcalc-NEWS
 # BCGcalc 2.0.0.9085 (2023-07-11)
 
 - refactor: Updates to BDI calculation, Issue \#66
-  - INCOMPLETE
+  - INCOMPLETE, completed in 2.0.0.988
 
 # BCGcalc 2.0.0.9084 (2023-06-19)
 

@@ -2416,7 +2416,7 @@ shinyServer(function(input, output) {
       
       # button, disable, download
       shinyjs::disable("b_download_modtherm")
-      
+     
       # data
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
@@ -2432,32 +2432,46 @@ shinyServer(function(input, output) {
       
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
-      
-      # Test, INDEX_NAME
+browser()      
+      # Test, INDEX_NAME, column missing
       if (!"INDEX_NAME" %in% names(df_input)) {
-        # end process with pop up
-        msg <- "'INDEX_NAME' column name is missing!"
-        shinyalert::shinyalert(title = "Fuzzy Thermal Calculation"
-                               , text = msg
-                               , type = "error"
-                               , closeOnEsc = TRUE
-                               , closeOnClickOutside = TRUE)
-        validate(msg)
-      }## IF ~ INDEX_NAME
+        # add default value
+        df_input[, "INDEX_NAME"] <- "Therm_ORWA_Bugs500ct"
+        # # end process with pop up
+        # msg <- "'INDEX_NAME' column name is missing!"
+        # shinyalert::shinyalert(title = "Fuzzy Thermal Calculation"
+        #                        , text = msg
+        #                        , type = "error"
+        #                        , closeOnEsc = TRUE
+        #                        , closeOnClickOutside = TRUE)
+        # validate(msg)
+      }## IF ~ INDEX_NAME, column missing
 
-      # Test, INDEX_CLASS
+      # Test, INDEX_CLASS, column missing
       if (!"INDEX_CLASS" %in% names(df_input)) {
-        # end process with pop up
-        msg <- "'INDEX_CLASS' column name is missing!"
-        shinyalert::shinyalert(title = "Fuzzy Thermal Calculation"
-                               , text = msg
-                               , type = "error"
-                               , closeOnEsc = TRUE
-                               , closeOnClickOutside = TRUE)
-        validate(msg)
-      }## IF ~ INDEX_CLASS
+        # add default value
+        df_input[, "INDEX_CLASS"] <- "ORWA"
+        # # end process with pop up
+        # msg <- "'INDEX_CLASS' column name is missing!"
+        # shinyalert::shinyalert(title = "Fuzzy Thermal Calculation"
+        #                        , text = msg
+        #                        , type = "error"
+        #                        , closeOnEsc = TRUE
+        #                        , closeOnClickOutside = TRUE)
+        # validate(msg)
+      }## IF ~ INDEX_CLASS, column missing
       
+      # Test, INDEX_NAME, column blank
+      if (sum(is.na(df_input[, "INDEX_NAME"])) == nrow(df_input)) {
+        # add default value
+        df_input[, "INDEX_NAME"] <- "Therm_ORWA_Bugs500ct"
+      }## IF ~ INDEX_NAME, column blank
       
+      # Test, INDEX_CLASS, column blank
+      if (sum(is.na(df_input[, "INDEX_CLASS"])) == nrow(df_input)) {
+        # add default value
+        df_input[, "INDEX_CLASS"] <- "ORWA"
+      }## IF ~ INDEX_CLASS, column blank
       
       ## Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"

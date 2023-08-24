@@ -17,7 +17,8 @@ function() {
        , h4("C. Exclude Taxa")
        , checkboxInput("ExclTaxa_modtherm", "Generate Exclude Taxa Column", TRUE)
        , h4("D. Fuzzy-set Model.")
-       , p("Determined by INDEX_NAME and INDEX_CLASS in data input file.")
+       #, p("Determined by INDEX_NAME and INDEX_CLASS in data input file.")
+       , p("If INDEX_NAME and INDEX_CLASS not provided then default values will be used ('Therm_ORWA_Bugs500ct' and 'ORWA').")
        # , selectInput("si_model"
        #               , label = "BCG Model"
        #               , choices = sel_bcg_models
