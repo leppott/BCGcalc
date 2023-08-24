@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-08-24 10:50:34.833404
+2023-08-24 10:56:45.762613
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-24 10:50:34.861235
+    #> Last Update: 2023-08-24 10:56:45.79589
+
+# BCGcalc 2.0.0.9090 (2023-08-24)
+
+- fix: Removed browser() statement from QC of last update, Issue \#84
 
 # BCGcalc 2.0.0.9089 (2023-08-24)
 

@@ -2432,7 +2432,7 @@ shinyServer(function(input, output) {
       
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
-browser()      
+     
       # Test, INDEX_NAME, column missing
       if (!"INDEX_NAME" %in% names(df_input)) {
         # add default value

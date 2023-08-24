@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9090 (2023-08-24)
+
+* fix: Removed browser() statement from QC of last update, Issue #84
+
 # BCGcalc 2.0.0.9089 (2023-08-24)
 
 * feature: Automate Index Name and Class for fuzzy set calculation, Issue #84
