@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-08-25 09:36:14.815529
+2023-08-25 10:10:43.089311
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-25 09:36:14.8524
+    #> Last Update: 2023-08-25 10:10:43.130573
+
+# BCGcalc 2.0.0.9092 (2023-08-25)
+
+- fix: BDI, if no Index_Class was not adding proper variable name, Issue
+  \#66
+  - Caused samples to not be scored
 
 # BCGcalc 2.0.0.9091 (2023-08-25)
 

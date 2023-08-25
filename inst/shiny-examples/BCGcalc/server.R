@@ -3484,12 +3484,12 @@ shinyServer(function(input, output) {
       #path_rp <- path_excl
       #df_rp <- read.csv(path_data, stringsAsFactors = FALSE)
       df_rp <- df_input
-      
+ 
       # calculate metrics for Bob's Biodiversity Index; 
       # limit output to index input metrics only
       myIndex <- "BCG_PacNW_L1"
       df_rp$INDEX_NAME   <- myIndex
-      df_rp$INDEX_REGION <- "ALL"
+      df_rp$INDEX_CLASS <- "ALL"
       (myMetrics.Bugs <- unique(as.data.frame(df_thresh_metric)[df_thresh_metric[, "INDEX_NAME"] == myIndex, "METRIC_NAME"]))
 
 
