@@ -11,12 +11,13 @@ function() {
       , p(textOutput("fn_input_display_bdi"))
       
       , h4("B. Convert User Taxa Names to Operational Taxonomic Units")
-      , checkboxInput("BDI_OTU", "Covert to OTU", TRUE)
+      , checkboxInput("BDI_OTU", "Convert to BDI OTU", TRUE)
       
       , h4("C. Exclude Taxa")
       , checkboxInput("BDI_ExclTaxa", "Generate Exclude Taxa Column", TRUE)
+      , p("If uncheck need define Exclude column in next step.")
       
-      , h4("C. User File Column Names")
+      , h4("D. User File Column Names")
       
       , h6("Required Fields")
       , p("If the default values are present they will be auto-populated.")
@@ -25,6 +26,7 @@ function() {
       , uiOutput("UI_bdi_user_col_taxaid")
       , uiOutput("UI_bdi_user_col_ntaxa")
       , uiOutput("UI_bdi_user_col_exclude")
+      , p("Exclude column only used if Exclude checkbox above is unchecked.")
       
       , h4("D. Run Operation")
       , p("This button will generate the BDI")

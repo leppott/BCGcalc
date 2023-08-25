@@ -3272,6 +3272,29 @@ shinyServer(function(input, output) {
                 , multiple = FALSE)
   })## UI_colnames
   
+  # bdi_excl_watch <- reactive({
+  #   # trigger for Exclude Column for BDI
+  #   input$BDI_ExclTaxa
+  # })## file_watch
+  
+  observeEvent(input$BDI_ExclTaxa, {
+    cat("BDI Excl Taxa = ", input$BDI_ExclTaxa, "\n")
+#browser()
+    # Turn on and off Excl Col selectInput
+    if (input$BDI_ExclTaxa == FALSE) {
+      cat("BDI Excl select, enable.\n")
+      shinyjs::enable(uiOutput("UI_bdi_user_col_exclude"))
+    } else if (input$BDI_ExclTaxa == TRUE) {
+      cat("BDI Excl select, disable.\n")
+      shinyjs::disable(uiOutput("UI_bdi_user_col_exclude"))
+    } else {
+      cat("BDI Excl select, enable.\n")
+      shinyjs::enable(uiOutput("UI_bdi_user_col_exclude"))
+    }
+  })
+  
+  
+  
   ## b_Calc_BDI ----
   observeEvent(input$b_calc_bdi, {
     shiny::withProgress({
@@ -3370,6 +3393,7 @@ shinyServer(function(input, output) {
           validate(msg)
         } else {
           # Add column
+          cat("Exclude column added.\n")
           sel_col_exclude <- "Exclude"
           df_input[, sel_col_exclude] <- NA
         }## IF ~ Calc ExclTaxa
@@ -3403,7 +3427,7 @@ shinyServer(function(input, output) {
       
       message(paste0("User response to generate ExclTaxa = "
                      , input$BDI_ExclTaxa))
-      
+     
       if (input$BDI_ExclTaxa) {
         ## Get TaxaLevel names present in user file
         phylo_all <- c("Kingdom"
@@ -3435,10 +3459,12 @@ shinyServer(function(input, output) {
                                               , TaxaLevels = phylo_all
                                               , Exceptions = NA)
         
-        # save at end
-
-        
+      } else {
+       # rename user input for Excl
+        df_input[, "Exclude"] <- df_input[, sel_col_exclude]
       }## IF ~ input$ExclTaxa
+
+      print(table(df_input$Exclude, useNA = "ifany"))
       
       ## Calc, 05, BDI, Metric, Values ----
       prog_detail <- "Calculate, BDI, Metric, Values"
@@ -3453,9 +3479,8 @@ shinyServer(function(input, output) {
                              , "MetricScoring.xlsx")
       df_thresh_metric <- read_excel(fn_thresh, sheet = "metric.scoring")
       df_thresh_index <- read_excel(fn_thresh, sheet = "index.scoring")
-      
+   
       # load data
-      ## use excluded taxa output
       #path_rp <- path_excl
       #df_rp <- read.csv(path_data, stringsAsFactors = FALSE)
       df_rp <- df_input
@@ -3466,6 +3491,7 @@ shinyServer(function(input, output) {
       df_rp$INDEX_NAME   <- myIndex
       df_rp$INDEX_REGION <- "ALL"
       (myMetrics.Bugs <- unique(as.data.frame(df_thresh_metric)[df_thresh_metric[, "INDEX_NAME"] == myIndex, "METRIC_NAME"]))
+
 
       # Run Function
       df_metric_values_bugs <- metric.values(df_rp

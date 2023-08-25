@@ -11,7 +11,7 @@ function() {
       , p(textOutput("fn_input_display_mtti"))
       
       , h4("B. Convert User Taxa Names to Operational Taxonomic Units")
-      , checkboxInput("MTTI_OTU", "Covert to OTU", TRUE)
+      , checkboxInput("MTTI_OTU", "Convert to OTU", TRUE)
       
       , h4("C. User File Column Names")
       

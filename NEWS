@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-08-24 10:56:45.762613
+2023-08-25 09:36:14.815529
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-24 10:56:45.79589
+    #> Last Update: 2023-08-25 09:36:14.8524
+
+# BCGcalc 2.0.0.9091 (2023-08-25)
+
+- fix: Typo on “Covert OTU” on MTTI and BDI shiny tabs
+- refactor: Adjust Excl taxa triggers and QC in code, Issue \#66
 
 # BCGcalc 2.0.0.9090 (2023-08-24)
 
