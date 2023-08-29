@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9093 (2023-08-29)
+
+* feat: Add maps for each index, Issue #67
+
 # BCGcalc 2.0.0.9092 (2023-08-25)
 
 * fix: BDI, if no Index_Class was not adding proper variable name, Issue #66

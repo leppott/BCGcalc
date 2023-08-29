@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-08-25 10:10:43.089311
+2023-08-29 16:27:46.733886
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-08-25 10:10:43.130573
+    #> Last Update: 2023-08-29 16:27:46.765481
+
+# BCGcalc 2.0.0.9093 (2023-08-29)
+
+- feat: Add maps for each index, Issue \#67
 
 # BCGcalc 2.0.0.9092 (2023-08-25)
 

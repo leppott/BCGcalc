@@ -3605,6 +3605,15 @@ shinyServer(function(input, output) {
   # MAP ----
   
   ## Map, UI ----
+  
+  output$UI_map_datatype <- renderUI({
+    str_col <- "Select data type (calculation) to map."
+    selectInput("map_datatype"
+                , label = str_col
+                , choices = c("", map_datatypes)
+                , multiple = FALSE)
+  })## UI_datatype
+  
   output$UI_map_col_xlong <- renderUI({
     str_col <- "Column, Longitude (decimal degrees))"
     selectInput("map_col_xlong"
@@ -3649,13 +3658,12 @@ shinyServer(function(input, output) {
                 , multiple = TRUE)
   })## UI_colnames  
   
-  
   ## Map, Leaflet ----
   output$map_leaflet <- renderLeaflet({
     
     # data for plot
     df_map <- df_import()
-# browser()    
+  
 #     # Rename columns based on user selection
 #     df_map[, ]
     
@@ -3692,9 +3700,6 @@ shinyServer(function(input, output) {
       #           , labels = c("Stations", "CB Outline")
       #           , values = NA) %>%
       # # Layers
-      # # addLayersControl(baseGroups = c("OSM (default)"
-      # #                                 , "Positron"
-      # #                                 , "Toner Lite")
       addLayersControl(baseGroups = c("Positron"
                                       , "Toner Lite"
                                       , "Open Street Map")
@@ -3708,6 +3713,217 @@ shinyServer(function(input, output) {
     
         
   })## map_leaflet ~ END
+  
+  ## Map, Leaflet, Proxy ----
+  # update map based on user selections
+  # tied to Update button
+  # https://rstudio.github.io/leaflet/shiny.html
+  # need a reactive to trigger, use map update button
+  observeEvent(input$but_map_update, {
+  
+    ### Map_L_P, Gather and Test Inputs----
+    sel_map_datatype   <- input$map_datatype
+    sel_map_col_xlong  <- input$map_col_xlong
+    sel_map_col_ylat   <- input$map_col_ylat
+    sel_map_col_sampid <- input$map_col_sampid
+    sel_map_col_keep   <- input$map_col_keep
+    
+    sel_map_col_mapval <- NA_character_
+    sel_map_col_mapnar <- NA_character_
+    sel_map_col_color  <- NA_character_
+    
+    if (is.null(sel_map_datatype) | sel_map_datatype == "") {
+      # end process with pop up
+      msg <- "'Data Type' name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      validate(msg)
+    }## IF ~ sel_map_datatype
+    
+    if (is.null(sel_map_col_xlong) | sel_map_col_xlong == "") {
+      # end process with pop up
+      msg <- "'Longitude' column name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      validate(msg)
+    }## IF ~ sel_map_col_xlong
+    
+    if (is.null(sel_map_col_ylat) | sel_map_col_ylat == "") {
+      # end process with pop up
+      msg <- "'Latitude' column name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      validate(msg)
+    }## IF ~ sel_map_col_ylat
+    
+    if (is.null(sel_map_col_sampid) | sel_map_col_sampid == "") {
+      # end process with pop up
+      msg <- "'SampleID' column name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      validate(msg)
+    }## IF ~ sel_map_col_sampid
+     
+    if (sel_map_datatype == "BCG") {
+      sel_map_col_mapval <- "Continuous_BCG_Level"
+      sel_map_col_mapnar <- "BCG_Status"
+    } else if (sel_map_datatype == "Thermal Metrics") {
+      # sel_map_col_mapval <- NA
+      # sel_map_col_mapnar <- NA
+      # end process with pop up
+      msg <- "'Thermal Metrics' not enabled at this time."
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      validate(msg)
+    } else if (sel_map_datatype == "Fuzzy Temp Model") {
+      sel_map_col_mapval <- "Continuous_Therm"
+      sel_map_col_mapnar <- "Therm_Class"
+    } else if (sel_map_datatype == "MTTI") {
+      sel_map_col_mapval <- "MTTI"
+      sel_map_col_mapnar <- "MTTI"
+    } else if (sel_map_datatype == "BDI") {
+      sel_map_col_mapval <- "Index"
+      sel_map_col_mapnar <- "Index_Nar"
+    }## IF ~ sel_datatype ~ END
+    
+    
+    
+    #~~~~~~~~~~~~~~~~~~~~~~
+    # repeat code from base
+    #~~~~~~~~~~~~~~~~~~~~~~
+    
+    # data for plot
+    df_map <- df_import()
+    
+    # Rename Columns to known values
+    df_map <- df_map %>%
+      mutate(map_ID = df_map[, sel_map_col_sampid]
+             , map_ylat = df_map[, sel_map_col_ylat]
+             , map_xlong = df_map[, sel_map_col_xlong]
+             , map_mapval = df_map[, sel_map_col_mapval]
+             , map_mapnar = df_map[, sel_map_col_mapnar]
+             , map_color = NA_character_
+             , map_popup = paste0(as.character("<b>"), "SampleID: ", as.character("</b>"), df_map[, sel_map_col_sampid], as.character("<br>")
+                                  , as.character("<b>"), "Latitude: ", as.character("</b>"), df_map[, sel_map_col_ylat], as.character("<br>")
+                                  , as.character("<b>"), "Longitude: ", as.character("</b>"), df_map[, sel_map_col_xlong], as.character("<br>")
+                                  , as.character("<b>"), "Data Type: ", as.character("</b>"), sel_map_datatype, as.character("<br>")
+                                  , as.character("<b>"), "Value: ", as.character("</b>"), df_map[, sel_map_col_mapval], as.character("<br>")
+                                  , as.character("<b>"), "Narrative: ", as.character("</b>"), df_map[, sel_map_col_mapnar], as.character("<br>")
+                                  )
+             )
+    
+    # Color by index
+    if (sel_map_datatype == "BCG") {
+      cut_brk <- seq(0.5, 6.5, 1)
+      cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
+      leg_col <- cut_lab
+      leg_nar <- paste0("L", 1:6)
+      df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
+                                   , breaks = cut_brk
+                                   , labels = cut_lab
+                                   , include.lowest = TRUE
+                                   , right = FALSE
+                                   , ordered_result = TRUE)
+    } else if (sel_map_datatype == "Thermal Metrics") {
+      # multiple
+      df_map[, "map_color"] <- "gray"
+      leg_col <- "gray"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "Fuzzy Temp Model") {
+      cut_brk <- seq(0.5, 6.5, 1)
+      cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
+      leg_col <- cut_lab
+      leg_nar <- paste0("L", 1:6)
+      df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
+                                   , breaks = cut_brk
+                                   , labels = cut_lab
+                                   , include.lowest = TRUE
+                                   , right = FALSE
+                                   , ordered_result = TRUE)
+    } else if (sel_map_datatype == "MTTI") {
+      # no final score narrative
+      df_map[, "map_color"] <- "gray"
+      leg_col <- "gray"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "BDI") {
+      cut_brk <- c(0, 20, 30, 999)
+      cut_lab <- c("red", "gray", "blue")
+      leg_col <- cut_lab
+      leg_nar <- c("Low", "Medium", "High")
+      df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
+                                   , breaks = cut_brk
+                                   , labels = cut_lab
+                                   , include.lowest = TRUE
+                                   , right = FALSE
+                                   , ordered_result = TRUE)
+    } else {
+      df_map[, "map_color"] <- "gray"
+      leg_col <- "gray"
+      leg_nar <- "No Narrative Designation"
+    }## IF ~ sel_datatype ~ COLOR
+    
+    
+    
+    # Bounding box
+    map_bbox <- c(min(df_map[, sel_map_col_xlong], na.rm = TRUE)
+                  , min(df_map[, sel_map_col_ylat], na.rm = TRUE)
+                  , max(df_map[, sel_map_col_xlong], na.rm = TRUE)
+                  , max(df_map[, sel_map_col_ylat], na.rm = TRUE)
+                  )
+    
+
+    
+    # Map
+    #leaflet() %>%
+    leafletProxy("map_leaflet", data = df_map) %>%
+      # Groups, Base
+      # addProviderTiles("CartoDB.Positron"
+      #                  , group = "Positron") %>%
+      # addProviderTiles(providers$Stamen.TonerLite
+      #                  , group = "Toner Lite") %>%
+      # addProviderTiles(providers$OpenStreetMap
+      #                  , group = "Open Street Map") %>%
+      # Groups, Overlay
+      addCircles(lng = ~map_xlong
+                 , lat = ~map_ylat
+                 #, color = blues9
+                 , color = ~map_color
+                 , popup = ~map_popup
+                 , radius = 30
+                 , group = "Samples") %>%
+      # Legend
+      addLegend("bottomleft"
+                , colors = leg_col
+                , labels = leg_nar
+                , values = NA
+                , title = sel_map_datatype) %>%
+      # Layers
+      addLayersControl(baseGroups = c("Positron"
+                                      , "Toner Lite"
+                                      , "Open Street Map")
+                       , overlayGroups = c("Samples")
+                      ) %>%
+      # Bounds
+      fitBounds(map_bbox[1], map_bbox[2], map_bbox[3], map_bbox[4])
+      
+
+  })## MAP, Leaflet, PROXY
+  
   
   #~~~~REPORTS~~~~----
   

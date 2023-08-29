@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9092"
+pkg_version <- "2.0.0.9093"
 
 # Packages----
 # nolint start
@@ -123,9 +123,9 @@ url_bcg_base <- "https://github.com/leppott/BCGcalc/raw/main/inst/extdata"
 url_bcg_models <- file.path(url_bcg_base, "Rules.xlsx")
 httr::GET(url_bcg_models, write_disk(temp_bcg_models <- tempfile(fileext = ".xlsx")))
 
-df_bcg_models <- as.data.frame(read_excel(temp_bcg_models
-                                          , guess_max = 10^3
-                                          , sheet = "Rules"))
+df_bcg_models <- as.data.frame(readxl::read_excel(temp_bcg_models
+                                                  , guess_max = 10^3
+                                                  , sheet = "Rules"))
 sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
 
 ## Metric Suites
@@ -192,3 +192,11 @@ df_fuzzytherm_crit <- readxl::read_excel(temp_fuzzytherm_crit
 epsg_wgs84 <- 4326
 epsg_nad83_na <- 4269
 epsg_default <- epsg_nad83_na
+
+# Map ----
+map_datatypes <- c("BCG", "Thermal Metrics", "Fuzzy Temp Model", "MTTI", "BDI")
+
+fn_map_meta <- "BCGcalc_Shiny_map_inputs_20230828.xlsx"
+map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
+                                             , sheet = "field_names"
+                                             , skip = 7))
