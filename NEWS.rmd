@@ -21,7 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# BCGcalc 2.0.0.9094 (2023-009-07)
+# BCGcalc 2.0.0.9095 (2023-09-07)
+
+* feat: Add example script for MTTI
+
+# BCGcalc 2.0.0.9094 (2023-09-07)
 
 * feat: Add example data for MTTI to external folder
 

@@ -1,13 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-09-07 13:27:05.499995
+2023-09-07 14:18:06.446483
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-07 13:27:05.527398
+    #> Last Update: 2023-09-07 14:18:06.486498
 
-# BCGcalc 2.0.0.9094 (2023-009-07)
+# BCGcalc 2.0.0.9095 (2023-09-07)
+
+- feat: Add example script for MTTI
+
+# BCGcalc 2.0.0.9094 (2023-09-07)
 
 - feat: Add example data for MTTI to external folder
 
