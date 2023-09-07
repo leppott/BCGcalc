@@ -1,0 +1,580 @@
+SampleID,TAXA_ID,COUNTS
+CUTT-2014,Acari,13
+CUTT-2014,Baetidae,3
+CUTT-2014,Baetis tricaudatus complex,15
+CUTT-2014,Brillia,5
+CUTT-2014,Ceratopogoninae,1
+CUTT-2014,Chloroperlidae,12
+CUTT-2014,Cinygmula,1
+CUTT-2014,Crangonyx,3
+CUTT-2014,Dicranota,1
+CUTT-2014,Dixa,2
+CUTT-2014,Dixidae,1
+CUTT-2014,Elmidae,4
+CUTT-2014,Ephemerella tibialis,1
+CUTT-2014,Ephemerellidae,1
+CUTT-2014,Glossosoma,7
+CUTT-2014,Glossosomatidae,1
+CUTT-2014,Hesperoperla pacifica,7
+CUTT-2014,Heterlimnius corpulentus,33
+CUTT-2014,Hydropsyche,120
+CUTT-2014,Hydropsychidae,17
+CUTT-2014,Kogotus,3
+CUTT-2014,Lepidostoma,3
+CUTT-2014,Leuctridae,2
+CUTT-2014,Limnephilidae,1
+CUTT-2014,Malenka,11
+CUTT-2014,Micropsectra,16
+CUTT-2014,Microtendipes,2
+CUTT-2014,Narpus concolor,15
+CUTT-2014,Nemouridae,2
+CUTT-2014,Neoplasta,7
+CUTT-2014,Optioservus,16
+CUTT-2014,Pagastia,1
+CUTT-2014,Paraleptophlebia,11
+CUTT-2014,Parametriocnemus,3
+CUTT-2014,Perlidae,9
+CUTT-2014,Perlodidae,9
+CUTT-2014,Polypedilum,2
+CUTT-2014,Pteronarcys,1
+CUTT-2014,Rheotanytarsus,4
+CUTT-2014,Rhithrogena,1
+CUTT-2014,Rhyacophila,12
+CUTT-2014,Rhyacophila Betteni Group,14
+CUTT-2014,Rhyacophila blarina,14
+CUTT-2014,Rhyacophila Brunnea/Vemna Group,2
+CUTT-2014,Rhyacophila narvae,21
+CUTT-2014,Simulium,9
+CUTT-2014,Sphaeriidae,2
+CUTT-2014,Sweltsa,20
+CUTT-2014,Tanypodinae,1
+CUTT-2014,Thienemannimyia Group,1
+CUTT-2014,Tipula,1
+CUTT-2014,Trichoptera,1
+CUTT-2014,Tvetenia Bavarica Group,13
+CUTT-2014,Wormaldia,6
+CUTT-2014,Zapada cinctipes,33
+CUTT-2014,Zapada Oregonensis Group,1
+DANE-2015,Acari,9
+DANE-2015,Baetis tricaudatus complex,29
+DANE-2015,Brillia,7
+DANE-2015,Ceratopogoninae,16
+DANE-2015,Cinygma,1
+DANE-2015,Cinygmula,9
+DANE-2015,Dicosmoecus gilvipes,1
+DANE-2015,Diphetor hageni,5
+DANE-2015,Dixa,5
+DANE-2015,Eukiefferiella Claripennis Group,2
+DANE-2015,Glossosoma,11
+DANE-2015,Glossosomatidae,2
+DANE-2015,Hesperoperla pacifica,2
+DANE-2015,Heterlimnius corpulentus,65
+DANE-2015,Hydropsyche,81
+DANE-2015,Isoperla,2
+DANE-2015,Kogotus,1
+DANE-2015,Lepidostoma,1
+DANE-2015,Micropsectra,15
+DANE-2015,Microtendipes,2
+DANE-2015,Narpus concolor,7
+DANE-2015,Neophylax rickeri,5
+DANE-2015,Oligochaeta,38
+DANE-2015,Optioservus,29
+DANE-2015,Pagastia,1
+DANE-2015,Paraleptophlebia,5
+DANE-2015,Parametriocnemus,6
+DANE-2015,Physidae,1
+DANE-2015,Polypedilum,1
+DANE-2015,Pteronarcys princeps,1
+DANE-2015,Rheotanytarsus,1
+DANE-2015,Rhyacophila atrata complex,1
+DANE-2015,Rhyacophila Betteni Group,12
+DANE-2015,Rhyacophila blarina,30
+DANE-2015,Rhyacophila Brunnea/Vemna Group,2
+DANE-2015,Rhyacophila narvae,13
+DANE-2015,Simulium,4
+DANE-2015,Skwala,15
+DANE-2015,Sphaeriidae,1
+DANE-2015,Stempellinella,2
+DANE-2015,Sweltsa,108
+DANE-2015,Tanytarsini,1
+DANE-2015,Thienemannimyia Group,1
+DANE-2015,Tvetenia Bavarica Group,7
+DANE-2015,Zapada cinctipes,25
+LB58-2015,Acari,28
+LB58-2015,Brillia,3
+LB58-2015,Brundiniella eumorpha,6
+LB58-2015,Cardiocladius,1
+LB58-2015,Ceratopogoninae,10
+LB58-2015,Chelifera,1
+LB58-2015,Chloroperlidae,10
+LB58-2015,Cinygma,7
+LB58-2015,Clinocerinae,1
+LB58-2015,Crenitis,1
+LB58-2015,Cryptochia,1
+LB58-2015,Despaxia augusta,2
+LB58-2015,Dicranota,2
+LB58-2015,Diphetor hageni,2
+LB58-2015,Dixa,18
+LB58-2015,Elmidae,9
+LB58-2015,Eukiefferiella Coerulescens Group,1
+LB58-2015,Forcipomyiinae,2
+LB58-2015,Glossosomatidae,1
+LB58-2015,Heptageniidae,1
+LB58-2015,Heterlimnius corpulentus,19
+LB58-2015,Heterotrissocladius,5
+LB58-2015,Hydropsyche,1
+LB58-2015,Isoperla,1
+LB58-2015,Lara,11
+LB58-2015,Lepidostoma,7
+LB58-2015,Limnophyes,1
+LB58-2015,Malenka,7
+LB58-2015,Menetus,8
+LB58-2015,Meringodixa,3
+LB58-2015,Micrasema,2
+LB58-2015,Micropsectra,22
+LB58-2015,Microtendipes,2
+LB58-2015,Nemata,4
+LB58-2015,Nemouridae,4
+LB58-2015,Neophylax splendens,8
+LB58-2015,Oligochaeta,22
+LB58-2015,Optioservus,48
+LB58-2015,Oreodytes,1
+LB58-2015,Orthocladius lignicola,4
+LB58-2015,Ostracoda,1
+LB58-2015,Paraleptophlebia,23
+LB58-2015,Parametriocnemus,11
+LB58-2015,Polypedilum,5
+LB58-2015,Psychoglypha,2
+LB58-2015,Ptychoptera,1
+LB58-2015,Rhyacophila,4
+LB58-2015,Rhyacophila Betteni Group,10
+LB58-2015,Rhyacophila Brunnea/Vemna Group,1
+LB58-2015,Rhyacophila Grandis Group,1
+LB58-2015,Rhyacophila narvae,11
+LB58-2015,Skwala,11
+LB58-2015,Soyedina,4
+LB58-2015,Sphaeriidae,2
+LB58-2015,Sweltsa,87
+LB58-2015,Thienemannimyia Group,8
+LB58-2015,Tipula,6
+LB58-2015,Tvetenia Bavarica Group,1
+LB58-2015,Wormaldia,8
+LB58-2015,Zapada cinctipes,48
+LB58-2015,Zavrelimyia,3
+LBLD-2015,Acari,3
+LBLD-2015,Baetis tricaudatus complex,38
+LBLD-2015,Brillia,1
+LBLD-2015,Chelifera,1
+LBLD-2015,Cleptelmis addenda,1
+LBLD-2015,Crangonyx,4
+LBLD-2015,Dicranota,2
+LBLD-2015,Diphetor hageni,7
+LBLD-2015,Elmidae,5
+LBLD-2015,Ephemerella tibialis,3
+LBLD-2015,Eukiefferiella Brehmi Group,4
+LBLD-2015,Glossosoma,18
+LBLD-2015,Hesperoperla pacifica,5
+LBLD-2015,Heterlimnius corpulentus,46
+LBLD-2015,Hydropsyche,241
+LBLD-2015,Ironodes,1
+LBLD-2015,Isoperla,12
+LBLD-2015,Malenka,1
+LBLD-2015,Narpus concolor,9
+LBLD-2015,Oligochaeta,3
+LBLD-2015,Optioservus,42
+LBLD-2015,Orthocladiinae,1
+LBLD-2015,Pagastia,1
+LBLD-2015,Paraleptophlebia,1
+LBLD-2015,Polypedilum,1
+LBLD-2015,Rheotanytarsus,3
+LBLD-2015,Rhithrogena,2
+LBLD-2015,Rhyacophila Betteni Group,3
+LBLD-2015,Rhyacophila Brunnea/Vemna Group,2
+LBLD-2015,Rhyacophila narvae,1
+LBLD-2015,Simulium,66
+LBLD-2015,Skwala,12
+LBLD-2015,Suwallia,1
+LBLD-2015,Sweltsa,16
+LBLD-2015,Thienemannimyia Group,3
+LBLD-2015,Wormaldia,1
+LBLD-2015,Zaitzevia,3
+LBLD-2015,Zapada cinctipes,19
+LBWM-2022,Acari,8
+LBWM-2022,Baetis tricaudatus complex,69
+LBWM-2022,Brillia,1
+LBWM-2022,Chelifera,4
+LBWM-2022,Cladotanytarsus,5
+LBWM-2022,Crangonyx,5
+LBWM-2022,Dicosmoecus gilvipes,1
+LBWM-2022,Dicranota,2
+LBWM-2022,Diphetor hageni,15
+LBWM-2022,Dytiscidae,1
+LBWM-2022,Ephemerella tibialis,4
+LBWM-2022,Eukiefferiella,1
+LBWM-2022,Eukiefferiella Brehmi Group,1
+LBWM-2022,Eukiefferiella Claripennis Group,2
+LBWM-2022,Glossosoma,45
+LBWM-2022,Heterlimnius corpulentus,3
+LBWM-2022,Heterlimnius corpulentus,50
+LBWM-2022,Hydropsyche,81
+LBWM-2022,Isoperla,3
+LBWM-2022,Kogotus,1
+LBWM-2022,Leptophlebiidae,1
+LBWM-2022,Malenka,1
+LBWM-2022,Micropsectra,11
+LBWM-2022,Narpus concolor,3
+LBWM-2022,Oligochaeta,12
+LBWM-2022,Optioservus,24
+LBWM-2022,Optioservus,22
+LBWM-2022,Pagastia,5
+LBWM-2022,Parametriocnemus,3
+LBWM-2022,Polypedilum,3
+LBWM-2022,Rhithrogena,10
+LBWM-2022,Rhyacophila arnaudi,1
+LBWM-2022,Rhyacophila Betteni Group,3
+LBWM-2022,Rhyacophila blarina,2
+LBWM-2022,Rhyacophila Brunnea/Vemna Group,4
+LBWM-2022,Simulium,97
+LBWM-2022,Simulium,1
+LBWM-2022,Skwala,5
+LBWM-2022,Sphaeriidae,1
+LBWM-2022,Stempellinella,1
+LBWM-2022,Stempellinella,1
+LBWM-2022,Suwallia,3
+LBWM-2022,Sweltsa,4
+LBWM-2022,Tanytarsus,5
+LBWM-2022,Thienemanniella,1
+LBWM-2022,Thienemannimyia complex,1
+LBWM-2022,Timpanoga hecuba,2
+LBWM-2022,Tvetenia Bavarica Group,11
+LBWM-2022,Zaitzevia,3
+LBWM-2022,Zapada cinctipes,62
+NCCW-2018,Acari,35
+NCCW-2018,Antocha monticola,8
+NCCW-2018,Baetis tricaudatus complex,30
+NCCW-2018,Chelifera,9
+NCCW-2018,Chironomini,1
+NCCW-2018,Cleptelmis addenda,1
+NCCW-2018,Crangonyx,2
+NCCW-2018,Dicranota,1
+NCCW-2018,Diphetor hageni,1
+NCCW-2018,Empididae,5
+NCCW-2018,Ephemerella,2
+NCCW-2018,Eukiefferiella Brehmi Group,2
+NCCW-2018,Glossosoma,12
+NCCW-2018,Glossosomatidae,2
+NCCW-2018,Hesperoperla pacifica,1
+NCCW-2018,Heterlimnius corpulentus,35
+NCCW-2018,Hydropsyche,149
+NCCW-2018,Hydroptila,36
+NCCW-2018,Hydroptilidae,15
+NCCW-2018,Micrasema,1
+NCCW-2018,Narpus concolor,4
+NCCW-2018,Optioservus,4
+NCCW-2018,Optioservus,25
+NCCW-2018,Pagastia,10
+NCCW-2018,Polypedilum,4
+NCCW-2018,Potthastia Gaedii Group,3
+NCCW-2018,Rheotanytarsus,1
+NCCW-2018,Rhyacophila,3
+NCCW-2018,Rhyacophila Betteni Group,14
+NCCW-2018,Rhyacophila blarina,3
+NCCW-2018,Rhyacophila Brunnea/Vemna Group,4
+NCCW-2018,Serratella tibialis,11
+NCCW-2018,Simulium,22
+NCCW-2018,Skwala,4
+NCCW-2018,Suwalliini,1
+NCCW-2018,Sweltsa,16
+NCCW-2018,Thienemannimyia complex,4
+NCCW-2018,Tvetenia Bavarica Group,4
+NCCW-2018,Zapada cinctipes,67
+NCCW-2019,Acari,11
+NCCW-2019,Acentrella,1
+NCCW-2019,Antocha monticola,2
+NCCW-2019,Baetis tricaudatus complex,30
+NCCW-2019,Brillia,3
+NCCW-2019,Chaetocladius,1
+NCCW-2019,Chelifera,10
+NCCW-2019,Copepoda,1
+NCCW-2019,Crangonyx,2
+NCCW-2019,Dicosmoecus gilvipes,1
+NCCW-2019,Dicranota,3
+NCCW-2019,Diphetor hageni,9
+NCCW-2019,Eukiefferiella Claripennis Group,4
+NCCW-2019,Glossosoma,180
+NCCW-2019,Glossosomatidae,3
+NCCW-2019,Hesperoperla pacifica,3
+NCCW-2019,Heterlimnius corpulentus,26
+NCCW-2019,Hydropsyche,9
+NCCW-2019,Micropsectra,8
+NCCW-2019,Narpus concolor,7
+NCCW-2019,Nemata,2
+NCCW-2019,Oligochaeta,16
+NCCW-2019,Optioservus,2
+NCCW-2019,Optioservus,13
+NCCW-2019,Pagastia,2
+NCCW-2019,Paraleptophlebia Bicornuta Group,1
+NCCW-2019,Parametriocnemus,2
+NCCW-2019,Polypedilum,3
+NCCW-2019,Rhithrogena,7
+NCCW-2019,Rhyacophila Betteni Group,12
+NCCW-2019,Rhyacophila blarina,2
+NCCW-2019,Rhyacophila Brunnea/Vemna Group,3
+NCCW-2019,Serratella tibialis,40
+NCCW-2019,Simulium,29
+NCCW-2019,Skwala,5
+NCCW-2019,Sphaeriidae,1
+NCCW-2019,Sweltsa,23
+NCCW-2019,Tanytarsus,1
+NCCW-2019,Thienemannimyia complex,3
+NCCW-2019,Tvetenia,3
+NCCW-2019,Tvetenia Bavarica Group,20
+NCCW-2019,Zapada cinctipes,29
+NCCW-2020,Acari,28
+NCCW-2020,Antocha monticola,1
+NCCW-2020,Baetis tricaudatus complex,82
+NCCW-2020,Brillia,1
+NCCW-2020,Chelifera,4
+NCCW-2020,Chloroperlidae,10
+NCCW-2020,Cleptelmis addenda,1
+NCCW-2020,Dicosmoecus gilvipes,1
+NCCW-2020,Diphetor hageni,25
+NCCW-2020,Empididae,5
+NCCW-2020,Eukiefferiella,1
+NCCW-2020,Eukiefferiella,1
+NCCW-2020,Eukiefferiella Brehmi Group,9
+NCCW-2020,Eukiefferiella Claripennis Group,2
+NCCW-2020,Ferrissia,1
+NCCW-2020,Glossosoma,49
+NCCW-2020,Heptageniidae,3
+NCCW-2020,Hesperoperla pacifica,4
+NCCW-2020,Heterlimnius corpulentus,1
+NCCW-2020,Heterlimnius corpulentus,32
+NCCW-2020,Hydropsyche,58
+NCCW-2020,Hydropsychidae,2
+NCCW-2020,Hydroptilidae,1
+NCCW-2020,Leptophlebiidae,2
+NCCW-2020,Malenka,3
+NCCW-2020,Micropsectra,4
+NCCW-2020,Narpus concolor,1
+NCCW-2020,Nemata,1
+NCCW-2020,Neophylax rickeri,1
+NCCW-2020,Optioservus,1
+NCCW-2020,Orthocladiinae Genus 5 (Coffman and Ferrington),1
+NCCW-2020,Pacifastacus leniusculus,1
+NCCW-2020,Pagastia,1
+NCCW-2020,Parametriocnemus,1
+NCCW-2020,Polypedilum,1
+NCCW-2020,Rheopelopia,1
+NCCW-2020,Rhyacophila Betteni Group,4
+NCCW-2020,Rhyacophila Brunnea/Vemna Group,5
+NCCW-2020,Serratella tibialis,7
+NCCW-2020,Simulium,88
+NCCW-2020,Simulium,2
+NCCW-2020,Suwalliini,3
+NCCW-2020,Sweltsa,5
+NCCW-2020,Tanytarsini,1
+NCCW-2020,Thienemannimyia complex,7
+NCCW-2020,Tvetenia,1
+NCCW-2020,Tvetenia Bavarica Group,12
+NCCW-2020,Zapada cinctipes,44
+NCCW-2021,Acari,7
+NCCW-2021,Acentrella turbida,1
+NCCW-2021,Baetis tricaudatus complex,28
+NCCW-2021,Brillia,1
+NCCW-2021,Cleptelmis addenda,1
+NCCW-2021,Crangonyx,35
+NCCW-2021,Diphetor hageni,21
+NCCW-2021,Elmidae,1
+NCCW-2021,Elmidae,2
+NCCW-2021,Ephemerella tibialis,3
+NCCW-2021,Eukiefferiella Brehmi Group,5
+NCCW-2021,Eukiefferiella Claripennis Group,1
+NCCW-2021,Glossosoma,11
+NCCW-2021,Heterlimnius corpulentus,1
+NCCW-2021,Heterlimnius corpulentus,3
+NCCW-2021,Hydropsyche,333
+NCCW-2021,Hydropsychidae,7
+NCCW-2021,Hydroptila,2
+NCCW-2021,Kogotus,1
+NCCW-2021,Leptophlebiidae,2
+NCCW-2021,Malenka,2
+NCCW-2021,Micropsectra,1
+NCCW-2021,Neophylax rickeri,1
+NCCW-2021,Oligochaeta,2
+NCCW-2021,Optioservus,2
+NCCW-2021,Optioservus,1
+NCCW-2021,Pacifastacus leniusculus,1
+NCCW-2021,Pagastia,1
+NCCW-2021,Parametriocnemus,2
+NCCW-2021,Perlodidae,1
+NCCW-2021,Polypedilum,3
+NCCW-2021,Rheotanytarsus,4
+NCCW-2021,Rhithrogena,9
+NCCW-2021,Rhyacophila,1
+NCCW-2021,Rhyacophila Betteni Group,5
+NCCW-2021,Rhyacophila blarina,2
+NCCW-2021,Rhyacophila Brunnea/Vemna Group,5
+NCCW-2021,Simulium,18
+NCCW-2021,Skwala,1
+NCCW-2021,Stempellinella,2
+NCCW-2021,Sweltsa,14
+NCCW-2021,Trepaxonemata,1
+NCCW-2021,Tvetenia Bavarica Group,6
+NCCW-2021,Zapada cinctipes,117
+NCCW-2022,Acari,6
+NCCW-2022,Amphipoda,4
+NCCW-2022,Antocha monticola,1
+NCCW-2022,Baetis tricaudatus complex,10
+NCCW-2022,Brillia,3
+NCCW-2022,Chelifera,3
+NCCW-2022,Dicranota,1
+NCCW-2022,Diphetor hageni,10
+NCCW-2022,Ephemerella tibialis,20
+NCCW-2022,Eukiefferiella Brehmi Group,2
+NCCW-2022,Eukiefferiella Claripennis Group,3
+NCCW-2022,Glossosoma,10
+NCCW-2022,Hesperoperla pacifica,1
+NCCW-2022,Heterlimnius corpulentus,24
+NCCW-2022,Hydropsyche,254
+NCCW-2022,Kogotus,1
+NCCW-2022,Limnephilidae,1
+NCCW-2022,Micropsectra,6
+NCCW-2022,Micropsectra,1
+NCCW-2022,Narpus concolor,2
+NCCW-2022,Nemata,3
+NCCW-2022,Oligochaeta,12
+NCCW-2022,Optioservus,8
+NCCW-2022,Optioservus,11
+NCCW-2022,Orthocladiinae,2
+NCCW-2022,Pagastia,1
+NCCW-2022,Paraleptophlebia Bicornuta Group,1
+NCCW-2022,Phaenopsectra,5
+NCCW-2022,Polypedilum,4
+NCCW-2022,Rheotanytarsus,2
+NCCW-2022,Rhyacophila Betteni Group,18
+NCCW-2022,Rhyacophila blarina,4
+NCCW-2022,Rhyacophila Brunnea/Vemna Group,15
+NCCW-2022,Rhyacophila narvae,1
+NCCW-2022,Simulium,26
+NCCW-2022,Skwala,4
+NCCW-2022,Sphaeriidae,1
+NCCW-2022,Suwallia,1
+NCCW-2022,Sweltsa,16
+NCCW-2022,Tanytarsini,1
+NCCW-2022,Thienemannimyia complex,3
+NCCW-2022,Timpanoga hecuba,1
+NCCW-2022,Tvetenia,1
+NCCW-2022,Tvetenia Bavarica Group,10
+NCCW-2022,Zapada cinctipes,54
+TROT-2014,Acari,44
+TROT-2014,Apatania,1
+TROT-2014,Baetis tricaudatus complex,5
+TROT-2014,Brillia,131
+TROT-2014,Ceratopogoninae,14
+TROT-2014,Chelifera,2
+TROT-2014,Cinygma,2
+TROT-2014,Cinygmula,12
+TROT-2014,Cleptelmis addenda,7
+TROT-2014,Cryptochia,2
+TROT-2014,Dicranota,8
+TROT-2014,Diphetor hageni,9
+TROT-2014,Dixa,5
+TROT-2014,Ecclisomyia,1
+TROT-2014,Eukiefferiella Claripennis Group,2
+TROT-2014,Eukiefferiella tirolensis,1
+TROT-2014,Forcipomyiinae,2
+TROT-2014,Glossosoma,6
+TROT-2014,Glossosomatidae,8
+TROT-2014,Gyraulus,2
+TROT-2014,Hesperoperla pacifica,2
+TROT-2014,Heterlimnius corpulentus,22
+TROT-2014,Hexatoma,2
+TROT-2014,Hydropsyche,8
+TROT-2014,Kogotus,3
+TROT-2014,Lepidostoma,16
+TROT-2014,Meringodixa,1
+TROT-2014,Micromenetus,1
+TROT-2014,Micropsectra,16
+TROT-2014,Microtendipes,2
+TROT-2014,Narpus concolor,3
+TROT-2014,Neophylax rickeri,3
+TROT-2014,Neophylax splendens,8
+TROT-2014,Neoplasta,1
+TROT-2014,Oligochaeta,8
+TROT-2014,Optioservus,5
+TROT-2014,Oreodytes,1
+TROT-2014,Paraleptophlebia,4
+TROT-2014,Parametriocnemus,15
+TROT-2014,Parapsyche,2
+TROT-2014,Plecoptera,1
+TROT-2014,Polypedilum,2
+TROT-2014,Rheotanytarsus,1
+TROT-2014,Rhyacophila arnaudi,1
+TROT-2014,Rhyacophila Betteni Group,6
+TROT-2014,Rhyacophila blarina,2
+TROT-2014,Rhyacophila Brunnea/Vemna Group,2
+TROT-2014,Rhyacophila narvae,13
+TROT-2014,Skwala,20
+TROT-2014,Sphaeriidae,2
+TROT-2014,Stratiomyidae,1
+TROT-2014,Sweltsa,48
+TROT-2014,Thienemannimyia Group,8
+TROT-2014,Tvetenia Bavarica Group,8
+TROT-2014,Wormaldia,2
+TROT-2014,Zapada columbiana,13
+TROT-2014,Zapada Oregonensis Group,1
+TROT-2014,Zavrelimyia,6
+TROT-2015,Acari,13
+TROT-2015,Baetis tricaudatus complex,15
+TROT-2015,Bilyjomyia algens,1
+TROT-2015,Brachycentrus,4
+TROT-2015,Brillia,8
+TROT-2015,Chironomini,1
+TROT-2015,Cinygma,2
+TROT-2015,Cinygmula,24
+TROT-2015,Cleptelmis addenda,4
+TROT-2015,Crangonyx,6
+TROT-2015,Cricotopus (Cricotopus),2
+TROT-2015,Dicranota,2
+TROT-2015,Diphetor hageni,4
+TROT-2015,Dixa,9
+TROT-2015,Eukiefferiella Brehmi Group,1
+TROT-2015,Forcipomyiinae,3
+TROT-2015,Glossosoma,19
+TROT-2015,Hydropsyche,29
+TROT-2015,Krenosmittia,1
+TROT-2015,Lara,1
+TROT-2015,Lepidostoma,61
+TROT-2015,Malenka,5
+TROT-2015,Micrasema,1
+TROT-2015,Micropsectra,47
+TROT-2015,Microtendipes,5
+TROT-2015,Narpus concolor,2
+TROT-2015,Neophylax rickeri,20
+TROT-2015,Neophylax splendens,4
+TROT-2015,Neoplasta,5
+TROT-2015,Oligochaeta,11
+TROT-2015,Optioservus,15
+TROT-2015,Orthocladiinae,1
+TROT-2015,Orthocladius (Orthocladius),1
+TROT-2015,Paraleptophlebia,11
+TROT-2015,Parametriocnemus,10
+TROT-2015,Parapsyche,11
+TROT-2015,Polypedilum,17
+TROT-2015,Psilometriocnemus triannulatus,1
+TROT-2015,Psychodidae,3
+TROT-2015,Rheotanytarsus,1
+TROT-2015,Rhyacophila Betteni Group,6
+TROT-2015,Rhyacophila Hyalinata Group,1
+TROT-2015,Rhyacophila narvae,4
+TROT-2015,Sialis,1
+TROT-2015,Simulium,33
+TROT-2015,Skwala,8
+TROT-2015,Sphaeriidae,2
+TROT-2015,Sweltsa,23
+TROT-2015,Tanytarsus,1
+TROT-2015,Thienemannimyia Group,23
+TROT-2015,Tvetenia Bavarica Group,10
+TROT-2015,Zapada cinctipes,31
+TROT-2015,Zavrelimyia,3

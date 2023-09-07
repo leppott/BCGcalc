@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9093"
+pkg_version <- "2.0.0.9094"
 
 # Packages----
 # nolint start
@@ -194,7 +194,18 @@ epsg_nad83_na <- 4269
 epsg_default <- epsg_nad83_na
 
 # Map ----
-map_datatypes <- c("BCG", "Thermal Metrics", "Fuzzy Temp Model", "MTTI", "BDI")
+map_datatypes <- c("BCG"
+                   , "Fuzzy Temp Model"
+                   , "MTTI"
+                   , "BDI"
+                   , "Thermal Metrics, nt_ti_stenocold"
+                   , "Thermal Metrics, nt_ti_stenocold_cold"
+                   , "Thermal Metrics, nt_ti_stenocold_cold_cool"
+                   , "Thermal Metrics, pt_ti_stenocold_cold_cool"
+                   , "Thermal Metrics, pi_ti_stenocold_cold_cool"
+                   , "Thermal Metrics, pt_ti_warm_stenowarm"
+                   , "Thermal Metrics, nt_ti_warm_stenowarm"
+                   )
 
 fn_map_meta <- "BCGcalc_Shiny_map_inputs_20230828.xlsx"
 map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)

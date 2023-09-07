@@ -3732,6 +3732,9 @@ shinyServer(function(input, output) {
     sel_map_col_mapnar <- NA_character_
     sel_map_col_color  <- NA_character_
     
+    # data for plot
+    df_map <- df_import()
+    
     if (is.null(sel_map_datatype) | sel_map_datatype == "") {
       # end process with pop up
       msg <- "'Data Type' name is missing!"
@@ -3775,21 +3778,12 @@ shinyServer(function(input, output) {
                              , closeOnClickOutside = TRUE)
       validate(msg)
     }## IF ~ sel_map_col_sampid
+   
+    no_narrative <- "No Narrative Designation"
      
     if (sel_map_datatype == "BCG") {
       sel_map_col_mapval <- "Continuous_BCG_Level"
       sel_map_col_mapnar <- "BCG_Status"
-    } else if (sel_map_datatype == "Thermal Metrics") {
-      # sel_map_col_mapval <- NA
-      # sel_map_col_mapnar <- NA
-      # end process with pop up
-      msg <- "'Thermal Metrics' not enabled at this time."
-      shinyalert::shinyalert(title = "Update Map"
-                             , text = msg
-                             , type = "error"
-                             , closeOnEsc = TRUE
-                             , closeOnClickOutside = TRUE)
-      validate(msg)
     } else if (sel_map_datatype == "Fuzzy Temp Model") {
       sel_map_col_mapval <- "Continuous_Therm"
       sel_map_col_mapnar <- "Therm_Class"
@@ -3799,16 +3793,43 @@ shinyServer(function(input, output) {
     } else if (sel_map_datatype == "BDI") {
       sel_map_col_mapval <- "Index"
       sel_map_col_mapnar <- "Index_Nar"
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold") {
+      sel_map_col_mapval <- "nt_ti_stenocold"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- no_narrative
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold") {
+      sel_map_col_mapval <- "nt_ti_stenocold_cold"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- no_narrative
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold_cool") {
+      sel_map_col_mapval <- "nt_ti_stenocold_cold_cool"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- no_narrative
+    } else if (sel_map_datatype == "Thermal Metrics, pt_ti_stenocold_cold_cool") {
+      sel_map_col_mapval <- "pt_ti_stenocold_cold_cool"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- no_narrative
+    } else if (sel_map_datatype == "Thermal Metrics, pi_ti_stenocold_cold_cool") {
+      sel_map_col_mapval <- "pi_ti_stenocold_cold_cool"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- no_narrative
+    } else if (sel_map_datatype == "Thermal Metrics, pt_ti_warm_stenowarm") {
+      sel_map_col_mapval <- "pt_ti_warm_stenowarm"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- no_narrative
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_warm_stenowarm") {
+      sel_map_col_mapval <- "nt_ti_warm_stenowarm"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- no_narrative
     }## IF ~ sel_datatype ~ END
     
     
+    # 20230905, need something for Thermal Metrics no narrative
+    # May have to declare data earlier
     
     #~~~~~~~~~~~~~~~~~~~~~~
     # repeat code from base
     #~~~~~~~~~~~~~~~~~~~~~~
-    
-    # data for plot
-    df_map <- df_import()
     
     # Rename Columns to known values
     df_map <- df_map %>%
@@ -3874,7 +3895,7 @@ shinyServer(function(input, output) {
     } else {
       df_map[, "map_color"] <- "gray"
       leg_col <- "gray"
-      leg_nar <- "No Narrative Designation"
+      leg_nar <- no_narrative
     }## IF ~ sel_datatype ~ COLOR
     
     
