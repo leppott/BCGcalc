@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-09-07 14:18:06.446483
+2023-09-26 12:01:38.778027
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-07 14:18:06.486498
+    #> Last Update: 2023-09-26 12:01:38.80123
+
+# BCGcalc 2.0.0.9096 (2023-09-26)
+
+- feature: Add KMZ downloads to Shiny app
+  - NorWeST_ORWA
+  - PNMR_BCGclasses
+- feature: Updated maps in Shiny, Issue \#67
 
 # BCGcalc 2.0.0.9095 (2023-09-07)
 

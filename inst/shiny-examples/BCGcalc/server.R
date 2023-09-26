@@ -3672,7 +3672,8 @@ shinyServer(function(input, output) {
     # col_Stations <- "blue"
     # col_Segs     <- "black" # "grey59"
     # fill_Segs    <- "lightskyblue" 
-          
+    
+    
     # Map
     #leaflet() %>%
     leaflet(data = df_map) %>%
@@ -3684,6 +3685,20 @@ shinyServer(function(input, output) {
                        , group = "Toner Lite") %>%
       addProviderTiles(providers$OpenStreetMap
                        , group = "Open Street Map") %>%
+      addPolygons(data = data_GIS_eco3_orwa
+                  , group = "Ecoregions, Level III"
+                  , popup = ~paste0(LEVEL3, ", ", LEVEL3_NAM)) %>% 
+      # addPolygons(data = data_GIS_BCGclass
+      #             , group = "BCG Class"
+      #             , popup = ~BCGclass_v
+      #             , fillColor = rgb(255, 0, 195, maxColorValue = 255)) %>%
+      # addPolygons(data = data_GIS_NorWeST_ORWA
+      #             , group = "NorWeST"
+      #             , popup = ~Unit_OBSPR) %>%
+      # addPolygons(data = data_GIS_NHDplus_catch_ORWA
+      #             , group = "NHD+ Catchments") %>%
+      # addPolylines(data = data_GIS_NHDplus_flowline_ORWA
+      #              , group = "NHD+ Flowline") %>%
       # # # Groups, Overlay
       # addCircles(lng = ~longitude
       #            , lat = ~latitude
@@ -3699,13 +3714,24 @@ shinyServer(function(input, output) {
       #           , colors = c(col_Stations, col_Segs)
       #           , labels = c("Stations", "CB Outline")
       #           , values = NA) %>%
-      # # Layers
+      # Layers, Control
       addLayersControl(baseGroups = c("Positron"
                                       , "Toner Lite"
                                       , "Open Street Map")
-                       # , overlayGroups = c("Stations"
-                       #                     , "CB Outline")
+                       , overlayGroups = c("Ecoregions, Level III"
+                                           # , "BCG Class"
+                                           # , "NorWeST"
+                                           # , "NHD+ Catchments"
+                                          # , "NHD+ Flowlines"
+                                           )
                        ) %>%
+      # Layers, Hide
+      hideGroup(c("Ecoregions, Level III"
+                 # , "BCG Class"
+                 # , "NorWeST"
+                 # , "NHD+ Catchments"
+                 # , "NHD+ Flowlines"
+      )) %>%
       # # Mini map
       addMiniMap(toggleDisplay = TRUE) #%>%
       # # Hide Groups
@@ -3797,32 +3823,61 @@ shinyServer(function(input, output) {
       sel_map_col_mapval <- "nt_ti_stenocold"
       sel_map_col_mapnar <- "Map_Nar"
       df_map[, sel_map_col_mapnar] <- no_narrative
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold") {
       sel_map_col_mapval <- "nt_ti_stenocold_cold"
       sel_map_col_mapnar <- "Map_Nar"
       df_map[, sel_map_col_mapnar] <- no_narrative
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "nt_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
       df_map[, sel_map_col_mapnar] <- no_narrative
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "pt_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
       df_map[, sel_map_col_mapnar] <- no_narrative
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, pi_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "pi_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
       df_map[, sel_map_col_mapnar] <- no_narrative
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_warm_stenowarm") {
       sel_map_col_mapval <- "pt_ti_warm_stenowarm"
       sel_map_col_mapnar <- "Map_Nar"
       df_map[, sel_map_col_mapnar] <- no_narrative
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_warm_stenowarm") {
       sel_map_col_mapval <- "nt_ti_warm_stenowarm"
       sel_map_col_mapnar <- "Map_Nar"
       df_map[, sel_map_col_mapnar] <- no_narrative
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     }## IF ~ sel_datatype ~ END
     
+    size_default <- 50
     
     # 20230905, need something for Thermal Metrics no narrative
     # May have to declare data earlier
@@ -3839,6 +3894,7 @@ shinyServer(function(input, output) {
              , map_mapval = df_map[, sel_map_col_mapval]
              , map_mapnar = df_map[, sel_map_col_mapnar]
              , map_color = NA_character_
+             , map_size = NA_real_
              , map_popup = paste0(as.character("<b>"), "SampleID: ", as.character("</b>"), df_map[, sel_map_col_sampid], as.character("<br>")
                                   , as.character("<b>"), "Latitude: ", as.character("</b>"), df_map[, sel_map_col_ylat], as.character("<br>")
                                   , as.character("<b>"), "Longitude: ", as.character("</b>"), df_map[, sel_map_col_xlong], as.character("<br>")
@@ -3860,26 +3916,61 @@ shinyServer(function(input, output) {
                                    , include.lowest = TRUE
                                    , right = FALSE
                                    , ordered_result = TRUE)
-    } else if (sel_map_datatype == "Thermal Metrics") {
-      # multiple
-      df_map[, "map_color"] <- "gray"
-      leg_col <- "gray"
-      leg_nar <- "No Narrative Designation"
+      df_map[, "map_size"] <- size_default
     } else if (sel_map_datatype == "Fuzzy Temp Model") {
-      cut_brk <- seq(0.5, 6.5, 1)
-      cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
-      leg_col <- cut_lab
-      leg_nar <- paste0("L", 1:6)
-      df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
-                                   , breaks = cut_brk
-                                   , labels = cut_lab
-                                   , include.lowest = TRUE
-                                   , right = FALSE
-                                   , ordered_result = TRUE)
+      leg_col <- c("#00B0F0"
+                   , "#8EA9DB" 
+                   , "#8EA9DB" 
+                   , "#8EA9DB"
+                   , "#B4C6E7"
+                   , "#BDD7EE"
+                   , "#BDD7EE"
+                   , "#BDD7EE"
+                   , "#DDEBF7"
+                   , "#F2F2F2"
+                   , "#F2F2F2"
+                   , "#F2F2F2"
+                   , "#F8CBAD"
+                   , "#808080"
+      )
+      leg_nar <- c("VeryCold"
+                   , "VCold_Cold"
+                   , "Cold_VCold"
+                   , "TIE_VCold_Cold"
+                   , "Cold"
+                   , "Cold_Cool"
+                   , "Cool_Cold"
+                   , "TIE_Cold_Cool"
+                   , "Cool"
+                   , "Cool_Warm"
+                   , "Warm_Cool"
+                   , "TIE_Warm_Cool"
+                   , "Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(Therm_Class == leg_nar[1] ~ leg_col[1]
+                                     , Therm_Class == leg_nar[2] ~ leg_col[2]
+                                     , Therm_Class == leg_nar[3] ~ leg_col[3]
+                                     , Therm_Class == leg_nar[4] ~ leg_col[4]
+                                     , Therm_Class == leg_nar[5] ~ leg_col[5]
+                                     , Therm_Class == leg_nar[6] ~ leg_col[6]
+                                     , Therm_Class == leg_nar[7] ~ leg_col[7]
+                                     , Therm_Class == leg_nar[8] ~ leg_col[8]
+                                     , Therm_Class == leg_nar[9] ~ leg_col[9]
+                                     , Therm_Class == leg_nar[10] ~ leg_col[10]
+                                     , Therm_Class == leg_nar[11] ~ leg_col[11]
+                                     , Therm_Class == leg_nar[12] ~ leg_col[12]
+                                     , Therm_Class == leg_nar[13] ~ leg_col[13]
+                                     , TRUE ~ leg_col[14]
+                                      ))
+      # TRUE is ELSE and #808080 is gray
+      df_map[, "map_size"] <- size_default
     } else if (sel_map_datatype == "MTTI") {
       # no final score narrative
-      df_map[, "map_color"] <- "gray"
-      leg_col <- "gray"
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
       leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "BDI") {
       cut_brk <- c(0, 20, 30, 999)
@@ -3892,8 +3983,45 @@ shinyServer(function(input, output) {
                                    , include.lowest = TRUE
                                    , right = FALSE
                                    , ordered_result = TRUE)
+      df_map[, "map_size"] <- size_default
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold") {
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold") {
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold_cool") {
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "Thermal Metrics, pt_ti_stenocold_cold_cool") {
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "Thermal Metrics, pi_ti_stenocold_cold_cool") {
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "Thermal Metrics, pt_ti_warm_stenowarm") {
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
+    } else if (sel_map_datatype == "Thermal Metrics, nt_ti_warm_stenowarm") {
+      df_map[, "map_color"] <- "black"
+      df_map[, "map_size"] <- df_map$map_mapval
+      leg_col <- "black"
+      leg_nar <- "No Narrative Designation"
     } else {
       df_map[, "map_color"] <- "gray"
+      df_map[, "map_size"] <- size_default
       leg_col <- "gray"
       leg_nar <- no_narrative
     }## IF ~ sel_datatype ~ COLOR
@@ -3906,9 +4034,7 @@ shinyServer(function(input, output) {
                   , max(df_map[, sel_map_col_xlong], na.rm = TRUE)
                   , max(df_map[, sel_map_col_ylat], na.rm = TRUE)
                   )
-    
 
-    
     # Map
     #leaflet() %>%
     leafletProxy("map_leaflet", data = df_map) %>%
@@ -3922,10 +4048,9 @@ shinyServer(function(input, output) {
       # Groups, Overlay
       addCircles(lng = ~map_xlong
                  , lat = ~map_ylat
-                 #, color = blues9
                  , color = ~map_color
                  , popup = ~map_popup
-                 , radius = 30
+                 , radius = ~map_size
                  , group = "Samples") %>%
       # Legend
       addLegend("bottomleft"
@@ -3933,12 +4058,25 @@ shinyServer(function(input, output) {
                 , labels = leg_nar
                 , values = NA
                 , title = sel_map_datatype) %>%
-      # Layers
+      # Layers, Control
       addLayersControl(baseGroups = c("Positron"
                                       , "Toner Lite"
                                       , "Open Street Map")
-                       , overlayGroups = c("Samples")
+                       , overlayGroups = c("Samples"
+                                           , "Ecoregions, Level III"
+                                           #, "BCG Class"
+                                           # , "NorWeST"
+                                           # , "NHD+ Catchments"
+                                          # , "NHD+ Flowlines"
+                                           )
                       ) %>%
+      # Layers, Hide
+      hideGroup(c("Ecoregions, Level III"
+                 # , "BCG Class"
+                 # , "NorWeST"
+                 # , "NHD+ Catchments"
+                 # , "NHD+ Flowlines"
+                )) %>%
       # Bounds
       fitBounds(map_bbox[1], map_bbox[2], map_bbox[3], map_bbox[4])
       

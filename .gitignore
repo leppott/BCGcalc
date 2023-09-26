@@ -48,3 +48,6 @@ inst/shiny-examples/BCGcalc/rsconnect/shinyapps.io/tetratech-wtr-wne/BCGcalc.dcf
 *.dcf
 *.dcf
 inst/shiny-examples/BCGcalc/rsconnect/shinyapps.io/tetratech-wtr-wne/BCGcalc.dcf
+data/data_GIS_NorWeST_ORWA.rda
+data/data_GIS_NHDplus_catch_ORWA.rda
+data/data_GIS_NHDplus_flowline_ORWA.rda
