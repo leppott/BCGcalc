@@ -19,6 +19,8 @@ function() {
       , h4("D. Update Map")
       , p("After making changes above click the button below to update the map.")
       , bsButton("but_map_update", "Update Map")
+      , hr()
+      , includeHTML(file.path("www", "rmd_html", "ShinyHTML_Map.html"))
       
       # , h4("C. Exclude Taxa")
       # , checkboxInput("ExclTaxa_modtherm", "Generate Exclude Taxa Column", TRUE)

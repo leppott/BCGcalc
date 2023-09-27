@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-09-26 12:01:38.778027
+2023-09-27 17:15:50.995647
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-26 12:01:38.80123
+    #> Last Update: 2023-09-27 17:15:51.076171
+
+# BCGcalc 2.0.0.9097 (2023-09-27)
+
+- refactor: Add download links to KMZ files
+- refactor: Update map legends coding, Issue \#67
 
 # BCGcalc 2.0.0.9096 (2023-09-26)
 

@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9097 (2023-09-27)
+
+* refactor: Add download links to KMZ files
+* refactor: Update map legends coding, Issue #67
+
 # BCGcalc 2.0.0.9096 (2023-09-26)
 
 * feature: Add KMZ downloads to Shiny app

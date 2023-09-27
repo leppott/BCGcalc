@@ -3279,7 +3279,7 @@ shinyServer(function(input, output) {
   
   observeEvent(input$BDI_ExclTaxa, {
     cat("BDI Excl Taxa = ", input$BDI_ExclTaxa, "\n")
-#browser()
+
     # Turn on and off Excl Col selectInput
     if (input$BDI_ExclTaxa == FALSE) {
       cat("BDI Excl select, enable.\n")
@@ -3746,7 +3746,14 @@ shinyServer(function(input, output) {
   # https://rstudio.github.io/leaflet/shiny.html
   # need a reactive to trigger, use map update button
   observeEvent(input$but_map_update, {
-  
+    
+    ### Data ----
+    df_map <- df_import()
+    names_data <- names(df_map)
+    
+    no_narrative <- "No Narrative Designation"    
+    size_default <- 50
+    
     ### Map_L_P, Gather and Test Inputs----
     sel_map_datatype   <- input$map_datatype
     sel_map_col_xlong  <- input$map_col_xlong
@@ -3757,9 +3764,6 @@ shinyServer(function(input, output) {
     sel_map_col_mapval <- NA_character_
     sel_map_col_mapnar <- NA_character_
     sel_map_col_color  <- NA_character_
-    
-    # data for plot
-    df_map <- df_import()
     
     if (is.null(sel_map_datatype) | sel_map_datatype == "") {
       # end process with pop up
@@ -3804,9 +3808,10 @@ shinyServer(function(input, output) {
                              , closeOnClickOutside = TRUE)
       validate(msg)
     }## IF ~ sel_map_col_sampid
-   
-    no_narrative <- "No Narrative Designation"
-     
+ 
+    
+    ### Munge Data ----
+    #### Munge, Val, Nar, Size
     if (sel_map_datatype == "BCG") {
       sel_map_col_mapval <- "Continuous_BCG_Level"
       sel_map_col_mapnar <- "BCG_Status"
@@ -3815,76 +3820,154 @@ shinyServer(function(input, output) {
       sel_map_col_mapnar <- "Therm_Class"
     } else if (sel_map_datatype == "MTTI") {
       sel_map_col_mapval <- "MTTI"
-      sel_map_col_mapnar <- "MTTI"
+      sel_map_col_mapnar <- "Map_Nar"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 16, 19, 21, 23, 9999)
+      cut_lab <- c("Very Cold"
+                  , "Cold"
+                  , "Cool"
+                  , "Cool/Warm"
+                  , "Warm")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                   , breaks = cut_brk
+                                   , labels = cut_lab
+                                   , include.lowest = TRUE
+                                   , right = FALSE
+                                   , ordered_result = TRUE)
     } else if (sel_map_datatype == "BDI") {
       sel_map_col_mapval <- "Index"
       sel_map_col_mapnar <- "Index_Nar"
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold") {
       sel_map_col_mapval <- "nt_ti_stenocold"
       sel_map_col_mapnar <- "Map_Nar"
-      df_map[, sel_map_col_mapnar] <- no_narrative
-      df_map[, "map_color"] <- "black"
-      df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 1, 3, 9999)
+      cut_lab <- c(NA
+                   , "Cold"
+                   , "Very Cold")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                          , breaks = cut_brk
+                                          , labels = cut_lab
+                                          , include.lowest = TRUE
+                                          , right = FALSE
+                                          , ordered_result = TRUE)
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold") {
       sel_map_col_mapval <- "nt_ti_stenocold_cold"
       sel_map_col_mapnar <- "Map_Nar"
-      df_map[, sel_map_col_mapnar] <- no_narrative
-      df_map[, "map_color"] <- "black"
-      df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 1, 3, 5, 10, 9999)
+      cut_lab <- c("NA"
+                   , "Cool/Warm"
+                   , "Cool"
+                   , "Cold"
+                   , "Very Cold")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                          , breaks = cut_brk
+                                          , labels = cut_lab
+                                          , include.lowest = TRUE
+                                          , right = FALSE
+                                          , ordered_result = TRUE)
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "nt_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
-      df_map[, sel_map_col_mapnar] <- no_narrative
-      df_map[, "map_color"] <- "black"
-      df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 9, 20, 25, 30, 9999)
+      cut_lab <- c("NA"
+                   , "Cool/Warm"
+                   , "Cool"
+                   , "Cold"
+                   , "Very Cold")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                          , breaks = cut_brk
+                                          , labels = cut_lab
+                                          , include.lowest = TRUE
+                                          , right = FALSE
+                                          , ordered_result = TRUE)
+      
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "pt_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
-      df_map[, sel_map_col_mapnar] <- no_narrative
-      df_map[, "map_color"] <- "black"
-      df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 20, 35, 50, 65, 9999)
+      cut_lab <- c("NA"
+                   , "Cool/Warm"
+                   , "Cool"
+                   , "Cold"
+                   , "Very Cold")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                          , breaks = cut_brk
+                                          , labels = cut_lab
+                                          , include.lowest = TRUE
+                                          , right = FALSE
+                                          , ordered_result = TRUE)
+      
     } else if (sel_map_datatype == "Thermal Metrics, pi_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "pi_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
-      df_map[, sel_map_col_mapnar] <- no_narrative
-      df_map[, "map_color"] <- "black"
-      df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 10, 30, 40, 55, 9999)
+      cut_lab <- c("NA"
+                   , "Cool/Warm"
+                   , "Cool"
+                   , "Cold"
+                   , "Very Cold")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                          , breaks = cut_brk
+                                          , labels = cut_lab
+                                          , include.lowest = TRUE
+                                          , right = FALSE
+                                          , ordered_result = TRUE)
+      
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_warm_stenowarm") {
       sel_map_col_mapval <- "pt_ti_warm_stenowarm"
       sel_map_col_mapnar <- "Map_Nar"
-      df_map[, sel_map_col_mapnar] <- no_narrative
-      df_map[, "map_color"] <- "black"
-      df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 5, 10, 15, 40, 9999)
+      cut_lab <- c("Very Cold"
+                   , "Cold"
+                   , "Cool"
+                   , "Cool/Warm"
+                   , "Warm")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                          , breaks = cut_brk
+                                          , labels = cut_lab
+                                          , include.lowest = TRUE
+                                          , right = FALSE
+                                          , ordered_result = TRUE)
+      
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_warm_stenowarm") {
       sel_map_col_mapval <- "nt_ti_warm_stenowarm"
       sel_map_col_mapnar <- "Map_Nar"
-      df_map[, sel_map_col_mapnar] <- no_narrative
-      df_map[, "map_color"] <- "black"
-      df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
+      df_map[, sel_map_col_mapnar] <- NA_character_
+      cut_brk <- c(-1, 2, 9999)
+      cut_lab <- c("NA"
+                   , "Warm")
+      df_map[, sel_map_col_mapnar] <- cut(df_map[, sel_map_col_mapval]
+                                          , breaks = cut_brk
+                                          , labels = cut_lab
+                                          , include.lowest = TRUE
+                                          , right = FALSE
+                                          , ordered_result = TRUE)
+      
     }## IF ~ sel_datatype ~ END
     
-    size_default <- 50
+
+    # QC, Value in data frame
+    boo_map_col_mapval <- sel_map_col_mapval %in% names_data
+    if (boo_map_col_mapval == FALSE) {
+      # end process with pop up
+      msg <- paste0("Map Value column name ("
+                    , sel_map_col_mapval
+                    , ") is missing!")
+      shinyalert::shinyalert(title = "Update Data"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      validate(msg)
+    }## IF ~ sel_map_col_sampid
     
-    # 20230905, need something for Thermal Metrics no narrative
-    # May have to declare data earlier
-    
-    #~~~~~~~~~~~~~~~~~~~~~~
-    # repeat code from base
-    #~~~~~~~~~~~~~~~~~~~~~~
+
     
     # Rename Columns to known values
     df_map <- df_map %>%
@@ -3904,7 +3987,8 @@ shinyServer(function(input, output) {
                                   )
              )
     
-    # Color by index
+    ### Munge, Color, Size, Legend
+    # by index value or narrative
     if (sel_map_datatype == "BCG") {
       cut_brk <- seq(0.5, 6.5, 1)
       cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
@@ -3949,34 +4033,53 @@ shinyServer(function(input, output) {
                    , "NA"
       )
       df_map <- df_map %>%
-        mutate(map_color = case_when(Therm_Class == leg_nar[1] ~ leg_col[1]
-                                     , Therm_Class == leg_nar[2] ~ leg_col[2]
-                                     , Therm_Class == leg_nar[3] ~ leg_col[3]
-                                     , Therm_Class == leg_nar[4] ~ leg_col[4]
-                                     , Therm_Class == leg_nar[5] ~ leg_col[5]
-                                     , Therm_Class == leg_nar[6] ~ leg_col[6]
-                                     , Therm_Class == leg_nar[7] ~ leg_col[7]
-                                     , Therm_Class == leg_nar[8] ~ leg_col[8]
-                                     , Therm_Class == leg_nar[9] ~ leg_col[9]
-                                     , Therm_Class == leg_nar[10] ~ leg_col[10]
-                                     , Therm_Class == leg_nar[11] ~ leg_col[11]
-                                     , Therm_Class == leg_nar[12] ~ leg_col[12]
-                                     , Therm_Class == leg_nar[13] ~ leg_col[13]
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , map_mapnar == leg_nar[5] ~ leg_col[5]
+                                     , map_mapnar == leg_nar[6] ~ leg_col[6]
+                                     , map_mapnar == leg_nar[7] ~ leg_col[7]
+                                     , map_mapnar == leg_nar[8] ~ leg_col[8]
+                                     , map_mapnar == leg_nar[9] ~ leg_col[9]
+                                     , map_mapnar == leg_nar[10] ~ leg_col[10]
+                                     , map_mapnar == leg_nar[11] ~ leg_col[11]
+                                     , map_mapnar == leg_nar[12] ~ leg_col[12]
+                                     , map_mapnar == leg_nar[13] ~ leg_col[13]
                                      , TRUE ~ leg_col[14]
                                       ))
       # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- size_default
     } else if (sel_map_datatype == "MTTI") {
-      # no final score narrative
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#00B0F0"
+                   , "#9AF3FC" 
+                   , "#92D050" 
+                   , "#FFFF00"
+                   , "#FFC000"
+                   , "#808080"
+      )
+      leg_nar <- c("Very Cold"
+                   , "Cold"
+                   , "Cool"
+                   , "Cool/Warm"
+                   , "Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , map_mapnar == leg_nar[5] ~ leg_col[5]
+                                     , TRUE ~ leg_col[6]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "BDI") {
       cut_brk <- c(0, 20, 30, 999)
       cut_lab <- c("red", "gray", "blue")
-      leg_col <- cut_lab
-      leg_nar <- c("Low", "Medium", "High")
+      leg_col <- rev(cut_lab)
+      leg_nar <- rev(c("Low", "Medium", "High"))
       df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
                                    , breaks = cut_brk
                                    , labels = cut_lab
@@ -3984,41 +4087,151 @@ shinyServer(function(input, output) {
                                    , right = FALSE
                                    , ordered_result = TRUE)
       df_map[, "map_size"] <- size_default
+      # REVERSE ORDER FOR LEGEND
+      
+      
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold") {
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#00B0F0"
+                   , "#9AF3FC" 
+                   , "#808080"
+      )
+      leg_nar <- c("Very Cold"
+                   , "Cold"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , TRUE ~ leg_col[3]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold") {
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#00B0F0"
+                   , "#9AF3FC" 
+                   , "#92D050" 
+                   , "#FFFF00"
+                   , "#808080"
+      )
+      leg_nar <- c("Very Cold"
+                   , "Cold"
+                   , "Cool"
+                   , "Cool/Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , TRUE ~ leg_col[5]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold_cool") {
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#00B0F0"
+                   , "#9AF3FC" 
+                   , "#92D050" 
+                   , "#FFFF00"
+                   , "#808080"
+      )
+      leg_nar <- c("Very Cold"
+                   , "Cold"
+                   , "Cool"
+                   , "Cool/Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , TRUE ~ leg_col[5]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_stenocold_cold_cool") {
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#00B0F0"
+                   , "#9AF3FC" 
+                   , "#92D050" 
+                   , "#FFFF00"
+                   , "#808080"
+      )
+      leg_nar <- c("Very Cold"
+                   , "Cold"
+                   , "Cool"
+                   , "Cool/Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , TRUE ~ leg_col[5]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, pi_ti_stenocold_cold_cool") {
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#00B0F0"
+                   , "#9AF3FC" 
+                   , "#92D050" 
+                   , "#FFFF00"
+                   , "#808080"
+      )
+      leg_nar <- c("Very Cold"
+                   , "Cold"
+                   , "Cool"
+                   , "Cool/Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , TRUE ~ leg_col[6]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_warm_stenowarm") {
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#00B0F0"
+                   , "#9AF3FC" 
+                   , "#92D050" 
+                   , "#FFFF00"
+                   , "#FFC000"
+                   , "#808080"
+      )
+      leg_nar <- c("Very Cold"
+                   , "Cold"
+                   , "Cool"
+                   , "Cool/Warm"
+                   , "Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , map_mapnar == leg_nar[5] ~ leg_col[5]
+                                     , TRUE ~ leg_col[6]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_warm_stenowarm") {
-      df_map[, "map_color"] <- "black"
+      leg_col <- c("#FFC000"
+                   , "#808080"
+      )
+      leg_nar <- c("Warm"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , TRUE ~ leg_col[2]
+        ))
+      # TRUE is ELSE and #808080 is gray
       df_map[, "map_size"] <- df_map$map_mapval
-      leg_col <- "black"
-      leg_nar <- "No Narrative Designation"
     } else {
       df_map[, "map_color"] <- "gray"
       df_map[, "map_size"] <- size_default
@@ -4027,15 +4240,19 @@ shinyServer(function(input, output) {
     }## IF ~ sel_datatype ~ COLOR
     
     
-    
+
+    ### Map ----
     # Bounding box
     map_bbox <- c(min(df_map[, sel_map_col_xlong], na.rm = TRUE)
                   , min(df_map[, sel_map_col_ylat], na.rm = TRUE)
                   , max(df_map[, sel_map_col_xlong], na.rm = TRUE)
                   , max(df_map[, sel_map_col_ylat], na.rm = TRUE)
-                  )
-
-    # Map
+    )
+    
+    #~~~~~~~~~~~~~~~~~~~~~~
+    # repeat code from base
+    #~~~~~~~~~~~~~~~~~~~~~~
+    
     #leaflet() %>%
     leafletProxy("map_leaflet", data = df_map) %>%
       # Groups, Base
