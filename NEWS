@@ -1,11 +1,24 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-09-27 17:15:50.995647
+2023-09-28 16:47:43.473226
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-27 17:15:51.076171
+    #> Last Update: 2023-09-28 16:47:43.508917
+
+# BCGcalc 2.0.0.9098 (2023-09-28)
+
+- feat: Update Shiny map
+  - Add Imagery as baselayer to Shiny map
+  - Add legend title variable to Shiny map legend
+  - Add jitter to map plot to avoid overlap of multiple samples per
+    location
+  - Change legend and colors
+    - BDI
+    - BCG
+    - MTTI
+    - Thermal Metrics
 
 # BCGcalc 2.0.0.9097 (2023-09-27)
 
