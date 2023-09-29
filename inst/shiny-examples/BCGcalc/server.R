@@ -3981,10 +3981,16 @@ shinyServer(function(input, output) {
     # 1 second ~ 1/3600 ~ 0.000278 ~ 37.5 meters
     # 7 seconds ~ 262.3 meters
     jit_fac <- 7/3600 
+    nrow_data <- nrow(df_map)
+    noise_y <- runif(nrow_data, -jit_fac, jit_fac)
+    noise_x <- runif(nrow_data, -jit_fac, jit_fac)
+    
     df_map <- df_map %>%
       mutate(map_ID = df_map[, sel_map_col_sampid]
-             , map_ylat = jitter(df_map[, sel_map_col_ylat], jit_fac)
-             , map_xlong = jitter(df_map[, sel_map_col_xlong], jit_fac)
+             # , map_ylat = jitter(df_map[, sel_map_col_ylat], jit_fac)
+             # , map_xlong = jitter(df_map[, sel_map_col_xlong], jit_fac)
+             , map_ylat = df_map[, sel_map_col_ylat] + noise_y
+             , map_xlong = df_map[, sel_map_col_xlong] + noise_x
              , map_mapval = df_map[, sel_map_col_mapval]
              , map_mapnar = df_map[, sel_map_col_mapnar]
              , map_color = NA_character_
@@ -4053,33 +4059,66 @@ shinyServer(function(input, output) {
       df_map[, "map_size"] <- size_default
     } else if (sel_map_datatype == "Fuzzy Temp Model") {
       leg_title <- "Fuzzy Temp Model"
-      leg_col <- c("#00B0F0"
-                   , "#8EA9DB" 
-                   , "#8EA9DB" 
-                   , "#8EA9DB"
-                   , "#B4C6E7"
-                   , "#BDD7EE"
-                   , "#BDD7EE"
-                   , "#BDD7EE"
-                   , "#DDEBF7"
-                   , "#F2F2F2"
-                   , "#F2F2F2"
-                   , "#F2F2F2"
-                   , "#F8CBAD"
+      ## v1
+      # leg_col <- c("#00B0F0"
+      #              , "#8EA9DB" 
+      #              , "#8EA9DB" 
+      #              , "#8EA9DB"
+      #              , "#B4C6E7"
+      #              , "#BDD7EE"
+      #              , "#BDD7EE"
+      #              , "#BDD7EE"
+      #              , "#DDEBF7"
+      #              , "#F2F2F2"
+      #              , "#F2F2F2"
+      #              , "#F2F2F2"
+      #              , "#F8CBAD"
+      #              , "#808080"
+      # )
+      ## v2
+      # leg_col <- c(blues9[9]
+      #              , blues9[8]
+      #              , blues9[8]
+      #              , blues9[8]
+      #              , blues9[7]
+      #              , blues9[6]
+      #              , blues9[6]
+      #              , blues9[6]
+      #              , blues9[5]
+      #              , blues9[4]
+      #              , blues9[4]
+      #              , blues9[4]
+      #              , "#F8CBAD"
+      #              , "#808080"
+      # )
+      ## v3
+      leg_col <- c("#140AE6"
+                   , "#0066FF"
+                   , "#7B9BF5"
+                   , "#0AE1EC"
+                   , "#9AF3FC"
+                   , "#BEFEFB"
+                   , "#DDFBFF"
+                   , "#C6FFB9"
+                   , "#34FB25"
+                   , "#FFFF66"
+                   , "#FFFFE5"
+                   , "#E4DFEC"
+                   , "#FFC000"
                    , "#808080"
       )
       leg_nar <- c("VeryCold"
                    , "VCold_Cold"
-                   , "Cold_VCold"
                    , "TIE_VCold_Cold"
+                   , "Cold_VCold"
                    , "Cold"
                    , "Cold_Cool"
-                   , "Cool_Cold"
                    , "TIE_Cold_Cool"
+                   , "Cool_Cold"
                    , "Cool"
                    , "Cool_Warm"
-                   , "Warm_Cool"
                    , "TIE_Warm_Cool"
+                   , "Warm_Cool"
                    , "Warm"
                    , "NA"
       )

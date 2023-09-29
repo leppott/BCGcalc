@@ -1,11 +1,23 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-09-28 16:47:43.473226
+2023-09-29 12:33:55.540074
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-28 16:47:43.508917
+    #> Last Update: 2023-09-29 12:33:55.660918
+
+# BCGcalc 2.0.0.9099 (2023-09-29)
+
+- refactor: Remove base layers too large to use
+  - NorWeST
+  - NHD+ catchment
+  - NDD+ flowlines
+- fix: Change Fuzzy Thermal legend
+  - Move first ties up 1 slot each
+  - Change legend colors
+- refactor: Change jitter on map from jitter function to custom
+  - jitter didn’t always work with large data sets
 
 # BCGcalc 2.0.0.9098 (2023-09-28)
 

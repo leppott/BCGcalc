@@ -22,9 +22,10 @@
 fn_shp <- file.path("G:", "BCG", "GIS", "data")
 ogr_shp <- sf::st_read(dsn = fn_shp, layer = "Eco3_ORWA_clip")
 fort_shp <- ggplot2::fortify(ogr_shp)
-# 0.99 MB
+# 1.98 MB
 
 # 2. Save as RDA for use in package----
 data_GIS_eco3_orwa <- fort_shp
 usethis::use_data(data_GIS_eco3_orwa, overwrite = TRUE)
 # 0.377 MB
+

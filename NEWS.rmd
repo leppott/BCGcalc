@@ -21,6 +21,18 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9099 (2023-09-29)
+
+* refactor: Remove base layers too large to use
+    + NorWeST
+    + NHD+ catchment
+    + NDD+ flowlines
+* fix: Change Fuzzy Thermal legend
+    + Move first  ties up 1 slot each
+    + Change legend colors
+* refactor: Change jitter on map from jitter function to custom
+    + jitter didn't always work with large data sets
+
 # BCGcalc 2.0.0.9098 (2023-09-28)
 
 * feat: Update Shiny map
