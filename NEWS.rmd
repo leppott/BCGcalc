@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9100 (2023-10-02)
+
+* fix: Change leaflet map proxy to redraw legend
+    + Prevents thermal metric legends from having multiple on screen
+* refactor: Add "DRAFT" to BDI
+
 # BCGcalc 2.0.0.9099 (2023-09-29)
 
 * refactor: Remove base layers too large to use

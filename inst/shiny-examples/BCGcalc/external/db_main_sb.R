@@ -55,7 +55,7 @@ function(id) {
                  , menuSubItem("MTTI"
                                , tabName = "tab_calc_mtti"
                                , icon = icon("microscope"))
-                 , menuSubItem("BioDiversity Index"
+                 , menuSubItem("BioDiversity Index [DRAFT]"
                                , tabName = "tab_calc_bdi"
                                , icon = icon("flask"))
                  )## menuItem ~ BCG

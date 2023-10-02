@@ -3,7 +3,7 @@
 function() {
   sidebarLayout(
     sidebarPanel(
-      h2("Calculate BDI")
+      h2("Calculate BDI [DRAFT]")
       , p("This function will render all steps and make available files for download.")
       , br()
       , h4("A. Upload a file.")
@@ -25,7 +25,7 @@ function() {
       , uiOutput("UI_bdi_user_col_sampid")
       , uiOutput("UI_bdi_user_col_taxaid")
       , uiOutput("UI_bdi_user_col_ntaxa")
-      , uiOutput("UI_bdi_user_col_exclude")
+      #, uiOutput("UI_bdi_user_col_exclude")
       , p("Exclude column only used if Exclude checkbox above is unchecked.")
       
       , h4("D. Run Operation")

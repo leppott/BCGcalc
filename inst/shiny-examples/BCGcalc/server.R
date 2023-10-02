@@ -3298,6 +3298,7 @@ shinyServer(function(input, output) {
   ## b_Calc_BDI ----
   observeEvent(input$b_calc_bdi, {
     shiny::withProgress({
+      # 20231002, Remove user selection for Excluded taxa
       
       ### Calc, 00, Set Up Shiny Code ----
       
@@ -3344,7 +3345,7 @@ shinyServer(function(input, output) {
       sel_col_sampid  <- input$bdi_user_col_sampid
       sel_col_taxaid  <- input$bdi_user_col_taxaid
       sel_col_ntaxa   <- input$bdi_user_col_ntaxa
-      sel_col_exclude <- input$bdi_user_col_exclude
+      sel_col_exclude <- "Exclude" # input$bdi_user_col_exclude
       
       # Test Params
       
@@ -4371,6 +4372,7 @@ shinyServer(function(input, output) {
       #                  , group = "Toner Lite") %>%
       # addProviderTiles(providers$OpenStreetMap
       #                  , group = "Open Street Map") %>%
+      clearControls() %>%
       # Groups, Overlay
       addCircles(lng = ~map_xlong
                  , lat = ~map_ylat
@@ -4378,6 +4380,11 @@ shinyServer(function(input, output) {
                  , popup = ~map_popup
                  , radius = ~map_size
                  , group = "Samples") %>%
+      # Test different points
+      # addAwesomeMarkers(lng = ~map_xlong
+      #                   , lat = ~map_ylat
+      #                   , popup = ~map_popup
+      #                   , clusterOptions = markerClusterOptions()) %>%
       # Legend
       addLegend("bottomleft"
                 , colors = leg_col

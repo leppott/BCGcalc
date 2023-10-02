@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-09-29 12:33:55.540074
+2023-10-02 14:06:49.238159
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-09-29 12:33:55.660918
+    #> Last Update: 2023-10-02 14:06:49.265911
+
+# BCGcalc 2.0.0.9100 (2023-10-02)
+
+- fix: Change leaflet map proxy to redraw legend
+  - Prevents thermal metric legends from having multiple on screen
+- refactor: Add “DRAFT” to BDI
 
 # BCGcalc 2.0.0.9099 (2023-09-29)
 
