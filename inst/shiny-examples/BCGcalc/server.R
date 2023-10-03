@@ -3674,7 +3674,6 @@ shinyServer(function(input, output) {
     # col_Segs     <- "black" # "grey59"
     # fill_Segs    <- "lightskyblue" 
     
-    
     # Map
     #leaflet() %>%
     leaflet(data = df_map) %>%
@@ -3692,7 +3691,18 @@ shinyServer(function(input, output) {
       #                  , group = "USGS Imagery") %>%
       addPolygons(data = data_GIS_eco3_orwa
                   , group = "Ecoregions, Level III"
-                  , popup = ~paste0(LEVEL3, ", ", LEVEL3_NAM)) %>% 
+                  , popup = ~paste0(LEVEL3, ", ", LEVEL3_NAM)
+                  , fillColor = ~LEVEL3
+                  ) %>%
+      # addPolygons(data = data_GIS_eco3_orwa
+      #             , group = "Ecoregions, Level III"
+      #             , popup = ~paste0(US_L3CODE
+      #                               , ", "
+      #                               , US_L3NAME
+      #                               , ", valid for BCG = "
+      #                               , BCG_Valid)
+      #             , fillColor = ~Fill
+      # ) %>%
       # addPolygons(data = data_GIS_BCGclass
       #             , group = "BCG Class"
       #             , popup = ~BCGclass_v
@@ -4374,11 +4384,20 @@ shinyServer(function(input, output) {
       #                  , group = "Open Street Map") %>%
       clearControls() %>%
       # Groups, Overlay
-      addCircles(lng = ~map_xlong
+      # addCircles(lng = ~map_xlong
+      #            , lat = ~map_ylat
+      #            , color = ~map_color
+      #            , popup = ~map_popup
+      #            , radius = ~map_size
+      #            , group = "Samples") %>%
+      addCircleMarkers(lng = ~map_xlong
                  , lat = ~map_ylat
                  , color = ~map_color
                  , popup = ~map_popup
-                 , radius = ~map_size
+                 #, radius = ~map_size
+                 , fill = ~map_color
+                 , stroke = TRUE
+                 , fillOpacity = 0.75
                  , group = "Samples") %>%
       # Test different points
       # addAwesomeMarkers(lng = ~map_xlong

@@ -18,6 +18,9 @@
 # library(sf) # replace rgdal
 # library(ggplot2)
 
+# myFile <- "Eco3_ORWA_clip" # 1.98 MB to 0.377 MB
+# myFile <- "L3eco_ORWA_MaritimeBCG" # 1.98 MB to 1.4 MB
+
 # 1. Get data and process----
 fn_shp <- file.path("G:", "BCG", "GIS", "data")
 ogr_shp <- sf::st_read(dsn = fn_shp, layer = "Eco3_ORWA_clip")

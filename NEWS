@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-10-02 14:06:49.238159
+2023-10-03 11:20:44.059906
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-10-02 14:06:49.265911
+    #> Last Update: 2023-10-03 11:20:44.123572
+
+# BCGcalc 2.0.0.9101 (2023-10-03)
+
+- refactor: For leaflet map change to addCircleMarkers
+  - Replaced addCircles
 
 # BCGcalc 2.0.0.9100 (2023-10-02)
 

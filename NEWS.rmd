@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9101 (2023-10-03)
+
+* refactor: For leaflet map change to addCircleMarkers
+    + Replaced addCircles
+
 # BCGcalc 2.0.0.9100 (2023-10-02)
 
 * fix: Change leaflet map proxy to redraw legend
