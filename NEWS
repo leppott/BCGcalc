@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-10-03 11:20:44.059906
+2023-10-17 10:57:42.763533
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-10-03 11:20:44.123572
+    #> Last Update: 2023-10-17 10:57:42.785233
+
+# BCGcalc 2.0.0.9102 (2023-10-17)
+
+- refactor: Leaflet map Fuzzy Thermal changes
+  - Create multiple TIEs for legend so don’t count as NA
+    - TIE_A_B same as TIE_B_A
+  - Remove Continuous_Thermal as a required field
+    - Was used for size but size no longer being used
 
 # BCGcalc 2.0.0.9101 (2023-10-03)
 

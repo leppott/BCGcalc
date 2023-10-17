@@ -21,6 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9102 (2023-10-17)
+
+* refactor: Leaflet map Fuzzy Thermal changes
+    + Create multiple TIEs for legend so don't count as NA
+        - TIE_A_B same as TIE_B_A
+    + Remove Continuous_Thermal as a required field
+        - Was used for size but size no longer being used
+    
 # BCGcalc 2.0.0.9101 (2023-10-03)
 
 * refactor: For leaflet map change to addCircleMarkers
