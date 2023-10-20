@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-10-17 10:57:42.763533
+2023-10-20 15:16:16.964873
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-10-17 10:57:42.785233
+    #> Last Update: 2023-10-20 15:16:16.993705
+
+# BCGcalc 2.0.0.9103 (2023-10-20)
+
+- fix: Shiny, taxatrans_late_0filesversion.csv, swap 2 columns
 
 # BCGcalc 2.0.0.9102 (2023-10-17)
 

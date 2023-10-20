@@ -634,8 +634,8 @@ shinyServer(function(input, output) {
  
       ## File version names
       df_save <- data.frame(Calculation = sel_proj
-                            , OperationalTaxonomicUnit = fn_taxoff
-                            , TranslationTable = col_taxaid_official_project
+                            , OperationalTaxonomicUnit = col_taxaid_official_project
+                            , TranslationTable = fn_taxoff
                             , AttributeTable = fn_taxoff_attr)
       fn_part <- paste0("_taxatrans_", "0fileversions", ".csv")
       write.csv(df_save
@@ -3674,6 +3674,14 @@ shinyServer(function(input, output) {
     # col_Segs     <- "black" # "grey59"
     # fill_Segs    <- "lightskyblue" 
     
+    data_GIS_eco3_orwa_bcg <- data_GIS_eco3_orwa_bcg %>%
+      mutate(Fill = case_when(BCG_Valid == TRUE ~ "#808080"
+                              , TRUE ~ "#FFFFFF"
+      )) %>%
+      mutate(Border = case_when(BCG_Valid == TRUE ~ "#000000"
+                                , TRUE ~ "#03F"
+      ))
+    
     # Map
     #leaflet() %>%
     leaflet(data = df_map) %>%
@@ -3689,20 +3697,22 @@ shinyServer(function(input, output) {
                        , group = "ESRI World Imagery") %>%
       # addProviderTiles(providers$USGS.USImagery
       #                  , group = "USGS Imagery") %>%
-      addPolygons(data = data_GIS_eco3_orwa
-                  , group = "Ecoregions, Level III"
-                  , popup = ~paste0(LEVEL3, ", ", LEVEL3_NAM)
-                  , fillColor = ~LEVEL3
-                  ) %>%
       # addPolygons(data = data_GIS_eco3_orwa
       #             , group = "Ecoregions, Level III"
-      #             , popup = ~paste0(US_L3CODE
-      #                               , ", "
-      #                               , US_L3NAME
-      #                               , ", valid for BCG = "
-      #                               , BCG_Valid)
-      #             , fillColor = ~Fill
-      # ) %>%
+      #             , popup = ~paste0(LEVEL3, ", ", LEVEL3_NAM)
+      #             , fillColor = ~LEVEL3
+      #             ) %>%
+      addPolygons(data = data_GIS_eco3_orwa_bcg
+                  , group = "Ecoregions, Level III"
+                  , popup = ~paste0(US_L3CODE
+                                    , ", "
+                                    , US_L3NAME
+                                    , ", valid for BCG = "
+                                    , BCG_Valid)
+                  , fillColor = ~Fill
+                  , color = ~Border
+                  , weight = 3
+      ) %>%
       # addPolygons(data = data_GIS_BCGclass
       #             , group = "BCG Class"
       #             , popup = ~BCGclass_v
@@ -3744,16 +3754,22 @@ shinyServer(function(input, output) {
                                            )
                        ) %>%
       # Layers, Hide
-      hideGroup(c("Ecoregions, Level III"
-                 # , "BCG Class"
-                 # , "NorWeST"
-                 # , "NHD+ Catchments"
-                 # , "NHD+ Flowlines"
-      )) %>%
+      # hideGroup(c("Ecoregions, Level III"
+      #            # , "BCG Class"
+      #            # , "NorWeST"
+      #            # , "NHD+ Catchments"
+      #            # , "NHD+ Flowlines"
+      # )) %>%
       # # Mini map
-      addMiniMap(toggleDisplay = TRUE) #%>%
-      # # Hide Groups
-      # hideGroup("CB Outline")
+      addMiniMap(toggleDisplay = TRUE) %>%
+      # Legend
+      addLegend("bottomleft"
+                , title = "L3 Ecoregions, BCG Valid"
+                , colors = c("#000000", "#03F")
+                , labels = c("TRUE", "FALSE")
+                # , layerID = "Ecoregions, Level III"
+                )
+
     
         
   })## map_leaflet ~ END
@@ -4231,7 +4247,7 @@ shinyServer(function(input, output) {
                    , "absent"
       )
       df_map <- df_map %>%
-        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+        mutate(map_color = case_when(map_mapnar %in% leg_nar[1] ~ leg_col[1]
                                      , map_mapnar == leg_nar[2] ~ leg_col[2]
                                      , map_mapnar == leg_nar[3] ~ leg_col[3]
                                      , map_mapnar == leg_nar[4] ~ leg_col[4]
@@ -4389,6 +4405,8 @@ shinyServer(function(input, output) {
       # addProviderTiles(providers$OpenStreetMap
       #                  , group = "Open Street Map") %>%
       clearControls() %>%
+      clearShapes() %>% 
+      clearMarkers() %>%
       # Groups, Overlay
       # addCircles(lng = ~map_xlong
       #            , lat = ~map_ylat
