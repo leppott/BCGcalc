@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-10-20 15:16:16.964873
+2023-10-27 08:10:22.981692
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-10-20 15:16:16.993705
+    #> Last Update: 2023-10-27 08:10:23.013877
+
+# BCGcalc 2.0.0.9104 (2023-10-27)
+
+- feature: Add report to Shiny
+  - Still under construction
+- refactor: Update Shiny import to remove empty directories as well as
+  files
+  - Change from `file.remove` to `unlink`
+- docs: Add openxlsx to DESCRIPTION for report creation in Shiny
 
 # BCGcalc 2.0.0.9103 (2023-10-20)
 

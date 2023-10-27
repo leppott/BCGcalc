@@ -93,7 +93,7 @@ function(id) {
                                , tabName = "tab_rep_ss_ms"
                                , icon = icon("pen-ruler")
                                )
-                 , menuSubItem("Muliple Sites"
+                 , menuSubItem("Multiple Sites"
                                , tabName = "tab_rep_ms"
                                , icon = icon("pen-to-square"))
                  )## menuItem ~ Reports ~ END

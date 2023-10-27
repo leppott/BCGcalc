@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9103"
+pkg_version <- "2.0.0.9104"
 
 # Packages----
 # nolint start
@@ -211,3 +211,7 @@ fn_map_meta <- "BCGcalc_Shiny_map_inputs_20230828.xlsx"
 map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
                                              , sheet = "field_names"
                                              , skip = 7))
+
+# Report ----
+
+

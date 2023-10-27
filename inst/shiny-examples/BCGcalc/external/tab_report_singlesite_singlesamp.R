@@ -2,7 +2,7 @@
 
 function() {
   tabPanel("tabpan_rep_ss_ss"
-           , h2("Report")
+           , h2("Report, Single Site, Single Sample")
            , p("Some information about reports, single site, single sample.")
            # , fluidPage(h2("About"
            #                #, style  = "text-align:center"

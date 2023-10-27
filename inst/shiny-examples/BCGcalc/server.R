@@ -115,6 +115,17 @@ shinyServer(function(input, output) {
 
   })## fn_input_display_map
   
+  output$fn_input_display_rep_ms <- renderText({
+    inFile <- input$fn_input
+    
+    if (is.null(inFile)) {
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+    
+    return(paste0("'", inFile$name, "'"))
+    
+  })## fn_input_display_rep_ms
+  
   # ~~~~IMPORT~~~~----
   # IMPORT ----
   file_watch <- reactive({
@@ -157,15 +168,16 @@ shinyServer(function(input, output) {
     # Triggered here so can run different files
     fn_results <- list.files(path_results
                              , full.names = TRUE
-                             , include.dirs = FALSE
+                             , include.dirs = TRUE
                              , recursive = TRUE)
-    message(paste0("Files in 'results' folder (before removal) = "
+    message(paste0("Files and folders in 'results' folder (before removal) = "
                    , length(fn_results)))
-    file.remove(fn_results) # ok if no files
+    # file.remove(fn_results) # ok if no files and only files
+    unlink(fn_results, recursive = TRUE) # includes directories
     # QC, repeat 
     fn_results2 <- list.files(path_results
                              , full.names = TRUE
-                             , include.dirs = FALSE
+                             , include.dirs = TRUE
                              , recursive = TRUE)
     message(paste0("Files in 'results' folder (after removal [should be 0]) = "
                    , length(fn_results2)))
@@ -245,6 +257,8 @@ shinyServer(function(input, output) {
     shinyjs::enable("b_calc_modtherm")
     shinyjs::enable("b_calc_mtti")
     shinyjs::enable("b_calc_bdi")
+    
+    shinyjs::enable("b_calc_rep_ms")
     
     # update cb_taxatrans_sum 
     # doesn't work here as timing is after the file is created
@@ -2348,7 +2362,7 @@ shinyServer(function(input, output) {
       # Copy metadata (thermal metrics) to results
       fn_meta <- "ThermPrefMetrics_metadata.xlsx"
       file.copy(file.path("www", "links", fn_meta)
-                , file.path("results", fn_meta))
+                , file.path(path_results, fn_meta))
       
       ## Calc, 05, Clean Up----
       prog_detail <- "Calculate, Clean Up"
@@ -4462,5 +4476,896 @@ shinyServer(function(input, output) {
   
   
   #~~~~REPORTS~~~~----
+  
+ ## Report, MS ----
+  
+  ## b_Calc_rep_ms ----
+  observeEvent(input$b_calc_rep_ms, {
+    shiny::withProgress({
+      
+      # # for testing
+      # setwd(file.path("inst", "shiny-examples", "BCGcalc"))
+
+      
+      ### Calc, 00, Set Up Shiny Code ----
+      
+      prog_detail <- "Calculation, Report, MS..."
+      message(paste0("\n", prog_detail))
+      
+      # Number of increments
+      prog_n <- 10
+      prog_sleep <- 0.25
+      
+ browser()     
+      
+      
+      
+      
+      
+      ## Calc, 01, Initialize ----
+      prog_detail <- "Initialize Data"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # button, disable, download
+      shinyjs::disable("b_download_rep_ss_ms")
+      
+      ## Calc, 02, Gather and Test Inputs  ----
+      prog_detail <- "QC Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+     
+      # unzip
+      zip::unzip(file.path(path_results, inFile$name)
+                 , overwrite = TRUE
+                 , exdir = path_results)
+      
+      # Template file
+      fn_template <- list.files(path_results
+                                , pattern = "^Template_TemperatureReport.*\\.xlsx$")
+      
+      if (length(fn_template) == 0) {
+        # end process with pop up
+        msg <- "'Template_TemperatureReport' file is missing!"
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        shiny::validate(msg)
+      }## IF ~ length(fn_template) == 0
+      
+      if (length(fn_template) > 1) {
+        # end process with pop up
+        msg <- "'Template_TemperatureReport' found more than once!"
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        shiny::validate(msg)
+      }## IF ~ length(fn_template) > 1
+    
+      # Files, ALL
+      fn_all <- list.files(path = path_results
+                           , full.names = TRUE
+                           , recursive = TRUE)
+      len_fn_all <- length(fn_all)
+      # Files, DataFrame
+      df_fn_all <- data.frame("path" = fn_all
+                              , "file" = basename(fn_all)
+                              , "dir_full" = dirname(fn_all))
+      df_fn_all[, "dir_zip"] <- sub(paste0("^", path_results, "/")
+                                    , ""
+                                    , df_fn_all[, "dir_full"])
+      
+      # Read Template
+      # read template file
+      path_template <- file.path(path_results, fn_template)
+      n_skip <- 3
+      
+      ### Template, Summary, Header ----
+      sh_template <- "summary_header"
+      df_template_summary_header <- readxl::read_excel(path = path_template
+                                                       , sheet = sh_template
+                                                       , skip = n_skip)
+      df_template_summary_header[, "sheet"] <- sh_template
+      
+      ### Template, Summary, Wide ----
+      sh_template <- "summary_wide"
+      df_template_summary_wide <- readxl::read_excel(path = path_template
+                                                     , sheet = sh_template
+                                                     , skip = n_skip)
+      df_template_summary_wide[, "sheet"] <- sh_template
+      
+      ### Template, Top Indicator ----
+      sh_template <- "topindicator"
+      df_template_topindicator <- readxl::read_excel(path = path_template
+                                                     , sheet = sh_template
+                                                     , skip = n_skip)
+      df_template_topindicator[, "sheet"] <- sh_template
+      
+      ### Template, Samples ----
+      sh_template <- "samples"
+      df_template_samples <- readxl::read_excel(path = path_template
+                                                , sheet = sh_template
+                                                , skip = n_skip)
+      df_template_samples[, "sheet"] <- sh_template
+      
+      ### Template, Flags ----
+      sh_template <- "flags"
+      df_template_flags <- readxl::read_excel(path = path_template
+                                              , sheet = sh_template
+                                              , skip = n_skip)
+      df_template_flags[, "sheet"] <- sh_template
+      
+      ### Template, Site ----
+      sh_template <- "site"
+      df_template_site <- readxl::read_excel(path = path_template
+                                             , sheet = sh_template
+                                             , skip = n_skip)
+      df_template_site[, "sheet"] <- sh_template
+      
+      ### Template, Taxa Trans ----
+      sh_template <- "taxatrans"
+      df_template_taxatrans <- readxl::read_excel(path = path_template
+                                                  , sheet = sh_template
+                                                  , skip = n_skip)
+      df_template_taxatrans[, "sheet"] <- sh_template
+     
+      ### Template, file names ----
+      df_template_all <- dplyr::bind_rows(df_template_summary_header
+                                          , df_template_summary_wide
+                                          , df_template_topindicator
+                                          , df_template_samples
+                                          , df_template_flags
+                                          , df_template_site
+                                          , df_template_taxatrans
+                                          , .id = "id")
+      df_template_sourcefiles <- unique(df_template_all[, c("inclusion", "source folder", "source file (or suffix)"), TRUE])
+      df_template_sourcefiles[, c("exact", "csv", "present")] <- NA_integer_
+      
+      ### QC, File Names----
+      # check for each as CSV and Exact
+      
+      for (i in seq_len(nrow(df_template_sourcefiles))) {
+        
+        df_template_sourcefiles[i, "exact"] <- sum(grepl(pattern = df_template_sourcefiles[i, "source file (or suffix)"], fn_all))
+        
+        df_template_sourcefiles[i, "csv"] <- sum(grepl(pattern = paste0(df_template_sourcefiles[i, "source file (or suffix)"], "\\.csv$"), fn_all))
+        
+      }## FOR ~ i
+      
+      df_template_sourcefiles[, "present"] <- df_template_sourcefiles[, "exact"] + 
+                                              df_template_sourcefiles[, "csv"]
+      
+      sourcefiles_missing <- dplyr::filter(df_template_sourcefiles
+                                           , inclusion == "required" 
+                                           & (present == 0 | is.na(present)))
+    
+      if (nrow(sourcefiles_missing) > 0) {
+        # end process with pop up
+        msg <- paste0("REQUIRED Template Source Files missing!\n"
+                      , paste(unique(sourcefiles_missing$`source file (or suffix)`)
+                              , collapse = "\n" )
+        )
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        shiny::validate(msg)
+      }## IF ~ nrow(sourcefiles_missing) > 0
+browser()       
+      ### File Names, Add Path
+      for (i in seq_len(nrow(df_template_sourcefiles))) {
+        
+        df_template_sourcefiles[i, "path"] <- ifelse(df_template_sourcefiles[i, "source folder", TRUE] == "NA"
+                                                     , df_template_sourcefiles[, "source file (or suffix)", TRUE]
+                                                     , file.path(df_template_sourcefiles[i, "source folder", TRUE]
+                                                                 , df_template_sourcefiles[i, "source file (or suffix)", TRUE])
+                                                      )
+      }## FOR ~ i
+      
+      ### File Names, Add to col names
+      # join or merge
+      
+      # Check file.exists for each entry.
+      df_template_sourcefiles[, "exist_file"] <- NA
+      
+      # Fail if files don't exist.
+      # if (length(fn_template) == 0) {
+      #   # end process with pop up
+      #   msg <- "'Template_TemperatureReport' file is missing!"
+      #   shinyalert::shinyalert(title = "Report"
+      #                          , text = msg
+      #                          , type = "error"
+      #                          , closeOnEsc = TRUE
+      #                          , closeOnClickOutside = TRUE)
+      #   shiny::validate(msg)
+      # }## IF ~ length(fn_template) == 0
+      
+      # import each file
+      # Check for column in file
+      df_template_sourcefiles[, "exist_col"] <- NA
+      
+      
+       ## Calc, 03, Data ----
+       prog_detail <- "Calculation, Create Data Tables"
+       message(paste0("\n", prog_detail))
+       # Increment the progress bar, and update the detail text.
+       incProgress(1/prog_n, detail = prog_detail)
+       Sys.sleep(prog_sleep)
+       ### Assemble data for each tab of the report
+       
+       # read template file
+       # read all files
+       # merge or join for each worksheet
+       
+       ### Data, NOTES ----
+       notes_head <- as.data.frame(cbind(c("Project Name"
+                                           , "Specific Task"
+                                           , NA
+                                           , "Author email"
+                                           , as.character(Sys.Date())
+                                           , NA
+                                           , "Path & FileName"
+                                           , "FileName"
+                                           , "SheetName"
+                                           , NA
+                                           , "Description of Work"
+                                           , ""
+       )
+       , c(rep(NA, 6), rep("formula", 3), rep(NA, 3))))
+       notes_toc <- as.data.frame(rbind(
+         c("NOTES", "Description of work and other worksheets", "LINK")
+         , c("summary", "summary", "link")
+         , c("topindicator", "topindicator", "link")
+         , c("samples", "samples", "link")
+         , c("flags", "flags", "link")
+         , c("site", "site", "link")
+         , c("taxatrans", "taxatrans", "link")
+       ))
+       names(notes_toc) <- c("Worksheet", "Description", "Link")
+       class(notes_toc$Link) <- "hyperlink"
+ browser()      
+       ### Data, Summary, Header ----
+       df_report_summary_header <- mtcars
+       
+       ### Data, Summary, Wide ----
+       df_report_summary_wide <- mtcars
+       
+       ### Data, Top Indicator ----
+       df_report_topindicator <- iris
+       
+       ### Data, Samples ----
+       df_report_samples <- ToothGrowth
+       
+       ### Data, Flags ----
+       df_report_flags <- PlantGrowth
+       
+       ### Data, Site ----
+       df_report_site <- USArrests
+       
+       ### Data, Taxa Trans ----
+       df_report_taxatrans <- cars
+       
+    
+       ## Calc, 04, Excel ----
+       prog_detail <- "Calculation, Create Excel"
+       message(paste0("\n", prog_detail))
+       # Increment the progress bar, and update the detail text.
+       incProgress(1/prog_n, detail = prog_detail)
+       Sys.sleep(prog_sleep)
+
+       ### Excel, Create File----
+       # Create Workbook
+       wb <- openxlsx::createWorkbook()
+       openxlsx::addWorksheet(wb, "NOTES", tabColour = "darkgray")
+       openxlsx::addWorksheet(wb, "summary")
+       openxlsx::addWorksheet(wb, "topindicator")
+       openxlsx::addWorksheet(wb, "samples")
+       openxlsx::addWorksheet(wb, "flags")
+       openxlsx::addWorksheet(wb, "site")
+       openxlsx::addWorksheet(wb, "taxatrans")
+       
+       mySR <- 8 # number of rows to skip for new worksheets
+       
+       ### Excel, Styles ----
+       style_title <- openxlsx::createStyle(fontName = "Cambria"
+                                  , fontSize = 18
+                                  , fontColour = "#1F497D"
+                                  , textDecoration = "bold")
+       style_h1 <- openxlsx::createStyle(fontName = "Calibri"
+                               , fontSize = 15
+                               , fontColour = "#1F497D"
+                               , textDecoration = "bold"
+                               , border = "Bottom"
+                               , borderColour = "#4F81BD"
+                               , borderStyle = "thick")
+       style_h2 <- openxlsx::createStyle(fontName = "Calibri"
+                               , fontSize = 13
+                               , fontColour = "#1F497D"
+                               , textDecoration = "bold"
+                               , border = "Bottom"
+                               , borderColour = "#A7BFDE"
+                               , borderStyle = "thick")
+       style_hyperlink <- openxlsx::createStyle(fontName = "Calibri"
+                                      , fontSize = 11
+                                      , fontColour = "#0000FF"
+                                      , textDecoration = "underline")
+       style_bold <- openxlsx::createStyle(textDecoration = "bold")
+       style_date <- openxlsx::createStyle(numFmt = "DATE")
+       
+       # options not exportable
+       # openxlsx::options("openxlsx.dateFormat" = "yyyy-mm-dd")
+       # openxlsx::options("openxlsx.datetimeFormat" = "yyyy-mm-dd hh:mm:ss")
+       
+       ### Excel, Cond Form, Styles ----
+       style_cf_ft_vcold          <- openxlsx::createStyle(bgFill = "#140AE6")
+       style_cf_ft_vcold_cold     <- openxlsx::createStyle(bgFill = "#0066FF")
+       style_cf_ft_tie_vcold_cold <- openxlsx::createStyle(bgFill = "#7B9BF5")
+       style_cf_ft_cold_vcold     <- openxlsx::createStyle(bgFill = "#0AE1EC")
+       style_cf_ft_cold           <- openxlsx::createStyle(bgFill = "#9AF3FC")
+       style_cf_ft_cold_cool      <- openxlsx::createStyle(bgFill = "#BEFEFB")
+       style_cf_ft_tie_cold_cool  <- openxlsx::createStyle(bgFill = "#DDFBFF")
+       style_cf_ft_cool_cold      <- openxlsx::createStyle(bgFill = "#C6FFB9")
+       style_cf_ft_cool           <- openxlsx::createStyle(bgFill = "#34FB25")
+       style_cf_ft_cool_warm      <- openxlsx::createStyle(bgFill = "#FFFF66")
+       style_cf_ft_tie_warm_cool  <- openxlsx::createStyle(bgFill = "#FFFFE5")
+       style_cf_ft_warm_cool      <- openxlsx::createStyle(bgFill = "#E4DFEC")
+       style_cf_ft_warm           <- openxlsx::createStyle(bgFill = "#FFC000")
+       style_cf_ft_na             <- openxlsx::createStyle(bgFill = "#808080")
+       style_cf_bcg_1             <- openxlsx::createStyle(bgFill = "blue")
+       style_cf_bcg_2             <- openxlsx::createStyle(bgFill = "green")
+       style_cf_bcg_3             <- openxlsx::createStyle(bgFill = "lightgreen")
+       style_cf_bcg_4             <- openxlsx::createStyle(bgFill = "gray")
+       style_cf_bcg_5             <- openxlsx::createStyle(bgFill = "orange")
+       style_cf_bcg_6             <- openxlsx::createStyle(bgFill = "red")
+       style_cf_bcg_na            <- openxlsx::createStyle(bgFill = "#808080")
+       style_cf_bdi_high          <- openxlsx::createStyle(bgFill = "blue")
+       style_cf_bdi_medium        <- openxlsx::createStyle(bgFill = "lightgreen")
+       style_cf_bdi_low           <- openxlsx::createStyle(bgFill = "gray")
+       style_cf_bdi_na            <- openxlsx::createStyle(bgFill = "#808080")
+       style_cf_mtti_vcold        <- openxlsx::createStyle(bgFill = "#00B0F0")
+       style_cf_mtti_cold         <- openxlsx::createStyle(bgFill = "#9AF3FC")
+       style_cf_mtti_cool         <- openxlsx::createStyle(bgFill = "#92D050")
+       style_cf_mtti_cool_warm    <- openxlsx::createStyle(bgFill = "#FFFF00")
+       style_cf_mtti_warm         <- openxlsx::createStyle(bgFill = "#FFC000")
+       style_cf_mtti_na           <- openxlsx::createStyle(bgFill = "#808080")
+       style_cf_bcg2_1            <- openxlsx::createStyle(bgFill = "blue")
+       style_cf_bcg2_2            <- openxlsx::createStyle(bgFill = "green")
+       style_cf_bcg2_2minus       <- openxlsx::createStyle(bgFill = "green")
+       style_cf_bcg2_tie_2_3      <- openxlsx::createStyle(bgFill = "darkgreen")
+       style_cf_bcg2_3plus        <- openxlsx::createStyle(bgFill = "lightgreen")
+       style_cf_bcg2_3            <- openxlsx::createStyle(bgFill = "lightgreen")
+       style_cf_bcg2_3minus       <- openxlsx::createStyle(bgFill = "lightgreen")
+       style_cf_bcg2_tie_3_4      <- openxlsx::createStyle(bgFill = "yellow")
+       style_cf_bcg2_4plus        <- openxlsx::createStyle(bgFill = "gray")
+       style_cf_bcg2_4            <- openxlsx::createStyle(bgFill = "gray")
+       style_cf_bcg2_4minus       <- openxlsx::createStyle(bgFill = "gray")
+       style_cf_bcg2_tie_4_5      <- openxlsx::createStyle(bgFill = "brown")
+       style_cf_bcg2_5plus        <- openxlsx::createStyle(bgFill = "orange")
+       style_cf_bcg2_5            <- openxlsx::createStyle(bgFill = "orange")
+       style_cf_bcg2_5minus       <- openxlsx::createStyle(bgFill = "orange")
+       style_cf_bcg2_tie_5_6      <- openxlsx::createStyle(bgFill = "purple")
+       style_cf_bcg2_6plus        <- openxlsx::createStyle(bgFill = "red")
+       style_cf_bcg2_6            <- openxlsx::createStyle(bgFill = "red")
+       style_cf_bcg2_na           <- openxlsx::createStyle(bgFill = "#808080")
+       
+       ### Excel, Cond Form, Rules ----
+       cf_rule_ft_vcold          <- "VeryCold"
+       cf_rule_ft_vcold_cold     <- "VCold_Cold"
+       cf_rule_ft_tie_vcold_cold <- "TIE_VCold_Cold"
+       cf_rule_ft_cold_vcold     <- '="Cold_VCold"'
+       cf_rule_ft_cold           <- '="Cold"'
+       cf_rule_ft_cold_cool      <- '="Cold_Cool"'
+       cf_rule_ft_tie_cold_cool  <- '="TIE_Cold_Cool"'
+       cf_rule_ft_cool_cold      <- '="Cool_Cold"'
+       cf_rule_ft_cool           <- '="Cool"'
+       cf_rule_ft_cool_warm      <- '="Cool_Warm"'
+       cf_rule_ft_tie_warm_cool  <- '="TIE_Warm_Cool"'
+       cf_rule_ft_warm_cool      <- '="Warm_Cool"'
+       cf_rule_ft_warm           <- '="Warm"'
+       cf_rule_ft_na             <- '="NA"'
+       cf_rule_bcg_1             <- '="1"'
+       cf_rule_bcg_2             <- '="2"'
+       cf_rule_bcg_3             <- '="3"'
+       cf_rule_bcg_4             <- '="4"'
+       cf_rule_bcg_5             <- '="5"'
+       cf_rule_bcg_6             <- '="6"'
+       cf_rule_bcg_na            <- '="NA"'
+       cf_rule_bdi_high          <- '="High"'
+       cf_rule_bdi_medium        <- '="Medium"'
+       cf_rule_bdi_low           <- '="Low"'
+       cf_rule_bdi_na            <- '="NA"'
+       cf_rule_mtti_vcold        <- '="Very cold"'
+       cf_rule_mtti_cold         <- '="Cold"'
+       cf_rule_mtti_cool         <- '="Cool"'
+       cf_rule_mtti_cool_warm    <- '="Cool/warm"'
+       cf_rule_mtti_warm         <- '="Warm"'
+       cf_rule_mtti_na           <- '="NA"'
+       cf_rule_bcg2_1            <- '="1"'
+       cf_rule_bcg2_2            <- '="2"'
+       cf_rule_bcg_2minus        <- '="2-"'
+       cf_rule_bcg2_tie_2_3      <- '="2/3 tie"'
+       cf_rule_bcg2_3plus        <- '="3+"'
+       cf_rule_bcg2_3            <- '="3"'
+       cf_rule_bcg2_3minus       <- '="3-"'
+       cf_rule_bcg2_tie_3_4      <- '="3/4 tie"'
+       cf_rule_bcg2_4plus        <- '="4+"'
+       cf_rule_bcg2_4            <- '="4"'
+       cf_rule_bcg2_4minus       <- '="4-"'
+       cf_rule_bcg2_tie_4_5      <- '="4/5 tie"'
+       cf_rule_bcg2_5plus        <- '="5+"'
+       cf_rule_bcg2_5            <- '="5"'
+       cf_rule_bcg2_5minus       <- '="5-"'
+       cf_rule_bcg2_tie_5_6      <- '="5/6 tie"'
+       cf_rule_bcg2_6plus        <- '="6+"'
+       cf_rule_bcg2_6            <- '="6"'
+       cf_rule_bcg2_na           <- '="NA"'
+       
+       
+         
+       ### Excel, WS, NOTES----
+       openxlsx::writeData(wb
+                           , sheet = "NOTES"
+                           , x = notes_head
+                           , startCol = 1
+                           , startRow = 1
+                           , colNames = FALSE)
+       openxlsx::writeDataTable(wb
+                                , sheet = "NOTES"
+                                , x = notes_toc
+                                , startCol = 1
+                                , startRow = 15
+                                , colNames = TRUE
+                                , tableStyle = "TableStyleMedium9")
+       
+       openxlsx::addStyle(wb, sheet = "NOTES", rows = 1, cols = 1, style = style_title)
+       openxlsx::addStyle(wb, sheet = "NOTES", rows = 2, cols = 1, style = style_h1)
+       openxlsx::addStyle(wb, sheet = "NOTES", rows = 4, cols = 1, style = style_hyperlink)
+       openxlsx::addStyle(wb, sheet = "NOTES", rows = 5, cols = 1, style = style_date)
+       openxlsx::addStyle(wb, sheet = "NOTES", rows = 7:9, cols = 1, style = style_bold)
+       openxlsx::addStyle(wb, sheet = "NOTES", rows = 11, cols = 1, style = style_h2)
+       
+       # Set width of Column A and B
+       
+       
+       
+       ### Excel, WS, Summary, Header ----
+       openxlsx::writeData(wb
+                           , sheet = "summary"
+                           , x = df_report_summary_header
+                           , startCol = 1
+                           , startRow = mySR
+                           , headerStyle = style_bold)
+       
+       ### Excel, WS, Summary, Wide ----
+      
+     
+       ### Excel, WS, Top Indicator ----
+       openxlsx::writeData(wb
+                           , sheet = "topindicator"
+                           , x = df_report_topindicator
+                           , startCol = 1
+                           , startRow = mySR
+                           , headerStyle = style_bold)
+       
+       ### Excel, WS, Samples ----
+       openxlsx::writeData(wb                 
+                           , sheet = "samples"
+                           , x = df_report_samples
+                           , startCol = 1
+                           , startRow = mySR
+                           , headerStyle = style_bold)
+       
+       
+       ### Excel, WS, Flags ----
+       openxlsx::writeData(wb
+                           , sheet = "flags"
+                           , x = df_report_flags
+                           , startCol = 1
+                           , startRow = mySR
+                           , headerStyle = style_bold)
+       
+       ### Excel, WS, Site ----
+       openxlsx::writeData(wb
+                           , sheet = "site"
+                           , x = df_report_site
+                           , startCol = 1
+                           , startRow = mySR
+                           , headerStyle = style_bold)
+       
+       ### Excel, WS, Taxa Trans ---- 
+       openxlsx::writeData(wb
+                           , sheet = "taxatrans"
+                           , x = df_report_taxatrans
+                           , startCol = 1
+                           , startRow = mySR
+                           , headerStyle = style_bold)
+ browser()     
+       ### Excel, Freeze Panes----
+       openxlsx::freezePane(wb, sheet = "summary", firstActiveRow = mySR + 1)
+       openxlsx::freezePane(wb, sheet = "topindicator", firstActiveRow = mySR + 1)
+       openxlsx::freezePane(wb, sheet = "samples", firstActiveRow = mySR + 1)
+       openxlsx::freezePane(wb, sheet = "flags", firstActiveRow = mySR + 1)
+       openxlsx::freezePane(wb, sheet = "site", firstActiveRow = mySR + 1)
+       openxlsx::freezePane(wb, sheet = "taxatrans", firstActiveRow = mySR + 1)
+       
+       ### Excel, Auto-Filter
+       openxlsx::addFilter(wb, sheet = "summary", rows = mySR, cols = 1:ncol(df_report_summary_wide))
+       openxlsx::addFilter(wb, sheet = "topindicator", rows = mySR, cols = 1:ncol(df_report_topindicator))
+       openxlsx::addFilter(wb, sheet = "samples", rows = mySR, cols = 1:ncol(df_report_samples))
+       openxlsx::addFilter(wb, sheet = "flags", rows = mySR, cols = 1:ncol(df_report_flags))
+       openxlsx::addFilter(wb, sheet = "site", rows = mySR, cols = 1:ncol(df_report_site))
+       openxlsx::addFilter(wb, sheet = "taxatrans", rows = mySR, cols = 1:ncol(df_report_taxatrans))
+       
+       
+       
+       ### Excel, WS Name to A1 ----
+       # name
+       openxlsx::writeData(wb, sheet = "summary", x = "summary", startCol = 1, startRow = 1)
+       openxlsx::writeData(wb, sheet = "topindicator", x = "topindicator", startCol = 1, startRow = 1)
+       openxlsx::writeData(wb, sheet = "samples", x = "samples", startCol = 1, startRow = 1)
+       openxlsx::writeData(wb, sheet = "flags", x = "flags", startCol = 1, startRow = 1)
+       openxlsx::writeData(wb, sheet = "site", x = "site", startCol = 1, startRow = 1)
+       openxlsx::writeData(wb, sheet = "taxatrans", x = "taxatrans", startCol = 1, startRow = 1)
+       # style
+       openxlsx::addStyle(wb, sheet = "summary", rows = 1, cols = 1:4, style = style_h1)
+       openxlsx::addStyle(wb, sheet = "topindicator", rows = 1, cols = 1:4, style = style_h1)
+       openxlsx::addStyle(wb, sheet = "samples", rows = 1, cols = 1:4, style = style_h1)
+       openxlsx::addStyle(wb, sheet = "flags", rows = 1, cols = 1:4, style = style_h1)
+       openxlsx::addStyle(wb, sheet = "site", rows = 1, cols = 1:4, style = style_h1)
+       openxlsx::addStyle(wb, sheet = "taxatrans", rows = 1, cols = 1:4, style = style_h1)
+      
+       ### Excel, col width ----
+       # openxlsx::setColWidths(wb, sheet = "summary", cols = 1:ncol(df_report_summary_wide), widths = "auto")
+       # openxlsx::setColWidths(wb, sheet = "topindicator", cols = 1:ncol(df_report_topindicator), widths = "auto")
+       # openxlsx::setColWidths(wb, sheet = "samples", cols = 1:ncol(df_report_samples), widths = "auto")
+       # openxlsx::setColWidths(wb, sheet = "flags", cols = 1:ncol(df_report_flags), widths = "auto")
+       # openxlsx::setColWidths(wb, sheet = "site", cols = 1:ncol(df_report_site), widths = "auto")
+       # openxlsx::setColWidths(wb, sheet = "taxatrans", cols = 1:ncol(df_report_taxatrans), widths = "auto")
+       
+       ### Excel, Conditional Formatting----
+       
+       # #### CF, Fuzzy Thermal----
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="VeryCold"'
+       #                       , style = style_cf_ft_vcold)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="VCold_Cold"'
+       #                       , style = style_cf_ft_vcold_cold)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="TIE_VCold_Cold"'
+       #                       , style = style_cf_ft_tie_vcold_cold)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Cold_VCold"'
+       #                       , style = style_cf_ft_cold_vcold)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Cold"'
+       #                       , style = style_cf_ft_cold)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Cold_Cool"'
+       #                       , style = style_cf_ft_cold_cool)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="TIE_Cold_Cool"'
+       #                       , style = style_cf_ft_tie_cold_cool)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Cool_Cold"'
+       #                       , style = style_cf_ft_cool_cold)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Cool"'
+       #                       , style = style_cf_ft_cool)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Cool_Warm"'
+       #                       , style = style_cf_ft_cool_warm)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="TIE_Warm_Cool"'
+       #                       , style = style_cf_ft_tie_warm_cool)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Warm_Cool"'
+       #                       , style = style_cf_ft_warm_cool)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="Warm"'
+       #                       , style = style_cf_ft_warm)
+       # conditionalFormatting(wb, "Fuzzy_Thermal"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
+       #                       , rule = '="NA"'
+       #                       , style = style_cf_ft_na)
+       # 
+       # #### CF, BCG----
+       # conditionalFormatting(wb, "BCG"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
+       #                       , rule = '="1"'
+       #                       , style = style_cf_bcg_1)
+       # conditionalFormatting(wb, "BCG"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
+       #                       , rule = '="2"'
+       #                       , style = style_cf_bcg_2)
+       # conditionalFormatting(wb, "BCG"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
+       #                       , rule = '="3"'
+       #                       , style = style_cf_bcg_3)
+       # conditionalFormatting(wb, "BCG"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
+       #                       , rule = '="4"'
+       #                       , style = style_cf_bcg_4)
+       # conditionalFormatting(wb, "BCG"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
+       #                       , rule = '="5"'
+       #                       , style = style_cf_bcg_5)
+       # conditionalFormatting(wb, "BCG"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
+       #                       , rule = '="6"'
+       #                       , style = style_cf_bcg_6)
+       # 
+       # conditionalFormatting(wb, "BCG"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
+       #                       , rule = '="NA"'
+       #                       , style = style_cf_bcg_na)
+       # 
+       # #### CF, BDI----
+       # 
+       # conditionalFormatting(wb, "BDI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bdi))
+       #                       , rule = '="High"'
+       #                       , style = style_cf_bdi_high)
+       # conditionalFormatting(wb, "BDI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bdi))
+       #                       , rule = '="Medium"'
+       #                       , style = style_cf_bdi_medium)
+       # conditionalFormatting(wb, "BDI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bdi))
+       #                       , rule = '="Low"'
+       #                       , style = style_cf_bdi_low)
+       # conditionalFormatting(wb, "BDI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bdi))
+       #                       , rule = '="NA"'
+       #                       , style = style_cf_bdi_na)
+       # 
+       # 
+       # #### CF, MTTI----
+       # conditionalFormatting(wb, "MTTI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
+       #                       , rule = '="Very cold"'
+       #                       , style = style_cf_mtti_vcold)
+       # conditionalFormatting(wb, "MTTI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
+       #                       , rule = '="Cold"'
+       #                       , style = style_cf_mtti_cold)
+       # conditionalFormatting(wb, "MTTI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
+       #                       , rule = '="Cool"'
+       #                       , style = style_cf_mtti_cool)
+       # conditionalFormatting(wb, "MTTI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
+       #                       , rule = '="Cool/warm"'
+       #                       , style = style_cf_mtti_cool_warm)
+       # conditionalFormatting(wb, "MTTI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
+       #                       , rule = '="Warm"'
+       #                       , style = style_cf_mtti_warm)
+       # conditionalFormatting(wb, "MTTI"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
+       #                       , rule = '="NA"'
+       #                       , style = style_cf_mtti_na)
+       # 
+       # 
+       # #### CF, BCG2----
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="1"'
+       #                       , style = style_cf_bcg2_1)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="2"'
+       #                       , style = style_cf_bcg2_2)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="2-"'
+       #                       , style = style_cf_bcg2_2minus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="2/3 tie"'
+       #                       , style = style_cf_bcg2_tie_2_3)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="3+"'
+       #                       , style = style_cf_bcg2_3plus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="3"'
+       #                       , style = style_cf_bcg2_3)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="3-"'
+       #                       , style = style_cf_bcg2_3minus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="3/4 tie"'
+       #                       , style = style_cf_bcg2_tie_3_4)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="4+"'
+       #                       , style = style_cf_bcg2_4plus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="4"'
+       #                       , style = style_cf_bcg2_4)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="4-"'
+       #                       , style = style_cf_bcg2_4minus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="4/5 tie"'
+       #                       , style = style_cf_bcg2_tie_4_5)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="5+"'
+       #                       , style = style_cf_bcg2_5plus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="5"'
+       #                       , style = style_cf_bcg2_5)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="5-"'
+       #                       , style = style_cf_bcg2_5minus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="5/6 tie"'
+       #                       , style = style_cf_bcg2_tie_5_6)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="6+"'
+       #                       , style = style_cf_bcg2_6plus)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="6"'
+       #                       , style = style_cf_bcg2_6)
+       # conditionalFormatting(wb, "BCG2"
+       #                       , cols = 2
+       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
+       #                       , rule = '="NA"'
+       #                       , style = style_cf_bcg2_na)
+       
+       
+       # # CF, data bar
+       # addWorksheet(wb, "databar")
+       # writeData(wb, "databar", -5:5)
+       # conditionalFormatting(wb, "databar", cols = 1, rows = 1:12, type = "databar")
+       
+       
+       
+       
+       
+       
+       
+       
+       
+    
+      ## Calc, 05, Save Results ----
+      prog_detail <- "Save Results"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      
+      # Remove all files except Results Excel
+      # Then download button only has one file to target
+      # reuse code from df_import()
+      fn_results <- list.files(path_results
+                               , full.names = TRUE
+                               , include.dirs = TRUE
+                               , recursive = TRUE)
+      unlink(fn_results, recursive = TRUE) # includes directories
+      
+      # Save new Excel file.
+      # Don't need a zip file
+      fn_wb <- file.path(path_results, "results.xlsx")
+      openxlsx::saveWorkbook(wb, fn_wb, overwrite = TRUE)
+      
+      # button, enable, download
+      shinyjs::enable("b_download_rep_ms")
+      
+    }## expr ~ withProgress ~ 
+    , message = "Calculating Report, MS"
+    )## withProgress ~ 
+  }##expr ~ ObserveEvent ~ 
+  )##observeEvent ~ b_calc_rep_ms
+  
+  
+  
+  ## b_download_rep_ms ----
+  output$b_download_rep_ms <- downloadHandler(
+    
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      paste0(fn_input_base
+             , "_Report_SS_MS_"
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".xlsx")
+    } ,
+    content = function(fname) {##content~START
+      
+      file.copy(file.path(path_results, "results.xlsx"), fname)
+      
+    }##content~END
+  )##download ~ Report MS
+  
   
 })##shinyServer ~ END

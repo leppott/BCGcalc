@@ -21,6 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9104 (2023-10-27)
+
+* feature: Add report to Shiny
+    + Still under construction
+* refactor: Update Shiny import to remove empty directories as well as files
+    + Change from `file.remove` to `unlink`
+* docs: Add openxlsx to DESCRIPTION for report creation in Shiny
+
 # BCGcalc 2.0.0.9103 (2023-10-20)
 
 * fix: Shiny, taxatrans_late_0filesversion.csv, swap 2 columns
