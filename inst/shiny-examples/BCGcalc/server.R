@@ -115,7 +115,7 @@ shinyServer(function(input, output) {
 
   })## fn_input_display_map
   
-  output$fn_input_display_rep_ms <- renderText({
+  output$fn_input_display_rep_single <- renderText({
     inFile <- input$fn_input
     
     if (is.null(inFile)) {
@@ -124,7 +124,18 @@ shinyServer(function(input, output) {
     
     return(paste0("'", inFile$name, "'"))
     
-  })## fn_input_display_rep_ms
+  })## fn_input_display_rep_single
+  
+  output$fn_input_display_rep_multi <- renderText({
+    inFile <- input$fn_input
+    
+    if (is.null(inFile)) {
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+    
+    return(paste0("'", inFile$name, "'"))
+    
+  })## fn_input_display_rep_multi
   
   # ~~~~IMPORT~~~~----
   # IMPORT ----
@@ -258,7 +269,7 @@ shinyServer(function(input, output) {
     shinyjs::enable("b_calc_mtti")
     shinyjs::enable("b_calc_bdi")
     
-    shinyjs::enable("b_calc_rep_ms")
+    shinyjs::enable("b_calc_rep_multi")
     
     # update cb_taxatrans_sum 
     # doesn't work here as timing is after the file is created
@@ -3618,9 +3629,9 @@ shinyServer(function(input, output) {
   
   #~~~~MAP~~~~----
   # MAP ----
-  
+
   ## Map, UI ----
-  
+
   output$UI_map_datatype <- renderUI({
     str_col <- "Select data type (calculation) to map."
     selectInput("map_datatype"
@@ -3628,7 +3639,7 @@ shinyServer(function(input, output) {
                 , choices = c("", map_datatypes)
                 , multiple = FALSE)
   })## UI_datatype
-  
+
   output$UI_map_col_xlong <- renderUI({
     str_col <- "Column, Longitude (decimal degrees))"
     selectInput("map_col_xlong"
@@ -3646,7 +3657,7 @@ shinyServer(function(input, output) {
                 , selected = "Latitude"
                 , multiple = FALSE)
   })## UI_colnames
-  
+
   output$UI_map_col_sampid <- renderUI({
     str_col <- "Column, SampleID (unique station or sample identifier)"
     selectInput("map_col_sampid"
@@ -3654,8 +3665,8 @@ shinyServer(function(input, output) {
                 , choices = c("", names(df_import()))
                 , selected = "SampleID"
                 , multiple = FALSE)
-  })## UI_colnames 
-  
+  })## UI_colnames
+
   output$UI_map_col_mapval <- renderUI({
     str_col <- "Column, Value to Map (e.g., BCG, MTTI, or metric value)"
     selectInput("map_col_mapval"
@@ -3663,39 +3674,39 @@ shinyServer(function(input, output) {
                 , choices = c("", names(df_import()))
                 , selected = "SampleID"
                 , multiple = FALSE)
-  })## UI_colnames 
-  
+  })## UI_colnames
+
   output$UI_map_col_keep <- renderUI({
     str_col <- "Additional Columns to Keep in Map Popup"
     selectInput("map_col_keep"
                 , label = str_col
                 , choices = c("", names(df_import()))
                 , multiple = TRUE)
-  })## UI_colnames  
-  
+  })## UI_colnames
+
   ## Map, Leaflet ----
   output$map_leaflet <- renderLeaflet({
-    
+
     # data for plot
     df_map <- df_import()
-  
+
 #     # Rename columns based on user selection
 #     df_map[, ]
-    
 
-    # 
+
+    #
     # col_Stations <- "blue"
     # col_Segs     <- "black" # "grey59"
-    # fill_Segs    <- "lightskyblue" 
-    
-    data_GIS_eco3_orwa_bcg <- data_GIS_eco3_orwa_bcg %>%
-      mutate(Fill = case_when(BCG_Valid == TRUE ~ "#808080"
-                              , TRUE ~ "#FFFFFF"
-      )) %>%
-      mutate(Border = case_when(BCG_Valid == TRUE ~ "#000000"
-                                , TRUE ~ "#03F"
-      ))
-    
+    # fill_Segs    <- "lightskyblue"
+
+    # data_GIS_eco3_orwa_bcg <- data_GIS_eco3_orwa_bcg %>%
+    #   mutate(Fill = case_when(BCG_Valid == TRUE ~ "#FFFFFF"
+    #                           , TRUE ~ "#808080"
+    #   )) %>%
+    #   mutate(Border = case_when(BCG_Valid == TRUE ~ "#000000"
+    #                             , TRUE ~ "#03F"
+    #   ))
+
     # Map
     #leaflet() %>%
     leaflet(data = df_map) %>%
@@ -3703,8 +3714,6 @@ shinyServer(function(input, output) {
       # addTiles(group="OSM (default)") %>%  #default tile too cluttered
       addProviderTiles("CartoDB.Positron"
                        , group = "Positron") %>%
-      addProviderTiles(providers$Stamen.TonerLite
-                       , group = "Toner Lite") %>%
       addProviderTiles(providers$OpenStreetMap
                        , group = "Open Street Map") %>%
       addProviderTiles(providers$Esri.WorldImagery
@@ -3716,17 +3725,17 @@ shinyServer(function(input, output) {
       #             , popup = ~paste0(LEVEL3, ", ", LEVEL3_NAM)
       #             , fillColor = ~LEVEL3
       #             ) %>%
-      addPolygons(data = data_GIS_eco3_orwa_bcg
-                  , group = "Ecoregions, Level III"
-                  , popup = ~paste0(US_L3CODE
-                                    , ", "
-                                    , US_L3NAME
-                                    , ", valid for BCG = "
-                                    , BCG_Valid)
-                  , fillColor = ~Fill
-                  , color = ~Border
-                  , weight = 3
-      ) %>%
+      # addPolygons(data = data_GIS_eco3_orwa_bcg
+      #             , group = "Ecoregions, Level III"
+      #             , popup = ~paste0(US_L3CODE
+      #                               , ", "
+      #                               , US_L3NAME
+      #                               , ", valid for BCG = "
+      #                               , BCG_Valid)
+      #             , fillColor = ~Fill
+      #             , color = ~Border
+      #             , weight = 3
+      # ) %>%
       # addPolygons(data = data_GIS_BCGclass
       #             , group = "BCG Class"
       #             , popup = ~BCGclass_v
@@ -3755,7 +3764,6 @@ shinyServer(function(input, output) {
       #           , values = NA) %>%
       # Layers, Control
       addLayersControl(baseGroups = c("Positron"
-                                      , "Toner Lite"
                                       , "Open Street Map"
                                       , "ESRI World Imagery"
                                       # , "USGS Imagery"
@@ -3775,44 +3783,44 @@ shinyServer(function(input, output) {
       #            # , "NHD+ Flowlines"
       # )) %>%
       # # Mini map
-      addMiniMap(toggleDisplay = TRUE) %>%
+      addMiniMap(toggleDisplay = TRUE) #%>%
       # Legend
-      addLegend("bottomleft"
-                , title = "L3 Ecoregions, BCG Valid"
-                , colors = c("#000000", "#03F")
-                , labels = c("TRUE", "FALSE")
-                # , layerID = "Ecoregions, Level III"
-                )
+      # addLegend("bottomleft"
+      #           , title = "L3 Ecoregions, BCG Valid"
+      #           , colors = c("#000000", "#03F")
+      #           , labels = c("TRUE", "FALSE")
+      #           # , layerID = "Ecoregions, Level III"
+      #           )
 
-    
-        
+
+
   })## map_leaflet ~ END
-  
+
   ## Map, Leaflet, Proxy ----
   # update map based on user selections
   # tied to Update button
   # https://rstudio.github.io/leaflet/shiny.html
   # need a reactive to trigger, use map update button
   observeEvent(input$but_map_update, {
-    
+
     ### Data ----
     df_map <- df_import()
     names_data <- names(df_map)
-    
-    no_narrative <- "No Narrative Designation"    
+
+    no_narrative <- "No Narrative Designation"
     size_default <- 50
-    
+
     ### Map_L_P, Gather and Test Inputs----
     sel_map_datatype   <- input$map_datatype
     sel_map_col_xlong  <- input$map_col_xlong
     sel_map_col_ylat   <- input$map_col_ylat
     sel_map_col_sampid <- input$map_col_sampid
     sel_map_col_keep   <- input$map_col_keep
-    
+
     sel_map_col_mapval <- NA_character_
     sel_map_col_mapnar <- NA_character_
     sel_map_col_color  <- NA_character_
-    
+
     if (is.null(sel_map_datatype) | sel_map_datatype == "") {
       # end process with pop up
       msg <- "'Data Type' name is missing!"
@@ -3823,7 +3831,7 @@ shinyServer(function(input, output) {
                              , closeOnClickOutside = TRUE)
       validate(msg)
     }## IF ~ sel_map_datatype
-    
+
     if (is.null(sel_map_col_xlong) | sel_map_col_xlong == "") {
       # end process with pop up
       msg <- "'Longitude' column name is missing!"
@@ -3834,7 +3842,7 @@ shinyServer(function(input, output) {
                              , closeOnClickOutside = TRUE)
       validate(msg)
     }## IF ~ sel_map_col_xlong
-    
+
     if (is.null(sel_map_col_ylat) | sel_map_col_ylat == "") {
       # end process with pop up
       msg <- "'Latitude' column name is missing!"
@@ -3845,7 +3853,7 @@ shinyServer(function(input, output) {
                              , closeOnClickOutside = TRUE)
       validate(msg)
     }## IF ~ sel_map_col_ylat
-    
+
     if (is.null(sel_map_col_sampid) | sel_map_col_sampid == "") {
       # end process with pop up
       msg <- "'SampleID' column name is missing!"
@@ -3856,7 +3864,7 @@ shinyServer(function(input, output) {
                              , closeOnClickOutside = TRUE)
       validate(msg)
     }## IF ~ sel_map_col_sampid
- 
+
     ### Munge Data ----
     #### Munge, Val, Nar, Size
     if (sel_map_datatype == "BCG") {
@@ -3931,7 +3939,7 @@ shinyServer(function(input, output) {
                                           , include.lowest = TRUE
                                           , right = FALSE
                                           , ordered_result = TRUE)
-      
+
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "pt_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
@@ -3948,7 +3956,7 @@ shinyServer(function(input, output) {
                                           , include.lowest = TRUE
                                           , right = FALSE
                                           , ordered_result = TRUE)
-      
+
     } else if (sel_map_datatype == "Thermal Metrics, pi_ti_stenocold_cold_cool") {
       sel_map_col_mapval <- "pi_ti_stenocold_cold_cool"
       sel_map_col_mapnar <- "Map_Nar"
@@ -3965,7 +3973,7 @@ shinyServer(function(input, output) {
                                           , include.lowest = TRUE
                                           , right = FALSE
                                           , ordered_result = TRUE)
-      
+
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_warm_stenowarm") {
       sel_map_col_mapval <- "pt_ti_warm_stenowarm"
       sel_map_col_mapnar <- "Map_Nar"
@@ -3982,7 +3990,7 @@ shinyServer(function(input, output) {
                                           , include.lowest = TRUE
                                           , right = FALSE
                                           , ordered_result = TRUE)
-      
+
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_warm_stenowarm") {
       sel_map_col_mapval <- "nt_ti_warm_stenowarm"
       sel_map_col_mapnar <- "Map_Nar"
@@ -3996,9 +4004,9 @@ shinyServer(function(input, output) {
                                           , include.lowest = TRUE
                                           , right = FALSE
                                           , ordered_result = TRUE)
-      
+
     }## IF ~ sel_datatype ~ END
-    
+
 
     # QC, Value in data frame
     boo_map_col_mapval <- sel_map_col_mapval %in% names_data
@@ -4014,18 +4022,18 @@ shinyServer(function(input, output) {
                              , closeOnClickOutside = TRUE)
       validate(msg)
     }## IF ~ sel_map_col_sampid
-    
 
-    
+
+
     # Rename Columns to known values
     ## Add Jitter to Lat-Long to avoid overlap
     # 1 second ~ 1/3600 ~ 0.000278 ~ 37.5 meters
     # 7 seconds ~ 262.3 meters
-    jit_fac <- 7/3600 
+    jit_fac <- 0/3600
     nrow_data <- nrow(df_map)
     noise_y <- runif(nrow_data, -jit_fac, jit_fac)
     noise_x <- runif(nrow_data, -jit_fac, jit_fac)
-    
+
     df_map <- df_map %>%
       mutate(map_ID = df_map[, sel_map_col_sampid]
              # , map_ylat = jitter(df_map[, sel_map_col_ylat], jit_fac)
@@ -4044,7 +4052,7 @@ shinyServer(function(input, output) {
                                   , as.character("<b>"), "Narrative: ", as.character("</b>"), df_map[, sel_map_col_mapnar], as.character("<br>")
                                   )
              )
-    
+
     ### Munge, Color, Size, Legend
     # by index value or narrative
     if (sel_map_datatype == "BCG") {
@@ -4060,7 +4068,7 @@ shinyServer(function(input, output) {
       #                              , right = FALSE
       #                              , ordered_result = TRUE)
       leg_col <- c("blue"
-                   , "green" 
+                   , "green"
                    , "darkgreen"
                    , "lightgreen"
                    , "yellow"
@@ -4102,8 +4110,8 @@ shinyServer(function(input, output) {
       leg_title <- "Fuzzy Temp Model"
       ## v1
       # leg_col <- c("#00B0F0"
-      #              , "#8EA9DB" 
-      #              , "#8EA9DB" 
+      #              , "#8EA9DB"
+      #              , "#8EA9DB"
       #              , "#8EA9DB"
       #              , "#B4C6E7"
       #              , "#BDD7EE"
@@ -4190,8 +4198,8 @@ shinyServer(function(input, output) {
     } else if (sel_map_datatype == "MTTI") {
       leg_title <- "MTTI"
       leg_col <- c("#00B0F0"
-                   , "#9AF3FC" 
-                   , "#92D050" 
+                   , "#9AF3FC"
+                   , "#92D050"
                    , "#FFFF00"
                    , "#FFC000"
                    , "#808080"
@@ -4227,12 +4235,12 @@ shinyServer(function(input, output) {
                                    , ordered_result = TRUE)
       df_map[, "map_size"] <- size_default
       # REVERSE ORDER FOR LEGEND
-      
-      
+
+
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold") {
       leg_title <- "cold stenotherm taxa"
       leg_col <- c("#00B0F0"
-                   , "#9AF3FC" 
+                   , "#9AF3FC"
                    , "#808080"
       )
       leg_nar <- c(">= 3"
@@ -4249,8 +4257,8 @@ shinyServer(function(input, output) {
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold") {
       leg_title <- "cold stenotherm + cold taxa"
       leg_col <- c("#00B0F0"
-                   , "#9AF3FC" 
-                   , "#92D050" 
+                   , "#9AF3FC"
+                   , "#92D050"
                    , "#FFFF00"
                    , "#808080"
       )
@@ -4272,8 +4280,8 @@ shinyServer(function(input, output) {
     } else if (sel_map_datatype == "Thermal Metrics, nt_ti_stenocold_cold_cool") {
       leg_title <- "# cold stenotherm + cold + cool taxa"
       leg_col <- c("#00B0F0"
-                   , "#9AF3FC" 
-                   , "#92D050" 
+                   , "#9AF3FC"
+                   , "#92D050"
                    , "#FFFF00"
                    , "#FFC000"
                    , "#808080"
@@ -4298,8 +4306,8 @@ shinyServer(function(input, output) {
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_stenocold_cold_cool") {
       leg_title <- "% cold stenotherm + cold + cool taxa"
       leg_col <- c("#00B0F0"
-                   , "#9AF3FC" 
-                   , "#92D050" 
+                   , "#9AF3FC"
+                   , "#92D050"
                    , "#FFFF00"
                    , "#FFC000"
                    , "#808080"
@@ -4324,8 +4332,8 @@ shinyServer(function(input, output) {
     } else if (sel_map_datatype == "Thermal Metrics, pi_ti_stenocold_cold_cool") {
       leg_title <- "% cold stenotherm + cold + cool indiv"
       leg_col <- c("#00B0F0"
-                   , "#9AF3FC" 
-                   , "#92D050" 
+                   , "#9AF3FC"
+                   , "#92D050"
                    , "#FFFF00"
                    , "#FFC000"
                    , "#808080"
@@ -4350,8 +4358,8 @@ shinyServer(function(input, output) {
     } else if (sel_map_datatype == "Thermal Metrics, pt_ti_warm_stenowarm") {
       leg_title <- "% warm + warm stenotherm taxa"
       leg_col <- c("#00B0F0"
-                   , "#9AF3FC" 
-                   , "#92D050" 
+                   , "#9AF3FC"
+                   , "#92D050"
                    , "#FFFF00"
                    , "#FFC000"
                    , "#808080"
@@ -4394,8 +4402,8 @@ shinyServer(function(input, output) {
       leg_col <- "gray"
       leg_nar <- no_narrative
     }## IF ~ sel_datatype ~ COLOR
-    
-    
+
+
 
     ### Map ----
     # Bounding box
@@ -4404,11 +4412,12 @@ shinyServer(function(input, output) {
                   , max(df_map[, sel_map_col_xlong], na.rm = TRUE)
                   , max(df_map[, sel_map_col_ylat], na.rm = TRUE)
     )
-    
+
     #~~~~~~~~~~~~~~~~~~~~~~
     # repeat code from base
     #~~~~~~~~~~~~~~~~~~~~~~
-    
+    # zoom levels, https://leafletjs.com/examples/zoom-levels/
+
     #leaflet() %>%
     leafletProxy("map_leaflet", data = df_map) %>%
       # Groups, Base
@@ -4419,7 +4428,7 @@ shinyServer(function(input, output) {
       # addProviderTiles(providers$OpenStreetMap
       #                  , group = "Open Street Map") %>%
       clearControls() %>%
-      clearShapes() %>% 
+      clearShapes() %>%
       clearMarkers() %>%
       # Groups, Overlay
       # addCircles(lng = ~map_xlong
@@ -4436,7 +4445,11 @@ shinyServer(function(input, output) {
                  , fill = ~map_color
                  , stroke = TRUE
                  , fillOpacity = 0.75
-                 , group = "Samples") %>%
+                 , group = "Samples"
+                 , clusterOptions = markerClusterOptions(spiderfyDistanceMultiplier=1.5
+                                                         , showCoverageOnHover = TRUE
+                                                         , freezeAtZoom = 13)
+                 ) %>%
       # Test different points
       # addAwesomeMarkers(lng = ~map_xlong
       #                   , lat = ~map_ylat
@@ -4450,7 +4463,6 @@ shinyServer(function(input, output) {
                 , title = leg_title) %>%
       # Layers, Control
       addLayersControl(baseGroups = c("Positron"
-                                      , "Toner Lite"
                                       , "Open Street Map"
                                       , "ESRI World Imagery")
                        , overlayGroups = c("Samples"
@@ -4470,69 +4482,69 @@ shinyServer(function(input, output) {
                 )) %>%
       # Bounds
       fitBounds(map_bbox[1], map_bbox[2], map_bbox[3], map_bbox[4])
-      
+
 
   })## MAP, Leaflet, PROXY
   
   
   #~~~~REPORTS~~~~----
   
- ## Report, MS ----
-  
-  ## b_Calc_rep_ms ----
-  observeEvent(input$b_calc_rep_ms, {
+ # Report, Multi ----
+
+  ## b_Calc_rep_multi ----
+  observeEvent(input$b_calc_rep_multi, {
     shiny::withProgress({
-      
+
       # # for testing
       # setwd(file.path("inst", "shiny-examples", "BCGcalc"))
 
-      
+
       ### Calc, 00, Set Up Shiny Code ----
-      
+
       prog_detail <- "Calculation, Report, MS..."
       message(paste0("\n", prog_detail))
-      
+
       # Number of increments
       prog_n <- 10
       prog_sleep <- 0.25
-      
- browser()     
-      
-      
-      
-      
-      
+
+ #browser()
+
+
+
+
+
       ## Calc, 01, Initialize ----
       prog_detail <- "Initialize Data"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      
+
       # button, disable, download
-      shinyjs::disable("b_download_rep_ss_ms")
-      
+      shinyjs::disable("b_download_rep_multi")
+
       ## Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      
+
       # data
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
       message(paste0("Import, file name, base: ", fn_input_base))
-     
+
       # unzip
       zip::unzip(file.path(path_results, inFile$name)
                  , overwrite = TRUE
                  , exdir = path_results)
-      
+
       # Template file
       fn_template <- list.files(path_results
                                 , pattern = "^Template_TemperatureReport.*\\.xlsx$")
-      
+
       if (length(fn_template) == 0) {
         # end process with pop up
         msg <- "'Template_TemperatureReport' file is missing!"
@@ -4543,7 +4555,7 @@ shinyServer(function(input, output) {
                                , closeOnClickOutside = TRUE)
         shiny::validate(msg)
       }## IF ~ length(fn_template) == 0
-      
+
       if (length(fn_template) > 1) {
         # end process with pop up
         msg <- "'Template_TemperatureReport' found more than once!"
@@ -4554,7 +4566,7 @@ shinyServer(function(input, output) {
                                , closeOnClickOutside = TRUE)
         shiny::validate(msg)
       }## IF ~ length(fn_template) > 1
-    
+
       # Files, ALL
       fn_all <- list.files(path = path_results
                            , full.names = TRUE
@@ -4567,61 +4579,61 @@ shinyServer(function(input, output) {
       df_fn_all[, "dir_zip"] <- sub(paste0("^", path_results, "/")
                                     , ""
                                     , df_fn_all[, "dir_full"])
-      
+
       # Read Template
       # read template file
       path_template <- file.path(path_results, fn_template)
       n_skip <- 3
-      
+
       ### Template, Summary, Header ----
       sh_template <- "summary_header"
       df_template_summary_header <- readxl::read_excel(path = path_template
                                                        , sheet = sh_template
                                                        , skip = n_skip)
       df_template_summary_header[, "sheet"] <- sh_template
-      
+
       ### Template, Summary, Wide ----
       sh_template <- "summary_wide"
       df_template_summary_wide <- readxl::read_excel(path = path_template
                                                      , sheet = sh_template
                                                      , skip = n_skip)
       df_template_summary_wide[, "sheet"] <- sh_template
-      
+
       ### Template, Top Indicator ----
       sh_template <- "topindicator"
       df_template_topindicator <- readxl::read_excel(path = path_template
                                                      , sheet = sh_template
                                                      , skip = n_skip)
       df_template_topindicator[, "sheet"] <- sh_template
-      
+
       ### Template, Samples ----
       sh_template <- "samples"
       df_template_samples <- readxl::read_excel(path = path_template
                                                 , sheet = sh_template
                                                 , skip = n_skip)
       df_template_samples[, "sheet"] <- sh_template
-      
+
       ### Template, Flags ----
       sh_template <- "flags"
       df_template_flags <- readxl::read_excel(path = path_template
                                               , sheet = sh_template
                                               , skip = n_skip)
       df_template_flags[, "sheet"] <- sh_template
-      
+
       ### Template, Site ----
       sh_template <- "site"
       df_template_site <- readxl::read_excel(path = path_template
                                              , sheet = sh_template
                                              , skip = n_skip)
       df_template_site[, "sheet"] <- sh_template
-      
+
       ### Template, Taxa Trans ----
       sh_template <- "taxatrans"
       df_template_taxatrans <- readxl::read_excel(path = path_template
                                                   , sheet = sh_template
                                                   , skip = n_skip)
       df_template_taxatrans[, "sheet"] <- sh_template
-     
+
       ### Template, file names ----
       df_template_all <- dplyr::bind_rows(df_template_summary_header
                                           , df_template_summary_wide
@@ -4633,25 +4645,25 @@ shinyServer(function(input, output) {
                                           , .id = "id")
       df_template_sourcefiles <- unique(df_template_all[, c("inclusion", "source folder", "source file (or suffix)"), TRUE])
       df_template_sourcefiles[, c("exact", "csv", "present")] <- NA_integer_
-      
+
       ### QC, File Names----
       # check for each as CSV and Exact
-      
+
       for (i in seq_len(nrow(df_template_sourcefiles))) {
-        
+
         df_template_sourcefiles[i, "exact"] <- sum(grepl(pattern = df_template_sourcefiles[i, "source file (or suffix)"], fn_all))
-        
+
         df_template_sourcefiles[i, "csv"] <- sum(grepl(pattern = paste0(df_template_sourcefiles[i, "source file (or suffix)"], "\\.csv$"), fn_all))
-        
+
       }## FOR ~ i
-      
-      df_template_sourcefiles[, "present"] <- df_template_sourcefiles[, "exact"] + 
+
+      df_template_sourcefiles[, "present"] <- df_template_sourcefiles[, "exact"] +
                                               df_template_sourcefiles[, "csv"]
-      
+
       sourcefiles_missing <- dplyr::filter(df_template_sourcefiles
-                                           , inclusion == "required" 
+                                           , inclusion == "required"
                                            & (present == 0 | is.na(present)))
-    
+
       if (nrow(sourcefiles_missing) > 0) {
         # end process with pop up
         msg <- paste0("REQUIRED Template Source Files missing!\n"
@@ -4665,23 +4677,23 @@ shinyServer(function(input, output) {
                                , closeOnClickOutside = TRUE)
         shiny::validate(msg)
       }## IF ~ nrow(sourcefiles_missing) > 0
-browser()       
+
       ### File Names, Add Path
       for (i in seq_len(nrow(df_template_sourcefiles))) {
-        
+
         df_template_sourcefiles[i, "path"] <- ifelse(df_template_sourcefiles[i, "source folder", TRUE] == "NA"
                                                      , df_template_sourcefiles[, "source file (or suffix)", TRUE]
                                                      , file.path(df_template_sourcefiles[i, "source folder", TRUE]
                                                                  , df_template_sourcefiles[i, "source file (or suffix)", TRUE])
                                                       )
       }## FOR ~ i
-      
+
       ### File Names, Add to col names
       # join or merge
-      
+
       # Check file.exists for each entry.
       df_template_sourcefiles[, "exist_file"] <- NA
-      
+
       # Fail if files don't exist.
       # if (length(fn_template) == 0) {
       #   # end process with pop up
@@ -4693,12 +4705,12 @@ browser()
       #                          , closeOnClickOutside = TRUE)
       #   shiny::validate(msg)
       # }## IF ~ length(fn_template) == 0
-      
+
       # import each file
       # Check for column in file
       df_template_sourcefiles[, "exist_col"] <- NA
-      
-      
+
+
        ## Calc, 03, Data ----
        prog_detail <- "Calculation, Create Data Tables"
        message(paste0("\n", prog_detail))
@@ -4706,11 +4718,11 @@ browser()
        incProgress(1/prog_n, detail = prog_detail)
        Sys.sleep(prog_sleep)
        ### Assemble data for each tab of the report
-       
+
        # read template file
        # read all files
        # merge or join for each worksheet
-       
+
        ### Data, NOTES ----
        notes_head <- as.data.frame(cbind(c("Project Name"
                                            , "Specific Task"
@@ -4737,29 +4749,29 @@ browser()
        ))
        names(notes_toc) <- c("Worksheet", "Description", "Link")
        class(notes_toc$Link) <- "hyperlink"
- browser()      
+ # browser()
        ### Data, Summary, Header ----
        df_report_summary_header <- mtcars
-       
+
        ### Data, Summary, Wide ----
        df_report_summary_wide <- mtcars
-       
+
        ### Data, Top Indicator ----
        df_report_topindicator <- iris
-       
+
        ### Data, Samples ----
        df_report_samples <- ToothGrowth
-       
+
        ### Data, Flags ----
        df_report_flags <- PlantGrowth
-       
+
        ### Data, Site ----
        df_report_site <- USArrests
-       
+
        ### Data, Taxa Trans ----
        df_report_taxatrans <- cars
-       
-    
+
+
        ## Calc, 04, Excel ----
        prog_detail <- "Calculation, Create Excel"
        message(paste0("\n", prog_detail))
@@ -4777,9 +4789,9 @@ browser()
        openxlsx::addWorksheet(wb, "flags")
        openxlsx::addWorksheet(wb, "site")
        openxlsx::addWorksheet(wb, "taxatrans")
-       
+
        mySR <- 8 # number of rows to skip for new worksheets
-       
+
        ### Excel, Styles ----
        style_title <- openxlsx::createStyle(fontName = "Cambria"
                                   , fontSize = 18
@@ -4805,11 +4817,11 @@ browser()
                                       , textDecoration = "underline")
        style_bold <- openxlsx::createStyle(textDecoration = "bold")
        style_date <- openxlsx::createStyle(numFmt = "DATE")
-       
+
        # options not exportable
        # openxlsx::options("openxlsx.dateFormat" = "yyyy-mm-dd")
        # openxlsx::options("openxlsx.datetimeFormat" = "yyyy-mm-dd hh:mm:ss")
-       
+
        ### Excel, Cond Form, Styles ----
        style_cf_ft_vcold          <- openxlsx::createStyle(bgFill = "#140AE6")
        style_cf_ft_vcold_cold     <- openxlsx::createStyle(bgFill = "#0066FF")
@@ -4861,7 +4873,7 @@ browser()
        style_cf_bcg2_6plus        <- openxlsx::createStyle(bgFill = "red")
        style_cf_bcg2_6            <- openxlsx::createStyle(bgFill = "red")
        style_cf_bcg2_na           <- openxlsx::createStyle(bgFill = "#808080")
-       
+
        ### Excel, Cond Form, Rules ----
        cf_rule_ft_vcold          <- "VeryCold"
        cf_rule_ft_vcold_cold     <- "VCold_Cold"
@@ -4913,9 +4925,9 @@ browser()
        cf_rule_bcg2_6plus        <- '="6+"'
        cf_rule_bcg2_6            <- '="6"'
        cf_rule_bcg2_na           <- '="NA"'
-       
-       
-         
+
+
+
        ### Excel, WS, NOTES----
        openxlsx::writeData(wb
                            , sheet = "NOTES"
@@ -4930,18 +4942,18 @@ browser()
                                 , startRow = 15
                                 , colNames = TRUE
                                 , tableStyle = "TableStyleMedium9")
-       
+
        openxlsx::addStyle(wb, sheet = "NOTES", rows = 1, cols = 1, style = style_title)
        openxlsx::addStyle(wb, sheet = "NOTES", rows = 2, cols = 1, style = style_h1)
        openxlsx::addStyle(wb, sheet = "NOTES", rows = 4, cols = 1, style = style_hyperlink)
        openxlsx::addStyle(wb, sheet = "NOTES", rows = 5, cols = 1, style = style_date)
        openxlsx::addStyle(wb, sheet = "NOTES", rows = 7:9, cols = 1, style = style_bold)
        openxlsx::addStyle(wb, sheet = "NOTES", rows = 11, cols = 1, style = style_h2)
-       
+
        # Set width of Column A and B
-       
-       
-       
+
+
+
        ### Excel, WS, Summary, Header ----
        openxlsx::writeData(wb
                            , sheet = "summary"
@@ -4949,10 +4961,10 @@ browser()
                            , startCol = 1
                            , startRow = mySR
                            , headerStyle = style_bold)
-       
+
        ### Excel, WS, Summary, Wide ----
-      
-     
+
+
        ### Excel, WS, Top Indicator ----
        openxlsx::writeData(wb
                            , sheet = "topindicator"
@@ -4960,16 +4972,16 @@ browser()
                            , startCol = 1
                            , startRow = mySR
                            , headerStyle = style_bold)
-       
+
        ### Excel, WS, Samples ----
-       openxlsx::writeData(wb                 
+       openxlsx::writeData(wb
                            , sheet = "samples"
                            , x = df_report_samples
                            , startCol = 1
                            , startRow = mySR
                            , headerStyle = style_bold)
-       
-       
+
+
        ### Excel, WS, Flags ----
        openxlsx::writeData(wb
                            , sheet = "flags"
@@ -4977,7 +4989,7 @@ browser()
                            , startCol = 1
                            , startRow = mySR
                            , headerStyle = style_bold)
-       
+
        ### Excel, WS, Site ----
        openxlsx::writeData(wb
                            , sheet = "site"
@@ -4985,15 +4997,15 @@ browser()
                            , startCol = 1
                            , startRow = mySR
                            , headerStyle = style_bold)
-       
-       ### Excel, WS, Taxa Trans ---- 
+
+       ### Excel, WS, Taxa Trans ----
        openxlsx::writeData(wb
                            , sheet = "taxatrans"
                            , x = df_report_taxatrans
                            , startCol = 1
                            , startRow = mySR
                            , headerStyle = style_bold)
- browser()     
+
        ### Excel, Freeze Panes----
        openxlsx::freezePane(wb, sheet = "summary", firstActiveRow = mySR + 1)
        openxlsx::freezePane(wb, sheet = "topindicator", firstActiveRow = mySR + 1)
@@ -5001,7 +5013,7 @@ browser()
        openxlsx::freezePane(wb, sheet = "flags", firstActiveRow = mySR + 1)
        openxlsx::freezePane(wb, sheet = "site", firstActiveRow = mySR + 1)
        openxlsx::freezePane(wb, sheet = "taxatrans", firstActiveRow = mySR + 1)
-       
+
        ### Excel, Auto-Filter
        openxlsx::addFilter(wb, sheet = "summary", rows = mySR, cols = 1:ncol(df_report_summary_wide))
        openxlsx::addFilter(wb, sheet = "topindicator", rows = mySR, cols = 1:ncol(df_report_topindicator))
@@ -5009,9 +5021,9 @@ browser()
        openxlsx::addFilter(wb, sheet = "flags", rows = mySR, cols = 1:ncol(df_report_flags))
        openxlsx::addFilter(wb, sheet = "site", rows = mySR, cols = 1:ncol(df_report_site))
        openxlsx::addFilter(wb, sheet = "taxatrans", rows = mySR, cols = 1:ncol(df_report_taxatrans))
-       
-       
-       
+
+
+
        ### Excel, WS Name to A1 ----
        # name
        openxlsx::writeData(wb, sheet = "summary", x = "summary", startCol = 1, startRow = 1)
@@ -5027,7 +5039,7 @@ browser()
        openxlsx::addStyle(wb, sheet = "flags", rows = 1, cols = 1:4, style = style_h1)
        openxlsx::addStyle(wb, sheet = "site", rows = 1, cols = 1:4, style = style_h1)
        openxlsx::addStyle(wb, sheet = "taxatrans", rows = 1, cols = 1:4, style = style_h1)
-      
+
        ### Excel, col width ----
        # openxlsx::setColWidths(wb, sheet = "summary", cols = 1:ncol(df_report_summary_wide), widths = "auto")
        # openxlsx::setColWidths(wb, sheet = "topindicator", cols = 1:ncol(df_report_topindicator), widths = "auto")
@@ -5035,10 +5047,10 @@ browser()
        # openxlsx::setColWidths(wb, sheet = "flags", cols = 1:ncol(df_report_flags), widths = "auto")
        # openxlsx::setColWidths(wb, sheet = "site", cols = 1:ncol(df_report_site), widths = "auto")
        # openxlsx::setColWidths(wb, sheet = "taxatrans", cols = 1:ncol(df_report_taxatrans), widths = "auto")
-       
+
        ### Excel, Conditional Formatting----
-       
-       # #### CF, Fuzzy Thermal----
+
+       #### CF, Fuzzy Thermal----
        # conditionalFormatting(wb, "Fuzzy_Thermal"
        #                       , cols = 2
        #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
@@ -5109,7 +5121,7 @@ browser()
        #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
        #                       , rule = '="NA"'
        #                       , style = style_cf_ft_na)
-       # 
+       #
        # #### CF, BCG----
        # conditionalFormatting(wb, "BCG"
        #                       , cols = 2
@@ -5141,15 +5153,15 @@ browser()
        #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
        #                       , rule = '="6"'
        #                       , style = style_cf_bcg_6)
-       # 
+       #
        # conditionalFormatting(wb, "BCG"
        #                       , cols = 2
        #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
        #                       , rule = '="NA"'
        #                       , style = style_cf_bcg_na)
-       # 
-       # #### CF, BDI----
-       # 
+       #
+       #### CF, BDI----
+       #
        # conditionalFormatting(wb, "BDI"
        #                       , cols = 2
        #                       , rows = (mySR + 1):(mySR + nrow(df_bdi))
@@ -5170,9 +5182,9 @@ browser()
        #                       , rows = (mySR + 1):(mySR + nrow(df_bdi))
        #                       , rule = '="NA"'
        #                       , style = style_cf_bdi_na)
-       # 
-       # 
-       # #### CF, MTTI----
+       #
+       #
+       #### CF, MTTI----
        # conditionalFormatting(wb, "MTTI"
        #                       , cols = 2
        #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
@@ -5203,9 +5215,9 @@ browser()
        #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
        #                       , rule = '="NA"'
        #                       , style = style_cf_mtti_na)
-       # 
-       # 
-       # #### CF, BCG2----
+       #
+       #
+       #### CF, BCG2----
        # conditionalFormatting(wb, "BCG2"
        #                       , cols = 2
        #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
@@ -5301,29 +5313,29 @@ browser()
        #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
        #                       , rule = '="NA"'
        #                       , style = style_cf_bcg2_na)
-       
-       
+
+
        # # CF, data bar
        # addWorksheet(wb, "databar")
        # writeData(wb, "databar", -5:5)
        # conditionalFormatting(wb, "databar", cols = 1, rows = 1:12, type = "databar")
-       
-       
-       
-       
-       
-       
-       
-       
-       
-    
-      ## Calc, 05, Save Results ----
+
+
+
+
+
+
+
+
+
+
+      ### Calc, 05, Save Results ----
       prog_detail <- "Save Results"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      
+
       # Remove all files except Results Excel
       # Then download button only has one file to target
       # reuse code from df_import()
@@ -5332,40 +5344,45 @@ browser()
                                , include.dirs = TRUE
                                , recursive = TRUE)
       unlink(fn_results, recursive = TRUE) # includes directories
-      
+
       # Save new Excel file.
       # Don't need a zip file
       fn_wb <- file.path(path_results, "results.xlsx")
       openxlsx::saveWorkbook(wb, fn_wb, overwrite = TRUE)
-      
+
       # button, enable, download
-      shinyjs::enable("b_download_rep_ms")
-      
-    }## expr ~ withProgress ~ 
-    , message = "Calculating Report, MS"
-    )## withProgress ~ 
-  }##expr ~ ObserveEvent ~ 
-  )##observeEvent ~ b_calc_rep_ms
-  
-  
-  
-  ## b_download_rep_ms ----
-  output$b_download_rep_ms <- downloadHandler(
-    
+      shinyjs::enable("b_download_rep_multi")
+
+    }## expr ~ withProgress ~
+    , message = "Calculating Report, Multi"
+    )## withProgress ~
+  }##expr ~ ObserveEvent ~
+  )##observeEvent ~ b_calc_rep_multi
+
+
+
+  ## b_download_rep_multi ----
+  output$b_download_rep_multi <- downloadHandler(
+
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
       paste0(fn_input_base
-             , "_Report_SS_MS_"
+             , "_Report_Multi_"
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".xlsx")
     } ,
     content = function(fname) {##content~START
-      
+
       file.copy(file.path(path_results, "results.xlsx"), fname)
-      
+
     }##content~END
   )##download ~ Report MS
   
+  
+  
+  # Report, Single ----
+  
+  ## re-use multi code but create output for each unique SiteID
   
 })##shinyServer ~ END

@@ -34,12 +34,10 @@ function(id) {
                 , tab_code_calc_bdi())
       , tabItem(tabName = "tab_map"
                 , tab_code_map())
-      , tabItem(tabName = "tab_rep_ss_ss"
-                , tab_code_rep_ss_ss())
-      , tabItem(tabName = "tab_rep_ss_ms"
-                , tab_code_rep_ss_ms())
-      , tabItem(tabName = "tab_rep_ms"
-                , tab_code_rep_ms())
+      , tabItem(tabName = "tab_rep_single"
+                , tab_code_rep_single())
+      , tabItem(tabName = "tab_rep_multi"
+                , tab_code_rep_multi())
       , tabItem(tabName = "tab_resources"
                 , tab_code_resources())
     )## tabItems

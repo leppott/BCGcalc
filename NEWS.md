@@ -1,11 +1,22 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-10-27 08:10:22.981692
+2023-10-31 16:09:40.867027
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-10-27 08:10:23.013877
+    #> Last Update: 2023-10-31 16:09:40.900406
+
+# BCGcalc 2.0.0.9105 (2023-10-31)
+
+- refactor: Remove toner lite base layer from Shiny maps
+  - no longer supporter after 2023-10-31
+- refactor: Sidebar menu updates
+  - Label calculations as ‘Draft’ (non-BCG)
+  - Tweak ‘Taxa Translate’ language
+- refactor: Update Shiny map clustering options
+- refactor: Reports to only multi and single
+- refactor: Add result file and folder abbreviations to global
 
 # BCGcalc 2.0.0.9104 (2023-10-27)
 

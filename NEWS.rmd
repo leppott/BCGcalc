@@ -21,6 +21,17 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9105 (2023-10-31)
+
+* refactor: Remove toner lite base layer from Shiny maps
+    + no longer supporter after 2023-10-31
+* refactor: Sidebar menu updates
+    + Label calculations as 'Draft' (non-BCG)
+    + Tweak 'Taxa Translate' language
+* refactor: Update Shiny map clustering options
+* refactor: Reports to only multi and single
+* refactor: Add result file and folder abbreviations to global
+    
 # BCGcalc 2.0.0.9104 (2023-10-27)
 
 * feature: Add report to Shiny

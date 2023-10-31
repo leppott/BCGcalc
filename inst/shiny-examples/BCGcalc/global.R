@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9104"
+pkg_version <- "2.0.0.9105"
 
 # Packages----
 # nolint start
@@ -75,14 +75,12 @@ tab_code_calc_bdi              <- source("external/tab_calc_bdi.R"
                                          , local = TRUE)$value
 tab_code_map                   <- source("external/tab_map.R"
                                          , local = TRUE)$value
-tab_code_rep_ss_ss      <- source("external/tab_report_singlesite_singlesamp.R"
-                                  , local = TRUE)$value
-tab_code_rep_ss_ms      <- source("external/tab_report_singlesite_multisamp.R"
-                                  , local = TRUE)$value
-tab_code_rep_ms         <- source("external/tab_report_multiplesite.R"
-                                  , local = TRUE)$value
-tab_code_resources      <- source("external/tab_resources.R"
-                                  , local = TRUE)$value
+tab_code_rep_single            <- source("external/tab_report_single.R"
+                                         , local = TRUE)$value
+tab_code_rep_multi             <- source("external/tab_report_multi.R"
+                                         , local = TRUE)$value
+tab_code_resources             <- source("external/tab_resources.R"
+                                         , local = TRUE)$value
 
 # Console Message ----
 message(paste0("Interactive: ", interactive()))
@@ -212,6 +210,26 @@ map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
                                              , sheet = "field_names"
                                              , skip = 7))
 
-# Report ----
+# File and Folder Names ----
+abr_filebuilder <- "FB"
+abr_taxatrans   <- "TaxaTranslator"
+abr_bcg         <- "BCG"
+abr_tmetrics    <- "ThermMet"
+abr_fuzzy       <- "FuzzyTemp"
+abr_mtti        <- "MTTI"
+abr_bdi         <- "BDI"
+abr_map         <- "map"
+abr_results     <- "results"
 
+dn_files_input <- "_user_input"
+dn_files_ref   <- "reference"
+dn_files_fb    <- paste(abr_results, abr_filebuilder, sep = "_")
+dn_files_bcg   <- paste(abr_results, abr_bcg, sep = "_")
+dn_files_tmet  <- paste(abr_results, abr_tmetrics, sep = "_")
+dn_files_fuzzy <- paste(abr_results, abr_fuzzy, sep = "_")
+dn_files_mtti  <- paste(abr_results, abr_mtti, sep = "_")
+dn_files_bdi   <- paste(abr_results, abr_bdi, sep = "_")
+
+
+# Report ----
 

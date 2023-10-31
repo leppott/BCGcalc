@@ -23,7 +23,7 @@ function(id) {
       , menuItem(text = "File Builder"
                  , icon = icon("toolbox")
                  #, tabName = "tab_filebuilder"
-                 , menuSubItem("Taxa Translate and Attribute Assignment"
+                 , menuSubItem("Translate Taxa and Assign Attributes"
                                , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
                                )
@@ -46,13 +46,13 @@ function(id) {
                  , menuSubItem("BCG Models"
                                , tabName = "tab_calc_bcg"
                                , icon = icon("award"))
-                 , menuSubItem("Thermal Preference Metrics"
+                 , menuSubItem("Thermal Preference Metrics [DRAFT]"
                                , tabName = "tab_calc_thermalmetrics"
                                , icon = icon("temperature-empty"))
-                 , menuSubItem("Fuzzy Set Temperature Model"
+                 , menuSubItem("Fuzzy Set Temperature Model [DRAFT]"
                                , tabName = "tab_calc_thermalfuzzy"
                                , icon = icon("square-check"))
-                 , menuSubItem("MTTI"
+                 , menuSubItem("MTTI [DRAFT]"
                                , tabName = "tab_calc_mtti"
                                , icon = icon("microscope"))
                  , menuSubItem("BioDiversity Index [DRAFT]"
@@ -85,16 +85,12 @@ function(id) {
                  , icon = icon("map"))## menuItem ~ Map
       , menuItem(text = "Reports"
                  , icon = icon("clipboard-check")
-                 , menuSubItem("Single Site, Single Sample"
-                               , tabName = "tab_rep_ss_ss"
+                 , menuSubItem("Single Site"
+                               , tabName = "tab_rep_single"
                                , icon = icon("pen")
                                )
-                 , menuSubItem("Single Site, Multiple Samples"
-                               , tabName = "tab_rep_ss_ms"
-                               , icon = icon("pen-ruler")
-                               )
                  , menuSubItem("Multiple Sites"
-                               , tabName = "tab_rep_ms"
+                               , tabName = "tab_rep_multi"
                                , icon = icon("pen-to-square"))
                  )## menuItem ~ Reports ~ END
       , menuItem(text = "Relevant Resources"
