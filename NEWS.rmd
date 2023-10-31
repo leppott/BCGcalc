@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9106 (2023-10-31)
+
+* refactor: Implement result file name changes using global abbreviations
+
 # BCGcalc 2.0.0.9105 (2023-10-31)
 
 * refactor: Remove toner lite base layer from Shiny maps

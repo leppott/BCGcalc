@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9105"
+pkg_version <- "2.0.0.9106"
 
 # Packages----
 # nolint start
@@ -213,6 +213,9 @@ map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
 # File and Folder Names ----
 abr_filebuilder <- "FB"
 abr_taxatrans   <- "TaxaTranslator"
+abr_classparam  <- "ClassParam"
+abr_classassign <- "ClassAssign"
+abr_mergefiles  <- "MergeFiles"
 abr_bcg         <- "BCG"
 abr_tmetrics    <- "ThermMet"
 abr_fuzzy       <- "FuzzyTemp"

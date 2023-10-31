@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-10-31 16:09:40.867027
+2023-10-31 17:00:21.018223
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-10-31 16:09:40.900406
+    #> Last Update: 2023-10-31 17:00:21.055764
+
+# BCGcalc 2.0.0.9106 (2023-10-31)
+
+- refactor: Implement result file name changes using global
+  abbreviations
 
 # BCGcalc 2.0.0.9105 (2023-10-31)
 
