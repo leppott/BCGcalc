@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9108 (2023-11-03)
+
+* refactor: Updates to Shiny interface
+
 # BCGcalc 2.0.0.9107 (2023-11-03)
 
 * refactor: Implement result folder changes
