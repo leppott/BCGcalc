@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9106"
+pkg_version <- "2.0.0.9107"
 
 # Packages----
 # nolint start
@@ -112,6 +112,33 @@ if (dir.exists(path_results) == FALSE) {
 #   }## IF ~ dir.exists
 # }## FOR ~ i
 
+# File and Folder Names ----
+abr_filebuilder <- "FB"
+abr_taxatrans   <- "TaxaTranslator"
+abr_classparam  <- "ClassParam"
+abr_classassign <- "ClassAssign"
+abr_mergefiles  <- "MergeFiles"
+abr_bcg         <- "BCG"
+abr_tmet        <- "ThermMet"
+abr_fuzzy       <- "FuzzyTemp"
+abr_mtti        <- "MTTI"
+abr_bdi         <- "BDI"
+abr_bsti        <- "BSTI"
+abr_map         <- "map"
+abr_report      <- "report"
+abr_results     <- "results"
+
+dn_files_input  <- "_user_input"
+dn_files_ref    <- "reference"
+dn_files_fb     <- paste(abr_results, abr_filebuilder, sep = "_")
+dn_files_bcg    <- paste(abr_results, abr_bcg, sep = "_")
+dn_files_tmet   <- paste(abr_results, abr_tmet, sep = "_")
+dn_files_fuzzy  <- paste(abr_results, abr_fuzzy, sep = "_")
+dn_files_mtti   <- paste(abr_results, abr_mtti, sep = "_")
+dn_files_bdi    <- paste(abr_results, abr_bdi, sep = "_")
+dn_files_bsti   <- paste(abr_results, abr_bsti, sep = "_")
+dn_files_report <- paste(abr_results, abr_bdi, sep = "_")
+
 # Selection Choices----
 sel_community <- c("bugs", "fish", "algae")
 
@@ -209,30 +236,6 @@ fn_map_meta <- "BCGcalc_Shiny_map_inputs_20230828.xlsx"
 map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
                                              , sheet = "field_names"
                                              , skip = 7))
-
-# File and Folder Names ----
-abr_filebuilder <- "FB"
-abr_taxatrans   <- "TaxaTranslator"
-abr_classparam  <- "ClassParam"
-abr_classassign <- "ClassAssign"
-abr_mergefiles  <- "MergeFiles"
-abr_bcg         <- "BCG"
-abr_tmetrics    <- "ThermMet"
-abr_fuzzy       <- "FuzzyTemp"
-abr_mtti        <- "MTTI"
-abr_bdi         <- "BDI"
-abr_map         <- "map"
-abr_results     <- "results"
-
-dn_files_input <- "_user_input"
-dn_files_ref   <- "reference"
-dn_files_fb    <- paste(abr_results, abr_filebuilder, sep = "_")
-dn_files_bcg   <- paste(abr_results, abr_bcg, sep = "_")
-dn_files_tmet  <- paste(abr_results, abr_tmetrics, sep = "_")
-dn_files_fuzzy <- paste(abr_results, abr_fuzzy, sep = "_")
-dn_files_mtti  <- paste(abr_results, abr_mtti, sep = "_")
-dn_files_bdi   <- paste(abr_results, abr_bdi, sep = "_")
-
 
 # Report ----
 

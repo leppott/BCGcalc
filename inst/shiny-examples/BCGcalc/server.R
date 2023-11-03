@@ -255,20 +255,30 @@ shinyServer(function(input, output) {
     #                                         , "bcg_attr" = "character"
     #                                         , "BCG_attr" = "character"))
     
-    # Copy to "Results" folder - Import "as is"
-    file.copy(input$fn_input$datapath, file.path(path_results
+    
+    # result folder and files
+    path_results_sub <- file.path(path_results, dn_files_input)
+    # Add "Results" folder if missing
+    boo_Results <- dir.exists(file.path(path_results_sub))
+    if (boo_Results == FALSE) {
+      dir.create(file.path(path_results_sub))
+    }
+    
+    # Copy to "Results" sub-folder - Import "as is"
+    file.copy(input$fn_input$datapath, file.path(path_results_sub
                                                  , input$fn_input$name))
     
     ## button, enable, calc ----
-    shinyjs::enable("b_calc_bcg")
     shinyjs::enable("b_calc_taxatrans")
     shinyjs::enable("b_calc_indexclass")
     shinyjs::enable("b_calc_indexclassparam")
+    shinyjs::enable("b_calc_bcg")
     shinyjs::enable("b_calc_met_therm")
     shinyjs::enable("b_calc_modtherm")
     shinyjs::enable("b_calc_mtti")
     shinyjs::enable("b_calc_bdi")
     
+    # shinyjs::enable("b_calc_rep_single")
     shinyjs::enable("b_calc_rep_multi")
     
     # update cb_taxatrans_sum 
@@ -395,7 +405,7 @@ shinyServer(function(input, output) {
       ### Calc, 00, Initialize ----
       prog_detail <- "Calculation, Taxa Translator..."
       message(paste0("\n", prog_detail))
-      
+    
       # Number of increments
       prog_n <- 6
       prog_sleep <- 0.25
@@ -406,6 +416,24 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_taxatrans
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      # path_results_sub <- file.path(path_results
+      #                               , paste(abr_results, fn_abr, sep = "_"))
+      # # Add "Results" folder if missing
+      # boo_Results <- dir.exists(file.path(path_results_sub))
+      # if (boo_Results == FALSE) {
+      #   dir.create(file.path(path_results_sub))
+      # }
+      # Add "reference" folder if missing
+      path_results_ref <- file.path(path_results, dn_files_ref)
+      boo_Results <- dir.exists(file.path(path_results_ref))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_ref))
+      }
+      # Add "Results" folder based on user selection later in this step
       
       # button, disable, download
       shinyjs::disable("b_download_taxatrans")
@@ -451,12 +479,17 @@ shinyServer(function(input, output) {
                                          , "col_drop"], ","))
       fn_taxoff_attr <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                        , "attributes_filename"] 
+      fn_taxoff_attr_meta <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                       , "attributes_metadata_filename"] 
       col_taxaid_attr <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                         , "attributes_taxaid"] 
       sel_user_sampid <- input$taxatrans_user_col_sampid
   
       sel_taxaid_drop <-  df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                      , "taxaid_drop"] 
+      dir_proj_results <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
+                                         , "dir_results"] 
+      
       
       # include = yes; unique(sel_user_groupby)
       # include sampid, taxaid, and n_taxa so not dropped
@@ -493,6 +526,15 @@ shinyServer(function(input, output) {
      
       message(paste0("User response to summarize duplicate sample taxa = "
                , sel_summ)) 
+
+      dn_files <- paste(abr_results, dir_proj_results, sep = "_")
+      
+      # Add "Results" folder if missing
+      path_results_sub <- file.path(path_results, dn_files)
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
       
       ## Calc, 03, Import Official Data (and Metadata)  ----
       prog_detail <- "Import Data, Official and Metadata"
@@ -531,6 +573,17 @@ shinyServer(function(input, output) {
         
         df_taxoff_attr <- read.csv(temp_taxoff_attr)
       }## IF ~ fn_taxoff_attr
+      
+      ## Data, Official Attributes, Meta Data----
+      if (!is.null(fn_taxoff_meta)) {
+        url_taxoff_attr_meta <- file.path(url_bmt_base
+                                     , "taxa_official"
+                                     , fn_taxoff_attr_meta)
+        httr::GET(url_taxoff_attr_meta
+                  , write_disk(temp_taxoff_attr_meta <- tempfile(fileext = ".csv")))
+        
+        df_taxoff_attr_meta <- read.csv(temp_taxoff_attr_meta)
+      }## IF ~ fn_taxaoff_meta
 
       
       ## Calc, 03, Run Function ----
@@ -656,67 +709,85 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # Save files
-      fn_abr <- paste0("_", abr_taxatrans, "_")
- 
+
       ## File version names
       df_save <- data.frame(Calculation = sel_proj
                             , OperationalTaxonomicUnit = col_taxaid_official_project
                             , TranslationTable = fn_taxoff
                             , AttributeTable = fn_taxoff_attr)
-      fn_part <- paste0(fn_abr, "0fileversions", ".csv")
+      fn_part <- paste0("_", abr_filebuilder, "_0taxasource", ".csv")
       write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , file.path(path_results_ref, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## Taxa User 
       # saved when imported
       
+      # 2023-11-03, save original filenames
+      # add taxatrans metadata
+      
       ## Taxa Official
-      df_save <- df_official
-      fn_part <- paste0(fn_abr, "1official", ".csv")
-      write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
-                , row.names = FALSE)
-      rm(df_save, fn_part)
+      # df_save <- df_official
+      # fn_part <- paste0(fn_abr_save, "1official", ".csv")
+      # write.csv(df_save
+      #           , file.path(path_results_ref, paste0(fn_input_base, fn_part))
+      #           , row.names = FALSE)
+      # rm(df_save, fn_part)
+      file.copy(temp_taxoff
+                , file.path(path_results_ref, fn_taxoff))
+      
+      ## Taxa Official, meta data
+      # df_save <- taxatrans_results$official_metadata # df_taxoff_meta
+      # fn_part <- paste0(fn_abr_save, "1metadata", ".csv")
+      # write.csv(df_save
+      #           , file.path(path_results_ref, paste0(fn_input_base, fn_part))
+      #           , row.names = FALSE)
+      # rm(df_save, fn_part)
+      file.copy(temp_taxoff_meta
+                , file.path(path_results_ref, fn_taxoff_meta))
       
       ## Taxa Official, Attributes
-      df_save <- df_taxoff_attr
-      fn_part <- paste0(fn_abr, "1attributes", ".csv")
-      write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
-                , row.names = FALSE)
-      rm(df_save, fn_part)
+      # df_save <- df_taxoff_attr
+      # fn_part <- paste0(path_results_ref, "1attributes", ".csv")
+      # write.csv(df_save
+      #           , file.path(path_results, paste0(fn_input_base, fn_part))
+      #           , row.names = FALSE)
+      # rm(df_save, fn_part)
+      file.copy(temp_taxoff_attr
+                , file.path(path_results_ref, fn_taxoff_attr))
      
-      ## meta data
-      df_save <- taxatrans_results$official_metadata # df_taxoff_meta
-      fn_part <- paste0(fn_abr, "1metadata", ".csv")
-      write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
-                , row.names = FALSE)
-      rm(df_save, fn_part)
+      ## Taxa Official, Attributes, meta data
+      # df_save <- taxatrans_results$official_metadata # df_taxoff_meta
+      # fn_part <- paste0(fn_abr_save, "1metadata", ".csv")
+      # write.csv(df_save
+      #           , file.path(path_results_ref, paste0(fn_input_base, fn_part))
+      #           , row.names = FALSE)
+      # rm(df_save, fn_part)
+      file.copy(temp_taxoff_attr_meta
+                , file.path(path_results_ref, fn_taxoff_attr_meta))
      
       ## translate - crosswalk
       df_save <- taxatrans_results$taxatrans_unique # df_taxoff_meta
-      fn_part <- paste0(fn_abr, "2taxamatch", ".csv")
+      fn_part <- paste0("_", dn_files_ref, "_2taxamatch", ".csv")
       write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## Non Match
       df_save <- data.frame(taxatrans_results$nonmatch)
-      fn_part <- paste0(fn_abr, "3nonmatch", ".csv")
+      fn_part <- paste0("_", dn_files_ref, "_3nonmatch", ".csv")
       write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## Taxa Trans
       df_save <- taxatrans_results$merge
-      fn_part <- paste0(fn_abr, "MERGED", ".csv")
+      fn_part <- paste0("_", dn_files_ref, "_4taxaattr", ".csv")
       write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -757,9 +828,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_taxatrans, "_")
+      fn_abr <- abr_taxatrans
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -841,6 +913,17 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
+      # result folder and files
+      fn_abr <- abr_bcg
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+
       # button, disable, download
       shinyjs::disable("b_download_indexclassparam")
       
@@ -1045,13 +1128,12 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # Save files 
-      fn_abr <- paste0("_", abr_classparam, "_")
       
       ## save, results
       df_save <- df_results
-      fn_part <- paste0(fn_abr, "RESULTS", ".csv")
+      fn_part <- paste0("_", abr_filebuilder, "_5sitedata", ".csv")
       write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -1092,9 +1174,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_classparam, "_")
+      fn_abr <- abr_taxatrans
+      fn_abr_save <- paste0("_", abr_classparam, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -1185,6 +1268,17 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_bcg
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
       
       # button, disable, download
       shinyjs::disable("b_download_indexclass")
@@ -1329,21 +1423,20 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # Save files 
-      fn_abr <- paste0("_", abr_classassign, "_")
       
       ## save, criteria
       df_save <- df_indexclass_crit
-      fn_part <- paste0(fn_abr, "0criteria", ".csv")
+      fn_part <- paste0("_", abr_filebuilder, "_6siteclasscriteria", ".csv")
       write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## save, results
       df_save <- df_indexclass_results
-      fn_part <- paste0(fn_abr, "1results", ".csv")
+      fn_part <- paste0("_", abr_filebuilder, "_7siteclass", ".csv")
       write.csv(df_save
-                , file.path(path_results, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -1385,9 +1478,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_classassign, "_")
+      fn_abr <- abr_classassign
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -1441,6 +1535,25 @@ shinyServer(function(input, output) {
     message(paste0("Import, file name: ", inFile$name))
     
     # Move Results folder clean up to calc button
+    # Assume import 2nd file after 1st
+    # Move back (2023-11-03)
+    # Remove all files in "Results" folder
+    # Triggered here so can run different files
+    fn_results <- list.files(path_results
+                             , full.names = TRUE
+                             , include.dirs = TRUE
+                             , recursive = TRUE)
+    message(paste0("Files and folders in 'results' folder (before removal) = "
+                   , length(fn_results)))
+    # file.remove(fn_results) # ok if no files and only files
+    unlink(fn_results, recursive = TRUE) # includes directories
+    # QC, repeat 
+    fn_results2 <- list.files(path_results
+                              , full.names = TRUE
+                              , include.dirs = TRUE
+                              , recursive = TRUE)
+    message(paste0("Files in 'results' folder (after removal [should be 0]) = "
+                   , length(fn_results2)))
     
     #### Mod, BCG_ATTR----
     # Read user imported file
@@ -1502,11 +1615,19 @@ shinyServer(function(input, output) {
     #                                         , "BCG_ATTR" = "character"
     #                                         , "bcg_attr" = "character"
     #                                         , "BCG_attr" = "character"))
+  
+    # result folder and files
+    path_results_sub <- file.path(path_results, dn_files_input)
+    # Add "Results" folder if missing
+    boo_Results <- dir.exists(file.path(path_results_sub))
+    if (boo_Results == FALSE) {
+      dir.create(file.path(path_results_sub))
+    }
     
-    # Copy to "Results" folder - Import "as is"
+    # Copy to "Results" sub-folder - Import "as is"
     file.copy(inFile$datapath
-              , file.path(path_results, inFile$name))
-    
+              , file.path(path_results_sub, inFile$name))
+
     # button, enable, calc
     shinyjs::enable("b_calc_mergefiles")
     
@@ -1547,7 +1668,8 @@ shinyServer(function(input, output) {
     message(paste0("Import, file name: ", inFile$name))
     
     # Move Results folder clean up to calc button
-    
+    # Assume import 2nd file after 1st
+
     #### Mod, BCG_ATTR----
     # Read user imported file
     # Add extra colClasses parameter for BCG_Attr
@@ -1609,10 +1731,18 @@ shinyServer(function(input, output) {
     #                                         , "bcg_attr" = "character"
     #                                         , "BCG_attr" = "character"))
     
-    # Copy to "Results" folder - Import "as is"
-    file.copy(inFile$datapath
-              , file.path(path_results, inFile$name))
+    # result folder and files
+    path_results_sub <- file.path(path_results, dn_files_input)
+    # Add "Results" folder if missing
+    boo_Results <- dir.exists(file.path(path_results_sub))
+    if (boo_Results == FALSE) {
+      dir.create(file.path(path_results_sub))
+    }
     
+    # Copy to "Results" sub-folder - Import "as is"
+    file.copy(inFile$datapath
+              , file.path(path_results_sub, inFile$name))
+
     # button, enable, calc
     shinyjs::enable("b_calc_mergefiles")
     
@@ -1711,7 +1841,7 @@ shinyServer(function(input, output) {
     shiny::withProgress({
       
       ### Calc, 00, Set Up Shiny Code ----
-      
+ 
       prog_detail <- "Calculation, Merge Files..."
       message(paste0("\n", prog_detail))
       
@@ -1725,6 +1855,17 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_mergefiles
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
       
       # button, disable, download
       shinyjs::disable("b_download_mergefiles")
@@ -1793,26 +1934,27 @@ shinyServer(function(input, output) {
       # Remove non-MergeFiles files
       # Remove all files in "Results" folder
       # 2 file imports so moved Results folder clean up here from import section
-      fn_results <- list.files(path_results
-                               , full.names = TRUE
-                               , include.dirs = FALSE
-                               , recursive = TRUE)
-      message(paste0("Files in 'results' folder (before removal) = "
-                     , length(fn_results)))
-      
-      # Exclude MF1 and MF2
-      fn_mf_keep <- file.path(path_results
-                              , c(fn_mf1, fn_mf2))
-      fn_results <- fn_results[!fn_results %in% fn_mf_keep]
-      # Remove non MF files
-      file.remove(fn_results) # ok if no files
-      # QC, repeat 
-      fn_results2 <- list.files(path_results
-                                , full.names = TRUE
-                                , include.dirs = FALSE
-                                , recursive = TRUE)
-      message(paste0("Files in 'results' folder (after removal [should be 2]) = "
-                     , length(fn_results2)))
+      # fn_results <- list.files(path_results
+      #                          , full.names = TRUE
+      #                          , include.dirs = FALSE
+      #                          , recursive = TRUE)
+      # message(paste0("Files in 'results' folder (before removal) = "
+      #                , length(fn_results)))
+      # comment out 2023-11-03
+      #
+      # # Exclude MF1 and MF2
+      # fn_mf_keep <- file.path(path_results
+      #                         , c(fn_mf1, fn_mf2))
+      # fn_results <- fn_results[!fn_results %in% fn_mf_keep]
+      # # Remove non MF files
+      # file.remove(fn_results) # ok if no files
+      # # QC, repeat 
+      # fn_results2 <- list.files(path_results
+      #                           , full.names = TRUE
+      #                           , include.dirs = FALSE
+      #                           , recursive = TRUE)
+      # message(paste0("Files in 'results' folder (after removal [should be 2]) = "
+      #                , length(fn_results2)))
       
       
       ## Calc, 03, Run Function----
@@ -1836,10 +1978,8 @@ shinyServer(function(input, output) {
       
       ## Calc, 04, Save Results ----
       
-      fn_abr <- paste0("_", abr_mergefiles, "_")
-      
-      fn_merge <- paste0(fn_input_base, fn_abr, "RESULTS.csv")
-      pn_merge <- file.path(path_results, fn_merge)
+      fn_merge <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      pn_merge <- file.path(path_results_sub, fn_merge)
       write.csv(df_merge, pn_merge, row.names = FALSE)
       
       
@@ -1877,9 +2017,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input_mf2
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_mergefiles, "_")
+      fn_abr <- abr_mergefiles
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -1913,6 +2054,25 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_bcg
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+      
+      # reference folder 
+      path_results_ref <- file.path(path_results, dn_files_ref)
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_ref))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_ref))
+      }
       
       # button, disable, download
       shinyjs::disable("b_download_bcg")
@@ -1975,8 +2135,8 @@ shinyServer(function(input, output) {
                                               , Exceptions = NA)
         
         # Save Results
-        fn_excl <- paste0(fn_input_base, fn_abr, "1markexcl.csv")
-        dn_excl <- path_results
+        fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+        dn_excl <- path_results_sub
         pn_excl <- file.path(dn_excl, fn_excl)
         write.csv(df_input, pn_excl, row.names = FALSE)
         
@@ -2012,8 +2172,8 @@ shinyServer(function(input, output) {
       df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
                                 , !names(df_bcg_models) %in% c("SITE_TYPE", "INDEX_REGION")]
       # Save
-      fn_rules <- paste0(fn_input_base, fn_abr, "3metrules.csv")
-      dn_rules <- path_results
+      fn_rules <- paste0(fn_input_base, fn_abr_save, "3metrules.csv")
+      dn_rules <- path_results_sub
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
       
@@ -2044,11 +2204,11 @@ shinyServer(function(input, output) {
       }## IF ~ length(col_rules_keep)
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
-      ## Save Results ----
-      fn_abr <- paste0("_", abr_bcg, "_")
       
-      fn_metval <- paste0(fn_input_base, fn_abr, "2metval_all.csv")
-      dn_metval <- path_results
+      ## Save Results ----
+      
+      fn_metval <- paste0(fn_input_base, fn_abr_save, "2metval_all.csv")
+      dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
@@ -2065,8 +2225,8 @@ shinyServer(function(input, output) {
                                           , cols_model_metrics))
       df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
       # Save
-      fn_metval_slim <- paste0(fn_input_base, fn_abr, "2metval_BCG.csv")
-      dn_metval_slim <- path_results
+      fn_metval_slim <- paste0(fn_input_base, fn_abr_save, "2metval_BCG.csv")
+      dn_metval_slim <- path_results_sub
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
       
@@ -2080,8 +2240,8 @@ shinyServer(function(input, output) {
       # Calc
       df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
       # Save Results
-      fn_metmemb <- paste0(fn_input_base, fn_abr, "3metmemb.csv")
-      dn_metmemb <- path_results
+      fn_metmemb <- paste0(fn_input_base, fn_abr_save, "3metmemb.csv")
+      dn_metmemb <- path_results_sub
       pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
       
@@ -2095,8 +2255,8 @@ shinyServer(function(input, output) {
       # Calc
       df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
       # Save Results
-      fn_levmemb <- paste0(fn_input_base, fn_abr, "4levmemb.csv")
-      dn_levmemb <- path_results
+      fn_levmemb <- paste0(fn_input_base, fn_abr_save, "4levmemb.csv")
+      dn_levmemb <- path_results_sub
       pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
       
@@ -2110,8 +2270,8 @@ shinyServer(function(input, output) {
       # Calc
       df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
       # Save Results
-      fn_levassign <- paste0(fn_input_base, fn_abr, "5levassign.csv")
-      dn_levassign <- path_results
+      fn_levassign <- paste0(fn_input_base, fn_abr_save, "5levassign.csv")
+      dn_levassign <- path_results_sub
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
       
@@ -2150,8 +2310,8 @@ shinyServer(function(input, output) {
                                                       , useNA = "ifany"))
       
       # Save Flags Summary
-      fn_levflags <- paste0(fn_input_base, fn_abr, "6levflags.csv")
-      dn_levflags <- path_results
+      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
+      dn_levflags <- path_results_sub
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
       
@@ -2160,8 +2320,8 @@ shinyServer(function(input, output) {
       ## remove L1:6
       
       # Save Results
-      fn_results <- paste0(fn_input_base, fn_abr, "RESULTS.csv")
-      dn_results <- path_results
+      fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
       
@@ -2172,8 +2332,8 @@ shinyServer(function(input, output) {
                     , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
       df_metflags <- df_flags[, col2keep]
       # save
-      fn_metflags <- paste0(fn_input_base, fn_abr, "6metflags.csv")
-      dn_metflags <- path_results
+      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
+      dn_metflags <- path_results_sub
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
 
@@ -2189,8 +2349,8 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_BCG_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr, "RESULTS.html")
-      dir.export <- path_results
+      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
                         , output_file = strFile.out
@@ -2224,9 +2384,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_bcg, "_")
+      fn_abr <- abr_bcg
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -2259,6 +2420,25 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_tmet
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+      
+      # reference folder 
+      path_results_ref <- file.path(path_results, dn_files_ref)
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_ref))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_ref))
+      }
       
       # button, disable, download
       shinyjs::disable("b_download_met_therm")
@@ -2322,8 +2502,8 @@ shinyServer(function(input, output) {
                                               , Exceptions = NA)
         
         # Save Results
-        fn_excl <- paste0(fn_input_base, fn_abr, "1markexcl.csv")
-        dn_excl <- path_results
+        fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+        dn_excl <- path_results_sub
         pn_excl <- file.path(dn_excl, fn_excl)
         write.csv(df_input, pn_excl, row.names = FALSE)
         
@@ -2378,18 +2558,17 @@ shinyServer(function(input, output) {
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
         
       ## Calc, 04, Save Results ----
-      
-      fn_abr <- paste0("_", abr_tmet, "_")  
         
-      fn_metval <- paste0(fn_input_base, fn_abr, "RESULTS.csv")
-      dn_metval <- path_results
+      fn_metval <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
       # Copy metadata (thermal metrics) to results
       fn_meta <- "ThermPrefMetrics_metadata.xlsx"
+      fn_meta_save <- paste0(fn_abr, "_metadata.xlsx")
       file.copy(file.path("www", "links", fn_meta)
-                , file.path(path_results, fn_meta))
+                , file.path(path_results_sub, fn_meta_save))
       
       ## Calc, 05, Clean Up----
       prog_detail <- "Calculate, Clean Up"
@@ -2418,9 +2597,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_tmet, "_")
+      fn_abr <- abr_tmet
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -2455,6 +2635,25 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_fuzzy
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+      
+      # reference folder 
+      path_results_ref <- file.path(path_results, dn_files_ref)
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_ref))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_ref))
+      }
       
       # button, disable, download
       shinyjs::disable("b_download_modtherm")
@@ -2557,8 +2756,8 @@ shinyServer(function(input, output) {
                                               , Exceptions = NA)
         
         # Save Results
-        fn_excl <- paste0(fn_input_base, fn_abr, "1markexcl.csv")
-        dn_excl <- path_results
+        fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+        dn_excl <- path_results_sub
         pn_excl <- file.path(dn_excl, fn_excl)
         write.csv(df_input, pn_excl, row.names = FALSE)
         
@@ -2594,8 +2793,8 @@ shinyServer(function(input, output) {
       df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
                                 , !names(df_bcg_models) %in% c("SITE_TYPE", "INDEX_REGION")]
       # Save
-      fn_rules <- paste0(fn_input_base, fn_abr, "3metrules.csv")
-      dn_rules <- path_results
+      fn_rules <- paste0(fn_input_base, fn_abr_save, "3metrules.csv")
+      dn_rules <- path_results_sub
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
       
@@ -2626,11 +2825,11 @@ shinyServer(function(input, output) {
       }## IF ~ length(col_rules_keep)
       
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
-      ### Save Results ----
-      fn_abr <- paste0("_", abr_fuzzy, "_")
       
-      fn_metval <- paste0(fn_input_base, fn_abr, "2metval_all.csv")
-      dn_metval <- path_results
+      ### Save Results ----
+      
+      fn_metval <- paste0(fn_input_base, fn_abr_save, "2metval_all.csv")
+      dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
@@ -2647,8 +2846,8 @@ shinyServer(function(input, output) {
                                           , cols_model_metrics))
       df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
       # Save
-      fn_metval_slim <- paste0(fn_input_base, fn_abr, "2metval_BCG.csv")
-      dn_metval_slim <- path_results
+      fn_metval_slim <- paste0(fn_input_base, fn_abr_save, "2metval_model.csv")
+      dn_metval_slim <- path_results_sub
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
       
@@ -2662,8 +2861,8 @@ shinyServer(function(input, output) {
       # Calc
       df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
       # Save Results
-      fn_metmemb <- paste0(fn_input_base, fn_abr, "3metmemb.csv")
-      dn_metmemb <- path_results
+      fn_metmemb <- paste0(fn_input_base, fn_abr_save, "3metmemb.csv")
+      dn_metmemb <- path_results_sub
       pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
       
@@ -2677,8 +2876,8 @@ shinyServer(function(input, output) {
       # Calc
       df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
       # Save Results
-      fn_levmemb <- paste0(fn_input_base, fn_abr, "4levmemb.csv")
-      dn_levmemb <- path_results
+      fn_levmemb <- paste0(fn_input_base, fn_abr_save, "4levmemb.csv")
+      dn_levmemb <- path_results_sub
       pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
       
@@ -2777,8 +2976,8 @@ shinyServer(function(input, output) {
       
       
       # Save Results
-      fn_levassign <- paste0(fn_input_base, fn_abr, "5levassign.csv")
-      dn_levassign <- path_results
+      fn_levassign <- paste0(fn_input_base, fn_abr_save, "5levassign.csv")
+      dn_levassign <- path_results_sub
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
       
@@ -2817,8 +3016,8 @@ shinyServer(function(input, output) {
                                                       , useNA = "ifany"))
       
       # Save Flags Summary
-      fn_levflags <- paste0(fn_input_base, fn_abr, "6levflags.csv")
-      dn_levflags <- path_results
+      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
+      dn_levflags <- path_results_sub
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
       
@@ -2827,8 +3026,8 @@ shinyServer(function(input, output) {
       ## remove L1:6
       
       # Save Results
-      fn_results <- paste0(fn_input_base, fn_abr, "RESULTS.csv")
-      dn_results <- path_results
+      fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
       
@@ -2839,8 +3038,8 @@ shinyServer(function(input, output) {
                     , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
       df_metflags <- df_flags[, col2keep]
       # save
-      fn_metflags <- paste0(fn_input_base, fn_abr, "6metflags.csv")
-      dn_metflags <- path_results
+      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
+      dn_metflags <- path_results_sub
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
 
@@ -2855,8 +3054,8 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_FuzzyThermal_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr, "RESULTS.html")
-      dir.export <- path_results
+      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
                         , output_file = strFile.out
@@ -2890,9 +3089,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_fuzzy, "_")
+      fn_abr <- abr_fuzzy
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -2955,6 +3155,19 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_mtti
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+      
+      # no reference subfolder
       
       # button, disable, download
       shinyjs::disable("b_download_mtti")
@@ -3208,8 +3421,8 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_MTTI_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr, "RESULTS.html")
-      dir.export <- path_results
+      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
                         , output_file = strFile.out
@@ -3223,22 +3436,20 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
-      fn_abr <- paste0("_", abr_mtti, "_")
-      
-      fn_save <- paste0(fn_input_base, fn_abr, "RESULTS.csv")
-      pn_save <- file.path(path_results, fn_save)
+      fn_save <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_results, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, fn_abr, "flags_1_metrics.csv")
-      pn_save <- file.path(path_results, fn_save)
+      fn_save <- paste0(fn_input_base, fn_abr_save, "flags_1_metrics.csv")
+      pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_met, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, fn_abr, "flags_2_eval_long.csv")
-      pn_save <- file.path(path_results, fn_save)
+      fn_save <- paste0(fn_input_base, fn_abr_save, "flags_2_eval_long.csv")
+      pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_met_flags, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, fn_abr, "flags_3_eval_summary.csv")
-      pn_save <- file.path(path_results, fn_save)
+      fn_save <- paste0(fn_input_base, fn_abr_save, "flags_3_eval_summary.csv")
+      pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_met_flags_summary, pn_save, row.names = TRUE)
      
       ## Calc, 10, Zip Results ----
@@ -3267,9 +3478,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_mtti, "_")
+      fn_abr <- abr_mtti
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -3363,6 +3575,25 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_bdi
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+      
+      # reference folder 
+      path_results_ref <- file.path(path_results, dn_files_ref)
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_ref))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_ref))
+      }
       
       # button, disable, download
       shinyjs::disable("b_download_bdi")
@@ -3539,7 +3770,8 @@ shinyServer(function(input, output) {
       myIndex <- "BCG_PacNW_L1"
       df_rp$INDEX_NAME   <- myIndex
       df_rp$INDEX_CLASS <- "ALL"
-      (myMetrics.Bugs <- unique(as.data.frame(df_thresh_metric)[df_thresh_metric[, "INDEX_NAME"] == myIndex, "METRIC_NAME"]))
+      myMetrics.Bugs <- unique(as.data.frame(df_thresh_metric)[df_thresh_metric[, "INDEX_NAME"] == myIndex, "METRIC_NAME"])
+      message(myMetrics.Bugs)
 
 
       # Run Function
@@ -3585,8 +3817,8 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_BDI_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr, "RESULTS.html")
-      dir.export <- path_results
+      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
                         , output_file = strFile.out
@@ -3600,17 +3832,15 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
-      fn_abr <- paste0("_", abr_bdi, "_")
-      
       # Excluded Taxa
-      fn_excl <- paste0(fn_input_base, fn_abr, "1markexcl.csv")
-      dn_excl <- path_results
+      fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+      dn_excl <- path_results_sub
       pn_excl <- file.path(dn_excl, fn_excl)
       write.csv(df_input, pn_excl, row.names = FALSE)
       
       # RESULTS
-      fn_save <- paste0(fn_input_base, fn_abr, "RESULTS.csv")
-      pn_save <- file.path(path_results, fn_save)
+      fn_save <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_metric_scores_bugs, pn_save, row.names = FALSE)
       
       ## Calc, 10, Zip Results ----
@@ -3639,9 +3869,10 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
-      fn_abr <- paste0("_", abr_bdi, "_")
+      fn_abr <- abr_bdi
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , fn_abr
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".zip")
     } ,
@@ -4546,6 +4777,17 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # result folder and files
+      fn_abr <- abr_report
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
 
       # button, disable, download
       shinyjs::disable("b_download_rep_multi")
@@ -4608,7 +4850,7 @@ shinyServer(function(input, output) {
 
       # Read Template
       # read template file
-      path_template <- file.path(path_results, fn_template)
+      path_template <- file.path(path_results_sub, fn_template)
       n_skip <- 3
 
       ### Template, Summary, Header ----
@@ -5373,7 +5615,7 @@ shinyServer(function(input, output) {
 
       # Save new Excel file.
       # Don't need a zip file
-      fn_wb <- file.path(path_results, "results.xlsx")
+      fn_wb <- file.path(path_results_sub, "results.xlsx")
       openxlsx::saveWorkbook(wb, fn_wb, overwrite = TRUE)
 
       # button, enable, download
@@ -5393,14 +5635,16 @@ shinyServer(function(input, output) {
     filename = function() {
       inFile <- input$fn_input
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      fn_abr <- abr_report
+      fn_abr_save <- paste0("_", fn_abr, "_")
       paste0(fn_input_base
-             , "_Report_Multi_"
+             , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
              , ".xlsx")
     } ,
     content = function(fname) {##content~START
 
-      file.copy(file.path(path_results, "results.xlsx"), fname)
+      file.copy(file.path(path_results_sub, "results.xlsx"), fname)
 
     }##content~END
   )##download ~ Report MS

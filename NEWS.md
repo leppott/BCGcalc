@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-10-31 17:00:21.018223
+2023-11-03 14:54:39.644932
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-10-31 17:00:21.055764
+    #> Last Update: 2023-11-03 14:54:39.690454
+
+# BCGcalc 2.0.0.9107 (2023-11-03)
+
+- refactor: Implement result folder changes
+- refactor: Add subfolder for user import file
+- refactor: Implement changes for new source files in taxa translator
+- refactor: Implement file name changes
 
 # BCGcalc 2.0.0.9106 (2023-10-31)
 
