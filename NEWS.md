@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-03 15:52:16.466789
+2023-11-04 10:04:21.67798
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-03 15:52:16.503197
+    #> Last Update: 2023-11-04 10:04:21.728257
+
+# BCGcalc 2.0.0.9109 (2023-11-04)
+
+- fix: Updates TaxaTranslate file output (names and folders)
 
 # BCGcalc 2.0.0.9108 (2023-11-03)
 

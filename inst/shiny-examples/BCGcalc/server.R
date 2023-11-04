@@ -717,7 +717,7 @@ shinyServer(function(input, output) {
                             , AttributeTable = fn_taxoff_attr)
       fn_part <- paste0("_", abr_filebuilder, "_0taxasource", ".csv")
       write.csv(df_save
-                , file.path(path_results_ref, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -769,7 +769,7 @@ shinyServer(function(input, output) {
      
       ## translate - crosswalk
       df_save <- taxatrans_results$taxatrans_unique # df_taxoff_meta
-      fn_part <- paste0("_", dn_files_ref, "_2taxamatch", ".csv")
+      fn_part <- paste0(fn_abr_save, "2taxamatch", ".csv")
       write.csv(df_save
                 , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
@@ -777,7 +777,7 @@ shinyServer(function(input, output) {
       
       ## Non Match
       df_save <- data.frame(taxatrans_results$nonmatch)
-      fn_part <- paste0("_", dn_files_ref, "_3nonmatch", ".csv")
+      fn_part <- paste0(fn_abr_save, "3nonmatch", ".csv")
       write.csv(df_save
                 , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
@@ -785,7 +785,7 @@ shinyServer(function(input, output) {
       
       ## Taxa Trans
       df_save <- taxatrans_results$merge
-      fn_part <- paste0("_", dn_files_ref, "_4taxaattr", ".csv")
+      fn_part <- paste0(fn_abr_save, "4taxaattr", ".csv")
       write.csv(df_save
                 , file.path(path_results_sub, paste0(fn_input_base, fn_part))
                 , row.names = FALSE)
