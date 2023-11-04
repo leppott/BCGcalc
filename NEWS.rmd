@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9110 (2023-11-04)
+
+* fix: Create workaround for Generate Class Param
+    + If reused an output as input duplicate fields are created
+    + Then crashes when tries to join results
+    + Rename existing fields as _OLD
+
 # BCGcalc 2.0.0.9109 (2023-11-04)
 
 * fix: Updates TaxaTranslate file output (names and folders)

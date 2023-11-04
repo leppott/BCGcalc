@@ -1022,6 +1022,27 @@ shinyServer(function(input, output) {
       
       # add EPSG to data (in case changed)
       df_sites[, "EPSG_CALC"] <- value_epsg
+  
+      # 2023-11-04
+      # Crashes if include in input file the new fields
+      flds_new <- c("COMID"
+                    , "WSAREASQKM"
+                    , "elev_m"
+                    , "IWI"
+                    , "ICI"
+                    , "PRECIP8110CAT"
+                    , "pslope_nhd"
+                    , "slopelenkm"
+                    , "gnis_name"
+                    , "streamorde"
+                    , "ftype"
+                    , "fcode")
+      boo_dup <- names(df_sites) %in% flds_new
+      if (sum(boo_dup) > 0) {
+        names_dup <- names(df_sites)[boo_dup]
+        names_old <- paste0(names(df_sites), "_OLD")
+        names(df_sites)[boo_dup] <- names_old[boo_dup]
+      }## IF ~ boo_dup
       
       ## Calc, 03, Run Function, StreamCat ----
       prog_detail <- "Stream Cat; COMID and elev"

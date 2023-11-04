@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-04 10:04:21.67798
+2023-11-04 10:49:32.784569
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-04 10:04:21.728257
+    #> Last Update: 2023-11-04 10:49:32.80761
+
+# BCGcalc 2.0.0.9110 (2023-11-04)
+
+- fix: Create workaround for Generate Class Param
+  - If reused an output as input duplicate fields are created
+  - Then crashes when tries to join results
+  - Rename existing fields as \_OLD
 
 # BCGcalc 2.0.0.9109 (2023-11-04)
 
