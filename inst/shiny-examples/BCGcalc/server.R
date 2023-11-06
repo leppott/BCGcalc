@@ -164,7 +164,7 @@ shinyServer(function(input, output) {
     
     # Define file
     fn_inFile <- inFile$datapath
-    
+  
     #message(getwd())
     message(paste0("Import, separator: '", input$sep,"'"))
     message(paste0("Import, file name: ", input$fn_input$name))
@@ -175,23 +175,8 @@ shinyServer(function(input, output) {
     #   dir.create(file.path(".", "Results"))
     # }
     
-    # Remove all files in "Results" folder
-    # Triggered here so can run different files
-    fn_results <- list.files(path_results
-                             , full.names = TRUE
-                             , include.dirs = TRUE
-                             , recursive = TRUE)
-    message(paste0("Files and folders in 'results' folder (before removal) = "
-                   , length(fn_results)))
-    # file.remove(fn_results) # ok if no files and only files
-    unlink(fn_results, recursive = TRUE) # includes directories
-    # QC, repeat 
-    fn_results2 <- list.files(path_results
-                             , full.names = TRUE
-                             , include.dirs = TRUE
-                             , recursive = TRUE)
-    message(paste0("Files in 'results' folder (after removal [should be 0]) = "
-                   , length(fn_results2)))
+    # Remove existing files in "results"
+    clean_results()
     
     ### Mod, BCG_ATTR----
     # Read user imported file
@@ -243,7 +228,6 @@ shinyServer(function(input, output) {
                              , colClasses = classes_df[col_name_bcgattr])
     }## IF ~ col_num_bcgattr == integer(0)
     
-    
     # OLD
     # Will get a 'warning' for unknown columns but harmless
     # df_input <- read.delim(fn_inFile
@@ -254,19 +238,9 @@ shinyServer(function(input, output) {
     #                                         , "BCG_ATTR" = "character"
     #                                         , "bcg_attr" = "character"
     #                                         , "BCG_attr" = "character"))
-    
-    
-    # result folder and files
-    path_results_sub <- file.path(path_results, dn_files_input)
-    # Add "Results" folder if missing
-    boo_Results <- dir.exists(file.path(path_results_sub))
-    if (boo_Results == FALSE) {
-      dir.create(file.path(path_results_sub))
-    }
-    
-    # Copy to "Results" sub-folder - Import "as is"
-    file.copy(input$fn_input$datapath, file.path(path_results_sub
-                                                 , input$fn_input$name))
+
+    # Copy user files to results sub-folder
+    copy_import_file(import_file = input$fn_input)
     
     ## button, enable, calc ----
     shinyjs::enable("b_calc_taxatrans")
@@ -416,6 +390,12 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
       
       # result folder and files
       fn_abr <- abr_taxatrans
@@ -913,6 +893,12 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
+      
       # result folder and files
       fn_abr <- abr_bcg
       fn_abr_save <- paste0("_", fn_abr, "_")
@@ -1290,6 +1276,12 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
+      
       # result folder and files
       fn_abr <- abr_bcg
       fn_abr_save <- paste0("_", fn_abr, "_")
@@ -1555,26 +1547,8 @@ shinyServer(function(input, output) {
     # message(paste0("Import, separator: '", input$sep,"'"))
     message(paste0("Import, file name: ", inFile$name))
     
-    # Move Results folder clean up to calc button
-    # Assume import 2nd file after 1st
-    # Move back (2023-11-03)
-    # Remove all files in "Results" folder
-    # Triggered here so can run different files
-    fn_results <- list.files(path_results
-                             , full.names = TRUE
-                             , include.dirs = TRUE
-                             , recursive = TRUE)
-    message(paste0("Files and folders in 'results' folder (before removal) = "
-                   , length(fn_results)))
-    # file.remove(fn_results) # ok if no files and only files
-    unlink(fn_results, recursive = TRUE) # includes directories
-    # QC, repeat 
-    fn_results2 <- list.files(path_results
-                              , full.names = TRUE
-                              , include.dirs = TRUE
-                              , recursive = TRUE)
-    message(paste0("Files in 'results' folder (after removal [should be 0]) = "
-                   , length(fn_results2)))
+    # Remove existing files in "results"
+    clean_results()
     
     #### Mod, BCG_ATTR----
     # Read user imported file
@@ -1876,6 +1850,13 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+browser()      
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input_mf1)
+      copy_import_file(import_file = input$fn_input_mf2)
       
       # result folder and files
       fn_abr <- abr_mergefiles
@@ -2075,6 +2056,12 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
       
       # result folder and files
       fn_abr <- abr_bcg
@@ -2442,6 +2429,12 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
+      
       # result folder and files
       fn_abr <- abr_tmet
       fn_abr_save <- paste0("_", fn_abr, "_")
@@ -2656,6 +2649,12 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
       
       # result folder and files
       fn_abr <- abr_fuzzy
@@ -3177,6 +3176,12 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
+      
       # result folder and files
       fn_abr <- abr_mtti
       fn_abr_save <- paste0("_", fn_abr, "_")
@@ -3596,6 +3601,12 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
       
       # result folder and files
       fn_abr <- abr_bdi
@@ -4798,6 +4809,12 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+      
+      # Remove existing files in "results"
+      clean_results()
+      
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
       
       # result folder and files
       fn_abr <- abr_report

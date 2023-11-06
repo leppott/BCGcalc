@@ -21,6 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9111 (2023-11-06)
+
+* fix: Change order of operations to allow multiple uses of single import
+    + For example, taxa translate now generates only the current results
+* refactor: Create helper functions for re-used code
+    + clean_results
+    + copy_import_file
+    
 # BCGcalc 2.0.0.9110 (2023-11-04)
 
 * fix: Create workaround for Generate Class Param

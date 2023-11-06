@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-04 10:49:32.784569
+2023-11-06 08:16:00.943856
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-04 10:49:32.80761
+    #> Last Update: 2023-11-06 08:16:00.983124
+
+# BCGcalc 2.0.0.9111 (2023-11-06)
+
+- fix: Change order of operations to allow multiple uses of single
+  import
+  - For example, taxa translate now generates only the current results
+- refactor: Create helper functions for re-used code
+  - clean_results
+  - copy_import_file
 
 # BCGcalc 2.0.0.9110 (2023-11-04)
 

@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9110"
+pkg_version <- "2.0.0.9111"
 
 # Packages----
 # nolint start
@@ -38,7 +38,11 @@ library(ComplexUpset)
 # nolint end
 
 # Source ----
-# tabs
+
+# Helper Functions ----
+source(file.path("scripts", "helper_functions.R"))
+
+## tabs ----
 # sourced in global.R
 # ref in db_main_body.R
 # menu in db_main_sb.R
