@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9111"
+pkg_version <- "2.0.0.9112"
 
 # Packages----
 # nolint start
@@ -141,7 +141,7 @@ dn_files_fuzzy  <- paste(abr_results, abr_fuzzy, sep = "_")
 dn_files_mtti   <- paste(abr_results, abr_mtti, sep = "_")
 dn_files_bdi    <- paste(abr_results, abr_bdi, sep = "_")
 dn_files_bsti   <- paste(abr_results, abr_bsti, sep = "_")
-dn_files_report <- paste(abr_results, abr_bdi, sep = "_")
+dn_files_report <- paste(abr_results, abr_report, sep = "_")
 
 # Selection Choices----
 sel_community <- c("bugs", "fish", "algae")
