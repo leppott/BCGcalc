@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9113 (2023-11-20)
+
+* refactor: Add MN BCG Fish rules, Rules.xlsx
+
 # BCGcalc 2.0.0.9112 (2023-11-13)
 
 * feature: Added single site report
