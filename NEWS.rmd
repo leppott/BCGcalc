@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9114 (2023-11-20)
+
+* refactor: Modify output file names
+    + Shorten names by dropping user input file name
+* style: Add package names to a functions, Global.R
+    + write_disk was missing httr:: prefix
+
 # BCGcalc 2.0.0.9113 (2023-11-20)
 
 * refactor: Add MN BCG Fish rules, Rules.xlsx

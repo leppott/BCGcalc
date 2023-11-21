@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9112"
+pkg_version <- "2.0.0.9114"
 
 # Packages----
 # nolint start
@@ -150,7 +150,7 @@ sel_community <- c("bugs", "fish", "algae")
 url_bcg_base <- "https://github.com/leppott/BCGcalc/raw/main/inst/extdata"
 
 url_bcg_models <- file.path(url_bcg_base, "Rules.xlsx")
-httr::GET(url_bcg_models, write_disk(temp_bcg_models <- tempfile(fileext = ".xlsx")))
+httr::GET(url_bcg_models, httr::write_disk(temp_bcg_models <- tempfile(fileext = ".xlsx")))
 
 df_bcg_models <- as.data.frame(readxl::read_excel(temp_bcg_models
                                                   , guess_max = 10^3
@@ -166,7 +166,7 @@ url_bmt_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/da
 # BMT, Flags ----
 url_bcg_checks <- file.path(url_bcg_base, "MetricFlags.xlsx")
 httr::GET(url_bcg_checks
-    , write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
+    , httr::write_disk(temp_bcg_checks <- tempfile(fileext = ".xlsx")))
 
 df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet = "Flags"))
 
@@ -175,7 +175,7 @@ url_taxa_official_pick <- file.path(url_bmt_base
                                     , "taxa_official"
                                     , "_pick_files.csv")
 httr::GET(url_taxa_official_pick
-    , write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
+    , httr::write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
 
 df_pick_taxoff <- read.csv(temp_taxa_official_pick)
 
@@ -184,7 +184,7 @@ url_indexclass_crit <- file.path(url_bmt_base
                                  , "index_class"
                                  , "IndexClass.xlsx")
 httr::GET(url_indexclass_crit
-    , write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))
+    , httr::write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))
 
 df_indexclass_crit <- readxl::read_excel(temp_indexclass_crit
                                          , sheet = "Index_Class")
@@ -201,7 +201,7 @@ sel_indexclass_params <- sort(unique(df_indexclass_crit[, "FIELD"
 url_bmt_pkg <- "https://github.com/leppott/BioMonTools/raw/main/inst/extdata"
 url_metricnames <- file.path(url_bmt_pkg, "MetricNames.xlsx")
 httr::GET(url_metricnames
-    , write_disk(temp_metricnames <- tempfile(fileext = ".xlsx")))
+    , httr::write_disk(temp_metricnames <- tempfile(fileext = ".xlsx")))
 
 df_metricnames <- readxl::read_excel(temp_metricnames
                                      , sheet = "MetricMetadata"
@@ -212,7 +212,7 @@ url_fuzzytherm_crit <- file.path(url_bmt_base
                                  , "fuzzythermal"
                                  , "FuzzyTherm_ScoringScale.xlsx")
 httr::GET(url_fuzzytherm_crit
-    , write_disk(temp_fuzzytherm_crit <- tempfile(fileext = ".xlsx")))
+    , httr::write_disk(temp_fuzzytherm_crit <- tempfile(fileext = ".xlsx")))
 
 df_fuzzytherm_crit <- readxl::read_excel(temp_fuzzytherm_crit
                                          , sheet = "Current")

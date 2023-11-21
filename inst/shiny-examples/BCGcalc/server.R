@@ -528,7 +528,7 @@ shinyServer(function(input, output) {
                               , "taxa_official"
                               , fn_taxoff)
       httr::GET(url_taxoff
-                , write_disk(temp_taxoff <- tempfile(fileext = ".csv")))
+                , httr::write_disk(temp_taxoff <- tempfile(fileext = ".csv")))
       
       df_taxoff <- read.csv(temp_taxoff)
       
@@ -538,7 +538,7 @@ shinyServer(function(input, output) {
                                      , "taxa_official"
                                      , fn_taxoff_meta)
         httr::GET(url_taxoff_meta
-            , write_disk(temp_taxoff_meta <- tempfile(fileext = ".csv")))
+            , httr::write_disk(temp_taxoff_meta <- tempfile(fileext = ".csv")))
         
         df_taxoff_meta <- read.csv(temp_taxoff_meta)
       }## IF ~ fn_taxaoff_meta
@@ -549,7 +549,7 @@ shinyServer(function(input, output) {
                                      , "taxa_official"
                                      , fn_taxoff_attr)
         httr::GET(url_taxoff_attr
-            , write_disk(temp_taxoff_attr <- tempfile(fileext = ".csv")))
+            , httr::write_disk(temp_taxoff_attr <- tempfile(fileext = ".csv")))
         
         df_taxoff_attr <- read.csv(temp_taxoff_attr)
       }## IF ~ fn_taxoff_attr
@@ -560,7 +560,7 @@ shinyServer(function(input, output) {
                                      , "taxa_official"
                                      , fn_taxoff_attr_meta)
         httr::GET(url_taxoff_attr_meta
-                  , write_disk(temp_taxoff_attr_meta <- tempfile(fileext = ".csv")))
+                  , httr::write_disk(temp_taxoff_attr_meta <- tempfile(fileext = ".csv")))
         
         df_taxoff_attr_meta <- read.csv(temp_taxoff_attr_meta)
       }## IF ~ fn_taxaoff_meta
@@ -695,9 +695,9 @@ shinyServer(function(input, output) {
                             , OperationalTaxonomicUnit = col_taxaid_official_project
                             , TranslationTable = fn_taxoff
                             , AttributeTable = fn_taxoff_attr)
-      fn_part <- paste0("_", abr_filebuilder, "_0taxasource", ".csv")
+      fn_part <- paste0(dir_proj_results, fn_abr_save, "source", ".csv")
       write.csv(df_save
-                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, fn_part)
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -749,25 +749,25 @@ shinyServer(function(input, output) {
      
       ## translate - crosswalk
       df_save <- taxatrans_results$taxatrans_unique # df_taxoff_meta
-      fn_part <- paste0(fn_abr_save, "2taxamatch", ".csv")
+      fn_part <- paste0(dir_proj_results, fn_abr_save, "modify", ".csv")
       write.csv(df_save
-                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, fn_part)
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## Non Match
       df_save <- data.frame(taxatrans_results$nonmatch)
-      fn_part <- paste0(fn_abr_save, "3nonmatch", ".csv")
+      fn_part <- paste0(dir_proj_results, fn_abr_save, "nonmatch", ".csv")
       write.csv(df_save
-                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, fn_part)
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## Taxa Trans
       df_save <- taxatrans_results$merge
-      fn_part <- paste0(fn_abr_save, "4taxaattr", ".csv")
+      fn_part <- paste0(dir_proj_results, fn_abr_save, "TAXAATTR", ".csv")
       write.csv(df_save
-                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, fn_part)
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -1138,9 +1138,9 @@ shinyServer(function(input, output) {
       
       ## save, results
       df_save <- df_results
-      fn_part <- paste0("_", abr_filebuilder, "_5sitedata", ".csv")
+      fn_part <- paste0("BCG", "_Site_parameters", ".csv")
       write.csv(df_save
-                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, fn_part)
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -1293,6 +1293,13 @@ shinyServer(function(input, output) {
         dir.create(file.path(path_results_sub))
       }
       
+      # Add "reference" folder if missing
+      path_results_ref <- file.path(path_results, dn_files_ref)
+      boo_Results <- dir.exists(file.path(path_results_ref))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_ref))
+      }
+      
       # button, disable, download
       shinyjs::disable("b_download_indexclass")
       
@@ -1439,17 +1446,17 @@ shinyServer(function(input, output) {
       
       ## save, criteria
       df_save <- df_indexclass_crit
-      fn_part <- paste0("_", abr_filebuilder, "_6siteclasscriteria", ".csv")
+      fn_part <- paste0("BCG", "_SiteClassCriteria", ".csv")
       write.csv(df_save
-                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
+                , file.path(path_results_ref, fn_part)
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
       ## save, results
       df_save <- df_indexclass_results
-      fn_part <- paste0("_", abr_filebuilder, "_7siteclass", ".csv")
+      fn_part <- paste0("BCG", "_Site_CLASS", ".csv")
       write.csv(df_save
-                , file.path(path_results_sub, paste0(fn_input_base, fn_part))
+                , file.path(path_results_sub, fn_part)
                 , row.names = FALSE)
       rm(df_save, fn_part)
       
@@ -2143,7 +2150,7 @@ shinyServer(function(input, output) {
                                               , Exceptions = NA)
         
         # Save Results
-        fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+        fn_excl <- paste0(fn_abr_save, "1markexcl.csv")
         dn_excl <- path_results_sub
         pn_excl <- file.path(dn_excl, fn_excl)
         write.csv(df_input, pn_excl, row.names = FALSE)
@@ -2180,7 +2187,7 @@ shinyServer(function(input, output) {
       df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
                                 , !names(df_bcg_models) %in% c("SITE_TYPE", "INDEX_REGION")]
       # Save
-      fn_rules <- paste0(fn_input_base, fn_abr_save, "3metrules.csv")
+      fn_rules <- paste0(fn_abr_save, "3metrules.csv")
       dn_rules <- path_results_sub
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
@@ -2215,7 +2222,7 @@ shinyServer(function(input, output) {
       
       ## Save Results ----
       
-      fn_metval <- paste0(fn_input_base, fn_abr_save, "2metval_all.csv")
+      fn_metval <- paste0(fn_abr_save, "2metval_all.csv")
       dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
@@ -2233,7 +2240,7 @@ shinyServer(function(input, output) {
                                           , cols_model_metrics))
       df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
       # Save
-      fn_metval_slim <- paste0(fn_input_base, fn_abr_save, "2metval_BCG.csv")
+      fn_metval_slim <- paste0(fn_abr_save, "2metval_BCG.csv")
       dn_metval_slim <- path_results_sub
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
@@ -2248,7 +2255,7 @@ shinyServer(function(input, output) {
       # Calc
       df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
       # Save Results
-      fn_metmemb <- paste0(fn_input_base, fn_abr_save, "3metmemb.csv")
+      fn_metmemb <- paste0(fn_abr_save, "3metmemb.csv")
       dn_metmemb <- path_results_sub
       pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
@@ -2263,7 +2270,7 @@ shinyServer(function(input, output) {
       # Calc
       df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
       # Save Results
-      fn_levmemb <- paste0(fn_input_base, fn_abr_save, "4levmemb.csv")
+      fn_levmemb <- paste0(fn_abr_save, "4levmemb.csv")
       dn_levmemb <- path_results_sub
       pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
@@ -2278,7 +2285,7 @@ shinyServer(function(input, output) {
       # Calc
       df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
       # Save Results
-      fn_levassign <- paste0(fn_input_base, fn_abr_save, "5levassign.csv")
+      fn_levassign <- paste0(fn_abr_save, "5levassign.csv")
       dn_levassign <- path_results_sub
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
@@ -2318,7 +2325,7 @@ shinyServer(function(input, output) {
                                                       , useNA = "ifany"))
       
       # Save Flags Summary
-      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
+      fn_levflags <- paste0(fn_abr_save, "6levflags.csv")
       dn_levflags <- path_results_sub
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
@@ -2328,7 +2335,7 @@ shinyServer(function(input, output) {
       ## remove L1:6
       
       # Save Results
-      fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      fn_results <- paste0("_", fn_abr_save, "RESULTS.csv")
       dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
@@ -2340,7 +2347,7 @@ shinyServer(function(input, output) {
                     , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
       df_metflags <- df_flags[, col2keep]
       # save
-      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
+      fn_metflags <- paste0(fn_abr_save, "6metflags.csv")
       dn_metflags <- path_results_sub
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
@@ -2357,7 +2364,7 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_BCG_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      strFile.out <- paste0("_", fn_abr_save, "RESULTS.html")
       dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
@@ -2516,7 +2523,7 @@ shinyServer(function(input, output) {
                                               , Exceptions = NA)
         
         # Save Results
-        fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+        fn_excl <- paste0(fn_abr_save, "1markexcl.csv")
         dn_excl <- path_results_sub
         pn_excl <- file.path(dn_excl, fn_excl)
         write.csv(df_input, pn_excl, row.names = FALSE)
@@ -2573,14 +2580,14 @@ shinyServer(function(input, output) {
         
       ## Calc, 04, Save Results ----
         
-      fn_metval <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      fn_metval <- paste0("_", fn_abr_save, "RESULTS.csv")
       dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
       
       # Copy metadata (thermal metrics) to results
       fn_meta <- "ThermPrefMetrics_metadata.xlsx"
-      fn_meta_save <- paste0(fn_abr, "_metadata.xlsx")
+      fn_meta_save <- paste0("_", fn_abr_save, "_metadata.xlsx")
       file.copy(file.path("www", "links", fn_meta)
                 , file.path(path_results_sub, fn_meta_save))
       
@@ -2776,7 +2783,7 @@ shinyServer(function(input, output) {
                                               , Exceptions = NA)
         
         # Save Results
-        fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+        fn_excl <- paste0(fn_abr_save, "1markexcl.csv")
         dn_excl <- path_results_sub
         pn_excl <- file.path(dn_excl, fn_excl)
         write.csv(df_input, pn_excl, row.names = FALSE)
@@ -2813,7 +2820,7 @@ shinyServer(function(input, output) {
       df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
                                 , !names(df_bcg_models) %in% c("SITE_TYPE", "INDEX_REGION")]
       # Save
-      fn_rules <- paste0(fn_input_base, fn_abr_save, "3metrules.csv")
+      fn_rules <- paste0(fn_abr_save, "3metrules.csv")
       dn_rules <- path_results_sub
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
@@ -2848,7 +2855,7 @@ shinyServer(function(input, output) {
       
       ### Save Results ----
       
-      fn_metval <- paste0(fn_input_base, fn_abr_save, "2metval_all.csv")
+      fn_metval <- paste0(fn_abr_save, "2metval_all.csv")
       dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
@@ -2866,7 +2873,7 @@ shinyServer(function(input, output) {
                                           , cols_model_metrics))
       df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
       # Save
-      fn_metval_slim <- paste0(fn_input_base, fn_abr_save, "2metval_model.csv")
+      fn_metval_slim <- paste0(fn_abr_save, "2metval_model.csv")
       dn_metval_slim <- path_results_sub
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
@@ -2881,7 +2888,7 @@ shinyServer(function(input, output) {
       # Calc
       df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
       # Save Results
-      fn_metmemb <- paste0(fn_input_base, fn_abr_save, "3metmemb.csv")
+      fn_metmemb <- paste0(fn_abr_save, "3metmemb.csv")
       dn_metmemb <- path_results_sub
       pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
@@ -2896,7 +2903,7 @@ shinyServer(function(input, output) {
       # Calc
       df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
       # Save Results
-      fn_levmemb <- paste0(fn_input_base, fn_abr_save, "4levmemb.csv")
+      fn_levmemb <- paste0(fn_abr_save, "4levmemb.csv")
       dn_levmemb <- path_results_sub
       pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
       write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
@@ -2996,7 +3003,7 @@ shinyServer(function(input, output) {
       
       
       # Save Results
-      fn_levassign <- paste0(fn_input_base, fn_abr_save, "5levassign.csv")
+      fn_levassign <- paste0(fn_abr_save, "5levassign.csv")
       dn_levassign <- path_results_sub
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
@@ -3036,7 +3043,7 @@ shinyServer(function(input, output) {
                                                       , useNA = "ifany"))
       
       # Save Flags Summary
-      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
+      fn_levflags <- paste0(fn_abr_save, "6levflags.csv")
       dn_levflags <- path_results_sub
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
@@ -3046,7 +3053,7 @@ shinyServer(function(input, output) {
       ## remove L1:6
       
       # Save Results
-      fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      fn_results <- paste0("_", fn_abr_save, "RESULTS.csv")
       dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
@@ -3058,7 +3065,7 @@ shinyServer(function(input, output) {
                     , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
       df_metflags <- df_flags[, col2keep]
       # save
-      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
+      fn_metflags <- paste0(fn_abr_save, "6metflags.csv")
       dn_metflags <- path_results_sub
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
@@ -3074,7 +3081,7 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_FuzzyThermal_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      strFile.out <- paste0("_", fn_abr_save, "RESULTS.html")
       dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
@@ -3447,7 +3454,7 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_MTTI_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      strFile.out <- paste0("_", fn_abr_save, "RESULTS.html")
       dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
@@ -3462,19 +3469,19 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
-      fn_save <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      fn_save <- paste0("_", fn_abr_save, "RESULTS.csv")
       pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_results, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, fn_abr_save, "flags_1_metrics.csv")
+      fn_save <- paste0(fn_abr_save, "flags_1_metrics.csv")
       pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_met, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, fn_abr_save, "flags_2_eval_long.csv")
+      fn_save <- paste0(fn_abr_save, "flags_2_eval_long.csv")
       pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_met_flags, pn_save, row.names = FALSE)
       
-      fn_save <- paste0(fn_input_base, fn_abr_save, "flags_3_eval_summary.csv")
+      fn_save <- paste0(fn_abr_save, "flags_3_eval_summary.csv")
       pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_met_flags_summary, pn_save, row.names = TRUE)
      
@@ -3849,7 +3856,7 @@ shinyServer(function(input, output) {
                                , "RMD_Results"
                                , "Results_BDI_Summary.Rmd")
       strFile.RMD.format <- "html_document"
-      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      strFile.out <- paste0("_", fn_abr_save, "RESULTS.html")
       dir.export <- path_results_sub
       rmarkdown::render(strFile.RMD
                         , output_format = strFile.RMD.format
@@ -3865,13 +3872,13 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
       
       # Excluded Taxa
-      fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+      fn_excl <- paste0(fn_abr_save, "1markexcl.csv")
       dn_excl <- path_results_sub
       pn_excl <- file.path(dn_excl, fn_excl)
       write.csv(df_input, pn_excl, row.names = FALSE)
       
       # RESULTS
-      fn_save <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      fn_save <- paste0("_", fn_abr_save, "RESULTS.csv")
       pn_save <- file.path(path_results_sub, fn_save)
       write.csv(df_metric_scores_bugs, pn_save, row.names = FALSE)
       

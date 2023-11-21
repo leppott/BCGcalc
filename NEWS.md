@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-20 18:29:32.526061
+2023-11-21 14:52:41.833145
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-20 18:29:32.562632
+    #> Last Update: 2023-11-21 14:52:41.870191
+
+# BCGcalc 2.0.0.9114 (2023-11-20)
+
+- refactor: Modify output file names
+  - Shorten names by dropping user input file name
+- style: Add package names to a functions, Global.R
+  - write_disk was missing httr:: prefix
 
 # BCGcalc 2.0.0.9113 (2023-11-20)
 
