@@ -21,7 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# BCGcalc 2.0.0.9114 (2023-11-20)
+# BCGcalc 2.0.0.9115 (2023-11-21)
+
+* feature: Add pop-up for taxa translate with mismatch taxa
+
+# BCGcalc 2.0.0.9114 (2023-11-21)
 
 * refactor: Modify output file names
     + Shorten names by dropping user input file name

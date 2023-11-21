@@ -381,7 +381,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
     
       # Number of increments
-      prog_n <- 6
+      prog_n <- 7
       prog_sleep <- 0.25
       
       ## Calc, 01, Import User Data ----
@@ -782,20 +782,41 @@ shinyServer(function(input, output) {
       fn_4zip <- list.files(path = path_results
                             , full.names = TRUE)
       zip::zip(file.path(path_results, "results.zip"), fn_4zip)
+ 
+      ## Calc, 06, Info Pop Up ----
+      prog_detail <- "Calculate, Info"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
       
+      # Inform user about number of taxa mismatches
+      ## calc number of mismatch
+      df_mismatch <- data.frame(taxatrans_results$nonmatch)
+      n_taxa_mismatch <- nrow(df_mismatch)
+      msg <- paste0("Number of mismatch taxa = ", n_taxa_mismatch, "\n\n"
+                    , "Any mismatched taxa in 'mismatch' file in results download.")
+      shinyalert::shinyalert(title = "Taxa Translate, Non Matching Taxa"
+                             , text = msg
+                             , type = "info"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      validate(msg)
       
-      ## Calc, 06, Clean Up ----
+      ## Calc, 07, Clean Up ----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
+      rm(df_mismatch)
+      
       # button, enable, download
       shinyjs::enable("b_download_taxatrans")
       
     }## expr ~ withProgress ~ END
-    , message = "Calculating BCG"
+    , message = "Taxa Translator"
     )## withProgress
     
   }##expr ~ ObserveEvent
@@ -2054,7 +2075,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 10
+      prog_n <- 11
       prog_sleep <- 0.25
       
       ## Calc, 1, Initialize ----
@@ -2372,7 +2393,25 @@ shinyServer(function(input, output) {
                         , output_dir = dir.export
                         , quiet = TRUE)
       
-      ## Calc, 9, Clean Up----
+      ## Calc, 09, Info Pop Up ----
+      prog_detail <- "Calculate, Info"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+      
+      # Inform user about number of sites not in correct region
+      ## calc number of mismatch
+      # n_mismatch <- 0
+      # msg <- paste0("Number of sites outside of model experience (wrong region) = ", n_mismatch)
+      # shinyalert::shinyalert(title = "BCG Calculation, Mismatch Region"
+      #                        , text = msg
+      #                        , type = "info"
+      #                        , closeOnEsc = TRUE
+      #                        , closeOnClickOutside = TRUE)
+      # validate(msg)
+      
+      ## Calc, 10, Clean Up----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.

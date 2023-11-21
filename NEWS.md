@@ -1,13 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-21 14:52:41.833145
+2023-11-21 16:49:58.773309
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-21 14:52:41.870191
+    #> Last Update: 2023-11-21 16:49:58.803055
 
-# BCGcalc 2.0.0.9114 (2023-11-20)
+# BCGcalc 2.0.0.9115 (2023-11-21)
+
+- feature: Add pop-up for taxa translate with mismatch taxa
+
+# BCGcalc 2.0.0.9114 (2023-11-21)
 
 - refactor: Modify output file names
   - Shorten names by dropping user input file name
