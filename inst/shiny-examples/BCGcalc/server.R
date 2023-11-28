@@ -789,7 +789,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
-      
+     
       # Inform user about number of taxa mismatches
       ## calc number of mismatch
       df_mismatch <- data.frame(taxatrans_results$nonmatch)
@@ -801,7 +801,7 @@ shinyServer(function(input, output) {
                              , type = "info"
                              , closeOnEsc = TRUE
                              , closeOnClickOutside = TRUE)
-      validate(msg)
+      #validate(msg)
       
       ## Calc, 07, Clean Up ----
       prog_detail <- "Calculate, Clean Up"
@@ -4995,6 +4995,13 @@ shinyServer(function(input, output) {
       path_template <- file.path(path_results_user, fn_template)
       n_skip <- 3
       
+      ### Template, Other
+      sh_template <- "other"
+      df_template_other <- readxl::read_excel(path = path_template
+                                                       , sheet = sh_template
+                                                       , skip = n_skip)
+      df_template_other[, "sheet"] <- sh_template
+      
       ### Template, Summary, Header ----
       sh_template <- "summary_header"
       df_template_summary_header <- readxl::read_excel(path = path_template
@@ -5119,8 +5126,7 @@ shinyServer(function(input, output) {
       # import each file
       # Check for column in file
       df_template_sourcefiles[, "exist_col"] <- NA
-      
-      
+ 
       ## Calc, 03, Data ----
       prog_detail <- "Calculation, Create Data Tables"
       message(paste0("\n", prog_detail))
@@ -5161,7 +5167,10 @@ shinyServer(function(input, output) {
       class(notes_toc$Link) <- "hyperlink"
       
       # compile each in a helper script
-      
+ 
+      # Get stations
+      pk_stations <- df_template_other[df_template_other[, "file"] == "Stations", "primarykey", TRUE]
+
       ### Data, Summary, Header ----
       # df_report_summary_header <- mtcars
       ls_report_summary_header <- build_report_table(df_template_summary_header
@@ -5281,7 +5290,20 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
      
       # Filter for each Station
-      
+      stations_all <- unique(df_report_site[, pk_stations])
+  
+      ## create file for each station
+      for (s in stations_all) {
+        # Filter tables
+        df_report_summary_header_s <- df_report_summary_header
+        df_report_summary_wide_s <- df_report_summary_wide
+        df_report_topindicator_s <- df_report_topindicator
+        df_report_samples_s <- df_report_samples
+        df_report_flags_s <- df_report_flags
+        df_report_site_s <- df_report_site
+        # df_report_taxatrans_s <- df_report_taxatrans
+        
+      }## FOR ~ s
       
       ### Excel, Create File----
       # Create Workbook
@@ -5545,13 +5567,14 @@ shinyServer(function(input, output) {
       openxlsx::addStyle(wb, sheet = "taxatrans", rows = 1, cols = 1:4, style = style_h1)
       
       ### Excel, col width ----
+      # doesn't seem to work
       # openxlsx::setColWidths(wb, sheet = "summary", cols = 1:ncol(df_report_summary_wide), widths = "auto")
       # openxlsx::setColWidths(wb, sheet = "topindicator", cols = 1:ncol(df_report_topindicator), widths = "auto")
       # openxlsx::setColWidths(wb, sheet = "samples", cols = 1:ncol(df_report_samples), widths = "auto")
       # openxlsx::setColWidths(wb, sheet = "flags", cols = 1:ncol(df_report_flags), widths = "auto")
       # openxlsx::setColWidths(wb, sheet = "site", cols = 1:ncol(df_report_site), widths = "auto")
       # openxlsx::setColWidths(wb, sheet = "taxatrans", cols = 1:ncol(df_report_taxatrans), widths = "auto")
-      
+
       ### Excel, Conditional Formatting----
       
       #### CF, Fuzzy Thermal----
