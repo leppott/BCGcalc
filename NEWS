@@ -1,16 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-28 15:20:03.506951
+2023-11-29 13:13:12.982712
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-28 15:20:03.544012
+    #> Last Update: 2023-11-29 13:13:13.019482
+
+# BCGcalc 2.0.0.9117 (2023-11-29)
+
+- feature: Add QC check on BCG model experience
+- fix: Comment out all other instances of validate(msg) to avoid
+  potential issues
 
 # BCGcalc 2.0.0.9116 (2023-11-28)
 
-- refactor: File builder taxa translate remove validate statement from
-  pop up
+- fix: File builder taxa translate remove validate statement from pop up
   - Was causing the server to pause and not continue
 
 # BCGcalc 2.0.0.9115 (2023-11-21)

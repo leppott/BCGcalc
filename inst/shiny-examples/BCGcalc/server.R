@@ -977,7 +977,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_sampid
       
       if (sel_col_lat == "") {
@@ -988,7 +988,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_lat
       
       if (sel_col_lon == "") {
@@ -999,7 +999,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_lon
       
       # need a value to evaluate in the next IF..
@@ -1080,7 +1080,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_lat
  
 
@@ -1371,7 +1371,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_sampid
       
       # # Check if required fields present in input
@@ -1447,7 +1447,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-   
+ 
       ### run the function ----
       df_indexclass_results <- BioMonTools::assign_IndexClass(data = df_input
                                           , criteria = df_indexclass_crit
@@ -1925,7 +1925,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ is.null (mf1)
       
       if (is.null(fn_mf2)) {
@@ -1935,7 +1935,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ is.null (mf1)
       
       # Stop if colname for merge is NA
@@ -1946,7 +1946,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ is.null (mf1)
       
       if (col_siteid_mf2 == "") {
@@ -1956,7 +1956,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ is.null (mf1)
       
       
@@ -2065,6 +2065,29 @@ shinyServer(function(input, output) {
   #~~~~CALC~~~~----
   
   # Calc, BCG ----
+  
+  ## BCG, UI ----
+  
+  output$UI_bcg_modelexp_user_col_eco3 <- renderUI({
+    str_col <- "Column, Ecoregion III (L3_ECO)"
+    selectInput("bcg_modelexp_user_col_eco3"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "L3_ECO"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  
+  output$UI_bcg_modelexp_user_col_wshedarea_km2 <- renderUI({
+    str_col <- "Column, Watershed Area, km2 (WSAREASQKM)"
+    selectInput("bcg_modelexp_user_col_wshedarea_km2"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "WSAREASQKM"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  
   ## b_Calc_BCG ----
   observeEvent(input$b_calc_bcg, {
     shiny::withProgress({
@@ -2128,6 +2151,10 @@ shinyServer(function(input, output) {
       
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
+      
+      # Columns, user selection
+      sel_user_eco3 <- toupper(input$bcg_modelexp_user_col_eco3)
+      sel_user_wshedarea_km2 <- toupper(input$bcg_modelexp_user_col_wshedarea_km2)
       
       ## Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -2394,23 +2421,72 @@ shinyServer(function(input, output) {
                         , quiet = TRUE)
       
       ## Calc, 09, Info Pop Up ----
-      prog_detail <- "Calculate, Info"
+      prog_detail <- "Calculate, Model Experience"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
-      incProgress(1/prog_n, detail = prog_detail)
+      incProgress(1 / prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
       
-      # Inform user about number of sites not in correct region
-      ## calc number of mismatch
-      # n_mismatch <- 0
-      # msg <- paste0("Number of sites outside of model experience (wrong region) = ", n_mismatch)
-      # shinyalert::shinyalert(title = "BCG Calculation, Mismatch Region"
-      #                        , text = msg
-      #                        , type = "info"
-      #                        , closeOnEsc = TRUE
-      #                        , closeOnClickOutside = TRUE)
-      # validate(msg)
+      # Check 
+      # data available
+      # df_input = all data
+      # df_results = BCG output
+
+      n_bad_indexclass <- sum("lograd-hielev" %in% df_results[, "INDEX_CLASS"])
       
+      fld2check <- sel_user_eco3
+      # if (fld2check %in% names(df_input)) {
+      if (fld2check != "") {
+        # Data
+        df_check <- unique(df_input[, c("SAMPLEID", fld2check)])
+        eco3_good <- c(1, 2, 3, 4, 77)
+        # Result
+        n_bad_eco3 <- sum(!df_check[, fld2check] %in% eco3_good)
+      } else {
+        n_bad_eco3 <- NA_integer_
+      }## IF ~ Eco3
+      
+      fld2check <- sel_user_wshedarea_km2
+      # if (fld2check %in% names(df_input)) {
+      if (fld2check != "") {
+        # Data
+        df_check <- unique(df_input[, c("SAMPLEID", fld2check)])
+        # Result
+        n_bad_wshedarea_small <- sum(df_check[, fld2check] < 5)
+        n_bad_wshedarea_large <- sum(df_check[, fld2check] > 260)
+      } else {
+        n_bad_wshedarea_small <- NA_integer_
+        n_bad_wshedarea_large <- NA_integer_
+      }## IF ~ Wshed Area
+      
+      n_bad_wshedarea_total <- n_bad_wshedarea_small + n_bad_wshedarea_large
+      
+      n_bad_total <- n_bad_indexclass + n_bad_eco3 + n_bad_wshedarea_total
+      # Could be double counting
+      
+      # save info
+      df_qc_modelexp <- data.frame("Total_Bad" = n_bad_total
+                                   , "Bad_IndexClass" = n_bad_indexclass
+                                   , "Bad_Eco3" = n_bad_eco3
+                                   , "Bad_Watershed_Small" = n_bad_wshedarea_small
+                                   , "Bad_Watershed_Large" = n_bad_wshedarea_large)
+      write.csv(df_qc_modelexp, file.path("results", "results_BCG", "_BCG_7modelexp.csv"))
+      
+      # Inform user about number of sites outside of experience of model
+      msg <- paste0("('NA' if data field not provided in input file).", "\n\n"
+                    , n_bad_total, " = Total number of sites outside of model experience", "\n\n"
+                    , n_bad_indexclass, " = incorrect Index_Class (LoGrad-HiElev)", "\n"
+                    , n_bad_eco3, " = incorrect Ecoregion III (precip not checked)", "\n"
+                    , n_bad_wshedarea_small, " = watershed area small (< 5 km2)", "\n"
+                    , n_bad_wshedarea_large, " = watershed area large (> 260 km2)"
+                    )
+      shinyalert::shinyalert(title = "BCG Calculation, Sites Outside Model Experience"
+                             , text = msg
+                             , type = "info"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      
+     
       ## Calc, 10, Clean Up----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
@@ -3714,7 +3790,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_sampid
       
       if (!sel_col_taxaid %in% names(df_input)) {
@@ -3725,7 +3801,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_taxaid
       
       if (!sel_col_ntaxa %in% names(df_input)) {
@@ -3736,7 +3812,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        validate(msg)
+        # validate(msg)
       }## IF ~ sel_col_ntaxa
  
       if (!sel_col_exclude %in% names(df_input)) {
@@ -3748,7 +3824,7 @@ shinyServer(function(input, output) {
                                  , type = "error"
                                  , closeOnEsc = TRUE
                                  , closeOnClickOutside = TRUE)
-          validate(msg)
+          # validate(msg)
         } else {
           # Add column
           cat("Exclude column added.\n")
@@ -4164,7 +4240,7 @@ shinyServer(function(input, output) {
                              , type = "error"
                              , closeOnEsc = TRUE
                              , closeOnClickOutside = TRUE)
-      validate(msg)
+      # validate(msg)
     }## IF ~ sel_map_datatype
 
     if (is.null(sel_map_col_xlong) | sel_map_col_xlong == "") {
@@ -4175,7 +4251,7 @@ shinyServer(function(input, output) {
                              , type = "error"
                              , closeOnEsc = TRUE
                              , closeOnClickOutside = TRUE)
-      validate(msg)
+      # validate(msg)
     }## IF ~ sel_map_col_xlong
 
     if (is.null(sel_map_col_ylat) | sel_map_col_ylat == "") {
@@ -4186,7 +4262,7 @@ shinyServer(function(input, output) {
                              , type = "error"
                              , closeOnEsc = TRUE
                              , closeOnClickOutside = TRUE)
-      validate(msg)
+      # validate(msg)
     }## IF ~ sel_map_col_ylat
 
     if (is.null(sel_map_col_sampid) | sel_map_col_sampid == "") {
@@ -4197,7 +4273,7 @@ shinyServer(function(input, output) {
                              , type = "error"
                              , closeOnEsc = TRUE
                              , closeOnClickOutside = TRUE)
-      validate(msg)
+      # validate(msg)
     }## IF ~ sel_map_col_sampid
 
     ### Munge Data ----
@@ -4355,7 +4431,7 @@ shinyServer(function(input, output) {
                              , type = "error"
                              , closeOnEsc = TRUE
                              , closeOnClickOutside = TRUE)
-      validate(msg)
+      # validate(msg)
     }## IF ~ sel_map_col_sampid
 
 
@@ -4910,7 +4986,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        shiny::validate(msg)
+        # shiny::validate(msg)
       }## IF ~ is.null(inFile)
       
       # Remove existing files in "results"
@@ -4963,7 +5039,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        shiny::validate(msg)
+        # shiny::validate(msg)
       }## IF ~ length(fn_template) == 0
       
       if (length(fn_template) > 1) {
@@ -4974,7 +5050,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        shiny::validate(msg)
+        # shiny::validate(msg)
       }## IF ~ length(fn_template) > 1
       
       # Files, ALL
@@ -5092,7 +5168,7 @@ shinyServer(function(input, output) {
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        shiny::validate(msg)
+        # shiny::validate(msg)
       }## IF ~ nrow(sourcefiles_missing) > 0
       
       ### File Names, Add Path
