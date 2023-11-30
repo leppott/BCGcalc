@@ -904,7 +904,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 8
+      prog_n <- 9
       prog_sleep <- 0.25
       
       ## Calc, 01, Import User Data ----
@@ -1043,8 +1043,9 @@ shinyServer(function(input, output) {
                     , "gnis_name"
                     , "streamorde"
                     , "ftype"
-                    , "fcode")
-      boo_dup <- names(df_sites) %in% flds_new
+                    , "fcode"
+                    , "L3_eco")
+      boo_dup <- toupper(names(df_sites)) %in% toupper(flds_new)
       if (sum(boo_dup) > 0) {
         names_dup <- names(df_sites)[boo_dup]
         names_old <- paste0(names(df_sites), "_OLD")
@@ -1135,8 +1136,34 @@ shinyServer(function(input, output) {
                           , by.y = "comid"
                           , all.x = TRUE)
       
+      ## Calc, 05, Run Function, Eco_L3 ----
+      prog_detail <- "Ecoregion, Level III"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+   
+      # verified Lat and Long above
+
+      # Calc Ecoregions
+      df_eco3 <- MazamaSpatialUtils::getSpatialData(df_sites[, sel_col_lon]
+                                                    , df_sites[, sel_col_lat]
+                                                    , data_GIS_eco3_orwa)
       
-      ## Calc, 05, Munge ----
+      # different order from df_sites to df_results
+      
+      df_eco3[, sel_col_sampid] <- df_sites[, sel_col_sampid]
+      df_eco3[, "L3_ECO"] <- df_eco3[, "LEVEL3"]
+      df_eco3[, "L3_ECO_NAME"] <- df_eco3[, "LEVEL3_NAM"]
+      # Merge with results
+      df_results <- merge(df_results
+                          , df_eco3[, c(sel_col_sampid
+                                        , "L3_ECO"
+                                        , "L3_ECO_NAME")]
+                          , by = sel_col_sampid
+                          , all.x = TRUE)
+      
+      ## Calc, 06, Munge ----
       prog_detail <- "Modify Variable Names"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -1148,7 +1175,7 @@ shinyServer(function(input, output) {
       df_results[, "pslope_nhd"] <- 100 * df_results[, "pslope_nhd"]
       
       
-      ## Calc, 06, Save Results ----
+      ## Calc, 07, Save Results ----
       prog_detail <- "Save Results"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -1166,7 +1193,7 @@ shinyServer(function(input, output) {
       rm(df_save, fn_part)
       
       
-      ## Calc, 07, Create Zip ----
+      ## Calc, 08, Create Zip ----
       prog_detail <- "Create Zip File For Download"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -1179,7 +1206,7 @@ shinyServer(function(input, output) {
       zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       
-      ## Calc, 08, Clean Up ----
+      ## Calc, 09, Clean Up ----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.

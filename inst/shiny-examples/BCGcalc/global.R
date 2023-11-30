@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9120"
+pkg_version <- "2.0.0.9121"
 
 # Packages----
 # nolint start
@@ -30,6 +30,7 @@ library(zip)
 library(StreamCatTools)
 library(nhdplusTools)
 library(ComplexUpset)
+library(MazamaSpatialUtils) # ecoregion assignment
 # MTTI
 # library(plyr)
 # library(dplyr)

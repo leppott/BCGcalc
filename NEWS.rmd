@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9121 (2023-11-30)
+
+* feature: Add ecoregion L3 to generate index class parameters
+
 # BCGcalc 2.0.0.9120 (2023-11-30)
 
 * refactor: Modify QC check on BCG model experience to BCG calculate

@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-30 12:35:34.211357
+2023-11-30 14:43:50.325656
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-30 12:35:34.24654
+    #> Last Update: 2023-11-30 14:43:50.361055
+
+# BCGcalc 2.0.0.9121 (2023-11-30)
+
+- feature: Add ecoregion L3 to generate index class parameters
 
 # BCGcalc 2.0.0.9120 (2023-11-30)
 
