@@ -1,15 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-29 13:13:12.982712
+2023-11-29 19:58:20.937196
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-29 13:13:13.019482
+    #> Last Update: 2023-11-29 19:58:21.003096
+
+# BCGcalc 2.0.0.9118 (2023-11-29)
+
+- refactor: Modify QC check on BCG model experience to BCG calculate
 
 # BCGcalc 2.0.0.9117 (2023-11-29)
 
-- feature: Add QC check on BCG model experience
+- feature: Add QC check on BCG model experience to BCG calculate
 - fix: Comment out all other instances of validate(msg) to avoid
   potential issues
 

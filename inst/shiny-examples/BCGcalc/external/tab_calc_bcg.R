@@ -38,6 +38,7 @@ function() {
        , p("If the default values are present they will be auto-populated.")
        # SampleID (really for group_by)
        , uiOutput("UI_bcg_modelexp_user_col_eco3")
+       , uiOutput("UI_bcg_modelexp_user_col_precip")
        , uiOutput("UI_bcg_modelexp_user_col_wshedarea_km2")
        
        , h4("F. Run Calculations")

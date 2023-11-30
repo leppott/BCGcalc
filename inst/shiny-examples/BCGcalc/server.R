@@ -2077,6 +2077,14 @@ shinyServer(function(input, output) {
                 , multiple = FALSE)
   })## UI_colnames
   
+  output$UI_bcg_modelexp_user_col_precip <- renderUI({
+    str_col <- "Column, Precipitation (PRECIP8110CAT)"
+    selectInput("bcg_modelexp_user_col_precip"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "PRECIP8110CAT"
+                , multiple = FALSE)
+  })## UI_colnames
   
   output$UI_bcg_modelexp_user_col_wshedarea_km2 <- renderUI({
     str_col <- "Column, Watershed Area, km2 (WSAREASQKM)"
@@ -2154,6 +2162,7 @@ shinyServer(function(input, output) {
       
       # Columns, user selection
       sel_user_eco3 <- toupper(input$bcg_modelexp_user_col_eco3)
+      sel_user_precip <- toupper(input$bcg_modelexp_user_col_precip)
       sel_user_wshedarea_km2 <- toupper(input$bcg_modelexp_user_col_wshedarea_km2)
       
       ## Calc, 2, Exclude Taxa ----
@@ -2431,52 +2440,82 @@ shinyServer(function(input, output) {
       # data available
       # df_input = all data
       # df_results = BCG output
-
-      n_bad_indexclass <- sum("lograd-hielev" %in% df_results[, "INDEX_CLASS"])
+   
+      # Create 
+      cols2check <- c("SAMPLEID"
+                      , "INDEX_CLASS")
+      if (sel_user_eco3 != "") {
+        cols2check <- c(cols2check, sel_user_eco3)
+      }## IF ~ eco3
+      if (sel_user_precip != "") {
+        cols2check <- c(cols2check, sel_user_precip)
+      }## IF ~ precip
+      if (sel_user_wshedarea_km2 != "") {
+        cols2check <- c(cols2check, sel_user_wshedarea_km2)
+      }## IF ~ wshed area
       
+      df_samp_flags <- unique(df_input[, cols2check])
+    
+      # Add flag columns
+      cols_samp_flags <- c("flag"
+                           , "flag_indexclass"
+                            , "flag_eco3"
+                            , "flag_precip"
+                            , "flag_wshed_small"
+                            , "flag_wshed_large")
+      df_samp_flags[, cols_samp_flags] <- NA
+      
+      # Evaluate Sample Flags
+      
+      ## Eval, Index_Class
+      df_samp_flags[, "flag_indexclass"] <- df_samp_flags[, "INDEX_CLASS"] %in% "lograd-hielev"
+      n_bad_indexclass <- sum(df_samp_flags[, "flag_indexclass"], na.rm = TRUE)
+      
+      ## Eco3
       fld2check <- sel_user_eco3
-      # if (fld2check %in% names(df_input)) {
       if (fld2check != "") {
-        # Data
-        df_check <- unique(df_input[, c("SAMPLEID", fld2check)])
         eco3_good <- c(1, 2, 3, 4, 77)
-        # Result
-        n_bad_eco3 <- sum(!df_check[, fld2check] %in% eco3_good)
+        df_samp_flags[, "flag_eco3"] <- !(df_samp_flags[, fld2check] %in% eco3_good)
+        n_bad_eco3 <- sum(df_samp_flags[, "flag_eco3"])
       } else {
         n_bad_eco3 <- NA_integer_
       }## IF ~ Eco3
-      
-      fld2check <- sel_user_wshedarea_km2
-      # if (fld2check %in% names(df_input)) {
+     
+      ## Precip
+      fld2check <- sel_user_precip
       if (fld2check != "") {
-        # Data
-        df_check <- unique(df_input[, c("SAMPLEID", fld2check)])
-        # Result
-        n_bad_wshedarea_small <- sum(df_check[, fld2check] < 5)
-        n_bad_wshedarea_large <- sum(df_check[, fld2check] > 260)
+        df_samp_flags[, "flag_precip"] <- df_samp_flags[, fld2check] < 650
+        n_bad_precip <- sum(df_samp_flags[, "flag_precip"], na.rm = TRUE)
+      } else {
+        n_bad_precip <- NA_integer_
+      }## IF ~ Wshed Area
+      
+      ## Watershed
+      fld2check <- sel_user_wshedarea_km2
+      if (fld2check != "") {
+        df_samp_flags[, "flag_wshed_small"] <- df_samp_flags[, fld2check] < 5
+        df_samp_flags[, "flag_wshed_large"] <- df_samp_flags[, fld2check] > 260
+        n_bad_wshedarea_small <- sum(df_samp_flags[, "flag_wshed_small"], na.rm = TRUE)
+        n_bad_wshedarea_large <- sum(df_samp_flags[, "flag_wshed_large"], na.rm = TRUE)
       } else {
         n_bad_wshedarea_small <- NA_integer_
         n_bad_wshedarea_large <- NA_integer_
       }## IF ~ Wshed Area
-      
-      n_bad_wshedarea_total <- n_bad_wshedarea_small + n_bad_wshedarea_large
-      
-      n_bad_total <- n_bad_indexclass + n_bad_eco3 + n_bad_wshedarea_total
-      # Could be double counting
+    
+      ## Eval, any
+      df_samp_flags[, "flag"] <- any(df_samp_flags[, cols_samp_flags[-1]])
+      n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
+
       
       # save info
-      df_qc_modelexp <- data.frame("Total_Bad" = n_bad_total
-                                   , "Bad_IndexClass" = n_bad_indexclass
-                                   , "Bad_Eco3" = n_bad_eco3
-                                   , "Bad_Watershed_Small" = n_bad_wshedarea_small
-                                   , "Bad_Watershed_Large" = n_bad_wshedarea_large)
-      write.csv(df_qc_modelexp, file.path("results", "results_BCG", "_BCG_7modelexp.csv"))
+      write.csv(df_samp_flags, file.path("results", "results_BCG", "_BCG_7modelexp.csv"))
       
       # Inform user about number of sites outside of experience of model
       msg <- paste0("('NA' if data field not provided in input file).", "\n\n"
-                    , n_bad_total, " = Total number of sites outside of model experience", "\n\n"
+                    , n_bad_any, " = Total number of sites outside of model experience", "\n\n"
                     , n_bad_indexclass, " = incorrect Index_Class (LoGrad-HiElev)", "\n"
-                    , n_bad_eco3, " = incorrect Ecoregion III (precip not checked)", "\n"
+                    , n_bad_eco3, " = incorrect Ecoregion III", "\n"
+                    , n_bad_precip, " = precipitation low (< 650 mm)", "\n"
                     , n_bad_wshedarea_small, " = watershed area small (< 5 km2)", "\n"
                     , n_bad_wshedarea_large, " = watershed area large (> 260 km2)"
                     )

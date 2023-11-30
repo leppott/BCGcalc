@@ -21,9 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9118 (2023-11-29)
+
+* refactor: Modify QC check on BCG model experience to BCG calculate
+
 # BCGcalc 2.0.0.9117 (2023-11-29)
 
-* feature: Add QC check on BCG model experience
+* feature: Add QC check on BCG model experience to BCG calculate
 * fix: Comment out all other instances of validate(msg) to avoid potential issues
 
 # BCGcalc 2.0.0.9116 (2023-11-28)
