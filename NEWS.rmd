@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9119 (2023-11-29)
+
+* fix: Modify QC check on BCG model experience to BCG calculate
+    + total flags
+
 # BCGcalc 2.0.0.9118 (2023-11-29)
 
 * refactor: Modify QC check on BCG model experience to BCG calculate

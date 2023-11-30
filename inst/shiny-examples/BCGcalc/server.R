@@ -2501,9 +2501,16 @@ shinyServer(function(input, output) {
         n_bad_wshedarea_small <- NA_integer_
         n_bad_wshedarea_large <- NA_integer_
       }## IF ~ Wshed Area
-    
+  
       ## Eval, any
-      df_samp_flags[, "flag"] <- any(df_samp_flags[, cols_samp_flags[-1]])
+      df_samp_flags[, "flag_sum"] <- df_samp_flags[, cols_samp_flags[2]] +
+                                        df_samp_flags[, cols_samp_flags[3]] +
+                                        df_samp_flags[, cols_samp_flags[4]] +
+                                        df_samp_flags[, cols_samp_flags[5]] +
+                                        df_samp_flags[, cols_samp_flags[6]]
+      df_samp_flags[, "flag"] <- ifelse(df_samp_flags[, "flag_sum"] >= 1
+                                        , TRUE
+                                        , FALSE)
       n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
 
       
