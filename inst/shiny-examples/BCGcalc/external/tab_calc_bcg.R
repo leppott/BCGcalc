@@ -40,6 +40,8 @@ function() {
        , uiOutput("UI_bcg_modelexp_user_col_eco3")
        , uiOutput("UI_bcg_modelexp_user_col_precip")
        , uiOutput("UI_bcg_modelexp_user_col_wshedarea_km2")
+       , uiOutput("UI_bcg_modelexp_user_col_elev")
+       , uiOutput("UI_bcg_modelexp_user_col_slope")
        
        , h4("F. Run Calculations")
        , p("This button will calculate metrics values, metric memberships

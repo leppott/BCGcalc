@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-29 20:22:01.024133
+2023-11-30 12:35:34.211357
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-29 20:22:01.058461
+    #> Last Update: 2023-11-30 12:35:34.24654
+
+# BCGcalc 2.0.0.9120 (2023-11-30)
+
+- refactor: Modify QC check on BCG model experience to BCG calculate
+  - Change text on pop-up
+  - Modify structure of output file
+  - Add checks for slope and elevation
+- refactor: Result files remove leading “\_”
 
 # BCGcalc 2.0.0.9119 (2023-11-29)
 

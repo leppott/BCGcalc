@@ -2078,7 +2078,7 @@ shinyServer(function(input, output) {
   })## UI_colnames
   
   output$UI_bcg_modelexp_user_col_precip <- renderUI({
-    str_col <- "Column, Precipitation (PRECIP8110CAT)"
+    str_col <- "Column, Precipitation, mm (PRECIP8110CAT)"
     selectInput("bcg_modelexp_user_col_precip"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -2092,6 +2092,24 @@ shinyServer(function(input, output) {
                 , label = str_col
                 , choices = c("", names(df_import()))
                 , selected = "WSAREASQKM"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  output$UI_bcg_modelexp_user_col_elev <- renderUI({
+    str_col <- "Column, Elevation, m (ELEV_M)"
+    selectInput("bcg_modelexp_user_col_elev"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "ELEV_M"
+                , multiple = FALSE)
+  })## UI_colnames
+  
+  output$UI_bcg_modelexp_user_col_slope <- renderUI({
+    str_col <- "Column, Slope, % (PSLOPE_NHD)"
+    selectInput("bcg_modelexp_user_col_slope"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "PSLOPE_NHD"
                 , multiple = FALSE)
   })## UI_colnames
   
@@ -2124,7 +2142,7 @@ shinyServer(function(input, output) {
       
       # result folder and files
       fn_abr <- abr_bcg
-      fn_abr_save <- paste0("_", fn_abr, "_")
+      fn_abr_save <- paste0(fn_abr, "_")
       path_results_sub <- file.path(path_results
                                     , paste(abr_results, fn_abr, sep = "_"))
       # Add "Results" folder if missing
@@ -2164,6 +2182,8 @@ shinyServer(function(input, output) {
       sel_user_eco3 <- toupper(input$bcg_modelexp_user_col_eco3)
       sel_user_precip <- toupper(input$bcg_modelexp_user_col_precip)
       sel_user_wshedarea_km2 <- toupper(input$bcg_modelexp_user_col_wshedarea_km2)
+      sel_user_elev <- toupper(input$bcg_modelexp_user_col_elev)
+      sel_user_slope <- toupper(input$bcg_modelexp_user_col_slope)
       
       ## Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -2440,7 +2460,7 @@ shinyServer(function(input, output) {
       # data available
       # df_input = all data
       # df_results = BCG output
-   
+ 
       # Create 
       cols2check <- c("SAMPLEID"
                       , "INDEX_CLASS")
@@ -2453,22 +2473,32 @@ shinyServer(function(input, output) {
       if (sel_user_wshedarea_km2 != "") {
         cols2check <- c(cols2check, sel_user_wshedarea_km2)
       }## IF ~ wshed area
+      if (sel_user_elev != "") {
+        cols2check <- c(cols2check, sel_user_elev)
+      }## IF ~ wshed area
+      if (sel_user_slope != "") {
+        cols2check <- c(cols2check, sel_user_slope)
+      }## IF ~ wshed area
       
       df_samp_flags <- unique(df_input[, cols2check])
     
       # Add flag columns
       cols_samp_flags <- c("flag"
+                           , "flag_sum"
                            , "flag_indexclass"
-                            , "flag_eco3"
-                            , "flag_precip"
-                            , "flag_wshed_small"
-                            , "flag_wshed_large")
+                           , "flag_eco3"
+                           , "flag_precip"
+                           , "flag_wshed_small"
+                           , "flag_wshed_large"
+                           , "flag_elev_trans"
+                           , "flag_slope_trans"
+                           , "flag_slope_vhigh")
       df_samp_flags[, cols_samp_flags] <- NA
       
       # Evaluate Sample Flags
       
       ## Eval, Index_Class
-      df_samp_flags[, "flag_indexclass"] <- df_samp_flags[, "INDEX_CLASS"] %in% "lograd-hielev"
+      df_samp_flags[, "flag_indexclass"] <- tolower(df_samp_flags[, "INDEX_CLASS"]) %in% "lograd-hielev"
       n_bad_indexclass <- sum(df_samp_flags[, "flag_indexclass"], na.rm = TRUE)
       
       ## Eco3
@@ -2501,32 +2531,54 @@ shinyServer(function(input, output) {
         n_bad_wshedarea_small <- NA_integer_
         n_bad_wshedarea_large <- NA_integer_
       }## IF ~ Wshed Area
-  
+     
+      ## Elev
+      fld2check <- sel_user_elev
+      if (fld2check != "") {
+        df_samp_flags[, "flag_elev_trans"] <- df_samp_flags[, fld2check] >= 700 &
+                                                df_samp_flags[, fld2check] <= 800
+        n_bad_elev_trans <- sum(df_samp_flags[, "flag_elev_trans"], na.rm = TRUE)
+      } else {
+        n_bad_elev_trans <- NA_integer_
+      }## IF ~ Elevation
+      
+      ## Slope
+      fld2check <- sel_user_slope 
+      if (fld2check != "") {
+        df_samp_flags[, "flag_slope_trans"] <- df_samp_flags[, fld2check] >= 0.8 &
+                                                df_samp_flags[, fld2check] <= 1.2
+        df_samp_flags[, "flag_slope_vhigh"] <- df_samp_flags[, fld2check] >= 8
+        n_bad_slope_trans <- sum(df_samp_flags[, "flag_slope_trans"], na.rm = TRUE)
+        n_bad_slope_vhigh <- sum(df_samp_flags[, "flag_slope_vhigh"], na.rm = TRUE)
+      } else {
+        n_bad_slope_trans <- NA_integer_
+        n_bad_slope_vhigh <- NA_integer_
+      }## IF ~ Slope
+      
       ## Eval, any
-      df_samp_flags[, "flag_sum"] <- df_samp_flags[, cols_samp_flags[2]] +
-                                        df_samp_flags[, cols_samp_flags[3]] +
-                                        df_samp_flags[, cols_samp_flags[4]] +
-                                        df_samp_flags[, cols_samp_flags[5]] +
-                                        df_samp_flags[, cols_samp_flags[6]]
+      df_samp_flags[, "flag_sum"] <- rowSums(df_samp_flags[, cols_samp_flags[3:10]]
+                                             , na.rm = TRUE)
       df_samp_flags[, "flag"] <- ifelse(df_samp_flags[, "flag_sum"] >= 1
                                         , TRUE
                                         , FALSE)
       n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
 
-      
       # save info
       write.csv(df_samp_flags, file.path("results", "results_BCG", "_BCG_7modelexp.csv"))
       
-      # Inform user about number of sites outside of experience of model
+      # Inform user about number of samples outside of experience of model
       msg <- paste0("('NA' if data field not provided in input file).", "\n\n"
-                    , n_bad_any, " = Total number of sites outside of model experience", "\n\n"
-                    , n_bad_indexclass, " = incorrect Index_Class (LoGrad-HiElev)", "\n"
-                    , n_bad_eco3, " = incorrect Ecoregion III", "\n"
-                    , n_bad_precip, " = precipitation low (< 650 mm)", "\n"
-                    , n_bad_wshedarea_small, " = watershed area small (< 5 km2)", "\n"
-                    , n_bad_wshedarea_large, " = watershed area large (> 260 km2)"
+                    , n_bad_any, " = Total number of samples outside of model experience", "\n\n"
+                    , n_bad_indexclass, " = Index_Class, incorrect (LoGrad-HiElev)", "\n"
+                    , n_bad_eco3, " = Ecoregion III, incorrect (not 1, 2, 3, 4, or 77)", "\n"
+                    , n_bad_precip, " = precipitation, low (< 650 mm)", "\n"
+                    , n_bad_wshedarea_small, " = watershed area, small (< 5 km2)", "\n"
+                    , n_bad_wshedarea_large, " = watershed area, large (> 260 km2)", "\n"
+                    , n_bad_elev_trans, " = elevation, transitional (700 - 800 m)", "\n"
+                    , n_bad_slope_trans, " = slope, transitional (0.8 - 1.2%)", "\n"
+                    , n_bad_slope_vhigh, " = slope, very high (>= 8%)"
                     )
-      shinyalert::shinyalert(title = "BCG Calculation, Sites Outside Model Experience"
+      shinyalert::shinyalert(title = "BCG Calculation,\nSamples Outside Model Experience"
                              , text = msg
                              , type = "info"
                              , closeOnEsc = TRUE
@@ -2605,7 +2657,7 @@ shinyServer(function(input, output) {
       
       # result folder and files
       fn_abr <- abr_tmet
-      fn_abr_save <- paste0("_", fn_abr, "_")
+      fn_abr_save <- paste0(fn_abr, "_")
       path_results_sub <- file.path(path_results
                                     , paste(abr_results, fn_abr, sep = "_"))
       # Add "Results" folder if missing
@@ -2748,7 +2800,7 @@ shinyServer(function(input, output) {
       
       # Copy metadata (thermal metrics) to results
       fn_meta <- "ThermPrefMetrics_metadata.xlsx"
-      fn_meta_save <- paste0("_", fn_abr_save, "_metadata.xlsx")
+      fn_meta_save <- paste0(fn_abr_save, "metadata.xlsx")
       file.copy(file.path("www", "links", fn_meta)
                 , file.path(path_results_sub, fn_meta_save))
       
@@ -2826,7 +2878,7 @@ shinyServer(function(input, output) {
       
       # result folder and files
       fn_abr <- abr_fuzzy
-      fn_abr_save <- paste0("_", fn_abr, "_")
+      fn_abr_save <- paste0(fn_abr, "_")
       path_results_sub <- file.path(path_results
                                     , paste(abr_results, fn_abr, sep = "_"))
       # Add "Results" folder if missing
@@ -3352,7 +3404,7 @@ shinyServer(function(input, output) {
       
       # result folder and files
       fn_abr <- abr_mtti
-      fn_abr_save <- paste0("_", fn_abr, "_")
+      fn_abr_save <- paste0(fn_abr, "_")
       path_results_sub <- file.path(path_results
                                     , paste(abr_results, fn_abr, sep = "_"))
       # Add "Results" folder if missing
@@ -3778,7 +3830,7 @@ shinyServer(function(input, output) {
       
       # result folder and files
       fn_abr <- abr_bdi
-      fn_abr_save <- paste0("_", fn_abr, "_")
+      fn_abr_save <- paste0(fn_abr, "_")
       path_results_sub <- file.path(path_results
                                     , paste(abr_results, fn_abr, sep = "_"))
       # Add "Results" folder if missing
