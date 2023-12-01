@@ -676,9 +676,12 @@ shinyServer(function(input, output) {
       
       # Hack/Fix
       # Noteworthy NA causing issue later in Shiny app
-      taxatrans_results$merge$Noteworthy <- ifelse(is.na(taxatrans_results$merge$Noteworthy)
-                                                   , FALSE
-                                                   , TRUE)
+      # 20231201, only if have Noteworthy
+      if ("NOTEWORTHY" %in% toupper(taxatrans_results$merge)) {
+        taxatrans_results$merge$Noteworthy <- ifelse(is.na(taxatrans_results$merge$Noteworthy)
+                                                     , FALSE
+                                                     , TRUE)
+      }## IF ~ Noteworthy
       
       
       ## Calc, 04, Save Results ----

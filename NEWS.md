@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-01 08:26:50.27944
+2023-12-01 15:52:48.602803
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-01 08:26:50.298339
+    #> Last Update: 2023-12-01 15:52:48.632879
+
+# BCGcalc 2.0.0.9123 (2023-12-01)
+
+- fix: Modify taxatrans hack for noteworthy to only trigger if present
 
 # BCGcalc 2.0.0.9122 (2023-12-01)
 

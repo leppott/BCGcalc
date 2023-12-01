@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9123 (2023-12-01)
+
+* fix: Modify taxatrans hack for noteworthy to only trigger if present 
+
 # BCGcalc 2.0.0.9122 (2023-12-01)
 
 * refactor: BCG calculation user column select to lower case
