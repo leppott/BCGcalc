@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-11-30 14:43:50.325656
+2023-12-01 08:26:50.27944
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-11-30 14:43:50.361055
+    #> Last Update: 2023-12-01 08:26:50.298339
+
+# BCGcalc 2.0.0.9122 (2023-12-01)
+
+- refactor: BCG calculation user column select to lower case
+  - elev_m
+  - pslope_nhd
+- refactor: Rename BCG calculation flag output (previously model
+  experience)
 
 # BCGcalc 2.0.0.9121 (2023-11-30)
 

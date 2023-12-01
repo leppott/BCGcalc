@@ -2123,20 +2123,20 @@ shinyServer(function(input, output) {
   })## UI_colnames
   
   output$UI_bcg_modelexp_user_col_elev <- renderUI({
-    str_col <- "Column, Elevation, m (ELEV_M)"
+    str_col <- "Column, Elevation, m (elev_m)"
     selectInput("bcg_modelexp_user_col_elev"
                 , label = str_col
                 , choices = c("", names(df_import()))
-                , selected = "ELEV_M"
+                , selected = "elev_m"
                 , multiple = FALSE)
   })## UI_colnames
   
   output$UI_bcg_modelexp_user_col_slope <- renderUI({
-    str_col <- "Column, Slope, % (PSLOPE_NHD)"
+    str_col <- "Column, Slope, % (pslope_nhd)"
     selectInput("bcg_modelexp_user_col_slope"
                 , label = str_col
                 , choices = c("", names(df_import()))
-                , selected = "PSLOPE_NHD"
+                , selected = "pslope_nhd"
                 , multiple = FALSE)
   })## UI_colnames
   
@@ -2591,7 +2591,7 @@ shinyServer(function(input, output) {
       n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
 
       # save info
-      write.csv(df_samp_flags, file.path("results", "results_BCG", "_BCG_7modelexp.csv"))
+      write.csv(df_samp_flags, file.path("results", "results_BCG", "_BCG_Sample_FLAGS.csv"))
       
       # Inform user about number of samples outside of experience of model
       msg <- paste0("('NA' if data field not provided in input file).", "\n\n"

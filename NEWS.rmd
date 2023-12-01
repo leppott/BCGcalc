@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9122 (2023-12-01)
+
+* refactor: BCG calculation user column select to lower case
+    + elev_m
+    * pslope_nhd
+* refactor: Rename BCG calculation flag output (previously model experience)
+
 # BCGcalc 2.0.0.9121 (2023-11-30)
 
 * feature: Add ecoregion L3 to generate index class parameters
