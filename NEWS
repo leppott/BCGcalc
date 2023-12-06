@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-06 15:22:16.633373
+2023-12-06 17:24:31.591232
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-06 15:22:16.657393
+    #> Last Update: 2023-12-06 17:24:31.645299
+
+# BCGcalc 2.0.0.9125 (2023-12-06)
+
+- fix: Update MN fish metric names (trout) to be more specific
 
 # BCGcalc 2.0.0.9124 (2023-12-06)
 

@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9125 (2023-12-06)
+
+* fix: Update MN fish metric names (trout) to be more specific
+
 # BCGcalc 2.0.0.9124 (2023-12-06)
 
 * tests: Update tests for name changes in 2.0.0.9004
