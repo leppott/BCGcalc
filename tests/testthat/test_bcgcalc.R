@@ -27,7 +27,8 @@ test_that("bcgcalc", {
   
   
   # Calculate Level Memberships
-  df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+  df.Level.Membership <- BCGcalc::BCG.Level.Membership(df.Metric.Membership
+                                                       , df.rules)
   
   sum_LevMemb_calc <- sum(df.Level.Membership[, c("L1", "L2", "L3", "L4"
                                               , "L5", "L6")])
@@ -49,9 +50,9 @@ test_that("bcgcalc", {
   testthat::expect_equal(colsums_LevMemb_calc, colSums_LevMemb_qc)
   
   # Calculate Level Assignments
-  df.Levels <- BCG.Level.Assignment(df.Level.Membership)
+  df.Levels <- BCGcalc::BCG.Level.Assignment(df.Level.Membership)
   
-  sum_LevA_calc <- sum(df.Levels$Lev.Prop.Num)
+  sum_LevA_calc <- sum(df.Levels$Continuous_BCG_Level)
   sum_LevA_qc <- 2505.204
   
   # _test, level assignment, sum of Proportional Number ----

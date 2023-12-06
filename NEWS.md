@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-01 15:52:48.602803
+2023-12-06 15:22:16.633373
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-01 15:52:48.632879
+    #> Last Update: 2023-12-06 15:22:16.657393
+
+# BCGcalc 2.0.0.9124 (2023-12-06)
+
+- tests: Update tests for name changes in 2.0.0.9004
+- fix: Update metric name in Rules.xlsx to match BioMonTools
+  - pi_Trout to pi_trout
 
 # BCGcalc 2.0.0.9123 (2023-12-01)
 

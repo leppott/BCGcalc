@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9124 (2023-12-06)
+
+* tests: Update tests for name changes in 2.0.0.9004
+* fix: Update metric name in Rules.xlsx to match BioMonTools
+    + pi_Trout to pi_trout
+
 # BCGcalc 2.0.0.9123 (2023-12-01)
 
 * fix: Modify taxatrans hack for noteworthy to only trigger if present 
