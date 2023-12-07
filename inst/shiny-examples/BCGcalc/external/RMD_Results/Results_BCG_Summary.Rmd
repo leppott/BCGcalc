@@ -22,7 +22,7 @@ cat("**Filename:** ", inFile$name, "\n\n", sep = "")
 
 ```{r plot}
 # use results before trimmed L1:6
-df_plot <- df_lev_flags 
+df_plot <- df_levassign 
 alpha_rect <- 0.25
 plot_mean <- mean(df_plot$Primary_BCG_Level)
 

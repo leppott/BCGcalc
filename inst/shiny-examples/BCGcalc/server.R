@@ -2405,56 +2405,88 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
-      # Calc
-      # df_checks loaded in global.R
-      df_flags <- BioMonTools::qc.checks(df_metval, df_checks)
-      # Change terminology; PASS/FAIL to NA/flag
-      df_flags[, "FLAG"][df_flags[, "FLAG"] == "FAIL"] <- "flag"
-      df_flags[, "FLAG"][df_flags[, "FLAG"] == "PASS"] <- NA
-      # long to wide format
-      df_flags_wide <- reshape2::dcast(df_flags
-                                       , SAMPLEID ~ CHECKNAME
-                                       , value.var = "FLAG")
-      # Calc number of "flag"s by row.
-      df_flags_wide$NumFlags <- rowSums(df_flags_wide == "flag", na.rm = TRUE)
-      # Rearrange columns
-      NumCols <- ncol(df_flags_wide)
-      df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
-      # Merge Levels and Flags
-      df_lev_flags <- merge(df_levassign
-                            , df_flags_wide
-                            , by.x = "SampleID"
-                            , by.y = "SAMPLEID"
-                            , all.x = TRUE)
-      # Summarize Flags
-      df_lev_flags_summ <- as.data.frame.matrix(table(df_flags[, "CHECKNAME"]
-                                                      , df_flags[, "FLAG"]
-                                                      , useNA = "ifany"))
+      # 2023-12-06
+      # Split if no flags so doesn't crash
       
-      # Save Flags Summary
-      fn_levflags <- paste0(fn_abr_save, "6levflags.csv")
+      # Check if Flags exist for data
+      col_index_metval <- c("INDEX_NAME", "INDEX_CLASS")
+      col_index_checks <- c("Index_Name", "INDEX_CLASS")
+      index_metval <- unique(df_metval[, col_index_metval])
+      index_checks <- unique(df_checks[, col_index_checks])
+      index_merge <- merge(index_metval, index_checks
+                           , by.x = col_index_metval
+                           , by.y = col_index_checks)
+      
+      if (nrow(index_merge) == 0) {
+        
+        # create dummy files
+        str_nodata <- "No flags for the Index Name/Class combinations present in data"
+        # Flags
+        df_flags <- data.frame(x = str_nodata
+                               , CHECKNAME = "No Flags"
+                               , FLAG = NA)
+        df_lev_flags <- df_levassign
+        # Flags Summary
+        df_lev_flags_summ <- data.frame(x = str_nodata)
+        # Results
+        df_results <- data.frame(x = str_nodata)
+        # Flag Metrics
+        df_metflags <- data.frame(x = str_nodata)
+        
+      } else {
+        
+        # Calc
+        # df_checks loaded in global.R
+        df_flags <- BioMonTools::qc.checks(df_metval, df_checks)
+        # Change terminology; PASS/FAIL to NA/flag
+        df_flags[, "FLAG"][df_flags[, "FLAG"] == "FAIL"] <- "flag"
+        df_flags[, "FLAG"][df_flags[, "FLAG"] == "PASS"] <- NA
+        # long to wide format
+        df_flags_wide <- reshape2::dcast(df_flags
+                                         , SAMPLEID ~ CHECKNAME
+                                         , value.var = "FLAG")
+        # Calc number of "flag"s by row.
+        df_flags_wide$NumFlags <- rowSums(df_flags_wide == "flag", na.rm = TRUE)
+        # Rearrange columns
+        NumCols <- ncol(df_flags_wide)
+        df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
+        # Merge Levels and Flags
+        df_lev_flags <- merge(df_levassign
+                              , df_flags_wide
+                              , by.x = "SampleID"
+                              , by.y = "SAMPLEID"
+                              , all.x = TRUE)
+        # Flags Summary
+        df_lev_flags_summ <- as.data.frame.matrix(table(df_flags[, "CHECKNAME"]
+                                                        , df_flags[, "FLAG"]
+                                                        , useNA = "ifany"))
+        # Results
+        df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
+        ## remove L1:6
+        
+        # Flag Metrics
+        col2keep_metflags <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
+                               , "METRIC_NAME", "CHECKNAME", "METRIC_VALUE"
+                               , "SYMBOL", "VALUE", "FLAG")
+        df_metflags <- df_flags[, col2keep_metflags]
+        
+      }## IF ~ check for matching index name and class
+      
+      
+      # Save, Flags Summary
+      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
       dn_levflags <- path_results_sub
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
       
-      # Create Results
-      df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
-      ## remove L1:6
-      
-      # Save Results
-      fn_results <- paste0("_", fn_abr_save, "RESULTS.csv")
+      # Save, Results
+      fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
       dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
       
-      
-      ## Calc, 8b, QC Flag Metrics ----
-      # create
-      col2keep <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS", "METRIC_NAME"
-                    , "CHECKNAME", "METRIC_VALUE", "SYMBOL", "VALUE", "FLAG")
-      df_metflags <- df_flags[, col2keep]
-      # save
-      fn_metflags <- paste0(fn_abr_save, "6metflags.csv")
+      # Save, Flag Metrics
+      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
       dn_metflags <- path_results_sub
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)

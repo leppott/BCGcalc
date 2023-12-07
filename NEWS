@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-06 17:24:31.591232
+2023-12-07 10:21:20.730164
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-06 17:24:31.645299
+    #> Last Update: 2023-12-07 10:21:20.763828
+
+# BCGcalc 2.0.0.9126 (2023-12-07)
+
+- fix: Update app BCG calculation for cases where have no flags
 
 # BCGcalc 2.0.0.9125 (2023-12-06)
 

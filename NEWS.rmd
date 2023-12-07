@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9126 (2023-12-07)
+
+* fix: Update app BCG calculation for cases where have no flags
+
 # BCGcalc 2.0.0.9125 (2023-12-06)
 
 * fix: Update MN fish metric names (trout) to be more specific
