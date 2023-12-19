@@ -89,9 +89,9 @@ function(id) {
                                , tabName = "tab_rep_single"
                                , icon = icon("pen")
                                )
-                 , menuSubItem("Multiple Sites"
-                               , tabName = "tab_rep_multi"
-                               , icon = icon("pen-to-square"))
+                 # , menuSubItem("Multiple Sites"
+                 #               , tabName = "tab_rep_multi"
+                 #               , icon = icon("pen-to-square"))
                  )## menuItem ~ Reports ~ END
       , menuItem(text = "Relevant Resources"
                  , tabName = "tab_resources"

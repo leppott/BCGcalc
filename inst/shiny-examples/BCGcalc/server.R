@@ -5122,7 +5122,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
       
       # Number of increments
-      prog_n <- 10
+      prog_n <- 5
       prog_sleep <- 0.25
       
       ## Calc, 01, Initialize ----
@@ -5525,24 +5525,61 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
      
+      ### Excel, SUBSET ----
       # Filter for each Station
+      
+      # Remove all files except Results Excel
+      # Then download button only has one file to target
+      # reuse code from df_import()
+      # fn_results <- list.files(path_results_user
+      #                          , full.names = TRUE
+      #                          , include.dirs = TRUE
+      #                          , recursive = TRUE)
+      unlink(path_results_user, recursive = TRUE) # includes directories
+      
+      
+      
+      
       stations_all <- unique(df_report_site[, pk_stations])
   
       ## create file for each station
-      for (s in stations_all) {
-        # Filter tables
-        df_report_summary_header_s <- df_report_summary_header
-        df_report_summary_wide_s <- df_report_summary_wide
-        df_report_topindicator_s <- df_report_topindicator
-        df_report_samples_s <- df_report_samples
-        df_report_flags_s <- df_report_flags
-        df_report_site_s <- df_report_site
-        # df_report_taxatrans_s <- df_report_taxatrans
-        
-      }## FOR ~ s
+      s <- stations_all[1] #QC
       
-      ### Excel, Create File----
-      # Create Workbook
+      for (s in stations_all) {
+
+        s_num <- match(s, stations_all)
+        s_total <- length(stations_all)
+        msg <- paste0("Working on Report; Single Station; "
+                      , s_num
+                      , " of "
+                      , s_total
+                      , "; "
+                      , s)
+        message(msg)
+        
+        # Update progress
+        prog_detail <- paste0("Calculation, Create Excel; ", s_num, "/", s_total)
+        message(paste0("\n", prog_detail))
+        # Increment the progress bar, and update the detail text.
+        incProgress(1/s_total/prog_n, detail = prog_detail)
+        Sys.sleep(prog_sleep)
+        
+        
+        # Filter tables
+        df_report_summary_header_s <- df_report_summary_header %>%
+          filter(.data[[pk_stations]] == s)
+        df_report_summary_wide_s <- df_report_summary_wide
+        df_report_topindicator_s <- df_report_topindicator 
+        df_report_samples_s <- df_report_samples 
+        df_report_flags_s <- df_report_flags 
+        df_report_site_s <- df_report_site %>%
+          filter(.data[[pk_stations]] == s)
+        df_report_taxatrans_s <- df_report_taxatrans
+        
+
+      
+      ### Excel, WB, Create----
+      # Create WB
       wb <- openxlsx::createWorkbook()
       openxlsx::addWorksheet(wb, "NOTES", tabColour = "darkgray")
       openxlsx::addWorksheet(wb, "summary")
@@ -5688,9 +5725,8 @@ shinyServer(function(input, output) {
       cf_rule_bcg2_6            <- '="6"'
       cf_rule_bcg2_na           <- '="NA"'
       
-      
-      
-      ### Excel, WS, NOTES----
+   
+      ### Excel, WS, data, NOTES----
       openxlsx::writeData(wb
                           , sheet = "NOTES"
                           , x = notes_head
@@ -5716,54 +5752,54 @@ shinyServer(function(input, output) {
       
       
       
-      ### Excel, WS, Summary, Header ----
+      ### Excel, WS, data, Summary, Header ----
       openxlsx::writeData(wb
                           , sheet = "summary"
-                          , x = df_report_summary_header
+                          , x = df_report_summary_header_s
                           , startCol = 1
                           , startRow = mySR
                           , headerStyle = style_bold)
       
-      ### Excel, WS, Summary, Wide ----
+      ### Excel, WS, data, Summary, Wide ----
       
       
-      ### Excel, WS, Top Indicator ----
+      ### Excel, WS, data, Top Indicator ----
       openxlsx::writeData(wb
                           , sheet = "topindicator"
-                          , x = df_report_topindicator
+                          , x = df_report_topindicator_s
                           , startCol = 1
                           , startRow = mySR
                           , headerStyle = style_bold)
       
-      ### Excel, WS, Samples ----
+      ### Excel, WS, data, Samples ----
       openxlsx::writeData(wb
                           , sheet = "samples"
-                          , x = df_report_samples
+                          , x = df_report_samples_s
                           , startCol = 1
                           , startRow = mySR
                           , headerStyle = style_bold)
       
       
-      ### Excel, WS, Flags ----
+      ### Excel, WS, data, Flags ----
       openxlsx::writeData(wb
                           , sheet = "flags"
-                          , x = df_report_flags
+                          , x = df_report_flags_s
                           , startCol = 1
                           , startRow = mySR
                           , headerStyle = style_bold)
       
-      ### Excel, WS, Site ----
+      ### Excel, WS, data, Site ----
       openxlsx::writeData(wb
                           , sheet = "site"
-                          , x = df_report_site
+                          , x = df_report_site_s
                           , startCol = 1
                           , startRow = mySR
                           , headerStyle = style_bold)
       
-      ### Excel, WS, Taxa Trans ----
+      ### Excel, WS, data, Taxa Trans ----
       openxlsx::writeData(wb
                           , sheet = "taxatrans"
-                          , x = df_report_taxatrans
+                          , x = df_report_taxatrans_s
                           , startCol = 1
                           , startRow = mySR
                           , headerStyle = style_bold)
@@ -5885,7 +5921,7 @@ shinyServer(function(input, output) {
       #                       , rule = '="NA"'
       #                       , style = style_cf_ft_na)
       #
-      # #### CF, BCG----
+      #### CF, BCG----
       # conditionalFormatting(wb, "BCG"
       #                       , cols = 2
       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
@@ -6083,26 +6119,38 @@ shinyServer(function(input, output) {
       # writeData(wb, "databar", -5:5)
       # conditionalFormatting(wb, "databar", cols = 1, rows = 1:12, type = "databar")
       
-      ### Calc, 05, Save Results ----
-      prog_detail <- "Save Results"
+      ### Excel, WB, Save  ----
+      # prog_detail <- "Save Results"
+      # message(paste0("\n", prog_detail))
+      # # Increment the progress bar, and update the detail text.
+      # incProgress(1/prog_n, detail = prog_detail)
+      # Sys.sleep(prog_sleep)
+      # 
+
+      # Save new Excel file.
+      fn_wb <- file.path(path_results_sub, paste0("results_", s, ".xlsx"))
+      openxlsx::saveWorkbook(wb, fn_wb, overwrite = TRUE)
+      
+      }## FOR ~ s
+      
+      ## Calc, 04, Zip Results ----
+      prog_detail <- "Create Zip File"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
       
-      # Remove all files except Results Excel
-      # Then download button only has one file to target
-      # reuse code from df_import()
-      # fn_results <- list.files(path_results_user
-      #                          , full.names = TRUE
-      #                          , include.dirs = TRUE
-      #                          , recursive = TRUE)
-      unlink(path_results_user, recursive = TRUE) # includes directories
-    
-      # Save new Excel file.
-      # Don't need a zip file
-      fn_wb <- file.path(path_results_sub, "results.xlsx")
-      openxlsx::saveWorkbook(wb, fn_wb, overwrite = TRUE)
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
+      
+      
+      ## Calc, 05, Clean Up ----
+      prog_detail <- "Clean Up"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
       
       # button, enable, download
       shinyjs::enable("b_download_rep_single")
@@ -6147,11 +6195,11 @@ shinyServer(function(input, output) {
       paste0(fn_input_base
              , fn_abr_save
              , format(Sys.time(), "%Y%m%d_%H%M%S")
-             , ".xlsx")
+             , ".zip")
     } ,
     content = function(fname) {##content~START
       
-      file.copy(file.path(path_results, dn_files_report, "results.xlsx"), fname)
+      file.copy(file.path(path_results, "results.zip"), fname)
       
     }##content~END
   )##download ~ Report single
