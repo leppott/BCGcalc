@@ -5379,7 +5379,7 @@ shinyServer(function(input, output) {
       notes_head <- as.data.frame(cbind(c("Project Name"
                                           , "Specific Task"
                                           , NA
-                                          , "Author email"
+                                          , "author@email.com"
                                           , as.character(Sys.Date())
                                           , NA
                                           , "Path & FileName"
@@ -5389,133 +5389,146 @@ shinyServer(function(input, output) {
                                           , "Description of Work"
                                           , ""
       )
-      , c(rep(NA, 6), rep("formula", 3), rep(NA, 3))))
+      , c(rep(NA, 6)
+          , '=LEFT(@CELL("filename",B7),FIND("]",@CELL("filename",B7)))'
+          , '=MID(@CELL("filename",B8),FIND("[",@CELL("filename",B8)),(FIND("]",@CELL("filename",B8))-FIND("[",@CELL("filename",B8)))+1)'
+          , '=MID(@CELL("filename",B9),FIND("]",@CELL("filename",B9))+1,LEN(@CELL("filename",B9))-FIND("]",@CELL("filename",B9)))'
+          , rep(NA, 3))))
+      #, c(rep(NA, 6), rep("formula", 3), rep(NA, 3))))
+      class(notes_head[, 2]) <- "formula"
       notes_toc <- as.data.frame(rbind(
-        c("NOTES", "Description of work and other worksheets", "LINK")
-        , c("summary", "summary", "link")
-        , c("topindicator", "topindicator", "link")
-        , c("samples", "samples", "link")
-        , c("flags", "flags", "link")
-        , c("site", "site", "link")
-        , c("taxatrans", "taxatrans", "link")
+        c("NOTES", "Description of work and other worksheets", '=HYPERLINK(FileName&"NOTES"&"!A1","NOTES")')
+        , c("summary", "summary", '=HYPERLINK(FileName&"summary"&"!A1","summary")')
+        , c("topindicator", "topindicator", '=HYPERLINK(FileName&"topindicator"&"!A1","topindicator")')
+        , c("samples", "samples", '=HYPERLINK(FileName&"samples"&"!A1","samples")')
+        , c("flags", "flags", '=HYPERLINK(FileName&"flags"&"!A1","flags")')
+        , c("site", "site", '=HYPERLINK(FileName&"site"&"!A1","site")')
+        , c("taxatrans", "taxatrans", '=HYPERLINK(FileName&"taxatrans"&"!A1","topinditaxatransator")')
       ))
       names(notes_toc) <- c("Worksheet", "Description", "Link")
-      class(notes_toc$Link) <- "hyperlink"
+      class(notes_toc$Link) <- "formula"
+      
+      ### Data, Summary, Color Thresholds ----
+      df_col_thresh <- read.csv(file.path("data"
+                                          , "report_color_thresholds.csv"))
       
       # compile each in a helper script
  
       # Get stations
-      pk_stations <- df_template_other[df_template_other[, "file"] == "Stations", "primarykey", TRUE]
+      pk_stations <- df_template_other[df_template_other[, "file"] == "Stations"
+                                       , "primarykey"
+                                       , TRUE]
 
+      # zip file extracted to "results/_user_input"
+      
       ### Data, Summary, Header ----
-      # df_report_summary_header <- mtcars
       ls_report_summary_header <- build_report_table(df_template_summary_header
-                                                     , fld_name_orig = "original name"
-                                                     , fld_name_disp = "display name"
-                                                     , fld_desc = "descriptor"
-                                                     , fld_incl = "inclusion"
-                                                     , fld_folder = "source folder"
-                                                     , fld_file = "source file (or suffix)"
-                                                     , fld_colr = "color code"
-                                                     , fld_sort = "sort"
-                                                     , path_files = file.path("results", "_user_input")
-                                                     , tbl_name = "summary_header")
+                           , fld_name_orig = "original name"
+                           , fld_name_disp = "display name"
+                           , fld_desc = "descriptor"
+                           , fld_incl = "inclusion"
+                           , fld_folder = "source folder"
+                           , fld_file = "source file (or suffix)"
+                           , fld_colr = "color code"
+                           , fld_sort = "sort"
+                           , path_files = file.path(path_results, "_user_input")
+                           , tbl_name = "summary_header")
       
       df_report_summary_header <- ls_report_summary_header$data
-      
+      # df_report_summary_header <- mtcars
+   
       ### Data, Summary, Wide ----
-      # df_report_summary_wide <- mtcars
       ls_report_summary_wide <- build_report_table(df_template_summary_wide
-                                                   , fld_name_orig = "original name"
-                                                   , fld_name_disp = "display name"
-                                                   , fld_desc = "descriptor"
-                                                   , fld_incl = "inclusion"
-                                                   , fld_folder = "source folder"
-                                                   , fld_file = "source file (or suffix)"
-                                                   , fld_colr = "color code"
-                                                   , fld_sort = "sort"
-                                                   , path_files = file.path("results", "_user_input")
-                                                   , tbl_name = "summary_wide")
+                           , fld_name_orig = "original name"
+                           , fld_name_disp = "display name"
+                           , fld_desc = "descriptor"
+                           , fld_incl = "inclusion"
+                           , fld_folder = "source folder"
+                           , fld_file = "source file (or suffix)"
+                           , fld_colr = "color code"
+                           , fld_sort = "sort"
+                           , path_files = file.path(path_results, "_user_input")
+                           , tbl_name = "summary_wide")
       
       df_report_summary_wide <- ls_report_summary_wide$data
+      # df_report_summary_wide <- mtcars
       
       ### Data, Top Indicator ----
-      # df_report_topindicator <- iris
       ls_report_topindicator <- build_report_table(df_template_topindicator
-                                                   , fld_name_orig = "original name"
-                                                   , fld_name_disp = "display name"
-                                                   , fld_desc = "descriptor"
-                                                   , fld_incl = "inclusion"
-                                                   , fld_folder = "source folder"
-                                                   , fld_file = "source file (or suffix)"
-                                                   , fld_colr = "color code"
-                                                   , fld_sort = "sort"
-                                                   , path_files = file.path("results", "_user_input")
-                                                   , tbl_name = "topindicator")
+                           , fld_name_orig = "original name"
+                           , fld_name_disp = "display name"
+                           , fld_desc = "descriptor"
+                           , fld_incl = "inclusion"
+                           , fld_folder = "source folder"
+                           , fld_file = "source file (or suffix)"
+                           , fld_colr = "color code"
+                           , fld_sort = "sort"
+                           , path_files = file.path(path_results, "_user_input")
+                           , tbl_name = "topindicator")
       
       df_report_topindicator <- ls_report_topindicator$data
+      # df_report_topindicator <- iris
       
       ### Data, Samples ----
-      # df_report_samples <- ToothGrowth
       ls_report_samples <- build_report_table(df_template_samples
-                                              , fld_name_orig = "original name"
-                                              , fld_name_disp = "display name"
-                                              , fld_desc = "descriptor"
-                                              , fld_incl = "inclusion"
-                                              , fld_folder = "source folder"
-                                              , fld_file = "source file (or suffix)"
-                                              , fld_colr = "color code"
-                                              , path_files = file.path("results", "_user_input")
-                                              , tbl_name = "samples")
+                          , fld_name_orig = "original name"
+                          , fld_name_disp = "display name"
+                          , fld_desc = "descriptor"
+                          , fld_incl = "inclusion"
+                          , fld_folder = "source folder"
+                          , fld_file = "source file (or suffix)"
+                          , fld_colr = "color code"
+                          , path_files = file.path(path_results, "_user_input")
+                          , tbl_name = "samples")
       
       df_report_samples <- ls_report_samples$data
+      # df_report_samples <- ToothGrowth
       
       ### Data, Flags ----
-      # df_report_flags <- PlantGrowth
       ls_report_flags <- build_report_table(df_template_flags
-                                            , fld_name_orig = "original name"
-                                            , fld_name_disp = "display name"
-                                            , fld_desc = "descriptor"
-                                            , fld_incl = "inclusion"
-                                            , fld_folder = "source folder"
-                                            , fld_file = "source file (or suffix)"
-                                            , fld_colr = "color code"
-                                            , path_files = file.path("results", "_user_input")
-                                            , tbl_name = "flags")
+                          , fld_name_orig = "original name"
+                          , fld_name_disp = "display name"
+                          , fld_desc = "descriptor"
+                          , fld_incl = "inclusion"
+                          , fld_folder = "source folder"
+                          , fld_file = "source file (or suffix)"
+                          , fld_colr = "color code"
+                          , path_files = file.path(path_results, "_user_input")
+                          , tbl_name = "flags")
       
       df_report_flags <- ls_report_flags$data
+      # df_report_flags <- PlantGrowth
       
       ### Data, Site ----
-      # df_report_site <- USArrests
       ls_report_site <- build_report_table(df_template_site
-                                           , fld_name_orig = "original name"
-                                           , fld_name_disp = "display name"
-                                           , fld_desc = "descriptor"
-                                           , fld_incl = "inclusion"
-                                           , fld_folder = "source folder"
-                                           , fld_file = "source file (or suffix)"
-                                           , fld_colr = "color code"
-                                           , fld_sort = "sort"
-                                           , path_files = file.path("results", "_user_input")
-                                           , tbl_name = "site")
+                           , fld_name_orig = "original name"
+                           , fld_name_disp = "display name"
+                           , fld_desc = "descriptor"
+                           , fld_incl = "inclusion"
+                           , fld_folder = "source folder"
+                           , fld_file = "source file (or suffix)"
+                           , fld_colr = "color code"
+                           , fld_sort = "sort"
+                           , path_files = file.path(path_results, "_user_input")
+                           , tbl_name = "site")
       
       df_report_site <- ls_report_site$data
-      
+      # df_report_site <- USArrests
+
       ### Data, Taxa Trans ----
-      df_report_taxatrans <- cars
-      #  ls_report_taxatrans <- build_report_table(df_template_taxatrans
-      #                                                 , fld_name_orig = "original name"
-      #                                                 , fld_name_disp = "display name"
-      #                                                 , fld_desc = "descriptor"
-      #                                                 , fld_incl = "inclusion"
-      #                                                 , fld_folder = "source folder"
-      #                                                 , fld_file = "source file (or suffix)"
-      #                                                 , fld_colr = "color code"
-      #                                                 , fld_sort = "sort"
-      #                                                 , path_files = file.path("results", "_user_input")
-      #                                                 , tbl_name = "taxatrans")
-      #  
-      # df_report_taxatrans <- ls_report_taxatrans$data
+       ls_report_taxatrans <- build_report_table(df_template_taxatrans
+                          , fld_name_orig = "original name"
+                          , fld_name_disp = "display name"
+                          , fld_desc = "descriptor"
+                          , fld_incl = "inclusion"
+                          , fld_folder = "source folder"
+                          , fld_file = "source file (or suffix)"
+                          , fld_colr = "color code"
+                          , fld_sort = "sort"
+                          , path_files = file.path(path_results, "_user_input")
+                          , tbl_name = "taxatrans")
+      df_report_taxatrans <- ls_report_taxatrans$data
+     # df_report_taxatrans <- cars
       
       
       ## Calc, 04, Excel ----
@@ -5538,8 +5551,6 @@ shinyServer(function(input, output) {
       unlink(path_results_user, recursive = TRUE) # includes directories
       
       
-      
-      
       stations_all <- unique(df_report_site[, pk_stations])
   
       ## create file for each station
@@ -5558,25 +5569,34 @@ shinyServer(function(input, output) {
         message(msg)
         
         # Update progress
-        prog_detail <- paste0("Calculation, Create Excel; ", s_num, "/", s_total)
+        prog_detail <- paste0("Calculation, Create Excel; "
+                              , s_num
+                              , "/"
+                              , s_total)
         message(paste0("\n", prog_detail))
         # Increment the progress bar, and update the detail text.
         incProgress(1/s_total/prog_n, detail = prog_detail)
         Sys.sleep(prog_sleep)
-        
-        
-        # Filter tables
-        df_report_summary_header_s <- df_report_summary_header %>%
-          filter(.data[[pk_stations]] == s)
-        df_report_summary_wide_s <- df_report_summary_wide
-        df_report_topindicator_s <- df_report_topindicator 
-        df_report_samples_s <- df_report_samples 
-        df_report_flags_s <- df_report_flags 
-        df_report_site_s <- df_report_site %>%
-          filter(.data[[pk_stations]] == s)
-        df_report_taxatrans_s <- df_report_taxatrans
-        
-
+     
+  
+      #### Munge Tables---
+      df_report_summary_header_s <- df_report_summary_header %>%
+        dplyr::filter(.data[[pk_stations]] == s) %>%
+        tidyr::pivot_longer(tidyr::everything()
+                            , values_transform = as.character)
+      df_report_summary_wide_s <- df_report_summary_wide
+      df_report_topindicator_s <- df_report_topindicator 
+      df_report_samples_s <- df_report_samples 
+      df_report_flags_s <- df_report_flags 
+      df_report_site_s <- df_report_site %>%
+        dplyr::filter(.data[[pk_stations]] == s) %>%
+        tidyr::pivot_longer(tidyr::everything()
+                            , values_transform = as.character)
+      df_report_taxatrans_s <- df_report_taxatrans
+      
+      # transposed df remove names
+      names(df_report_summary_header_s) <- c("", "")
+      names(df_report_site_s) <- c("", "")
       
       ### Excel, WB, Create----
       # Create WB
@@ -5590,8 +5610,10 @@ shinyServer(function(input, output) {
       openxlsx::addWorksheet(wb, "taxatrans")
       
       mySR <- 8 # number of rows to skip for new worksheets
+      mySR_trans <- 2 # for transposed df, skip worksheet title
       
-      ### Excel, Styles ----
+      ### Excel, Formatting ----
+      #### Excel, Formatting, Styles ----
       style_title <- openxlsx::createStyle(fontName = "Cambria"
                                            , fontSize = 18
                                            , fontColour = "#1F497D"
@@ -5621,59 +5643,59 @@ shinyServer(function(input, output) {
       # openxlsx::options("openxlsx.dateFormat" = "yyyy-mm-dd")
       # openxlsx::options("openxlsx.datetimeFormat" = "yyyy-mm-dd hh:mm:ss")
       
-      ### Excel, Cond Form, Styles ----
-      style_cf_ft_vcold          <- openxlsx::createStyle(bgFill = "#140AE6")
-      style_cf_ft_vcold_cold     <- openxlsx::createStyle(bgFill = "#0066FF")
-      style_cf_ft_tie_vcold_cold <- openxlsx::createStyle(bgFill = "#7B9BF5")
-      style_cf_ft_cold_vcold     <- openxlsx::createStyle(bgFill = "#0AE1EC")
-      style_cf_ft_cold           <- openxlsx::createStyle(bgFill = "#9AF3FC")
-      style_cf_ft_cold_cool      <- openxlsx::createStyle(bgFill = "#BEFEFB")
-      style_cf_ft_tie_cold_cool  <- openxlsx::createStyle(bgFill = "#DDFBFF")
-      style_cf_ft_cool_cold      <- openxlsx::createStyle(bgFill = "#C6FFB9")
-      style_cf_ft_cool           <- openxlsx::createStyle(bgFill = "#34FB25")
-      style_cf_ft_cool_warm      <- openxlsx::createStyle(bgFill = "#FFFF66")
-      style_cf_ft_tie_warm_cool  <- openxlsx::createStyle(bgFill = "#FFFFE5")
-      style_cf_ft_warm_cool      <- openxlsx::createStyle(bgFill = "#E4DFEC")
-      style_cf_ft_warm           <- openxlsx::createStyle(bgFill = "#FFC000")
-      style_cf_ft_na             <- openxlsx::createStyle(bgFill = "#808080")
-      style_cf_bcg_1             <- openxlsx::createStyle(bgFill = "blue")
-      style_cf_bcg_2             <- openxlsx::createStyle(bgFill = "green")
-      style_cf_bcg_3             <- openxlsx::createStyle(bgFill = "lightgreen")
-      style_cf_bcg_4             <- openxlsx::createStyle(bgFill = "gray")
-      style_cf_bcg_5             <- openxlsx::createStyle(bgFill = "orange")
-      style_cf_bcg_6             <- openxlsx::createStyle(bgFill = "red")
-      style_cf_bcg_na            <- openxlsx::createStyle(bgFill = "#808080")
-      style_cf_bdi_high          <- openxlsx::createStyle(bgFill = "blue")
-      style_cf_bdi_medium        <- openxlsx::createStyle(bgFill = "lightgreen")
-      style_cf_bdi_low           <- openxlsx::createStyle(bgFill = "gray")
-      style_cf_bdi_na            <- openxlsx::createStyle(bgFill = "#808080")
-      style_cf_mtti_vcold        <- openxlsx::createStyle(bgFill = "#00B0F0")
-      style_cf_mtti_cold         <- openxlsx::createStyle(bgFill = "#9AF3FC")
-      style_cf_mtti_cool         <- openxlsx::createStyle(bgFill = "#92D050")
-      style_cf_mtti_cool_warm    <- openxlsx::createStyle(bgFill = "#FFFF00")
-      style_cf_mtti_warm         <- openxlsx::createStyle(bgFill = "#FFC000")
-      style_cf_mtti_na           <- openxlsx::createStyle(bgFill = "#808080")
-      style_cf_bcg2_1            <- openxlsx::createStyle(bgFill = "blue")
-      style_cf_bcg2_2            <- openxlsx::createStyle(bgFill = "green")
-      style_cf_bcg2_2minus       <- openxlsx::createStyle(bgFill = "green")
-      style_cf_bcg2_tie_2_3      <- openxlsx::createStyle(bgFill = "darkgreen")
-      style_cf_bcg2_3plus        <- openxlsx::createStyle(bgFill = "lightgreen")
-      style_cf_bcg2_3            <- openxlsx::createStyle(bgFill = "lightgreen")
-      style_cf_bcg2_3minus       <- openxlsx::createStyle(bgFill = "lightgreen")
-      style_cf_bcg2_tie_3_4      <- openxlsx::createStyle(bgFill = "yellow")
-      style_cf_bcg2_4plus        <- openxlsx::createStyle(bgFill = "gray")
-      style_cf_bcg2_4            <- openxlsx::createStyle(bgFill = "gray")
-      style_cf_bcg2_4minus       <- openxlsx::createStyle(bgFill = "gray")
-      style_cf_bcg2_tie_4_5      <- openxlsx::createStyle(bgFill = "brown")
-      style_cf_bcg2_5plus        <- openxlsx::createStyle(bgFill = "orange")
-      style_cf_bcg2_5            <- openxlsx::createStyle(bgFill = "orange")
-      style_cf_bcg2_5minus       <- openxlsx::createStyle(bgFill = "orange")
-      style_cf_bcg2_tie_5_6      <- openxlsx::createStyle(bgFill = "purple")
-      style_cf_bcg2_6plus        <- openxlsx::createStyle(bgFill = "red")
-      style_cf_bcg2_6            <- openxlsx::createStyle(bgFill = "red")
-      style_cf_bcg2_na           <- openxlsx::createStyle(bgFill = "#808080")
+      #### Excel, Formatting, CF, Styles ----
+      style_cf_ft_vcold          <- openxlsx::createStyle(fgFill = "#140AE6")
+      style_cf_ft_vcold_cold     <- openxlsx::createStyle(fgFill = "#0066FF")
+      style_cf_ft_tie_vcold_cold <- openxlsx::createStyle(fgFill = "#7B9BF5")
+      style_cf_ft_cold_vcold     <- openxlsx::createStyle(fgFill = "#0AE1EC")
+      style_cf_ft_cold           <- openxlsx::createStyle(fgFill = "#9AF3FC")
+      style_cf_ft_cold_cool      <- openxlsx::createStyle(fgFill = "#BEFEFB")
+      style_cf_ft_tie_cold_cool  <- openxlsx::createStyle(fgFill = "#DDFBFF")
+      style_cf_ft_cool_cold      <- openxlsx::createStyle(fgFill = "#C6FFB9")
+      style_cf_ft_cool           <- openxlsx::createStyle(fgFill = "#34FB25")
+      style_cf_ft_cool_warm      <- openxlsx::createStyle(fgFill = "#FFFF66")
+      style_cf_ft_tie_warm_cool  <- openxlsx::createStyle(fgFill = "#FFFFE5")
+      style_cf_ft_warm_cool      <- openxlsx::createStyle(fgFill = "#E4DFEC")
+      style_cf_ft_warm           <- openxlsx::createStyle(fgFill = "#FFC000")
+      style_cf_ft_na             <- openxlsx::createStyle(fgFill = "#808080")
+      style_cf_bcg_1             <- openxlsx::createStyle(fgFill = "blue")
+      style_cf_bcg_2             <- openxlsx::createStyle(fgFill = "green")
+      style_cf_bcg_3             <- openxlsx::createStyle(fgFill = "lightgreen")
+      style_cf_bcg_4             <- openxlsx::createStyle(fgFill = "gray")
+      style_cf_bcg_5             <- openxlsx::createStyle(fgFill = "orange")
+      style_cf_bcg_6             <- openxlsx::createStyle(fgFill = "red")
+      style_cf_bcg_na            <- openxlsx::createStyle(fgFill = "#808080")
+      style_cf_bdi_high          <- openxlsx::createStyle(fgFill = "blue")
+      style_cf_bdi_medium        <- openxlsx::createStyle(fgFill = "lightgreen")
+      style_cf_bdi_low           <- openxlsx::createStyle(fgFill = "gray")
+      style_cf_bdi_na            <- openxlsx::createStyle(fgFill = "#808080")
+      style_cf_mtti_vcold        <- openxlsx::createStyle(fgFill = "#00B0F0")
+      style_cf_mtti_cold         <- openxlsx::createStyle(fgFill = "#9AF3FC")
+      style_cf_mtti_cool         <- openxlsx::createStyle(fgFill = "#92D050")
+      style_cf_mtti_cool_warm    <- openxlsx::createStyle(fgFill = "#FFFF00")
+      style_cf_mtti_warm         <- openxlsx::createStyle(fgFill = "#FFC000")
+      style_cf_mtti_na           <- openxlsx::createStyle(fgFill = "#808080")
+      style_cf_bcg2_1            <- openxlsx::createStyle(fgFill = "blue")
+      style_cf_bcg2_2            <- openxlsx::createStyle(fgFill = "green")
+      style_cf_bcg2_2minus       <- openxlsx::createStyle(fgFill = "green")
+      style_cf_bcg2_tie_2_3      <- openxlsx::createStyle(fgFill = "darkgreen")
+      style_cf_bcg2_3plus        <- openxlsx::createStyle(fgFill = "lightgreen")
+      style_cf_bcg2_3            <- openxlsx::createStyle(fgFill = "lightgreen")
+      style_cf_bcg2_3minus       <- openxlsx::createStyle(fgFill = "lightgreen")
+      style_cf_bcg2_tie_3_4      <- openxlsx::createStyle(fgFill = "yellow")
+      style_cf_bcg2_4plus        <- openxlsx::createStyle(fgFill = "gray")
+      style_cf_bcg2_4            <- openxlsx::createStyle(fgFill = "gray")
+      style_cf_bcg2_4minus       <- openxlsx::createStyle(fgFill = "gray")
+      style_cf_bcg2_tie_4_5      <- openxlsx::createStyle(fgFill = "brown")
+      style_cf_bcg2_5plus        <- openxlsx::createStyle(fgFill = "orange")
+      style_cf_bcg2_5            <- openxlsx::createStyle(fgFill = "orange")
+      style_cf_bcg2_5minus       <- openxlsx::createStyle(fgFill = "orange")
+      style_cf_bcg2_tie_5_6      <- openxlsx::createStyle(fgFill = "purple")
+      style_cf_bcg2_6plus        <- openxlsx::createStyle(fgFill = "red")
+      style_cf_bcg2_6            <- openxlsx::createStyle(fgFill = "red")
+      style_cf_bcg2_na           <- openxlsx::createStyle(fgFill = "#808080")
       
-      ### Excel, Cond Form, Rules ----
+      #### Excel, Formatting, CF, Rules ----
       cf_rule_ft_vcold          <- "VeryCold"
       cf_rule_ft_vcold_cold     <- "VCold_Cold"
       cf_rule_ft_tie_vcold_cold <- "TIE_VCold_Cold"
@@ -5725,8 +5747,8 @@ shinyServer(function(input, output) {
       cf_rule_bcg2_6            <- '="6"'
       cf_rule_bcg2_na           <- '="NA"'
       
-   
-      ### Excel, WS, data, NOTES----
+      ### Excel, WS, data ----
+      #### Excel, WS, data, NOTES----
       openxlsx::writeData(wb
                           , sheet = "NOTES"
                           , x = notes_head
@@ -5741,54 +5763,113 @@ shinyServer(function(input, output) {
                                , colNames = TRUE
                                , tableStyle = "TableStyleMedium9")
       
-      openxlsx::addStyle(wb, sheet = "NOTES", rows = 1, cols = 1, style = style_title)
-      openxlsx::addStyle(wb, sheet = "NOTES", rows = 2, cols = 1, style = style_h1)
-      openxlsx::addStyle(wb, sheet = "NOTES", rows = 4, cols = 1, style = style_hyperlink)
-      openxlsx::addStyle(wb, sheet = "NOTES", rows = 5, cols = 1, style = style_date)
-      openxlsx::addStyle(wb, sheet = "NOTES", rows = 7:9, cols = 1, style = style_bold)
-      openxlsx::addStyle(wb, sheet = "NOTES", rows = 11, cols = 1, style = style_h2)
+      openxlsx::addStyle(wb
+                         , sheet = "NOTES"
+                         , rows = 1
+                         , cols = 1
+                         , style = style_title)
+      openxlsx::addStyle(wb
+                         , sheet = "NOTES"
+                         , rows = 2
+                         , cols = 1
+                         , style = style_h1)
+      openxlsx::addStyle(wb
+                         , sheet = "NOTES"
+                         , rows = 4
+                         , cols = 1
+                         , style = style_hyperlink)
+      openxlsx::addStyle(wb
+                         , sheet = "NOTES"
+                         , rows = 5
+                         , cols = 1
+                         , style = style_date)
+      openxlsx::addStyle(wb
+                         , sheet = "NOTES"
+                         , rows = 7:9
+                         , cols = 1
+                         , style = style_bold)
+      openxlsx::addStyle(wb
+                         , sheet = "NOTES"
+                         , rows = 11
+                         , cols = 1
+                         , style = style_h2)
       
-      # Set width of Column A and B
       
       
-      
-      ### Excel, WS, data, Summary, Header ----
+      #### Excel, WS, data, Summary, Header ----
+      # transposed
       openxlsx::writeData(wb
                           , sheet = "summary"
                           , x = df_report_summary_header_s
                           , startCol = 1
-                          , startRow = mySR
+                          , startRow = mySR_trans)
+      
+      #### Excel, WS, data, Summary, Color Thresholds ----
+      mySC_colthresh <- 8
+      # Title
+      openxlsx::writeData(wb
+                          , sheet = "summary"
+                          , x = "Color Code Thresholds"
+                          , startCol = mySC_colthresh
+                          , startRow = 1)
+      # Title Style
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 1
+                         , cols = mySC_colthresh:(mySC_colthresh + ncol(df_col_thresh))
+                         , style = style_h2)
+      # Body
+      openxlsx::writeData(wb
+                          , sheet = "summary"
+                          , x = df_col_thresh
+                          , startCol = mySC_colthresh
+                          , startRow = 2
                           , headerStyle = style_bold)
       
-      ### Excel, WS, data, Summary, Wide ----
+     
+      #### Excel, WS, data, Summary, Wide ----
+      # below transposed header
+      mySF_summmary_wide <- mySR_trans +
+                                    nrow(df_report_summary_header_s) +
+                                    2
+      openxlsx::writeData(wb
+                    , sheet = "summary"
+                    , x = df_report_summary_wide_s
+                    , startCol = 1
+                    , startRow = mySF_summmary_wide
+                    , headerStyle = style_bold
+                    , withFilter = TRUE)
       
-      
-      ### Excel, WS, data, Top Indicator ----
+      #### Excel, WS, data, Top Indicator ----
       openxlsx::writeData(wb
                           , sheet = "topindicator"
                           , x = df_report_topindicator_s
                           , startCol = 1
                           , startRow = mySR
-                          , headerStyle = style_bold)
+                          , headerStyle = style_bold
+                          , withFilter = TRUE)
       
-      ### Excel, WS, data, Samples ----
+      #### Excel, WS, data, Samples ----
+      # transposed
       openxlsx::writeData(wb
                           , sheet = "samples"
                           , x = df_report_samples_s
                           , startCol = 1
                           , startRow = mySR
-                          , headerStyle = style_bold)
+                          , headerStyle = style_bold
+                          , withFilter = TRUE)
       
       
-      ### Excel, WS, data, Flags ----
+      #### Excel, WS, data, Flags ----
       openxlsx::writeData(wb
                           , sheet = "flags"
                           , x = df_report_flags_s
                           , startCol = 1
                           , startRow = mySR
-                          , headerStyle = style_bold)
+                          , headerStyle = style_bold
+                          , withFilter = TRUE)
       
-      ### Excel, WS, data, Site ----
+      #### Excel, WS, data, Site ----
       openxlsx::writeData(wb
                           , sheet = "site"
                           , x = df_report_site_s
@@ -5796,60 +5877,313 @@ shinyServer(function(input, output) {
                           , startRow = mySR
                           , headerStyle = style_bold)
       
-      ### Excel, WS, data, Taxa Trans ----
+      #### Excel, WS, data, Taxa Trans ----
       openxlsx::writeData(wb
                           , sheet = "taxatrans"
                           , x = df_report_taxatrans_s
                           , startCol = 1
                           , startRow = mySR
-                          , headerStyle = style_bold)
+                          , headerStyle = style_bold
+                          , withFilter = TRUE)
       
       ### Excel, Freeze Panes----
-      openxlsx::freezePane(wb, sheet = "summary", firstActiveRow = mySR + 1)
-      openxlsx::freezePane(wb, sheet = "topindicator", firstActiveRow = mySR + 1)
-      openxlsx::freezePane(wb, sheet = "samples", firstActiveRow = mySR + 1)
-      openxlsx::freezePane(wb, sheet = "flags", firstActiveRow = mySR + 1)
-      openxlsx::freezePane(wb, sheet = "site", firstActiveRow = mySR + 1)
-      openxlsx::freezePane(wb, sheet = "taxatrans", firstActiveRow = mySR + 1)
+      openxlsx::freezePane(wb
+                           , sheet = "summary"
+                           , firstActiveRow = mySF_summmary_wide + 1)
+      openxlsx::freezePane(wb
+                           , sheet = "topindicator"
+                           , firstActiveRow = mySR + 1)
+      openxlsx::freezePane(wb
+                           , sheet = "samples"
+                           , firstActiveRow = mySR + 1)
+      openxlsx::freezePane(wb
+                           , sheet = "flags"
+                           , firstActiveRow = mySR + 1)
+      openxlsx::freezePane(wb, sheet = "site"
+                           , firstActiveRow = mySR + 1)
+      openxlsx::freezePane(wb
+                           , sheet = "taxatrans"
+                           , firstActiveRow = mySR + 1)
       
-      ### Excel, Auto-Filter
-      openxlsx::addFilter(wb, sheet = "summary", rows = mySR, cols = 1:ncol(df_report_summary_wide))
-      openxlsx::addFilter(wb, sheet = "topindicator", rows = mySR, cols = 1:ncol(df_report_topindicator))
-      openxlsx::addFilter(wb, sheet = "samples", rows = mySR, cols = 1:ncol(df_report_samples))
-      openxlsx::addFilter(wb, sheet = "flags", rows = mySR, cols = 1:ncol(df_report_flags))
-      openxlsx::addFilter(wb, sheet = "site", rows = mySR, cols = 1:ncol(df_report_site))
-      openxlsx::addFilter(wb, sheet = "taxatrans", rows = mySR, cols = 1:ncol(df_report_taxatrans))
+      ### Excel, Auto-Filter----
+      # Add with writeData
+      # 
+      # openxlsx::addFilter(wb
+      #                     , sheet = "summary"
+      #                     , rows = mySR
+      #                     , cols = 1:ncol(df_report_summary_wide))
+      # openxlsx::addFilter(wb
+      #                     , sheet = "topindicator"
+      #                     , rows = mySR
+      #                     , cols = 1:ncol(df_report_topindicator))
+      # openxlsx::addFilter(wb
+      #                     , sheet = "samples"
+      #                     , rows = mySR
+      #                     , cols = 1:ncol(df_report_samples))
+      # openxlsx::addFilter(wb
+      #                     , sheet = "flags"
+      #                     , rows = mySR
+      #                     , cols = 1:ncol(df_report_flags))
+      # openxlsx::addFilter(wb
+      #                     , sheet = "site"
+      #                     , rows = mySR
+      #                     , cols = 1:ncol(df_report_site))
+      # openxlsx::addFilter(wb
+      #                     , sheet = "taxatrans"
+      #                     , rows = mySR
+      #                     , cols = 1:ncol(df_report_taxatrans))
       
       
       
       ### Excel, WS Name to A1 ----
       # name
-      openxlsx::writeData(wb, sheet = "summary", x = "summary", startCol = 1, startRow = 1)
-      openxlsx::writeData(wb, sheet = "topindicator", x = "topindicator", startCol = 1, startRow = 1)
-      openxlsx::writeData(wb, sheet = "samples", x = "samples", startCol = 1, startRow = 1)
-      openxlsx::writeData(wb, sheet = "flags", x = "flags", startCol = 1, startRow = 1)
-      openxlsx::writeData(wb, sheet = "site", x = "site", startCol = 1, startRow = 1)
-      openxlsx::writeData(wb, sheet = "taxatrans", x = "taxatrans", startCol = 1, startRow = 1)
+      openxlsx::writeData(wb
+                          , sheet = "summary"
+                          , x = "summary"
+                          , startCol = 1
+                          , startRow = 1)
+      openxlsx::writeData(wb
+                          , sheet = "topindicator"
+                          , x = "topindicator"
+                          , startCol = 1
+                          , startRow = 1)
+      openxlsx::writeData(wb
+                          , sheet = "samples"
+                          , x = "samples"
+                          , startCol = 1
+                          , startRow = 1)
+      openxlsx::writeData(wb
+                          , sheet = "flags"
+                          , x = "flags"
+                          , startCol = 1
+                          , startRow = 1)
+      openxlsx::writeData(wb
+                          , sheet = "site"
+                          , x = "site"
+                          , startCol = 1
+                          , startRow = 1)
+      openxlsx::writeData(wb
+                          , sheet = "taxatrans"
+                          , x = "taxatrans"
+                          , startCol = 1
+                          , startRow = 1)
       # style
-      openxlsx::addStyle(wb, sheet = "summary", rows = 1, cols = 1:4, style = style_h1)
-      openxlsx::addStyle(wb, sheet = "topindicator", rows = 1, cols = 1:4, style = style_h1)
-      openxlsx::addStyle(wb, sheet = "samples", rows = 1, cols = 1:4, style = style_h1)
-      openxlsx::addStyle(wb, sheet = "flags", rows = 1, cols = 1:4, style = style_h1)
-      openxlsx::addStyle(wb, sheet = "site", rows = 1, cols = 1:4, style = style_h1)
-      openxlsx::addStyle(wb, sheet = "taxatrans", rows = 1, cols = 1:4, style = style_h1)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 1
+                         , cols = 1:4
+                         , style = style_h1)
+      openxlsx::addStyle(wb
+                         , sheet = "topindicator"
+                         , rows = 1
+                         , cols = 1:4
+                         , style = style_h1)
+      openxlsx::addStyle(wb
+                         , sheet = "samples"
+                         , rows = 1
+                         , cols = 1:4
+                         , style = style_h1)
+      openxlsx::addStyle(wb
+                         , sheet = "flags"
+                         , rows = 1
+                         , cols = 1:4
+                         , style = style_h1)
+      openxlsx::addStyle(wb
+                         , sheet = "site"
+                         , rows = 1
+                         , cols = 1:4
+                         , style = style_h1)
+      openxlsx::addStyle(wb
+                         , sheet = "taxatrans"
+                         , rows = 1
+                         , cols = 1:4
+                         , style = style_h1)
       
+      ### Excel, Apply Style ----
+      
+      # NOTES, Named Range
+      openxlsx::createNamedRegion(wb
+                                  , sheet = "NOTES"
+                                  , name = "FileName"
+                                  , rows = 8
+                                  , cols = 2)
+      
+
+      # summary, Color Thresholds
+      ## NA to all
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 3:7
+                         , cols = 8:17
+                         , style = style_cf_ft_na
+                         , gridExpand = TRUE)
+      # MTTI
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 3
+                         , cols = 8
+                         , style = style_cf_mtti_vcold
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 4
+                         , cols = 8
+                         , style = style_cf_mtti_cold
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 5
+                         , cols = 8
+                         , style = style_cf_mtti_cool
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 6
+                         , cols = 8
+                         , style = style_cf_mtti_cool_warm
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 7
+                         , cols = 8
+                         , style = style_cf_ft_warm
+                         , gridExpand = TRUE)
+      # thermal metrics
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 3
+                         , cols = c(10:11, 12, 13:15, 17)
+                         , style = style_cf_ft_vcold_cold
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 4
+                         , cols = c(10, 11, 12, 13:15, 17)
+                         , style = style_cf_ft_cold
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 5
+                         , cols = c(11, 12, 13, 14, 15, 17)
+                         , style = style_cf_ft_cool
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 6
+                         , cols = c(11:15, 17)
+                         , style = style_cf_ft_tie_warm_cool
+                         , gridExpand = TRUE)
+      openxlsx::addStyle(wb
+                         , sheet = "summary"
+                         , rows = 7
+                         , cols = c(15:17)
+                         , style = style_cf_ft_warm
+                         , gridExpand = TRUE)
+      
+      
+ 
       ### Excel, col width ----
-      # doesn't seem to work
-      # openxlsx::setColWidths(wb, sheet = "summary", cols = 1:ncol(df_report_summary_wide), widths = "auto")
-      # openxlsx::setColWidths(wb, sheet = "topindicator", cols = 1:ncol(df_report_topindicator), widths = "auto")
-      # openxlsx::setColWidths(wb, sheet = "samples", cols = 1:ncol(df_report_samples), widths = "auto")
-      # openxlsx::setColWidths(wb, sheet = "flags", cols = 1:ncol(df_report_flags), widths = "auto")
-      # openxlsx::setColWidths(wb, sheet = "site", cols = 1:ncol(df_report_site), widths = "auto")
-      # openxlsx::setColWidths(wb, sheet = "taxatrans", cols = 1:ncol(df_report_taxatrans), widths = "auto")
+      # "auto" doesn't seem to work as it only looks at the first row
+      # add 2 for filter
+      widths_val_filt <- 3
+      widths_val_min <- 6
+    # not quite right but close enough
+    # not sure if getting proper names() for widths
+      
+      #NOTES
+      widths_notes <- c(23, 39, 23)
+      openxlsx::setColWidths(wb   
+                             , sheet = "NOTES"
+                             , cols = seq_len(length(widths_notes))
+                             , widths = widths_notes)
+      
+    
+      df_widths <- df_report_summary_wide_s
+      widths_min <- rep(widths_val_min, ncol(df_widths))
+      widths_df <- unlist(lapply(df_widths, function(x) max(nchar(x), na.rm = TRUE)))
+      widths_names <- unlist(lapply(names(df_widths), function(x) max(nchar(x), na.rm = TRUE)))
+      widths_excel <- pmax(widths_min
+                           , widths_df
+                           , widths_names
+                           , na.rm = TRUE) + widths_val_filt
+      openxlsx::setColWidths(wb
+                             , sheet = "summary"
+                             , cols = seq_len(ncol(df_widths))
+                             , widths = widths_excel)
+      rm(df_widths)
+      
+      df_widths <- df_report_topindicator_s
+      widths_min <- rep(widths_val_min, ncol(df_widths))
+      widths_df <- unlist(lapply(df_widths, function(x) max(nchar(x), na.rm = TRUE)))
+      widths_names <- unlist(lapply(names(df_widths), function(x) max(nchar(x), na.rm = TRUE)))
+      widths_excel <- pmax(widths_min
+                           , widths_df
+                           , widths_names
+                           , na.rm = TRUE) + widths_val_filt
+      openxlsx::setColWidths(wb
+                             , sheet = "topindicator"
+                             , cols = seq_len(ncol(df_widths))
+                             , widths = widths_excel)
+      rm(df_widths)
+
+      df_widths <- df_report_samples_s
+      widths_min <- rep(widths_val_min, ncol(df_widths))
+      widths_df <- unlist(lapply(df_widths, function(x) max(nchar(x), na.rm = TRUE)))
+      widths_names <- unlist(lapply(names(df_widths), function(x) max(nchar(x), na.rm = TRUE)))
+      widths_excel <- pmax(widths_min
+                           , widths_df
+                           , widths_names
+                           , na.rm = TRUE) + widths_val_filt
+      openxlsx::setColWidths(wb
+                             , sheet = "samples"
+                             , cols = seq_len(ncol(df_widths))
+                             , widths = widths_excel)
+      rm(df_widths)
+      
+      df_widths <- df_report_flags_s
+      widths_min <- rep(widths_val_min, ncol(df_widths))
+      widths_df <- unlist(lapply(df_widths, function(x) max(nchar(x), na.rm = TRUE)))
+      widths_names <- unlist(lapply(names(df_widths), function(x) max(nchar(x), na.rm = TRUE)))
+      widths_excel <- pmax(widths_min
+                           , widths_df
+                           , widths_names
+                           , na.rm = TRUE) + widths_val_filt
+      openxlsx::setColWidths(wb
+                             , sheet = "flags"
+                             , cols = seq_len(ncol(df_widths))
+                             , widths = widths_excel)
+      
+      df_widths <- df_report_site_s
+      widths_min <- rep(widths_val_min, ncol(df_widths))
+      widths_df <- unlist(lapply(df_widths, function(x) max(nchar(x), na.rm = TRUE)))
+      widths_names <- unlist(lapply(names(df_widths), function(x) max(nchar(x), na.rm = TRUE)))
+      widths_excel <- pmax(widths_min
+                           , widths_df
+                           , widths_names
+                           , na.rm = TRUE) + widths_val_filt
+      openxlsx::setColWidths(wb
+                             , sheet = "site"
+                             , cols = seq_len(ncol(df_widths))
+                             , widths = widths_excel)
+      rm(df_widths)
+     
+      df_widths <- df_report_taxatrans_s
+      widths_min <- rep(widths_val_min, ncol(df_widths))
+      widths_df <- unlist(lapply(df_widths, function(x) max(nchar(x), na.rm = TRUE)))
+      widths_names <- unlist(lapply(names(df_widths), function(x) max(nchar(x), na.rm = TRUE)))
+      widths_excel <- pmax(widths_min
+                           , widths_df
+                           , widths_names
+                           , na.rm = TRUE) + widths_val_filt
+      openxlsx::setColWidths(wb
+                             , sheet = "taxatrans"
+                             , cols = seq_len(ncol(df_widths))
+                             , widths = widths_excel)
+      rm(df_widths)
 
       ### Excel, Conditional Formatting----
       
-      #### CF, Fuzzy Thermal----
+      #### Excel, CF, Fuzzy Thermal----
       # conditionalFormatting(wb, "Fuzzy_Thermal"
       #                       , cols = 2
       #                       , rows = (mySR + 1):(mySR + nrow(df_ft))
@@ -5921,7 +6255,7 @@ shinyServer(function(input, output) {
       #                       , rule = '="NA"'
       #                       , style = style_cf_ft_na)
       #
-      #### CF, BCG----
+      #### Excel, CF, BCG----
       # conditionalFormatting(wb, "BCG"
       #                       , cols = 2
       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg))
@@ -5959,7 +6293,7 @@ shinyServer(function(input, output) {
       #                       , rule = '="NA"'
       #                       , style = style_cf_bcg_na)
       #
-      #### CF, BDI----
+      #### Excel, CF, BDI----
       #
       # conditionalFormatting(wb, "BDI"
       #                       , cols = 2
@@ -5983,40 +6317,44 @@ shinyServer(function(input, output) {
       #                       , style = style_cf_bdi_na)
       #
       #
-      #### CF, MTTI----
-      # conditionalFormatting(wb, "MTTI"
-      #                       , cols = 2
-      #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
-      #                       , rule = '="Very cold"'
+#  browser()
+      #### Excel, CF, summary, MTTI----
+      df_cf <- df_report_summary_wide_s
+      cols_cf <- match("MTTI", names(df_cf)) 
+      rows_cf <- (mySR + 1):(mySR + nrow(df_cf))
+      # conditionalFormatting(wb, "summary"
+      #                       , cols = cols_cf
+      #                       , rows = df_cf
+      #                       , rule = '<16'
       #                       , style = style_cf_mtti_vcold)
-      # conditionalFormatting(wb, "MTTI"
-      #                       , cols = 2
-      #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
-      #                       , rule = '="Cold"'
+      # conditionalFormatting(wb, "summary"
+      #                       , cols = cols_cf
+      #                       , rows = df_cf
+      #                       , rule = '<19'
       #                       , style = style_cf_mtti_cold)
-      # conditionalFormatting(wb, "MTTI"
-      #                       , cols = 2
-      #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
-      #                       , rule = '="Cool"'
+      # conditionalFormatting(wb, "summary"
+      #                       , cols = cols_cf
+      #                       , rows = df_cf
+      #                       , rule = '<21'
       #                       , style = style_cf_mtti_cool)
-      # conditionalFormatting(wb, "MTTI"
-      #                       , cols = 2
-      #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
-      #                       , rule = '="Cool/warm"'
+      # conditionalFormatting(wb, "summary"
+      #                       , cols = cols_cf
+      #                       , rows = df_cf
+      #                       , rule = '<23'
       #                       , style = style_cf_mtti_cool_warm)
-      # conditionalFormatting(wb, "MTTI"
-      #                       , cols = 2
-      #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
-      #                       , rule = '="Warm"'
+      # conditionalFormatting(wb, "summary"
+      #                       , cols = cols_cf
+      #                       , rows = df_cf
+      #                       , rule = '>=23'
       #                       , style = style_cf_mtti_warm)
-      # conditionalFormatting(wb, "MTTI"
-      #                       , cols = 2
-      #                       , rows = (mySR + 1):(mySR + nrow(df_mtti))
+      # conditionalFormatting(wb, "summary"
+      #                       , cols = cols_cf
+      #                       , rows = df_cf
       #                       , rule = '="NA"'
       #                       , style = style_cf_mtti_na)
       #
       #
-      #### CF, BCG2----
+      #### Excel, CF, BCG2----
       # conditionalFormatting(wb, "BCG2"
       #                       , cols = 2
       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))

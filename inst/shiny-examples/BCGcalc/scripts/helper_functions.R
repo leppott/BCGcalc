@@ -91,7 +91,8 @@ build_report_table <- function(df_template_data
     path_results_user <- file.path(path_results, dn_files_input)
     #
     path_files = file.path("results", "_user_input")
-    tbl_name <- "topindicator"
+    # tbl_name <- "topindicator"
+    tbl_name <- "taxatrans"
     #
     # copy from clipboard
     df_template_data <- read.delim("clipboard")
@@ -101,7 +102,7 @@ build_report_table <- function(df_template_data
                                  , "inclusion"
                                  , "source folder"
                                  , "source file (or suffix)"
-                                 , "color"
+                                 , "color code"
                                  , "sort"
                                  , "notes")
     fld_name_orig    <- names(df_template_data)[1]
@@ -216,7 +217,7 @@ build_report_table <- function(df_template_data
     
     i_exists <- df_import_files[i, fld_exists, TRUE]
     if (i_exists == FALSE) {
-      skip
+      next
     }## IF ~ i_exists
     
     i_file <- df_import_files[i, fld_file, TRUE]

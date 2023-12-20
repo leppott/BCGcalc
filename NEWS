@@ -1,11 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-19 11:18:29.25482
+2023-12-20 17:45:57.183284
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-19 11:18:29.284286
+    #> Last Update: 2023-12-20 17:45:57.221885
+
+# BCGcalc 2.0.0.9128 (2023-12-20)
+
+- refactor: Modify Shiny single report
+  - Add taxatrans table
+  - Verify sorting of tables by user selections
+  - Add summary color thresholds
+  - Color summary color thresholds
+  - Set column widths
+  - update formulas on NOTES
 
 # BCGcalc 2.0.0.9127 (2023-12-19)
 

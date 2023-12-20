@@ -21,6 +21,16 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9128 (2023-12-20)
+
+* refactor: Modify Shiny single report
+   + Add taxatrans table
+   + Verify sorting of tables by user selections
+   + Add summary color thresholds 
+   + Color summary color thresholds
+   + Set column widths
+   + update formulas on NOTES
+
 # BCGcalc 2.0.0.9127 (2023-12-19)
 
 * refactor: Modify Shiny single report

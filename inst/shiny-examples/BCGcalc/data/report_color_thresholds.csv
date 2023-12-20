@@ -1,0 +1,6 @@
+MTTI,ThermClass,nt_ti_stenocold,nt_ti_stenocold_cold,nt_ti_stenocold_cold_cool,pt_ti_stenocold_cold_cool,pi_ti_stenocold_cold_cool,pt_ti_warm_stenowarm,nt_ti_stenowarm,NARRATIVE
+< 16,,>= 3,>= 10,>= 30,>= 65,>= 55,< 5,--,Core cold
+< 19,,>= 1,>= 5,>= 25,>= 50,>= 40,< 10,--,Cold. Salmon and steelhead rearing
+< 21,,--,>= 3,>= 20,>= 35,>= 30,< 15,--,Cool. Inland resident trout and cool water fish species (non-salmonid)
+< 23,,--,>= 1,>= 9,>= 20,>= 10,< 40,--,Transitional Cool-Warm
+>= 23,,--,--,--,--,--,>= 40,>= 2,Very Warm
