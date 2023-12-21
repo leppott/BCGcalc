@@ -14,8 +14,7 @@ function() {
        , h4("B. Define Community (for metrics).")
        , selectInput("si_community"
                      , label = "Community"
-                     , choices = sel_community
-                     , selected = "bugs")
+                     , choices = c("", sel_community))
        
        , h4("C. Mark Redundant (Non-Distinct) Taxa")
        , includeHTML(file.path("www", "rmd_html", "ShinyHTML_RedundantTaxa.html"))

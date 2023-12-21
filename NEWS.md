@@ -1,11 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-20 17:45:57.183284
+2023-12-21 15:28:45.833168
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-20 17:45:57.221885
+    #> Last Update: 2023-12-21 15:28:45.859058
+
+# BCGcalc 2.0.0.9129 (2023-12-21)
+
+- refactor: Modify Shiny single report
+  - Properly filter for singe station for every worksheet
+  - Modify freeze panes for summary wide
+- refactor: Calculation community buttons to default to NA
+  - calc_BCG
+  - calc_thermalfuzzy
+  - calc_thermalmetrics
 
 # BCGcalc 2.0.0.9128 (2023-12-20)
 

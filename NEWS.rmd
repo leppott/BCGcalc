@@ -21,6 +21,16 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9129 (2023-12-21)
+
+* refactor: Modify Shiny single report
+    + Properly filter for singe station for every worksheet
+    + Modify freeze panes for summary wide
+* refactor: Calculation community buttons to default to NA
+    + calc_BCG
+    + calc_thermalfuzzy
+    + calc_thermalmetrics
+
 # BCGcalc 2.0.0.9128 (2023-12-20)
 
 * refactor: Modify Shiny single report

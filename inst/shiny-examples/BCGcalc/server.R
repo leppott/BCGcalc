@@ -5362,6 +5362,15 @@ shinyServer(function(input, output) {
       # import each file
       # Check for column in file
       df_template_sourcefiles[, "exist_col"] <- NA
+      
+      ### Primary Keys ----
+      pk_stations <- df_template_other[df_template_other[, "file"] == "Stations"
+                                       , "primarykey"
+                                       , TRUE]
+      pk_samples <- df_template_other[df_template_other[, "file"] == "Sample"
+                                      , "primarykey"
+                                      , TRUE]
+
  
       ## Calc, 03, Data ----
       prog_detail <- "Calculation, Create Data Tables"
@@ -5414,10 +5423,13 @@ shinyServer(function(input, output) {
       
       # compile each in a helper script
  
-      # Get stations
-      pk_stations <- df_template_other[df_template_other[, "file"] == "Stations"
-                                       , "primarykey"
-                                       , TRUE]
+      # # Get stations
+      # pk_stations <- df_template_other[df_template_other[, "file"] == "Stations"
+      #                                  , "primarykey"
+      #                                  , TRUE]
+      # pk_samples <- df_template_other[df_template_other[, "file"] == "Sample"
+      #                                  , "primarykey"
+      #                                  , TRUE]
 
       # zip file extracted to "results/_user_input"
       
@@ -5530,6 +5542,110 @@ shinyServer(function(input, output) {
       df_report_taxatrans <- ls_report_taxatrans$data
      # df_report_taxatrans <- cars
       
+      ### Data, SampID ----
+      # Check and Fail if not present
+     
+      # SampID_summary_wide
+      tbl_name <- "summary_wide"
+      df_check_sampid <- df_report_summary_wide
+      boo_sampid <- toupper(pk_samples) %in% toupper(names(df_check_sampid))
+      if (boo_sampid == FALSE) {
+        # end process with pop up
+        msg <- paste("REQUIRED column (SampleID) missing!"
+                      , paste0("Table: ", tbl_name)
+                      , paste0("Value: ", pk_samples)
+                      , sep = "\n\n" )
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        # shiny::validate(msg)
+      }## IF ~ boo_sampID ~ summary
+      col_sampid_summary_wide <- names(df_check_sampid)[match(toupper(pk_samples), toupper(names(df_check_sampid)))]
+      
+      # SampID_topindicator
+      tbl_name <- "topindicator"
+      df_check_sampid <- df_report_topindicator
+      boo_sampid <- toupper(pk_samples) %in% toupper(names(df_check_sampid))
+      if (boo_sampid == FALSE) {
+        # end process with pop up
+        msg <- paste("REQUIRED column (SampleID) missing!"
+                     , paste0("Table: ", tbl_name)
+                     , paste0("Value: ", pk_samples)
+                     , sep = "\n\n" )
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        # shiny::validate(msg)
+      }## IF ~ boo_sampID ~ topindicator
+      col_sampid_topindicator <- names(df_check_sampid)[match(toupper(pk_samples), toupper(names(df_check_sampid)))]
+      
+      # SampID_samples
+      tbl_name <- "samples"
+      df_check_sampid <- df_report_samples
+      boo_sampid <- toupper(pk_samples) %in% toupper(names(df_check_sampid))
+      if (boo_sampid == FALSE) {
+        # end process with pop up
+        msg <- paste("REQUIRED column (SampleID) missing!"
+                     , paste0("Table: ", tbl_name)
+                     , paste0("Value: ", pk_samples)
+                     , sep = "\n\n" )
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        # shiny::validate(msg)
+      }## IF ~ boo_sampID ~ samples
+      col_sampid_samples <- names(df_check_sampid)[match(toupper(pk_samples), toupper(names(df_check_sampid)))]
+      
+      # SampID_flags
+      tbl_name <- "flags"
+      df_check_sampid <- df_report_flags
+      boo_sampid <- toupper(pk_samples) %in% toupper(names(df_check_sampid))
+      if (boo_sampid == FALSE) {
+        # end process with pop up
+        msg <- paste("REQUIRED column (SampleID) missing!"
+                     , paste0("Table: ", tbl_name)
+                     , paste0("Value: ", pk_samples)
+                     , sep = "\n\n" )
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        # shiny::validate(msg)
+      }## IF ~ boo_sampID ~ flags
+      col_sampid_flags <- names(df_check_sampid)[match(toupper(pk_samples), toupper(names(df_check_sampid)))]
+      
+      
+      # SampID_site
+      # not needed for this table
+      
+      # SampID_taxatrans
+      # not needed for this table
+      
+      # StatID_summary_wide
+      tbl_name <- "summary_wide"
+      df_check_sampid <- df_report_summary_wide
+      boo_statid <- toupper(pk_stations) %in% toupper(names(df_check_sampid))
+      if (boo_sampid == FALSE) {
+        # end process with pop up
+        msg <- paste("REQUIRED column (StationID) missing!"
+                     , paste0("Table: ", tbl_name)
+                     , paste0("Value: ", pk_samples)
+                     , sep = "\n\n" )
+        shinyalert::shinyalert(title = "Report"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        # shiny::validate(msg)
+      }## IF ~ boo_statid ~ summary
+      col_statid_summary_wide <- names(df_check_sampid)[match(toupper(pk_stations), toupper(names(df_check_sampid)))]
       
       ## Calc, 04, Excel ----
       prog_detail <- "Calculation, Create Excel"
@@ -5554,7 +5670,7 @@ shinyServer(function(input, output) {
       stations_all <- unique(df_report_site[, pk_stations])
   
       ## create file for each station
-      s <- stations_all[1] #QC
+      #s <- stations_all[1] #QC
       
       for (s in stations_all) {
 
@@ -5577,21 +5693,37 @@ shinyServer(function(input, output) {
         # Increment the progress bar, and update the detail text.
         incProgress(1/s_total/prog_n, detail = prog_detail)
         Sys.sleep(prog_sleep)
-     
-  
+ 
       #### Munge Tables---
+      # filter for current station
+      # use table specific SampleID
+
       df_report_summary_header_s <- df_report_summary_header %>%
         dplyr::filter(.data[[pk_stations]] == s) %>%
         tidyr::pivot_longer(tidyr::everything()
                             , values_transform = as.character)
-      df_report_summary_wide_s <- df_report_summary_wide
-      df_report_topindicator_s <- df_report_topindicator 
-      df_report_samples_s <- df_report_samples 
-      df_report_flags_s <- df_report_flags 
+
+      df_report_summary_wide_s <- df_report_summary_wide %>%
+        dplyr::filter(.data[[col_statid_summary_wide]] == s)
+    
+      # Samples for current Stations
+      s_samps <- df_report_summary_wide_s %>%
+        dplyr::pull(.data[[col_sampid_summary_wide]])
+      
+      df_report_topindicator_s <- df_report_topindicator  %>%
+        dplyr::filter(.data[[col_sampid_topindicator]] %in% s_samps)
+      
+      df_report_samples_s <- df_report_samples  %>%
+        dplyr::filter(.data[[col_sampid_samples]] %in% s_samps)
+      
+      df_report_flags_s <- df_report_flags  %>%
+        dplyr::filter(.data[[col_sampid_flags]] %in% s_samps)
+      
       df_report_site_s <- df_report_site %>%
         dplyr::filter(.data[[pk_stations]] == s) %>%
         tidyr::pivot_longer(tidyr::everything()
                             , values_transform = as.character)
+      
       df_report_taxatrans_s <- df_report_taxatrans
       
       # transposed df remove names
@@ -5638,6 +5770,7 @@ shinyServer(function(input, output) {
                                                , textDecoration = "underline")
       style_bold <- openxlsx::createStyle(textDecoration = "bold")
       style_date <- openxlsx::createStyle(numFmt = "DATE")
+      style_halign_center <- openxlsx::createStyle(halign = "center")
       
       # options not exportable
       # openxlsx::options("openxlsx.dateFormat" = "yyyy-mm-dd")
@@ -5889,7 +6022,8 @@ shinyServer(function(input, output) {
       ### Excel, Freeze Panes----
       openxlsx::freezePane(wb
                            , sheet = "summary"
-                           , firstActiveRow = mySF_summmary_wide + 1)
+                           , firstActiveRow = mySF_summmary_wide + 1
+                           , firstActiveCol = "E")
       openxlsx::freezePane(wb
                            , sheet = "topindicator"
                            , firstActiveRow = mySR + 1)
@@ -6010,6 +6144,13 @@ shinyServer(function(input, output) {
       
 
       # summary, Color Thresholds
+      ## Center justify to all but last col
+      # openxlsx::addStyle(wb
+      #                    , sheet = "summary"
+      #                    , rows = 3:7
+      #                    , cols = 8:16
+      #                    , style = style_halign_center
+      #                    , gridExpand = TRUE)
       ## NA to all
       openxlsx::addStyle(wb
                          , sheet = "summary"
