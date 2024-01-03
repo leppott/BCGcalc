@@ -25,12 +25,12 @@
 #' 
 #' Some exceptions exist for particular models.
 #' 
-#' |Index_Name |INDEX_CLASS|
-#' |:----------|:----------|
-#' |CT_BCG_2015|fish02     |
-#' |CT_BCG_2015|fish03     |
-#' 
-#' 
+#' |Index_Name       |INDEX_CLASS|
+#' |:----------------|:----------|
+#' |CT_BCG_2015      |fish02     |
+#' |CT_BCG_2015      |fish03     |
+#' |BCG_NMSandyRivers|bugs       |
+#'  
 #' These exceptions are mostly hard coded into the function but gather some 
 #' information with the parameter col_EXC_RULE from the rules table.  A future
 #' update may fully automate this process.
@@ -39,21 +39,28 @@
 #' For the Pacific Northwest some metrics were grouped and the 2nd of 3 values
 #' is used and the other 2 values tossed when determining level membership.  
 #' This equates to using the median of the 3 values.  This is handled by 
-#' including "Median" in the Exc_Rule column in Rules.xlsx.
+#' including "MEDIAN" in the Exc_Rule column in Rules.xlsx.
+#' 
+#' 2024 added SMALL2 and SMALL3 Exception rules.
+#' For New Mexico BCG some metrics are grouped so use the 2nd or 3rd smallest
+#' value instead of the minimum.  As above, this is handled by including 
+#' "SMALL2" or "SMALL3" in the Exc_Rule column in Rules.xlsx.
 #' 
 #' Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
+#' @md
 #' 
 #' @param df.metric.membership Data frame of metric memberships 
 #' (long format, the same as the output of BCG.Metric.Membership).
 #' @param df.rules Data frame of BCG model rules.
-#' @param col_SAMPLEID column name for sample id.  Default = SAMPLEID
+#' @param col_SAMPLEID column name for sample id. Default = SAMPLEID
 #' @param col_INDEX_NAME column name for index name. Default = INDEX_NAME
-#' @param col_INDEX_CLASS column name for site type  Default = INDEX_CLASS
+#' @param col_INDEX_CLASS column name for site type.Default = INDEX_CLASS
 #' @param col_LEVEL column name for level.  Default = LEVEL
-#' @param col_METRIC_NAME column name for metric name.  Default = METRIC_NAME
-#' @param col_RULE_TYPE column name for rule type (e.g., Rule0, Rule1, or Rule2)
-#' Default = RULE_TYPE
-#' @param col_EXC_RULE column name for exception rules
+#' @param col_METRIC_NAME column name for metric name. Default = METRIC_NAME
+#' @param col_RULE_TYPE column name for rule type (e.g., Rule0, Rule1, or 
+#' Rule2). Default = RULE_TYPE 
+#' @param col_MEMBERSHIP column name for metric membership. Default = MEMBERSHIP
+#' @param col_EXC_RULE column name for exception rules. Default = EXC_RULE 
 #' @param ... Arguments passed to `BCG.MetricMembership` used internally
 #'
 #' @return Returns a data frame of results in the wide format.
@@ -192,6 +199,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                  , col_METRIC_NAME = "METRIC_NAME"
                                  , col_RULE_TYPE = "RULE_TYPE"
                                  , col_EXC_RULE = "EXC_RULE"
+                                 , col_MEMBERSHIP = "MEMBERSHIP"
                                  , ...) {
   #
   boo_QC <- FALSE
@@ -205,6 +213,7 @@ BCG.Level.Membership <- function(df.metric.membership
     col_METRIC_NAME <- "METRIC_NAME"
     col_RULE_TYPE <- "RULE_TYPE"
     col_EXC_RULE <- "EXC_RULE"
+    col_MEMBERSHIP <- "MEMBERSHIP"
     a <- c(col_INDEX_NAME
            , col_INDEX_CLASS
            , col_LEVEL
@@ -213,7 +222,7 @@ BCG.Level.Membership <- function(df.metric.membership
            , col_EXC_RULE)
   }## IF ~ boo_QC ~ END
   
-  # QC
+  # QC----
   # DEPRECATE SITE_TYPE.
   if (exists("col_SITE_TYPE")) {
     col_INDEX_CLASS <- col_SITE_TYPE
@@ -254,6 +263,16 @@ BCG.Level.Membership <- function(df.metric.membership
                                                                , col_INDEX_CLASS])
   df.rules[, col_INDEX_CLASS] <- tolower(df.rules[, col_INDEX_CLASS])
   
+  # EXC_RULE to uppercase
+  df.metric.membership[, col_EXC_RULE] <- toupper(df.metric.membership[
+                                                                , col_EXC_RULE])
+  df.rules[, col_EXC_RULE] <- toupper(df.rules[, col_EXC_RULE])
+  
+  # RULE_TYPE to uppercase
+  df.metric.membership[, col_RULE_TYPE] <- toupper(df.metric.membership[
+    , col_RULE_TYPE])
+  df.rules[, col_RULE_TYPE] <- toupper(df.rules[, col_RULE_TYPE])
+  
   # Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
   col.drop <- c("NUMERIC_RULES"
@@ -264,7 +283,7 @@ BCG.Level.Membership <- function(df.metric.membership
                 , "DESCRIPTION")
   col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% 
                                                                       col.drop)]
-  
+  # MERGE----
   # merge metrics and rules
   df.merge <- merge(df.metric.membership[, col.keep]
                     , df.rules
@@ -280,6 +299,17 @@ BCG.Level.Membership <- function(df.metric.membership
                                , col_METRIC_NAME
                                , col_RULE_TYPE
                                , col_EXC_RULE))
+  # Match on all to ensure using the same rules
+  
+  nrow_metmemb <- nrow(df.metric.membership)
+  nrow_merge <- nrow(df.merge)
+  if (nrow_metmemb != nrow_merge) {
+    msg <- paste("Rules and Metric Membership not matching."
+                 , paste0(nrow_metmemb, " = rows Metric Membership")
+                 , paste0(nrow_merge, " = rows after merge with Rules")
+                 , sep = "\n")
+    message(msg)
+  }## IF ~ nrow QC
   
   # Min of Rule2 (Alt2)
   # Max of Rule1 (Alt1) (with Min of Rule2 (Alt2))
@@ -299,13 +329,17 @@ BCG.Level.Membership <- function(df.metric.membership
   names(df.merge)[names(df.merge) == col_INDEX_CLASS] <- "INDEX_CLASS"
   names(df.merge)[names(df.merge) == col_LEVEL] <- "LEVEL"
   names(df.merge)[names(df.merge) == col_RULE_TYPE] <- "RULE_TYPE"
+  names(df.merge)[names(df.merge) == col_MEMBERSHIP] <- "MEMBERSHIP"
   ## Exceptions
   names(df.merge)[names(df.merge) == col_EXC_RULE] <- "EXC_RULE"
   
   
-  # Generate Median Rules
-  df_median <- dplyr::filter(df.merge, EXC_RULE == "Median")
-  df_median_calc <- dplyr::summarise(dplyr::group_by(df_median
+  # EXCEPTIONS ----
+  # no harm done in allowing to run if not present
+  
+  ## EXC_RULE, MEDIAN ----
+  df_er_median <- dplyr::filter(df.merge, EXC_RULE == "MEDIAN")
+  df_er_median_calc <- dplyr::summarise(dplyr::group_by(df_er_median
                                                      , SAMPLEID
                                                      , INDEX_NAME
                                                      , INDEX_CLASS
@@ -314,7 +348,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                                       )
                                       , .groups = "drop_last"
                 #
-                # Calc Median
+                # Calc MEDIAN
                 , MEMBERSHIP = median(MEMBERSHIP, na.rm = TRUE)
                 # , MEMBERSHIP_MEDIAN = median(MEMBERSHIP, na.rm = TRUE)
                 # , MEMBERSHIP_COUNT = dplyr::n()
@@ -322,12 +356,77 @@ BCG.Level.Membership <- function(df.metric.membership
   # This assumes have 3 values
   # Rename MEMBERSHIP_MEDIAN and drop Count
   #
+  # Update df.merge
   # Remove EXC_RULE == "MEDIAN"
-  df.merge <- dplyr::filter(df.merge, EXC_RULE != "Median" | is.na(EXC_RULE))
-  # Add Median memberships back to df.merge
-  df.merge <- dplyr::bind_rows(df.merge, df_median_calc)
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "MEDIAN" | is.na(EXC_RULE))
+  # Add new memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_er_median_calc)
+  # 2024-01-03
+  # Median same as Small2 when have 3 values
+  # Median came first
+  
+  ## EXC_RULE, SMALL2----
+  df_er_small2 <- dplyr::filter(df.merge, EXC_RULE == "SMALL2")
+  # default sort in arrange is ascending (NA are at end)
+  # group
+  # filter for 2nd row 
+  df_er_small2_calc <- dplyr::group_by(df_er_small2
+                                       , SAMPLEID
+                                       , INDEX_NAME
+                                       , INDEX_CLASS
+                                       , LEVEL) %>%
+    dplyr::arrange(MEMBERSHIP) %>%
+    dplyr::filter(dplyr::row_number() == 2)
+  #
+  # Update df.merge
+  # Remove EXC_RULE == "SMALL2"
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL2" | is.na(EXC_RULE))
+  # Add new memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_er_small2_calc)
+  
+  ## EXC_RULE, SMALL3----
+  # Need to handle Rule01 (max) [part of Small3 not a separate rule]
+  df_er_small3_rule0 <- dplyr::filter(df.merge
+                                      , EXC_RULE == "SMALL3" 
+                                      & RULE_TYPE == "RULE0")
+  df_er_small3_rule1 <- dplyr::filter(df.merge
+                                      , EXC_RULE == "SMALL3" 
+                                      & RULE_TYPE == "RULE1")
+  # Rule1 before Rule0
+  # Rule1, max then add to rule0
+  ## not using summarize and max to maintain column order
+  ## mutate to Rule0 to ensure not issues later if no other Rule0
+  df_er_small3_rule1_calc <- dplyr::group_by(df_er_small3_rule1
+                                             , SAMPLEID
+                                             , INDEX_NAME
+                                             , INDEX_CLASS
+                                             , LEVEL) %>%
+    dplyr::arrange(-MEMBERSHIP) %>% # desc
+    dplyr::filter(dplyr::row_number() == 1) %>% 
+    dplyr::mutate(RULE_TYPE = "RULE0")
+  # Add Rule1 max to Rule0
+  df_er_small3_rule0_calc <- dplyr::bind_rows(df_er_small3_rule0
+                                              , df_er_small3_rule1_calc)
+  # Small3 calc
+  # default sort in arrange is ascending (NA are at end)
+  # group
+  # filter for 3rd row 
+  df_er_small3_calc <- dplyr::group_by(df_er_small3_rule0_calc
+                                             , SAMPLEID
+                                             , INDEX_NAME
+                                             , INDEX_CLASS
+                                             , LEVEL) %>%
+    dplyr::arrange(MEMBERSHIP) %>%
+    dplyr::filter(dplyr::row_number() == 3)
+  #
+  # Update df.merge
+  # Remove EXC_RULE == "SMALL3"
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL3" | is.na(EXC_RULE))
+  # Add new memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_er_small3_calc)
   
   
+  # Summarize ----
   # Will get lots of warnings, SampIDs without alt 1 or alt 2 rules
   suppressWarnings(
     df.lev <- dplyr::summarise(dplyr::group_by(df.merge
@@ -339,20 +438,20 @@ BCG.Level.Membership <- function(df.metric.membership
                                , .groups = "drop_last"
                               #
                 # Min of Rule2 (Alt2)
-                , MembCalc_Rule2_min = min(MEMBERSHIP[RULE_TYPE == "Rule2"]
+                , MembCalc_Rule2_min = min(MEMBERSHIP[RULE_TYPE == "RULE2"]
                                         , na.rm = TRUE)
                 # Max of Rule1 (Alt1)
-                , MembCalc_Rule1_max = max(MEMBERSHIP[RULE_TYPE == "Rule1"]
+                , MembCalc_Rule1_max = max(MEMBERSHIP[RULE_TYPE == "RULE1"]
                                           , na.rm = TRUE)
                 # Min of Rule0 (with alt above)
-                , MembCalc_Rule0_min = min(MEMBERSHIP[RULE_TYPE == "Rule0"]
+                , MembCalc_Rule0_min = min(MEMBERSHIP[RULE_TYPE == "RULE0"]
                                            , na.rm = TRUE)
                 # Exceptions for CT
-                , MembCalc_Exc0_min = min(MEMBERSHIP[EXC_RULE == "ExcMem0"]
+                , MembCalc_Exc0_min = min(MEMBERSHIP[EXC_RULE == "EXCMEM0"]
                                           , na.rm = TRUE)
-                , MembCalc_Exc1_max = max(MEMBERSHIP[EXC_RULE == "ExcMem1"]
+                , MembCalc_Exc1_max = max(MEMBERSHIP[EXC_RULE == "EXCMEM1"]
                                           , na.rm = TRUE)
-                , MembCalc_Exc2_min = min(MEMBERSHIP[EXC_RULE == "ExcMem2"]
+                , MembCalc_Exc2_min = min(MEMBERSHIP[EXC_RULE == "EXCMEM2"]
                                           , na.rm = TRUE)
                 
 

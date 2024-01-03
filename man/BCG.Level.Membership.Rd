@@ -14,77 +14,83 @@ BCG.Level.Membership(
   col_METRIC_NAME = "METRIC_NAME",
   col_RULE_TYPE = "RULE_TYPE",
   col_EXC_RULE = "EXC_RULE",
+  col_MEMBERSHIP = "MEMBERSHIP",
   ...
 )
 }
 \arguments{
-\item{df.metric.membership}{Data frame of metric memberships 
+\item{df.metric.membership}{Data frame of metric memberships
 (long format, the same as the output of BCG.Metric.Membership).}
 
 \item{df.rules}{Data frame of BCG model rules.}
 
-\item{col_SAMPLEID}{column name for sample id.  Default = SAMPLEID}
+\item{col_SAMPLEID}{column name for sample id. Default = SAMPLEID}
 
 \item{col_INDEX_NAME}{column name for index name. Default = INDEX_NAME}
 
-\item{col_INDEX_CLASS}{column name for site type  Default = INDEX_CLASS}
+\item{col_INDEX_CLASS}{column name for site type.Default = INDEX_CLASS}
 
 \item{col_LEVEL}{column name for level.  Default = LEVEL}
 
-\item{col_METRIC_NAME}{column name for metric name.  Default = METRIC_NAME}
+\item{col_METRIC_NAME}{column name for metric name. Default = METRIC_NAME}
 
-\item{col_RULE_TYPE}{column name for rule type (e.g., Rule0, Rule1, or Rule2)
-Default = RULE_TYPE}
+\item{col_RULE_TYPE}{column name for rule type (e.g., Rule0, Rule1, or
+Rule2). Default = RULE_TYPE}
 
-\item{col_EXC_RULE}{column name for exception rules}
+\item{col_EXC_RULE}{column name for exception rules. Default = EXC_RULE}
 
-\item{...}{Arguments passed to `BCG.MetricMembership` used internally}
+\item{col_MEMBERSHIP}{column name for metric membership. Default = MEMBERSHIP}
+
+\item{...}{Arguments passed to \code{BCG.MetricMembership} used internally}
 }
 \value{
 Returns a data frame of results in the wide format.
 }
 \description{
-Biological Condition Gradient Level assignment given metric 
+Biological Condition Gradient Level assignment given metric
 memberships.
 }
 \details{
-Input is metric memberships and a rules tables.  
+Input is metric memberships and a rules tables.
 
 Output is a data frame with the membership for each row to each Level (1:6).
 
 Minimum of:
-
-* 1- sum of previous levels
-
-* Rule0 memberships
-
-* max of Rule1 (Alternate1) rules (and min of Rule2 (Alternate2) rules)
+\itemize{
+\item 1- sum of previous levels
+\item Rule0 memberships
+\item max of Rule1 (Alternate1) rules (and min of Rule2 (Alternate2) rules)
+}
 
 That is, perform calculations in this order:
+\enumerate{
+\item Min of Rule2 (Alternate2) metric memberships
+\item Max of Rule1 (Alternate1) rules and the above result.
+\item Min of: Rule0, the above results, and 1 - the sum of previous levels.
+}
 
-1. Min of Rule2 (Alternate2) metric memberships
-
-2. Max of Rule1 (Alternate1) rules and the above result.
-
-3. Min of: Rule0, the above results, and 1 - the sum of previous levels.
-
-Some exceptions exist for particular models.
-
-|Index_Name |INDEX_CLASS|
-|:----------|:----------|
-|CT_BCG_2015|fish02     |
-|CT_BCG_2015|fish03     |
+Some exceptions exist for particular models.\tabular{ll}{
+   Index_Name \tab INDEX_CLASS \cr
+   CT_BCG_2015 \tab fish02 \cr
+   CT_BCG_2015 \tab fish03 \cr
+   BCG_NMSandyRivers \tab bugs \cr
+}
 
 
-These exceptions are mostly hard coded into the function but gather some 
+These exceptions are mostly hard coded into the function but gather some
 information with the parameter col_EXC_RULE from the rules table.  A future
 update may fully automate this process.
 
-2021 saw the introduction of Median Exception rule.  
+2021 saw the introduction of Median Exception rule.
 For the Pacific Northwest some metrics were grouped and the 2nd of 3 values
-is used and the other 2 values tossed when determining level membership.  
-This equates to using the median of the 3 values.  This is handled by 
-including "Median" in the Exc_Rule column in Rules.xlsx.
+is used and the other 2 values tossed when determining level membership.
+This equates to using the median of the 3 values.  This is handled by
+including "MEDIAN" in the Exc_Rule column in Rules.xlsx.
+
+2024 added SMALL2 and SMALL3 Exception rules.
+For New Mexico BCG some metrics are grouped so use the 2nd or 3rd smallest
+value instead of the minimum.  As above, this is handled by including
+"SMALL2" or "SMALL3" in the Exc_Rule column in Rules.xlsx.
 
 Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
 }

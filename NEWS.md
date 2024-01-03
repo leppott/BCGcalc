@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-21 15:28:45.833168
+2024-01-03 12:42:04.091226
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-21 15:28:45.859058
+    #> Last Update: 2024-01-03 12:42:04.12414
+
+# BCGcalc 2.0.0.9130 (2024-01-02)
+
+- docs: Add tag to roxygen chunk to allow for table in
+  `BCG.Level.Membership`
+- refactor: Update `BCG.Level.Membership` for new exception rules (NM
+  bugs)
+  - Added routines for Exception Rules Small2 and Small3
+- refactor: Update Rules.xlsx (NM bugs)
 
 # BCGcalc 2.0.0.9129 (2023-12-21)
 

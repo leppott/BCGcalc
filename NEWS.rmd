@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9130 (2024-01-02)
+
+* docs: Add tag to roxygen chunk to allow for table in `BCG.Level.Membership`
+* refactor: Update `BCG.Level.Membership` for new exception rules (NM bugs)
+    + Added routines for Exception Rules Small2 and Small3
+* refactor: Update Rules.xlsx (NM bugs)
+
 # BCGcalc 2.0.0.9129 (2023-12-21)
 
 * refactor: Modify Shiny single report
