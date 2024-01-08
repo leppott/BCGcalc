@@ -5777,56 +5777,108 @@ shinyServer(function(input, output) {
       # openxlsx::options("openxlsx.datetimeFormat" = "yyyy-mm-dd hh:mm:ss")
       
       #### Excel, Formatting, CF, Styles ----
-      style_cf_ft_vcold          <- openxlsx::createStyle(fgFill = "#140AE6")
-      style_cf_ft_vcold_cold     <- openxlsx::createStyle(fgFill = "#0066FF")
-      style_cf_ft_tie_vcold_cold <- openxlsx::createStyle(fgFill = "#7B9BF5")
-      style_cf_ft_cold_vcold     <- openxlsx::createStyle(fgFill = "#0AE1EC")
-      style_cf_ft_cold           <- openxlsx::createStyle(fgFill = "#9AF3FC")
-      style_cf_ft_cold_cool      <- openxlsx::createStyle(fgFill = "#BEFEFB")
-      style_cf_ft_tie_cold_cool  <- openxlsx::createStyle(fgFill = "#DDFBFF")
-      style_cf_ft_cool_cold      <- openxlsx::createStyle(fgFill = "#C6FFB9")
-      style_cf_ft_cool           <- openxlsx::createStyle(fgFill = "#34FB25")
-      style_cf_ft_cool_warm      <- openxlsx::createStyle(fgFill = "#FFFF66")
-      style_cf_ft_tie_warm_cool  <- openxlsx::createStyle(fgFill = "#FFFFE5")
-      style_cf_ft_warm_cool      <- openxlsx::createStyle(fgFill = "#E4DFEC")
-      style_cf_ft_warm           <- openxlsx::createStyle(fgFill = "#FFC000")
-      style_cf_ft_na             <- openxlsx::createStyle(fgFill = "#808080")
-      style_cf_bcg_1             <- openxlsx::createStyle(fgFill = "blue")
-      style_cf_bcg_2             <- openxlsx::createStyle(fgFill = "green")
-      style_cf_bcg_3             <- openxlsx::createStyle(fgFill = "lightgreen")
-      style_cf_bcg_4             <- openxlsx::createStyle(fgFill = "gray")
-      style_cf_bcg_5             <- openxlsx::createStyle(fgFill = "orange")
-      style_cf_bcg_6             <- openxlsx::createStyle(fgFill = "red")
-      style_cf_bcg_na            <- openxlsx::createStyle(fgFill = "#808080")
-      style_cf_bdi_high          <- openxlsx::createStyle(fgFill = "blue")
-      style_cf_bdi_medium        <- openxlsx::createStyle(fgFill = "lightgreen")
-      style_cf_bdi_low           <- openxlsx::createStyle(fgFill = "gray")
-      style_cf_bdi_na            <- openxlsx::createStyle(fgFill = "#808080")
-      style_cf_mtti_vcold        <- openxlsx::createStyle(fgFill = "#00B0F0")
-      style_cf_mtti_cold         <- openxlsx::createStyle(fgFill = "#9AF3FC")
-      style_cf_mtti_cool         <- openxlsx::createStyle(fgFill = "#92D050")
-      style_cf_mtti_cool_warm    <- openxlsx::createStyle(fgFill = "#FFFF00")
-      style_cf_mtti_warm         <- openxlsx::createStyle(fgFill = "#FFC000")
-      style_cf_mtti_na           <- openxlsx::createStyle(fgFill = "#808080")
-      style_cf_bcg2_1            <- openxlsx::createStyle(fgFill = "blue")
-      style_cf_bcg2_2            <- openxlsx::createStyle(fgFill = "green")
-      style_cf_bcg2_2minus       <- openxlsx::createStyle(fgFill = "green")
-      style_cf_bcg2_tie_2_3      <- openxlsx::createStyle(fgFill = "darkgreen")
-      style_cf_bcg2_3plus        <- openxlsx::createStyle(fgFill = "lightgreen")
-      style_cf_bcg2_3            <- openxlsx::createStyle(fgFill = "lightgreen")
-      style_cf_bcg2_3minus       <- openxlsx::createStyle(fgFill = "lightgreen")
-      style_cf_bcg2_tie_3_4      <- openxlsx::createStyle(fgFill = "yellow")
-      style_cf_bcg2_4plus        <- openxlsx::createStyle(fgFill = "gray")
-      style_cf_bcg2_4            <- openxlsx::createStyle(fgFill = "gray")
-      style_cf_bcg2_4minus       <- openxlsx::createStyle(fgFill = "gray")
-      style_cf_bcg2_tie_4_5      <- openxlsx::createStyle(fgFill = "brown")
-      style_cf_bcg2_5plus        <- openxlsx::createStyle(fgFill = "orange")
-      style_cf_bcg2_5            <- openxlsx::createStyle(fgFill = "orange")
-      style_cf_bcg2_5minus       <- openxlsx::createStyle(fgFill = "orange")
-      style_cf_bcg2_tie_5_6      <- openxlsx::createStyle(fgFill = "purple")
-      style_cf_bcg2_6plus        <- openxlsx::createStyle(fgFill = "red")
-      style_cf_bcg2_6            <- openxlsx::createStyle(fgFill = "red")
-      style_cf_bcg2_na           <- openxlsx::createStyle(fgFill = "#808080")
+      # fgFill *only* works for Conditinal Formatting
+      # no harm in adding bgFill for use with on CF
+      style_cf_ft_vcold          <- openxlsx::createStyle(bgFill = "#140AE6"
+                                                          , fgFill = "#140AE6")
+      style_cf_ft_vcold_cold     <- openxlsx::createStyle(bgFill = "#0066FF"
+                                                          , fgFill = "#0066FF")
+      style_cf_ft_tie_vcold_cold <- openxlsx::createStyle(bgFill = "#7B9BF5"
+                                                          , fgFill = "#7B9BF5")
+      style_cf_ft_cold_vcold     <- openxlsx::createStyle(bgFill = "#0AE1EC"
+                                                          , fgFill = "#0AE1EC")
+      style_cf_ft_cold           <- openxlsx::createStyle(bgFill = "#9AF3FC"
+                                                          , fgFill = "#9AF3FC")
+      style_cf_ft_cold_cool      <- openxlsx::createStyle(bgFill = "#BEFEFB"
+                                                          , fgFill = "#BEFEFB")
+      style_cf_ft_tie_cold_cool  <- openxlsx::createStyle(bgFill = "#DDFBFF"
+                                                          , fgFill = "#DDFBFF")
+      style_cf_ft_cool_cold      <- openxlsx::createStyle(bgFill = "#C6FFB9"
+                                                          , fgFill = "#C6FFB9")
+      style_cf_ft_cool           <- openxlsx::createStyle(bgFill = "#34FB25"
+                                                          , fgFill = "#34FB25")
+      style_cf_ft_cool_warm      <- openxlsx::createStyle(bgFill = "#FFFF66"
+                                                          , fgFill = "#FFFF66")
+      style_cf_ft_tie_warm_cool  <- openxlsx::createStyle(bgFill = "#FFFFE5"
+                                                          , fgFill = "#FFFFE5")
+      style_cf_ft_warm_cool      <- openxlsx::createStyle(bgFill = "#E4DFEC"
+                                                          , fgFill = "#E4DFEC")
+      style_cf_ft_warm           <- openxlsx::createStyle(bgFill = "#FFC000"
+                                                          , fgFill = "#FFC000")
+      style_cf_ft_na             <- openxlsx::createStyle(bgFill = "#808080"
+                                                          , fgFill = "#808080")
+      style_cf_bcg_1             <- openxlsx::createStyle(bgFill = "blue"
+                                                          , fgFill = "blue")
+      style_cf_bcg_2             <- openxlsx::createStyle(bgFill = "green"
+                                                          , fgFill = "green")
+      style_cf_bcg_3             <- openxlsx::createStyle(bgFill = "lightgreen"
+                                                          , fgFill = "lightgreen")
+      style_cf_bcg_4             <- openxlsx::createStyle(bgFill = "gray"
+                                                          , fgFill = "gray")
+      style_cf_bcg_5             <- openxlsx::createStyle(bgFill = "orange"
+                                                          , fgFill = "orange")
+      style_cf_bcg_6             <- openxlsx::createStyle(bgFill = "red"
+                                                          , fgFill = "red")
+      style_cf_bcg_na            <- openxlsx::createStyle(bgFill = "#808080"
+                                                          , fgFill = "#808080")
+      style_cf_bdi_high          <- openxlsx::createStyle(bgFill = "blue"
+                                                          , fgFill = "blue")
+      style_cf_bdi_medium        <- openxlsx::createStyle(bgFill = "lightgreen"
+                                                          , fgFill = "lightgreen")
+      style_cf_bdi_low           <- openxlsx::createStyle(bgFill = "gray"
+                                                          , fgFill = "gray")
+      style_cf_bdi_na            <- openxlsx::createStyle(bgFill = "#808080"
+                                                          , fgFill = "#808080")
+      style_cf_mtti_vcold        <- openxlsx::createStyle(bgFill = "#00B0F0"
+                                                          , fgFill = "#00B0F0")
+      style_cf_mtti_cold         <- openxlsx::createStyle(bgFill = "#9AF3FC"
+                                                          , fgFill = "#9AF3FC")
+      style_cf_mtti_cool         <- openxlsx::createStyle(bgFill = "#92D050"
+                                                          , fgFill = "#92D050")
+      style_cf_mtti_cool_warm    <- openxlsx::createStyle(bgFill = "#FFFF00"
+                                                          , fgFill = "#FFFF00")
+      style_cf_mtti_warm         <- openxlsx::createStyle(bgFill = "#FFC000"
+                                                          , fgFill = "#FFC000")
+      style_cf_mtti_na           <- openxlsx::createStyle(bgFill = "#808080"
+                                                          , fgFill = "#808080")
+      style_cf_bcg2_1            <- openxlsx::createStyle(bgFill = "blue"
+                                                          , fgFill = "blue")
+      style_cf_bcg2_2            <- openxlsx::createStyle(bgFill = "green"
+                                                          , fgFill = "green")
+      style_cf_bcg2_2minus       <- openxlsx::createStyle(bgFill = "green"
+                                                          , fgFill = "green")
+      style_cf_bcg2_tie_2_3      <- openxlsx::createStyle(bgFill = "darkgreen"
+                                                          , fgFill = "darkgreen")
+      style_cf_bcg2_3plus        <- openxlsx::createStyle(bgFill = "lightgreen"
+                                                          , fgFill = "lightgreen")
+      style_cf_bcg2_3            <- openxlsx::createStyle(bgFill = "lightgreen"
+                                                          , fgFill = "lightgreen")
+      style_cf_bcg2_3minus       <- openxlsx::createStyle(bgFill = "lightgreen"
+                                                          , fgFill = "lightgreen")
+      style_cf_bcg2_tie_3_4      <- openxlsx::createStyle(bgFill = "yellow"
+                                                          , fgFill = "yellow")
+      style_cf_bcg2_4plus        <- openxlsx::createStyle(bgFill = "gray"
+                                                          , fgFill = "gray")
+      style_cf_bcg2_4            <- openxlsx::createStyle(bgFill = "gray"
+                                                          , fgFill = "gray")
+      style_cf_bcg2_4minus       <- openxlsx::createStyle(bgFill = "gray"
+                                                          , fgFill = "gray")
+      style_cf_bcg2_tie_4_5      <- openxlsx::createStyle(bgFill = "brown"
+                                                          , fgFill = "brown")
+      style_cf_bcg2_5plus        <- openxlsx::createStyle(bgFill = "orange"
+                                                          , fgFill = "orange")
+      style_cf_bcg2_5            <- openxlsx::createStyle(bgFill = "orange"
+                                                          , fgFill = "orange")
+      style_cf_bcg2_5minus       <- openxlsx::createStyle(bgFill = "orange"
+                                                          , fgFill = "orange")
+      style_cf_bcg2_tie_5_6      <- openxlsx::createStyle(bgFill = "purple"
+                                                          , fgFill = "purple")
+      style_cf_bcg2_6plus        <- openxlsx::createStyle(bgFill = "red"
+                                                          , fgFill = "red")
+      style_cf_bcg2_6            <- openxlsx::createStyle(bgFill = "red"
+                                                          , fgFill = "red")
+      style_cf_bcg2_na           <- openxlsx::createStyle(bgFill = "#808080"
+                                                          , fgFill = "#808080")
       
       #### Excel, Formatting, CF, Rules ----
       cf_rule_ft_vcold          <- "VeryCold"
@@ -6135,7 +6187,7 @@ shinyServer(function(input, output) {
       
       ### Excel, Apply Style ----
       
-      # NOTES, Named Range
+      #### NOTES, Named Range
       openxlsx::createNamedRegion(wb
                                   , sheet = "NOTES"
                                   , name = "FileName"
@@ -6143,7 +6195,7 @@ shinyServer(function(input, output) {
                                   , cols = 2)
       
 
-      # summary, Color Thresholds
+      ##### summary, Color Thresholds----
       ## Center justify to all but last col
       # openxlsx::addStyle(wb
       #                    , sheet = "summary"
@@ -6158,7 +6210,7 @@ shinyServer(function(input, output) {
                          , cols = 8:17
                          , style = style_cf_ft_na
                          , gridExpand = TRUE)
-      # MTTI
+      ##### MTTI----
       openxlsx::addStyle(wb
                          , sheet = "summary"
                          , rows = 3
@@ -6189,7 +6241,7 @@ shinyServer(function(input, output) {
                          , cols = 8
                          , style = style_cf_ft_warm
                          , gridExpand = TRUE)
-      # thermal metrics
+      ##### thermal metrics----
       openxlsx::addStyle(wb
                          , sheet = "summary"
                          , rows = 3
@@ -6458,43 +6510,6 @@ shinyServer(function(input, output) {
       #                       , style = style_cf_bdi_na)
       #
       #
-#  browser()
-      #### Excel, CF, summary, MTTI----
-      df_cf <- df_report_summary_wide_s
-      cols_cf <- match("MTTI", names(df_cf)) 
-      rows_cf <- (mySR + 1):(mySR + nrow(df_cf))
-      # conditionalFormatting(wb, "summary"
-      #                       , cols = cols_cf
-      #                       , rows = df_cf
-      #                       , rule = '<16'
-      #                       , style = style_cf_mtti_vcold)
-      # conditionalFormatting(wb, "summary"
-      #                       , cols = cols_cf
-      #                       , rows = df_cf
-      #                       , rule = '<19'
-      #                       , style = style_cf_mtti_cold)
-      # conditionalFormatting(wb, "summary"
-      #                       , cols = cols_cf
-      #                       , rows = df_cf
-      #                       , rule = '<21'
-      #                       , style = style_cf_mtti_cool)
-      # conditionalFormatting(wb, "summary"
-      #                       , cols = cols_cf
-      #                       , rows = df_cf
-      #                       , rule = '<23'
-      #                       , style = style_cf_mtti_cool_warm)
-      # conditionalFormatting(wb, "summary"
-      #                       , cols = cols_cf
-      #                       , rows = df_cf
-      #                       , rule = '>=23'
-      #                       , style = style_cf_mtti_warm)
-      # conditionalFormatting(wb, "summary"
-      #                       , cols = cols_cf
-      #                       , rows = df_cf
-      #                       , rule = '="NA"'
-      #                       , style = style_cf_mtti_na)
-      #
-      #
       #### Excel, CF, BCG2----
       # conditionalFormatting(wb, "BCG2"
       #                       , cols = 2
@@ -6591,6 +6606,254 @@ shinyServer(function(input, output) {
       #                       , rows = (mySR + 1):(mySR + nrow(df_bcg2))
       #                       , rule = '="NA"'
       #                       , style = style_cf_bcg2_na)
+      
+
+      #### Excel, CF, summary, MTTI----
+      df_cf <- df_report_summary_wide_s
+      cols_cf <- match("MTTI", names(df_cf)) 
+      rows_cf <- (mySF_summmary_wide + 1):(mySF_summmary_wide + nrow(df_cf))
+      
+      # Applied in reverse order in Excel
+      openxlsx::conditionalFormatting(wb, "summary"
+                            , cols = cols_cf
+                            , rows = rows_cf
+                            , rule = '="NA"'
+                            , style = style_cf_mtti_na)
+      openxlsx::conditionalFormatting(wb, "summary"
+                            , cols = cols_cf
+                            , rows = rows_cf
+                            , rule = '>=23'
+                            , style = style_cf_mtti_warm)
+      openxlsx::conditionalFormatting(wb, "summary"
+                            , cols = cols_cf
+                            , rows = rows_cf
+                            , rule = '<23'
+                            , style = style_cf_mtti_cool_warm)
+      openxlsx::conditionalFormatting(wb, "summary"
+                            , cols = cols_cf
+                            , rows = rows_cf
+                            , rule = '<21'
+                            , style = style_cf_mtti_cool)
+      openxlsx::conditionalFormatting(wb, "summary"
+                            , cols = cols_cf
+                            , rows = rows_cf
+                            , rule = '<19'
+                            , style = style_cf_mtti_cold)
+      openxlsx::conditionalFormatting(wb, "summary"
+                            , cols = cols_cf
+                            , rows = rows_cf
+                            , rule = '<16'
+                            , style = style_cf_mtti_vcold)
+
+      #### Excel, CF, summary, Thermal Metrics----
+      df_cf <- df_report_summary_wide_s
+      rows_cf <- (mySF_summmary_wide + 1):(mySF_summmary_wide + nrow(df_cf))
+ 
+      ##### nt_ti_stenocold----
+      myMetNam <- "nt_ti_stenocold"
+      cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1
+      #
+      if (!is.na(cols_cf)) {
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '="NA"'
+                                        , style = style_cf_ft_na)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=3'
+                                        , style = style_cf_ft_vcold_cold)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=1'
+                                        , style = style_cf_ft_cold)
+      }## IF ~ !is.na(cols_cf)
+      
+      ##### nt_ti_stenocold_cold----
+      myMetNam <- "nt_ti_stenocold_cold"
+      cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1
+      #
+      if (!is.na(cols_cf)) {
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '="NA"'
+                                        , style = style_cf_ft_na)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=1'
+                                        , style = style_cf_ft_tie_warm_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=3'
+                                        , style = style_cf_ft_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=5'
+                                        , style = style_cf_ft_cold)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=10'
+                                        , style = style_cf_ft_vcold_cold)
+      }## IF ~ !is.na(cols_cf)
+      
+      openxlsx::openXL(wb)
+      
+      ##### nt_ti_stenocold_cold_cool----
+      myMetNam <- "nt_ti_stenocold_cold_cool"
+      cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1
+      #
+      if (!is.na(cols_cf)) {
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '="NA"'
+                                        , style = style_cf_ft_na)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=9'
+                                        , style = style_cf_ft_tie_warm_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=20'
+                                        , style = style_cf_ft_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=25'
+                                        , style = style_cf_ft_cold)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=30'
+                                        , style = style_cf_ft_vcold_cold)
+      }## IF ~ !is.na(cols_cf)
+      
+      ##### pt_ti_stenocold_cold_cool----
+      myMetNam <- "pt_ti_stenocold_cold_cool"
+      cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1
+      #
+      if (!is.na(cols_cf)) {
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '="NA"'
+                                        , style = style_cf_ft_na)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=20'
+                                        , style = style_cf_ft_tie_warm_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=35'
+                                        , style = style_cf_ft_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=50'
+                                        , style = style_cf_ft_cold)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=65'
+                                        , style = style_cf_ft_vcold_cold)
+      }## IF ~ !is.na(cols_cf)
+      
+      ##### pi_ti_stenocold_cold_cool----
+      myMetNam <- "pi_ti_stenocold_cold_cool"
+      cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1
+      #
+      if (!is.na(cols_cf)) {
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '="NA"'
+                                        , style = style_cf_ft_na)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=10'
+                                        , style = style_cf_ft_tie_warm_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=30'
+                                        , style = style_cf_ft_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=40'
+                                        , style = style_cf_ft_cold)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=55'
+                                        , style = style_cf_ft_vcold_cold)
+      }## IF ~ !is.na(cols_cf)
+      
+      ##### pt_ti_warm_stenowarm----
+      myMetNam <- "pt_ti_warm_stenowarm"
+      cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1
+      #
+      if (!is.na(cols_cf)) {
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '="NA"'
+                                        , style = style_cf_ft_na)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=40'
+                                        , style = style_cf_ft_warm)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '<40'
+                                        , style = style_cf_ft_tie_warm_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '<15'
+                                        , style = style_cf_ft_cool)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '<10'
+                                        , style = style_cf_ft_cold)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '<5'
+                                        , style = style_cf_ft_vcold_cold)
+      }## IF ~ !is.na(cols_cf)
+     
+      ##### nt_ti_stenowarm----
+      myMetNam <- "nt_ti_stenowarm"
+      cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1
+      #
+      if (!is.na(cols_cf)) {
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '="NA"'
+                                        , style = style_cf_ft_na)
+        openxlsx::conditionalFormatting(wb, "summary"
+                                        , cols = cols_cf
+                                        , rows = rows_cf
+                                        , rule = '>=2'
+                                        , style = style_cf_ft_warm)
+      }## IF ~ !is.na(cols_cf)
       
       
       # # CF, data bar

@@ -21,6 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9131 (2024-01-08)
+
+* refactor: Update Report
+    + Add conditional formatting for summary worksheet for data columns
+        - MTTI
+        - Thermal Metrics
+    + Add error checking if thermal metrics not present
+
 # BCGcalc 2.0.0.9130 (2024-01-02)
 
 * docs: Add tag to roxygen chunk to allow for table in `BCG.Level.Membership`

@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-01-03 12:42:04.091226
+2024-01-08 16:28:28.216564
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-01-03 12:42:04.12414
+    #> Last Update: 2024-01-08 16:28:28.37326
+
+# BCGcalc 2.0.0.9131 (2024-01-08)
+
+- refactor: Update Report
+  - Add conditional formatting for summary worksheet for data columns
+    - MTTI
+    - Thermal Metrics
+  - Add error checking if thermal metrics not present
 
 # BCGcalc 2.0.0.9130 (2024-01-02)
 
