@@ -6703,8 +6703,6 @@ shinyServer(function(input, output) {
                                         , style = style_cf_ft_vcold_cold)
       }## IF ~ !is.na(cols_cf)
       
-      openxlsx::openXL(wb)
-      
       ##### nt_ti_stenocold_cold_cool----
       myMetNam <- "nt_ti_stenocold_cold_cool"
       cols_cf <- match(myMetNam, names(df_col_thresh)) + mySC_colthresh - 1

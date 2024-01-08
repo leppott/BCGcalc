@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-01-08 16:28:28.216564
+2024-01-08 17:27:10.207971
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-01-08 16:28:28.37326
+    #> Last Update: 2024-01-08 17:27:10.241104
+
+# BCGcalc 2.0.0.9132 (2024-01-08)
+
+- fix: Remove testing line in Report server code
+  - Caused ShinyApps.io to crash trying to open Excel
 
 # BCGcalc 2.0.0.9131 (2024-01-08)
 
