@@ -5140,13 +5140,15 @@ shinyServer(function(input, output) {
       
       if (is.null(inFile)) {
         # end process with pop up
-        msg <- "No file uploaded.  Upload a file and try again."
+        msg <- paste("No file uploaded.  Upload a file and try again."
+                      , "OR file did not finish loading.\nWait for 'Upload Complete' message before clicking."
+                      , sep = "\n\n")
         shinyalert::shinyalert(title = "Report"
                                , text = msg
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        # shiny::validate(msg)
+        shiny::validate(msg)
       }## IF ~ is.null(inFile)
       
       # Remove existing files in "results"
@@ -6662,13 +6664,13 @@ shinyServer(function(input, output) {
         openxlsx::conditionalFormatting(wb, "summary"
                                         , cols = cols_cf
                                         , rows = rows_cf
-                                        , rule = '>=3'
-                                        , style = style_cf_ft_vcold_cold)
+                                        , rule = '>=1'
+                                        , style = style_cf_ft_cold)
         openxlsx::conditionalFormatting(wb, "summary"
                                         , cols = cols_cf
                                         , rows = rows_cf
-                                        , rule = '>=1'
-                                        , style = style_cf_ft_cold)
+                                        , rule = '>=3'
+                                        , style = style_cf_ft_vcold_cold)
       }## IF ~ !is.na(cols_cf)
       
       ##### nt_ti_stenocold_cold----

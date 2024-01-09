@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-01-08 17:27:10.207971
+2024-01-09 10:27:29.176497
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-01-08 17:27:10.241104
+    #> Last Update: 2024-01-09 10:27:29.229061
+
+# BCGcalc 2.0.0.9133 (2024-01-09)
+
+- fix: Add shiny::validate(msg) back to shiny alert for when no file
+  uploaded
+  - Avoid the app crashing by preventing rest of code from running
+- refactor: update shiny alert message for upload to account for file
+  upload not complete
+- fix: Update order of conditional formatting for nt_ti_stenocold
 
 # BCGcalc 2.0.0.9132 (2024-01-08)
 

@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9133 (2024-01-09)
+
+* fix: Add shiny::validate(msg) back to shiny alert for when no file uploaded
+    + Avoid the app crashing by preventing rest of code from running
+* refactor: update shiny alert message for upload to account for file upload not complete
+* fix: Update order of conditional formatting for nt_ti_stenocold 
+
 # BCGcalc 2.0.0.9132 (2024-01-08)
 
 * fix: Remove testing line in Report server code
