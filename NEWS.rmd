@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9134 (2024-01-11)
+
+* refactor: Update NM BCG Index_Name and Index_Class in Rules.xlsx
+
 # BCGcalc 2.0.0.9133 (2024-01-09)
 
 * fix: Add shiny::validate(msg) back to shiny alert for when no file uploaded
