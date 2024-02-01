@@ -2811,7 +2811,7 @@ shinyServer(function(input, output) {
       ## Calc, 03, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
-      message(paste0("Community = ", input$si_community))
+      message(paste0("Community = ", input$si_community_met_therm))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
@@ -3090,7 +3090,7 @@ shinyServer(function(input, output) {
       ## Calc, 4, Rules ----
       prog_detail <- "Calculate, BCG Rules"
       message(paste0("\n", prog_detail))
-      message(paste0("Community = ", input$si_community))
+      message(paste0("Community = ", input$si_community_modtherm))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
@@ -3103,10 +3103,11 @@ shinyServer(function(input, output) {
       pn_rules <- file.path(dn_rules, fn_rules)
       write.csv(df_rules, pn_rules, row.names = FALSE)
       
+  
       ## Calc, 5, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
-      message(paste0("Community = ", input$si_community))
+      message(paste0("Community = ", input$si_community_modtherm))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
@@ -3114,17 +3115,17 @@ shinyServer(function(input, output) {
       # QC
       # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
       # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
-      
+    
       if (length(cols_flags_keep) > 0) {
         # keep extra cols from Flags (non-metric)
         df_metval <- BioMonTools::metric.values(df_input
-                                                , input$si_community
+                                                , input$si_community_modtherm
                                                 , fun.cols2keep = cols_flags_keep
                                                 , boo.Shiny = TRUE
                                                 , verbose = TRUE)
       } else {
         df_metval <- BioMonTools::metric.values(df_input
-                                                , input$si_community
+                                                , input$si_community_modtherm
                                                 , boo.Shiny = TRUE
                                                 , verbose = TRUE)
       }## IF ~ length(col_rules_keep)
@@ -3155,7 +3156,8 @@ shinyServer(function(input, output) {
       dn_metval_slim <- path_results_sub
       pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
       write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
-      
+
+     
       ## Calc, 6, MetMemb----
       prog_detail <- "Calculate, Metric, Membership"
       message(paste0("\n", prog_detail))
@@ -3170,7 +3172,7 @@ shinyServer(function(input, output) {
       pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
       write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
       
-    
+      
       ## Calc, 7, LevMemb----
       prog_detail <- "Calculate, Level, Membership"
       message(paste0("\n", prog_detail))

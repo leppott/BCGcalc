@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9138 (2024-02-01)
+
+* fix: Shiny app fuzzy model not working, change community reference
+    + Also fixed thermal metrics for status message
+
 # BCGcalc 2.0.0.9137 (2024-02-01)
 
 * fix: Update naming scheme for BCG calculation in Shiny app, Issue #87

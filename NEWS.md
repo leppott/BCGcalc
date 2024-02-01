@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-02-01 09:36:01.859784
+2024-02-01 10:23:14.339318
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-02-01 09:36:01.921951
+    #> Last Update: 2024-02-01 10:23:14.673873
+
+# BCGcalc 2.0.0.9138 (2024-02-01)
+
+- fix: Shiny app fuzzy model not working, change community reference
+  - Also fixed thermal metrics for status message
 
 # BCGcalc 2.0.0.9137 (2024-02-01)
 
