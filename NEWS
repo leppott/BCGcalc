@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-02-01 08:45:09.544247
+2024-02-01 09:36:01.859784
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-02-01 08:45:09.563572
+    #> Last Update: 2024-02-01 09:36:01.921951
+
+# BCGcalc 2.0.0.9137 (2024-02-01)
+
+- fix: Update naming scheme for BCG calculation in Shiny app, Issue \#87
+  - Add “\_” prefix to Results.
 
 # BCGcalc 2.0.0.9136 (2024-02-01)
 
