@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9136 (2024-02-01)
+
+* fix: Update naming scheme for BCG calculation in Shiny app, Issue #87
+* refactor: Update text on BCG calculation pop up in Shiny app, Issue #88
+
 # BCGcalc 2.0.0.9135 (2024-01-11)
 
 * refactor: Update NM BCG, drop percent max ffg from L2 and L4 per documentation

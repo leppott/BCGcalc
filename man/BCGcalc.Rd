@@ -2,6 +2,7 @@
 % Please edit documentation in R/BCGcalc.R
 \docType{package}
 \name{BCGcalc}
+\alias{BCGcalc-package}
 \alias{BCGcalc}
 \title{BCGcalc: Metric calculation and other tasks related to BCG}
 \description{
@@ -14,3 +15,21 @@ to BCG.
 #' ...
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/leppott/BCGcalc}
+  \item Report bugs at \url{https://github.com/leppott/BCGcalc/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Erik W. Leppo \email{Erik.Leppo@tetratech.com}
+
+Other contributors:
+\itemize{
+  \item Jen Stamp \email{Jen.Stamp@tetratech.com} [contributor]
+  \item Matt Hedin \email{Matt.Hedin@tetratech.com} [contributor]
+}
+
+}

@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-01-11 13:15:28.879966
+2024-02-01 08:45:09.544247
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-01-11 13:15:28.933859
+    #> Last Update: 2024-02-01 08:45:09.563572
+
+# BCGcalc 2.0.0.9136 (2024-02-01)
+
+- fix: Update naming scheme for BCG calculation in Shiny app, Issue \#87
+- refactor: Update text on BCG calculation pop up in Shiny app, Issue
+  \#88
 
 # BCGcalc 2.0.0.9135 (2024-01-11)
 

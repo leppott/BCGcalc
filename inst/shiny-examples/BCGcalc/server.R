@@ -2474,19 +2474,19 @@ shinyServer(function(input, output) {
       
       
       # Save, Flags Summary
-      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
+      fn_levflags <- paste0(fn_abr_save, "6levflags.csv")
       dn_levflags <- path_results_sub
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
       
       # Save, Results
-      fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      fn_results <- paste0(fn_abr_save, "RESULTS.csv")
       dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
       
       # Save, Flag Metrics
-      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
+      fn_metflags <- paste0(fn_abr_save, "6metflags.csv")
       dn_metflags <- path_results_sub
       pn_metflags <- file.path(dn_metflags, fn_metflags)
       write.csv(df_metflags, pn_metflags, row.names = FALSE)
@@ -2624,12 +2624,14 @@ shinyServer(function(input, output) {
                                         , TRUE
                                         , FALSE)
       n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
+      
+      n_total <- nrow(df_samp_flags)
 
       # save info
       write.csv(df_samp_flags, file.path("results", "results_BCG", "_BCG_Sample_FLAGS.csv"))
       
       # Inform user about number of samples outside of experience of model
-      msg <- paste0("('NA' if data field not provided in input file).", "\n\n"
+      msg <- paste0(n_total, " = Total number of samples", "\n\n"
                     , n_bad_any, " = Total number of samples outside of model experience", "\n\n"
                     , n_bad_indexclass, " = Index_Class, incorrect (LoGrad-HiElev)", "\n"
                     , n_bad_eco3, " = Ecoregion III, incorrect (not 1, 2, 3, 4, or 77)", "\n"
@@ -2638,7 +2640,8 @@ shinyServer(function(input, output) {
                     , n_bad_wshedarea_large, " = watershed area, large (> 260 km2)", "\n"
                     , n_bad_elev_trans, " = elevation, transitional (700 - 800 m)", "\n"
                     , n_bad_slope_trans, " = slope, transitional (0.8 - 1.2%)", "\n"
-                    , n_bad_slope_vhigh, " = slope, very high (>= 8%)"
+                    , n_bad_slope_vhigh, " = slope, very high (>= 8%)", "\n\n"
+                    , "('NA' if data field not provided in input file)."
                     )
       shinyalert::shinyalert(title = "BCG Calculation,\nSamples Outside Model Experience"
                              , text = msg
