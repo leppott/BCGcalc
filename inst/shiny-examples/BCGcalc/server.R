@@ -1055,6 +1055,23 @@ shinyServer(function(input, output) {
         names(df_sites)[boo_dup] <- names_old[boo_dup]
       }## IF ~ boo_dup
       
+      # File Size
+      nrow_sites <- nrow(df_sites)
+      if (nrow_sites > 500) {
+        # end process with pop up
+        msg <- paste0("More than 500 sites will cause a timeout on downloading NHD+ and StreamCat data."
+                      , "Your file has "
+                      , nrow_sites
+                      , " records."
+        )
+        shinyalert::shinyalert(title = "Generate Index Class Parameters"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        # validate(msg)
+      }## IF ~ nrow_sites
+      
       ## Calc, 03, Run Function, StreamCat ----
       prog_detail <- "Stream Cat; COMID and elev"
       message(paste0("\n", prog_detail))
@@ -2264,7 +2281,7 @@ shinyServer(function(input, output) {
         
       }## IF ~ input$ExclTaxa
       
-      
+     
       ## Calc, 3, BCG Flag Cols ----
       # get columns from Flags (non-metrics) to carry through
       prog_detail <- "Calculate, Keep BCG Model Columns"
@@ -2333,7 +2350,7 @@ shinyServer(function(input, output) {
       dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
-      
+     
       ## Save Results (BCG) ----
       # Munge
       ## Model and QC Flag metrics only
@@ -2478,7 +2495,7 @@ shinyServer(function(input, output) {
       dn_levflags <- path_results_sub
       pn_levflags <- file.path(dn_levflags, fn_levflags)
       write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
-      
+     
       # Save, Results
       fn_results <- paste0("_", fn_abr_save, "RESULTS.csv")
       dn_results <- path_results_sub
@@ -4110,7 +4127,7 @@ shinyServer(function(input, output) {
       df_metric_scores_bugs <- metric.scores(DF_Metrics = df_metric_values_bugs
                                              , col_MetricNames = myMetrics.Bugs
                                              , col_IndexName = "INDEX_NAME"
-                                             , col_IndexRegion = "INDEX_CLASS"
+                                             , col_IndexClass = "INDEX_CLASS"
                                              , DF_Thresh_Metric = df_thresh_metric
                                              , DF_Thresh_Index = df_thresh_index)
       

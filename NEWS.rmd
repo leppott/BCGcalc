@@ -21,6 +21,15 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9139 (2024-02-06)
+
+* refactor: Shiny app file builder generate class parameters, Issue #89
+    + Add shinyalert for more than 500 records
+    + `nhdplustools` and `StreamCatTools` timeout issues with too many records
+* fix: Shiny app calculation of BioMonTools::metric.scores, leppott/BioMonTools#103
+    + Affected BDI calculation, checked and no other instances
+* fix: Update package documenation per roxygen2 (since 7.0.0)
+
 # BCGcalc 2.0.0.9138 (2024-02-01)
 
 * fix: Shiny app fuzzy model not working, change community reference

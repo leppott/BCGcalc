@@ -1,11 +1,22 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-02-01 10:23:14.339318
+2024-02-06 16:03:39.031286
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-02-01 10:23:14.673873
+    #> Last Update: 2024-02-06 16:03:39.067839
+
+# BCGcalc 2.0.0.9139 (2024-02-06)
+
+- refactor: Shiny app file builder generate class parameters, Issue \#89
+  - Add shinyalert for more than 500 records
+  - `nhdplustools` and `StreamCatTools` timeout issues with too many
+    records
+- fix: Shiny app calculation of BioMonTools::metric.scores,
+  leppott/BioMonTools#103
+  - Affected BDI calculation, checked and no other instances
+- fix: Update package documenation per roxygen2 (since 7.0.0)
 
 # BCGcalc 2.0.0.9138 (2024-02-01)
 

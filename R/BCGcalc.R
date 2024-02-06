@@ -7,6 +7,5 @@
 #' #' qc.checks
 #' #' ...
 #'
-#' @docType package
-#' @name BCGcalc
+#' "_PACKAGE"
 NULL
