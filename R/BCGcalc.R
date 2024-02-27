@@ -7,5 +7,5 @@
 #' #' qc.checks
 #' #' ...
 #'
-#' "_PACKAGE"
+"_PACKAGE"
 NULL

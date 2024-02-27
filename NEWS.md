@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-02-06 16:03:39.031286
+2024-02-27 12:12:52.808604
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-02-06 16:03:39.067839
+    #> Last Update: 2024-02-27 12:12:52.880878
+
+# BCGcalc 2.0.0.9140 (2024-02-27)
+
+- feature: Add new template for new metrics, models, and rules
+- fix: Update package documenation per roxygen2
 
 # BCGcalc 2.0.0.9139 (2024-02-06)
 

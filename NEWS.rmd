@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9140 (2024-02-27)
+
+* feature: Add new template for new metrics, models, and rules
+* fix: Update package documenation per roxygen2
+
 # BCGcalc 2.0.0.9139 (2024-02-06)
 
 * refactor: Shiny app file builder generate class parameters, Issue #89
