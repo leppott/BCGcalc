@@ -48,7 +48,7 @@ Default = "RULE_TYPE"}
 \item{col_METRIC_VALUE}{Column name for metric value.
 Default = "METRIC_VALUE"}
 
-\item{col_INCREASE}{Column name for if the metric increases. 
+\item{col_INCREASE}{Column name for if the metric value increases.
 Default = "INCREASE"}
 
 \item{...}{Arguments passed to `BCG.MetricMembership` used internally}

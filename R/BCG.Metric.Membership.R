@@ -22,7 +22,7 @@
 #' @param col_UPPER Column name for upper limit.  Default = "UPPER"
 #' @param col_METRIC_VALUE Column name for metric value.  
 #' Default = "METRIC_VALUE"
-#' @param col_INCREASE Column name for if the metric increases. 
+#' @param col_INCREASE Column name for if the metric value increases.  
 #' Default = "INCREASE"
 #' @param ... Arguments passed to `BCG.MetricMembership` used internally
 #' 
@@ -114,7 +114,7 @@ BCG.Metric.Membership <- function(df.metrics
   ## use inputs
   #
   # Metrics to long
-  if (input.shape == "wide") {##IF.input.shape.START
+  if (input.shape == "wide") {
     df.long <- reshape2::melt(df.metrics
                         , id.vars = c(col_SAMPLEID
                                     , col_INDEX_NAME
@@ -154,7 +154,7 @@ BCG.Metric.Membership <- function(df.metrics
     , col_METRIC_NAME])
   rules.metrics.len <- length(rules.metrics.names)
   #
-  if (sum(rules.metrics.TF) != rules.metrics.len) {##IF.RulesCount.START
+  if (sum(rules.metrics.TF) != rules.metrics.len) {
     Msg <- paste0("Data provided does not include all metrics in rules table. "
                   , "The following metrics are missing: "
                   , paste(rules.metrics.names[!rules.metrics.TF]

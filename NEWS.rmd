@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9141 (2024-03-28)
+
+* docs: Update BCG.Metric.Membership language for col_INCREASE
+* refactor: Update Rules.xlsx for FL Coral BCG
+
 # BCGcalc 2.0.0.9140 (2024-02-27)
 
 * feature: Add new template for new metrics, models, and rules

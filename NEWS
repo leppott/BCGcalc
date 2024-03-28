@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-02-27 12:12:52.808604
+2024-03-28 16:55:43.462629
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-02-27 12:12:52.880878
+    #> Last Update: 2024-03-28 16:55:43.475439
+
+# BCGcalc 2.0.0.9141 (2024-03-28)
+
+- docs: Update BCG.Metric.Membership language for col_INCREASE
+- refactor: Update Rules.xlsx for FL Coral BCG
 
 # BCGcalc 2.0.0.9140 (2024-02-27)
 
