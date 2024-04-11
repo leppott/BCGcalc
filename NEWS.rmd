@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9142 (2024-04-11)
+
+* fix: Update MetricFlags.xlsx for FL Coral BCG
+
 # BCGcalc 2.0.0.9142 (2024-03-29)
 
 * fix: Update Rules.xlsx for FL Coral BCG
