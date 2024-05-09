@@ -1,13 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-04-11 09:03:35.739538
+2024-05-09 10:13:21.485054
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-04-11 09:03:35.751149
+    #> Last Update: 2024-05-09 10:13:21.506861
 
-# BCGcalc 2.0.0.9142 (2024-04-11)
+# BCGcalc 2.0.0.9144 (2024-05-09)
+
+- refactor: Modify language on Shiny app pop up for assign class
+
+# BCGcalc 2.0.0.9143 (2024-04-11)
 
 - fix: Update MetricFlags.xlsx for FL Coral BCG
 

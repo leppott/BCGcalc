@@ -1055,6 +1055,15 @@ shinyServer(function(input, output) {
         names(df_sites)[boo_dup] <- names_old[boo_dup]
       }## IF ~ boo_dup
       
+      ### Subset, required columns ----
+      # col_req <- c(sel_col_sampid
+      #              , sel_col_lat
+      #              , sel_col_lon
+      #              #, sel_col_epsg
+      #              , "EPSG_CALC")
+     # df_sites <- unique(df_sites)
+      # col_remove <- c("TaxaID", "N_Taxa")
+      
       # File Size
       nrow_sites <- nrow(df_sites)
       if (nrow_sites > 500) {
@@ -1487,6 +1496,17 @@ shinyServer(function(input, output) {
       df_input[, sel_col_indexclass] <- NA_character_ 
       ### Remove
       df_input[, sel_col_indexclass] <- NULL 
+      
+      
+      ### Subset, required columns ----
+      # col_req <- c(sel_col_sampid
+      #              , sel_col_indexname
+      #              , sel_col_indexclass
+      #              , sel_col_elev
+      #              , sel_col_slope)
+      # # df_sites <- unique(df_sites)
+      #col_remove <- c("TaxaID", "N_Taxa")
+      
 
       ## Calc, 03, Run Function ----
       prog_detail <- "Calculate, Index Class"
@@ -2649,14 +2669,22 @@ shinyServer(function(input, output) {
       
       # Inform user about number of samples outside of experience of model
       msg <- paste0(n_total, " = Total number of samples", "\n\n"
-                    , n_bad_any, " = Total number of samples outside of model experience", "\n\n"
+                    , n_bad_any
+      , " = Total number of samples outside of model experience, transitional (close to elevation/gradient thresholds), or with very high gradient (more prone to scour)"
+                    , "\n\n"
+                    , "\n"
+      , "Outside of model experience:", "\n"
                     , n_bad_indexclass, " = Index_Class, incorrect (LoGrad-HiElev)", "\n"
                     , n_bad_eco3, " = Ecoregion III, incorrect (not 1, 2, 3, 4, or 77)", "\n"
                     , n_bad_precip, " = precipitation, low (< 650 mm)", "\n"
                     , n_bad_wshedarea_small, " = watershed area, small (< 5 km2)", "\n"
                     , n_bad_wshedarea_large, " = watershed area, large (> 260 km2)", "\n"
+      , "\n"
+      , "Transitional between classes:", "\n"
                     , n_bad_elev_trans, " = elevation, transitional (700 - 800 m)", "\n"
                     , n_bad_slope_trans, " = slope, transitional (0.8 - 1.2%)", "\n"
+      , "\n"
+      , "High slope:", "\n"
                     , n_bad_slope_vhigh, " = slope, very high (>= 8%)", "\n\n"
                     , "('NA' if data field not provided in input file)."
                     )
