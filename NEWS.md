@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-05-09 10:13:21.485054
+2024-05-14 12:11:24.020965
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-05-09 10:13:21.506861
+    #> Last Update: 2024-05-14 12:11:24.0504
+
+# BCGcalc 2.0.0.9145 (2024-05-14)
+
+- refactor: Update Rules.xlsx for Great Plains BCG
 
 # BCGcalc 2.0.0.9144 (2024-05-09)
 

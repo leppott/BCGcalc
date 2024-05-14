@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9145 (2024-05-14)
+
+* refactor: Update Rules.xlsx for Great Plains BCG
+
 # BCGcalc 2.0.0.9144 (2024-05-09)
 
 * refactor: Modify language on Shiny app pop up for assign class
