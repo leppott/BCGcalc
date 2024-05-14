@@ -41,10 +41,12 @@
 #' This equates to using the median of the 3 values.  This is handled by 
 #' including "MEDIAN" in the Exc_Rule column in Rules.xlsx.
 #' 
-#' 2024 added SMALL2 and SMALL3 Exception rules.
+#' 2024 added SMALL2, SMALL2A, SMALL2B, and SMALL3 Exception rules.
 #' For New Mexico BCG some metrics are grouped so use the 2nd or 3rd smallest
-#' value instead of the minimum.  As above, this is handled by including 
-#' "SMALL2" or "SMALL3" in the Exc_Rule column in Rules.xlsx.
+#' value instead of the minimum. For the Great Plains BCG, multiple groups were
+#' within each level, so SMALL2A and SMALL2B had to be developed. 
+#' As above, this is handled by including "SMALL2", "SMALL3", etc.,
+#' in the Exc_Rule column in Rules.xlsx.
 #' 
 #' Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
 #' @md
@@ -383,6 +385,44 @@ BCG.Level.Membership <- function(df.metric.membership
   df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL2" | is.na(EXC_RULE))
   # Add new memberships back to df.merge
   df.merge <- dplyr::bind_rows(df.merge, df_er_small2_calc)
+  
+  ## EXC_RULE, SMALL2A----
+  df_er_small2A <- dplyr::filter(df.merge, EXC_RULE == "SMALL2A")
+  # default sort in arrange is ascending (NA are at end)
+  # group
+  # filter for 2nd row 
+  df_er_small2A_calc <- dplyr::group_by(df_er_small2A
+                                       , SAMPLEID
+                                       , INDEX_NAME
+                                       , INDEX_CLASS
+                                       , LEVEL) %>%
+    dplyr::arrange(MEMBERSHIP) %>%
+    dplyr::filter(dplyr::row_number() == 2)
+  #
+  # Update df.merge
+  # Remove EXC_RULE == "SMALL2A"
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL2A" | is.na(EXC_RULE))
+  # Add new memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_er_small2A_calc)
+  
+  ## EXC_RULE, SMALL2B----
+  df_er_small2B <- dplyr::filter(df.merge, EXC_RULE == "SMALL2B")
+  # default sort in arrange is ascending (NA are at end)
+  # group
+  # filter for 2nd row 
+  df_er_small2B_calc <- dplyr::group_by(df_er_small2B
+                                        , SAMPLEID
+                                        , INDEX_NAME
+                                        , INDEX_CLASS
+                                        , LEVEL) %>%
+    dplyr::arrange(MEMBERSHIP) %>%
+    dplyr::filter(dplyr::row_number() == 2)
+  #
+  # Update df.merge
+  # Remove EXC_RULE == "SMALL2B"
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL2B" | is.na(EXC_RULE))
+  # Add new memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_er_small2B_calc)
   
   ## EXC_RULE, SMALL3----
   # Need to handle Rule01 (max) [part of Small3 not a separate rule]
