@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9000 (2024-05-14)
+
+* break: Fix Rules for Small2 and Small3
+    + Sort descending and take row 2 or 3
+    + This could be a breaking change
+        - Updating version number
+
 # BCGcalc 2.0.0.9146 (2024-05-14)
 
 * refactor: Update 'GP_BCG_Fish' to 'GP_Fish_BCG' to match GP Bug models

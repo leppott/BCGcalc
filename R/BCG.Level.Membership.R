@@ -363,11 +363,12 @@ BCG.Level.Membership <- function(df.metric.membership
   df.merge <- dplyr::bind_rows(df.merge, df_er_median_calc)
   # 2024-01-03
   # Median same as Small2 when have 3 values
-  # Median came first
+  # Median came first and used in BCG_MariNW_Bugs500ct, leave 'as is' 
   
   ## EXC_RULE, SMALL2----
   df_er_small2 <- dplyr::filter(df.merge, EXC_RULE == "SMALL2")
-  # default sort in arrange is ascending (NA are at end)
+  # default sort in arrange is ascending (NA are at end) 
+  # sort desc so doesn't matter how many are in group
   # group
   # filter for 2nd row 
   df_er_small2_calc <- dplyr::group_by(df_er_small2
@@ -375,7 +376,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                        , INDEX_NAME
                                        , INDEX_CLASS
                                        , LEVEL) %>%
-    dplyr::arrange(MEMBERSHIP) %>%
+    dplyr::arrange(-MEMBERSHIP) %>% # sort desc
     dplyr::filter(dplyr::row_number() == 2)
   #
   # Update df.merge
@@ -402,13 +403,14 @@ BCG.Level.Membership <- function(df.metric.membership
                                              , INDEX_CLASS
                                              , LEVEL) %>%
     dplyr::arrange(-MEMBERSHIP) %>% # desc
-    dplyr::filter(dplyr::row_number() == 1) %>% 
+    dplyr::filter(dplyr::row_number() == 3) %>% 
     dplyr::mutate(RULE_TYPE = "RULE0")
   # Add Rule1 max to Rule0
   df_er_small3_rule0_calc <- dplyr::bind_rows(df_er_small3_rule0
                                               , df_er_small3_rule1_calc)
   # Small3 calc
   # default sort in arrange is ascending (NA are at end)
+  # use Desc so doesn't matter number in group
   # group
   # filter for 3rd row 
   df_er_small3_calc <- dplyr::group_by(df_er_small3_rule0_calc
@@ -416,7 +418,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                              , INDEX_NAME
                                              , INDEX_CLASS
                                              , LEVEL) %>%
-    dplyr::arrange(MEMBERSHIP) %>%
+    dplyr::arrange(-MEMBERSHIP) %>% # desc
     dplyr::filter(dplyr::row_number() == 3)
   #
   # Update df.merge

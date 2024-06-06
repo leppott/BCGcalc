@@ -30,6 +30,7 @@ Other contributors:
 \itemize{
   \item Jen Stamp \email{Jen.Stamp@tetratech.com} [contributor]
   \item Matt Hedin \email{Matt.Hedin@tetratech.com} [contributor]
+  \item Ben Block \email{Ben.Block@tetratech.com} [contributor]
 }
 
 }
