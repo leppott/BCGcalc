@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.0.0.9146 (2024-05-14)
+
+* refactor: Update 'GP_BCG_Fish' to 'GP_Fish_BCG' to match GP Bug models
+    + Rules.xlsx
+
 # BCGcalc 2.0.0.9145 (2024-05-14)
 
 * refactor: Update Rules.xlsx for Great Plains BCG
