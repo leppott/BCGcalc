@@ -131,6 +131,9 @@ BCG.Metric.Membership <- function(df.metrics
   names(df.rules) <- toupper(names(df.rules))
   #
   # INDEX_CLASS to lowercase
+  # preserve original
+  col_INDEX_CLASS_ORIG <- paste0(col_INDEX_CLASS, "_ORIG")
+  df.long[, col_INDEX_CLASS_ORIG] <- df.long[, col_INDEX_CLASS] 
   df.long[, col_INDEX_CLASS] <- tolower(df.long[, col_INDEX_CLASS])
   df.rules[, col_INDEX_CLASS] <- tolower(df.rules[, col_INDEX_CLASS])
   #
@@ -203,6 +206,13 @@ BCG.Metric.Membership <- function(df.metrics
       # can mess up 0 and 1
   
   # Access uses 2 different formulas
+  
+  # INDEX_CLASS, fix
+  # replace tolower(INDEX_CLASS) with INDEX_CLASS_ORIG
+  df.merge[, col_INDEX_CLASS] <- df.merge[, col_INDEX_CLASS_ORIG]
+  # remove INDEX_CLASS_ORIG
+  col_drop_ICORIG <- !names(df.merge) %in% col_INDEX_CLASS_ORIG 
+  df.merge <- df.merge[, col_drop_ICORIG]
 
   # wide name
   df.merge[,"NAME_WIDE"] <- paste0(df.merge[, col_INDEX_CLASS]

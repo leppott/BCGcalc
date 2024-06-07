@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-07 12:00:39.482935
+2024-06-07 12:59:17.061808
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-07 12:00:39.503998
+    #> Last Update: 2024-06-07 12:59:17.07962
+
+# BCGcalc 2.1.0.9003 (2024-06-07)
+
+- refactor: Update functions to retain original case for INDEX_CLASS,
+  Issue \#91
+  - `BCG.Metric.Membership`
+  - `BCG.Level.Membership`
 
 # BCGcalc 2.1.0.9002 (2024-06-07)
 

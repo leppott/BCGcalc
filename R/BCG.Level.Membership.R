@@ -254,7 +254,7 @@ BCG.Level.Membership <- function(df.metric.membership
   df.metric.membership <- as.data.frame(df.metric.membership)
   df.rules <- as.data.frame(df.rules)
   
-  # Convert names to upper case
+  ## Convert names to upper case
   names(df.metric.membership) <- toupper(names(df.metric.membership))
   names(df.rules) <- toupper(names(df.rules))
   
@@ -266,22 +266,26 @@ BCG.Level.Membership <- function(df.metric.membership
   # col_METRIC_NAME
   # col_RULE_TYPE
   
-  # INDEX_CLASS to lowercase
+  ## INDEX_CLASS to lowercase
+  # preserve original
+  col_INDEX_CLASS_ORIG <- paste0(col_INDEX_CLASS, "_ORIG")
+  df.metric.membership[, col_INDEX_CLASS_ORIG] <- df.metric.membership[
+                                                              , col_INDEX_CLASS] 
   df.metric.membership[, col_INDEX_CLASS] <- tolower(df.metric.membership[
-                                                               , col_INDEX_CLASS])
+                                                             , col_INDEX_CLASS])
   df.rules[, col_INDEX_CLASS] <- tolower(df.rules[, col_INDEX_CLASS])
   
-  # EXC_RULE to uppercase
+  ## EXC_RULE to uppercase
   df.metric.membership[, col_EXC_RULE] <- toupper(df.metric.membership[
                                                                 , col_EXC_RULE])
   df.rules[, col_EXC_RULE] <- toupper(df.rules[, col_EXC_RULE])
   
-  # RULE_TYPE to uppercase
+  ## RULE_TYPE to uppercase
   df.metric.membership[, col_RULE_TYPE] <- toupper(df.metric.membership[
     , col_RULE_TYPE])
   df.rules[, col_RULE_TYPE] <- toupper(df.rules[, col_RULE_TYPE])
   
-  # Drop extra columns from df.metric.membership
+  ## Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
   col.drop <- c("NUMERIC_RULES"
                 , "SYMBOL"
@@ -479,6 +483,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                                , SAMPLEID
                                                , INDEX_NAME
                                                , INDEX_CLASS
+                                               , INDEX_CLASS_ORIG # 20240607
                                                , LEVEL
                                                )
                                , .groups = "drop_last"
@@ -600,8 +605,9 @@ BCG.Level.Membership <- function(df.metric.membership
   names(df.lev)[names(df.lev) == col_LEVEL] <- "LEVEL"
   
   # Convert to wide format
+  # 202040607, add INDEX_CLASS_ORIG
   df.lev.wide <- reshape2::dcast(df.lev
-                                 , SAMPLEID + INDEX_NAME + INDEX_CLASS
+                                 , SAMPLEID + INDEX_NAME + INDEX_CLASS + INDEX_CLASS_ORIG
                                  ~ LEVEL
                                  , value.var = "Level.Membership"
                                  )
@@ -743,6 +749,14 @@ BCG.Level.Membership <- function(df.metric.membership
   df.results <- df.subtotal[, !(names(df.subtotal) %in% c(col.sub, col.ruleslev))]
   # Results are for each SAMPLEID, INDEX_NAME, INDEX_CLASS, and 
   #                                                  LEVEL Assignment/Membership
+  
+  # INDEX_CLASS, fix
+  # replace tolower(INDEX_CLASS) with INDEX_CLASS_ORIG
+  df.results[, col_INDEX_CLASS] <- df.results[, col_INDEX_CLASS_ORIG]
+  # remove INDEX_CLASS_ORIG
+  col_drop_ICORIG <- !names(df.results) %in% col_INDEX_CLASS_ORIG 
+  df.results <- df.results[, col_drop_ICORIG]
+  
   # create output
   return(df.results)
   #
