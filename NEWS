@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-07 09:25:05.421203
+2024-06-07 12:00:39.482935
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-07 09:25:05.434199
+    #> Last Update: 2024-06-07 12:00:39.503998
+
+# BCGcalc 2.1.0.9002 (2024-06-07)
+
+- refactor: Define pipe in `BCG.Level.Membership`
 
 # BCGcalc 2.1.0.9001 (2024-06-07)
 

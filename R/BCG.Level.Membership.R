@@ -227,6 +227,9 @@ BCG.Level.Membership <- function(df.metric.membership
            , col_EXC_RULE)
   }## IF ~ boo_QC ~ END
   
+  # define pipe
+  `%>%` <- dplyr::`%>%`
+  
   # QC----
   # DEPRECATE SITE_TYPE.
   if (exists("col_SITE_TYPE")) {

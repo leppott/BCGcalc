@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+
+# BCGcalc 2.1.0.9002 (2024-06-07)
+
+* refactor: Define pipe in `BCG.Level.Membership`
+
 # BCGcalc 2.1.0.9001 (2024-06-07)
 
 * refactor: Update rules for SMALL2 and SMALL3
