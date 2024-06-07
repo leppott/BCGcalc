@@ -1,15 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-06 14:55:21.483777
+2024-06-07 09:25:05.421203
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-06 14:55:21.497817
+    #> Last Update: 2024-06-07 09:25:05.434199
 
-# BCGcalc 2.1.0.9000 (2024-05-14)
+# BCGcalc 2.1.0.9001 (2024-06-07)
 
-- break: Fix Rules for Small2 and Small3
+- refactor: Update rules for SMALL2 and SMALL3
+  - Sort ascending
+  - Add rules for SMALL2A and SMALL2B
+
+# BCGcalc 2.1.0.9000 (2024-06-06)
+
+- break: Fix Rules for SMALL2 and SMALL3
   - Sort descending and take row 2 or 3
   - This could be a breaking change
     - Updating version number

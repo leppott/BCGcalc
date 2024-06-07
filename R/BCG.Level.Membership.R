@@ -39,12 +39,17 @@
 #' For the Pacific Northwest some metrics were grouped and the 2nd of 3 values
 #' is used and the other 2 values tossed when determining level membership.  
 #' This equates to using the median of the 3 values.  This is handled by 
-#' including "MEDIAN" in the Exc_Rule column in Rules.xlsx.
+#' including "MEDIAN" in the Exc_Rule column in Rules.xlsx.  Superceded by
+#' "SMALL2".
 #' 
 #' 2024 added SMALL2 and SMALL3 Exception rules.
 #' For New Mexico BCG some metrics are grouped so use the 2nd or 3rd smallest
 #' value instead of the minimum.  As above, this is handled by including 
 #' "SMALL2" or "SMALL3" in the Exc_Rule column in Rules.xlsx.
+#' 
+#' Some Great Plains rules use multiple groupings of SMALL2.  These are coded as
+#' "SMALL2A" and "SMALL2B".  If additional groupings are needed the code needs
+#' to be tweaked.
 #' 
 #' Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
 #' @md
@@ -324,14 +329,14 @@ BCG.Level.Membership <- function(df.metric.membership
   
   # dplyr fix 1 ----
   # Ensure have correct names for summarise(group_by))
-  names(df.merge)[names(df.merge) == col_SAMPLEID] <- "SAMPLEID"
-  names(df.merge)[names(df.merge) == col_INDEX_NAME] <- "INDEX_NAME"
+  names(df.merge)[names(df.merge) == col_SAMPLEID]    <- "SAMPLEID"
+  names(df.merge)[names(df.merge) == col_INDEX_NAME]  <- "INDEX_NAME"
   names(df.merge)[names(df.merge) == col_INDEX_CLASS] <- "INDEX_CLASS"
-  names(df.merge)[names(df.merge) == col_LEVEL] <- "LEVEL"
-  names(df.merge)[names(df.merge) == col_RULE_TYPE] <- "RULE_TYPE"
-  names(df.merge)[names(df.merge) == col_MEMBERSHIP] <- "MEMBERSHIP"
+  names(df.merge)[names(df.merge) == col_LEVEL]       <- "LEVEL"
+  names(df.merge)[names(df.merge) == col_RULE_TYPE]   <- "RULE_TYPE"
+  names(df.merge)[names(df.merge) == col_MEMBERSHIP]  <- "MEMBERSHIP"
   ## Exceptions
-  names(df.merge)[names(df.merge) == col_EXC_RULE] <- "EXC_RULE"
+  names(df.merge)[names(df.merge) == col_EXC_RULE]    <- "EXC_RULE"
   
   
   # EXCEPTIONS ----
@@ -368,7 +373,6 @@ BCG.Level.Membership <- function(df.metric.membership
   ## EXC_RULE, SMALL2----
   df_er_small2 <- dplyr::filter(df.merge, EXC_RULE == "SMALL2")
   # default sort in arrange is ascending (NA are at end) 
-  # sort desc so doesn't matter how many are in group
   # group
   # filter for 2nd row 
   df_er_small2_calc <- dplyr::group_by(df_er_small2
@@ -376,7 +380,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                        , INDEX_NAME
                                        , INDEX_CLASS
                                        , LEVEL) %>%
-    dplyr::arrange(-MEMBERSHIP) %>% # sort desc
+    dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 2)
   #
   # Update df.merge
@@ -384,6 +388,44 @@ BCG.Level.Membership <- function(df.metric.membership
   df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL2" | is.na(EXC_RULE))
   # Add new memberships back to df.merge
   df.merge <- dplyr::bind_rows(df.merge, df_er_small2_calc)
+  
+  ## EXC_RULE, SMALL2A----
+  df_er_small2a <- dplyr::filter(df.merge, EXC_RULE == "SMALL2A")
+  # default sort in arrange is ascending (NA are at end) 
+  # group
+  # filter for 2nd row 
+  df_er_small2a_calc <- dplyr::group_by(df_er_small2a
+                                       , SAMPLEID
+                                       , INDEX_NAME
+                                       , INDEX_CLASS
+                                       , LEVEL) %>%
+    dplyr::arrange(MEMBERSHIP) %>% # sort asc
+    dplyr::filter(dplyr::row_number() == 2)
+  #
+  # Update df.merge
+  # Remove EXC_RULE == "SMALL2"
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL2A" | is.na(EXC_RULE))
+  # Add new memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_er_small2a_calc)
+  
+  ## EXC_RULE, SMALL2B----
+  df_er_small2b <- dplyr::filter(df.merge, EXC_RULE == "SMALL2B")
+  # default sort in arrange is ascending (NA are at end) 
+  # group
+  # filter for 2nd row 
+  df_er_small2b_calc <- dplyr::group_by(df_er_small2b
+                                        , SAMPLEID
+                                        , INDEX_NAME
+                                        , INDEX_CLASS
+                                        , LEVEL) %>%
+    dplyr::arrange(MEMBERSHIP) %>% # sort asc
+    dplyr::filter(dplyr::row_number() == 2)
+  #
+  # Update df.merge
+  # Remove EXC_RULE == "SMALL2"
+  df.merge <- dplyr::filter(df.merge, EXC_RULE != "SMALL2B" | is.na(EXC_RULE))
+  # Add new memberships back to df.merge
+  df.merge <- dplyr::bind_rows(df.merge, df_er_small2b_calc)
   
   ## EXC_RULE, SMALL3----
   # Need to handle Rule01 (max) [part of Small3 not a separate rule]
@@ -402,7 +444,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                              , INDEX_NAME
                                              , INDEX_CLASS
                                              , LEVEL) %>%
-    dplyr::arrange(-MEMBERSHIP) %>% # desc
+    dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 3) %>% 
     dplyr::mutate(RULE_TYPE = "RULE0")
   # Add Rule1 max to Rule0
@@ -410,7 +452,6 @@ BCG.Level.Membership <- function(df.metric.membership
                                               , df_er_small3_rule1_calc)
   # Small3 calc
   # default sort in arrange is ascending (NA are at end)
-  # use Desc so doesn't matter number in group
   # group
   # filter for 3rd row 
   df_er_small3_calc <- dplyr::group_by(df_er_small3_rule0_calc
@@ -418,7 +459,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                              , INDEX_NAME
                                              , INDEX_CLASS
                                              , LEVEL) %>%
-    dplyr::arrange(-MEMBERSHIP) %>% # desc
+    dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 3)
   #
   # Update df.merge

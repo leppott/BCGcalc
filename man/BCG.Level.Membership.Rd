@@ -85,12 +85,17 @@ update may fully automate this process.
 For the Pacific Northwest some metrics were grouped and the 2nd of 3 values
 is used and the other 2 values tossed when determining level membership.
 This equates to using the median of the 3 values.  This is handled by
-including "MEDIAN" in the Exc_Rule column in Rules.xlsx.
+including "MEDIAN" in the Exc_Rule column in Rules.xlsx.  Superceded by
+"SMALL2".
 
 2024 added SMALL2 and SMALL3 Exception rules.
 For New Mexico BCG some metrics are grouped so use the 2nd or 3rd smallest
 value instead of the minimum.  As above, this is handled by including
 "SMALL2" or "SMALL3" in the Exc_Rule column in Rules.xlsx.
+
+Some Great Plains rules use multiple groupings of SMALL2.  These are coded as
+"SMALL2A" and "SMALL2B".  If additional groupings are needed the code needs
+to be tweaked.
 
 Deprecated col_SITE_TYPE for col_INDEX_CLASS in v2.0.0.9001.
 }
