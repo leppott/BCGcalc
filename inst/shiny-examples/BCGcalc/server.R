@@ -3490,7 +3490,7 @@ shinyServer(function(input, output) {
   observeEvent(input$b_calc_mtti, {
     shiny::withProgress({
 
-    
+   
       ### Calc, 00, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, MTTI..."
@@ -3682,7 +3682,7 @@ shinyServer(function(input, output) {
       # rownames to column 1
       df_results_model <- tibble::rownames_to_column(df_results_model
                                                      , sel_col_sampid)
- 
+
       ### Flags----
       prog_detail <- "Calculation, Flags"
       message(paste0("\n", prog_detail))
@@ -3710,13 +3710,19 @@ shinyServer(function(input, output) {
                       , "INDEX_NAME" = "MTTI"
                       , "INDEX_CLASS" = "MTTI") %>%
         dplyr::left_join(df_optima, by = "TAXAID")
-      
+     
      # if checked Convert to OTU  
      if (input$MTTI_OTU == TRUE) {
+       # Remove first (any case)
+       boo_tv2 <- "TOLVAL2" %in% toupper(names(df_bugs_met))
+       if (boo_tv2) {
+         col_tv2 <- match("TOLVAL2", toupper(names(df_bugs_met)))
+         df_bugs_met <- df_bugs_met[, -col_tv2]
+       }## IF ~ boo_tv2
        df_bugs_met <- dplyr::rename(df_bugs_met, "TOLVAL2" = "Optima")
        # NONTARGET
      }## IF ~ input$MTTI_OTU
-      
+    
       # Calc Metrics (MTTI)
       df_met <- BioMonTools::metric.values(df_bugs_met
                                            , "bugs"

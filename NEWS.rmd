@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9005 (2024-06-19)
+
+* fix: Update MTTI shiny code to avoid name conflict
+    + TolVal2 vs. TOLVAL2
+
 # BCGcalc 2.1.0.9004 (2024-06-19)
 
 * docs: Update help on ORWA taxa list to reinforce is demo only

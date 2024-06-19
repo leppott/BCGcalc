@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-19 07:07:06.239878
+2024-06-19 15:18:18.735545
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-19 07:07:06.259522
+    #> Last Update: 2024-06-19 15:18:18.757464
+
+# BCGcalc 2.1.0.9005 (2024-06-19)
+
+- fix: Update MTTI shiny code to avoid name conflict
+  - TolVal2 vs. TOLVAL2
 
 # BCGcalc 2.1.0.9004 (2024-06-19)
 
