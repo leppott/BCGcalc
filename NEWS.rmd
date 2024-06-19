@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9004 (2024-06-19)
+
+* docs: Update help on ORWA taxa list to reinforce is demo only
+
 # BCGcalc 2.1.0.9003 (2024-06-07)
 
 * refactor: Update functions to retain original case for INDEX_CLASS, Issue #91

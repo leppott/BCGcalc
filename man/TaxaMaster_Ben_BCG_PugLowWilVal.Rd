@@ -25,7 +25,7 @@ A data frame with 684 rows and 19 variables:
    \item{FFG}{Function Feeding Group}
    \item{Habit}{Habit}
    \item{Life_Cycle}{Voltinism}
-   \item{TolVal}{Tolerance Value}
+   \item{TolVal}{Tolerance Value, all 7's, demonstration only}
 }
 }
 \usage{
@@ -33,8 +33,10 @@ TaxaMaster_Ben_BCG_PugLowWilVal
 }
 \description{
 Master taxa list for BCG model for Puget Lowlands Willamette 
-Valley; 
-current as of 2018-09-27.
+Valley; current as of 2018-09-27.
+
+This list is included for demonstration purposes only! Contact the proper
+entities to get a updated list for any analyses.
 }
 \details{
 To export to file use the code below.

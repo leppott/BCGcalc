@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-07 12:59:17.061808
+2024-06-19 07:07:06.239878
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-07 12:59:17.07962
+    #> Last Update: 2024-06-19 07:07:06.259522
+
+# BCGcalc 2.1.0.9004 (2024-06-19)
+
+- docs: Update help on ORWA taxa list to reinforce is demo only
 
 # BCGcalc 2.1.0.9003 (2024-06-07)
 
