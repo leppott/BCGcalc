@@ -46,15 +46,18 @@ function(id) {
                  , menuSubItem("BCG Models"
                                , tabName = "tab_calc_bcg"
                                , icon = icon("award"))
-                 , menuSubItem("Thermal Preference Metrics [DRAFT]"
+                 , menuSubItem("MTTI"
+                               , tabName = "tab_calc_mtti"
+                               , icon = icon("microscope"))
+                 , menuSubItem("Thermal Preference Metrics"
                                , tabName = "tab_calc_thermalmetrics"
                                , icon = icon("temperature-empty"))
+                 , menuSubItem("Fish Thermal Class [DRAFT]"
+                               , tabName = "tab_calc_fishthermalclass"
+                               , icon = icon("fish"))
                  , menuSubItem("Fuzzy Set Temperature Model [DRAFT]"
                                , tabName = "tab_calc_thermalfuzzy"
                                , icon = icon("square-check"))
-                 , menuSubItem("MTTI [DRAFT]"
-                               , tabName = "tab_calc_mtti"
-                               , icon = icon("microscope"))
                  , menuSubItem("BioDiversity Index [DRAFT]"
                                , tabName = "tab_calc_bdi"
                                , icon = icon("flask"))
@@ -96,6 +99,9 @@ function(id) {
       , menuItem(text = "Relevant Resources"
                  , tabName = "tab_resources"
                  , icon = icon("book"))
+      , menuItem(text = "Troubleshooting"
+                 , tabName = "tab_troubleshoot"
+                 , icon = icon("circle-info"))
     )## sidebarMenu ~ END
   )## dashboardSidebar ~ END
 }## FUNCTION ~ END

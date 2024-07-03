@@ -1,6 +1,6 @@
 ---
 title: "About"
-date: "2022-10-13"
+date: "2024-07-03"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -42,14 +42,6 @@ United States Environmental Protection Agency (EPA) Office of Office of Science
 and Technology (OST) (lead EPA OST scientist: Susan Jackson) and Office of 
 Research and Development (ORD) (lead EPA ORD scientist: Britta Bierwagen). 
 
-## Who to contact if you have problems, comments or questions
-
-If you encounter problems with the Shiny app and/or have suggestions on ways to
-further improve it, please contact Erik W. Leppo from Tetra Tech via email (Erik.Leppo@tetratech.com) or via a post on the 
-<a href="https://github.com/leppott/BCGcalc/discussions" target="_blank">BCGcalc GitHub Discussions page</a>.
-
-For more information on this project, or on the BCG in general, please contact 
-Susan Jackson (Jackson.Susank@epa.gov).
 
 ```{r, echo=FALSE, out.width="25%", fig.cap="Figure 1. The Pacific Northwest Maritime Region (PNMR) of Oregon and Washington includes five Omernik Level 3 ecoregions: Coast Range, Puget Lowland, Willamette Valley, Cascades, and North Cascades, excluding xeric regions (< 650 mm mean annual precipitation)."}
 knitr::include_graphics("images/About_Fig1_PNMR_StudyArea.jpg")
@@ -59,4 +51,4 @@ knitr::include_graphics("images/About_Fig1_PNMR_StudyArea.jpg")
 
 ---
 
-*Last updated 2022-10-13*
+*Last updated 2024-07-03*

@@ -1,6 +1,6 @@
 ---
 title: "Calculation, MTTI, About"
-date: "2023-06-06"
+date: "2024-07-03"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -15,10 +15,10 @@ knitr::opts_chunk$set(echo = FALSE
 ```
 
 # Purpose
-The Macroinvertebrate Thermal Tolerance Index (MTTI) (Hubler et al.) was 
+The Macroinvertebrate Thermal Tolerance Index (MTTI) (<a href="https://authors.elsevier.com/sd/article/S1470-160X(24)00326-1" target = "_blank">Hubler et al. 2024</a>) was 
 developed for freshwater wadeable streams in Oregon and Washington. The MTTI 
 calculator generates Maximum Weekly Maximum Temperature (MWMT) values for each macroinvertebrate sample based on the relative abundances and MWMT weighted 
-average optima values of the taxa in the sample (Stamp et al., in progress). 
+average optima values of the taxa in the sample. 
 MWMT is the metric that Oregon and Washington use for their numeric water 
 temperature standard to protect salmonid habitat and is available from the 
  <a href="https://www.fs.usda.gov/rm/boise/AWAE/projects/NorWeST/ModeledStreamTemperatureScenarioMaps.shtml" target="_blank">NorWeST modeled stream temperature database</a>.. 
@@ -68,4 +68,4 @@ functions).
 
 ---
 
-*Last updated 2023-06-06*
+*Last updated 2023-07-03*

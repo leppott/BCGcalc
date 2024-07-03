@@ -32,6 +32,8 @@ function(id) {
                 , tab_code_calc_mtti())
       , tabItem(tabName = "tab_calc_bdi"
                 , tab_code_calc_bdi())
+      , tabItem(tabName = "tab_calc_fishthermalclass"
+                , tab_code_calc_fishthermalclass())
       , tabItem(tabName = "tab_map"
                 , tab_code_map())
       , tabItem(tabName = "tab_rep_single"
@@ -40,6 +42,8 @@ function(id) {
                 , tab_code_rep_multi())
       , tabItem(tabName = "tab_resources"
                 , tab_code_resources())
+      , tabItem(tabName = "tab_troubleshoot"
+                , tab_code_troubleshoot())
     )## tabItems
 
 }## FUNCTION ~ END

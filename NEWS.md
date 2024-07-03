@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-19 15:18:18.735545
+2024-07-03 18:01:47.332142
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-19 15:18:18.757464
+    #> Last Update: 2024-07-03 18:01:47.350897
+
+# BCGcalc 2.1.0.9006 (2024-07-03)
+
+- refactor: Add Shiny calculation Fish Thermal Class to menu and a page
+- refactor: Add Shiny troubleshooting menu option
+- refactor: Update Shiny MTTI citation
+- refactor: Update Shiny Thermal Preference Metrics citation
 
 # BCGcalc 2.1.0.9005 (2024-06-19)
 
