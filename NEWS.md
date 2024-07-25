@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-03 18:01:47.332142
+2024-07-24 21:12:35.715856
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-03 18:01:47.350897
+    #> Last Update: 2024-07-24 21:12:35.737282
+
+# BCGcalc 2.1.0.9007 (2024-07-24)
+
+- refactor: Update Rules.xlsx for MN_BCG fish10a and fish10b
 
 # BCGcalc 2.1.0.9006 (2024-07-03)
 

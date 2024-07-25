@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9007 (2024-07-24)
+
+* refactor: Update Rules.xlsx for MN_BCG fish10a and fish10b
+
 # BCGcalc 2.1.0.9006 (2024-07-03)
 
 * refactor: Add Shiny calculation Fish Thermal Class to menu and a page
