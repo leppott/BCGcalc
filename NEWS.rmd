@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9008 (2024-07-29)
+
+* refactor: Update Rules.xlsx for MN_BCG metric descriptions and index regions
+
 # BCGcalc 2.1.0.9007 (2024-07-24)
 
 * refactor: Update Rules.xlsx for MN_BCG fish10a and fish10b
