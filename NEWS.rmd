@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9011 (2024-08-06)
+
+* refactor: Add Great Plains BCG metric flags
+
 # BCGcalc 2.1.0.9010 (2024-08-06)
 
 * refactor: Add summation of duplicate taxa in taxa translate in Shiny
