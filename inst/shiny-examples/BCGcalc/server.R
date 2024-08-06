@@ -618,6 +618,30 @@ shinyServer(function(input, output) {
                                                             , "Match_Official"
                                                             , sel_user_groupby)]
         df_ttrm <- df_ttrm[, col_keep_ttrm]
+        
+        ### COMBINE same TaxaID and sum N_Taxa----
+        # 20240806 from MNcalc
+        boo_combine_taxa <- TRUE
+        if (boo_combine_taxa) {
+          # use 'known' values with tidyverse then change back
+          #
+          # name field to known value
+          col_ttrm_ntaxa <- "ttrm_ntaxa"
+          df_ttrm[, col_ttrm_ntaxa] <- df_ttrm[, sel_user_ntaxa]
+          col_non_ntaxa <- names(df_ttrm)[!names(df_ttrm) %in% sel_user_ntaxa]
+          # drop ntaxa
+          df_ttrm <- df_ttrm[, col_non_ntaxa]
+          # columns by (for summarize)
+          col_by <- col_non_ntaxa[!col_non_ntaxa %in% col_ttrm_ntaxa]
+          # sum
+          df_ttrm <- dplyr::summarise(df_ttrm
+                                      , .by = dplyr::all_of(col_by)
+                                      , sum_ntaxa = sum(ttrm_ntaxa, na.rm = TRUE)
+          )
+          # rename 'known' ntaxa back to 'user' value
+          names(df_ttrm)[names(df_ttrm) == "sum_ntaxa"] <- sel_user_ntaxa
+        }## boo_combine_taxa
+        
         # merge with attributes
         df_merge_attr <- merge(df_ttrm
                                , df_taxoff_attr

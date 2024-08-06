@@ -1,11 +1,24 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-24 21:12:35.715856
+2024-08-06 11:28:24.889548
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-24 21:12:35.737282
+    #> Last Update: 2024-08-06 11:28:24.909271
+
+# BCGcalc 2.1.0.9010 (2024-08-06)
+
+- refactor: Add summation of duplicate taxa in taxa translate in Shiny
+
+# BCGcalc 2.1.0.9009 (2024-07-30)
+
+- refactor: Merge Pull Request 92
+
+# BCGcalc 2.1.0.9008 (2024-07-29)
+
+- refactor: Update Rules.xlsx for MN_BCG metric descriptions and index
+  regions
 
 # BCGcalc 2.1.0.9007 (2024-07-24)
 
