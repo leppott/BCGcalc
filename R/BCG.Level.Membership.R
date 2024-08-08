@@ -287,12 +287,19 @@ BCG.Level.Membership <- function(df.metric.membership
   
   ## Drop extra columns from df.metric.membership
   # (otherwise duplicates in merge)
+  # 20240806, add extra cols after DESCRIPTION
   col.drop <- c("NUMERIC_RULES"
                 , "SYMBOL"
                 , "LOWER"
                 , "UPPER"
                 , "INCREASE"
-                , "DESCRIPTION")
+                , "DESCRIPTION"
+                , "NOTE_RULE"
+                , "INCLUDE_PARAMETER"
+                , "INCLUDE_SYMBOL"
+                , "INCLUDE_THRESHOLD"
+                , "SITE_TYPE"
+                , "INDEX_REGION")
   col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% 
                                                                       col.drop)]
   # MERGE----
@@ -312,6 +319,14 @@ BCG.Level.Membership <- function(df.metric.membership
                                , col_RULE_TYPE
                                , col_EXC_RULE))
   # Match on all to ensure using the same rules
+ 
+  # INDEX_CLASS, fix
+  # move from end to here, 20240806
+  # replace tolower(INDEX_CLASS) with INDEX_CLASS_ORIG
+  df.merge[, col_INDEX_CLASS] <- df.merge[, col_INDEX_CLASS_ORIG]
+  # remove INDEX_CLASS_ORIG
+  col_drop_ICORIG <- !names(df.merge) %in% col_INDEX_CLASS_ORIG 
+  df.merge <- df.merge[, col_drop_ICORIG]
   
   nrow_metmemb <- nrow(df.metric.membership)
   nrow_merge <- nrow(df.merge)
@@ -345,7 +360,6 @@ BCG.Level.Membership <- function(df.metric.membership
   ## Exceptions
   names(df.merge)[names(df.merge) == col_EXC_RULE]    <- "EXC_RULE"
   
-  
   # EXCEPTIONS ----
   # no harm done in allowing to run if not present
   
@@ -357,6 +371,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                                      , INDEX_CLASS
                                                      , LEVEL
                                                      , RULE_TYPE
+                                                     # , INDEX_CLASS_ORIG
                                                       )
                                       , .groups = "drop_last"
                 #
@@ -386,7 +401,9 @@ BCG.Level.Membership <- function(df.metric.membership
                                        , SAMPLEID
                                        , INDEX_NAME
                                        , INDEX_CLASS
-                                       , LEVEL) %>%
+                                       , LEVEL
+                                       # , INDEX_CLASS_ORIG
+                                       ) %>%
     dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 2)
   #
@@ -405,7 +422,9 @@ BCG.Level.Membership <- function(df.metric.membership
                                        , SAMPLEID
                                        , INDEX_NAME
                                        , INDEX_CLASS
-                                       , LEVEL) %>%
+                                       , LEVEL
+                                       # , INDEX_CLASS_ORIG
+                                       ) %>%
     dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 2)
   #
@@ -424,7 +443,9 @@ BCG.Level.Membership <- function(df.metric.membership
                                         , SAMPLEID
                                         , INDEX_NAME
                                         , INDEX_CLASS
-                                        , LEVEL) %>%
+                                        , LEVEL
+                                        # , INDEX_CLASS_ORIG
+                                        ) %>%
     dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 2)
   #
@@ -450,7 +471,9 @@ BCG.Level.Membership <- function(df.metric.membership
                                              , SAMPLEID
                                              , INDEX_NAME
                                              , INDEX_CLASS
-                                             , LEVEL) %>%
+                                             , LEVEL
+                                             # , INDEX_CLASS_ORIG
+                                             ) %>%
     dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 3) %>% 
     dplyr::mutate(RULE_TYPE = "RULE0")
@@ -462,10 +485,12 @@ BCG.Level.Membership <- function(df.metric.membership
   # group
   # filter for 3rd row 
   df_er_small3_calc <- dplyr::group_by(df_er_small3_rule0_calc
-                                             , SAMPLEID
-                                             , INDEX_NAME
-                                             , INDEX_CLASS
-                                             , LEVEL) %>%
+                                       , SAMPLEID
+                                       , INDEX_NAME
+                                       , INDEX_CLASS
+                                       , LEVEL
+                                       # , INDEX_CLASS_ORIG
+                                       ) %>%
     dplyr::arrange(MEMBERSHIP) %>% # sort asc
     dplyr::filter(dplyr::row_number() == 3)
   #
@@ -483,7 +508,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                                , SAMPLEID
                                                , INDEX_NAME
                                                , INDEX_CLASS
-                                               , INDEX_CLASS_ORIG # 20240607
+                                               # , INDEX_CLASS_ORIG # 20240607
                                                , LEVEL
                                                )
                                , .groups = "drop_last"
@@ -607,7 +632,10 @@ BCG.Level.Membership <- function(df.metric.membership
   # Convert to wide format
   # 202040607, add INDEX_CLASS_ORIG
   df.lev.wide <- reshape2::dcast(df.lev
-                                 , SAMPLEID + INDEX_NAME + INDEX_CLASS + INDEX_CLASS_ORIG
+                                 , SAMPLEID 
+                                   + INDEX_NAME 
+                                   + INDEX_CLASS 
+                                   # + INDEX_CLASS_ORIG
                                  ~ LEVEL
                                  , value.var = "Level.Membership"
                                  )
@@ -714,6 +742,7 @@ BCG.Level.Membership <- function(df.metric.membership
   #                               , 1 - sum(df.subtotal[, c("L1", "L2", "L3", "L4")])
   #                               , df.subtotal[, "L5"])
   boo_L5fix <- df.subtotal[, "rules_lev_max"] == 4
+  boo_L5fix[is.na(boo_L5fix)] <- FALSE # 20240807, convert NA to FALSE
   if (sum(boo_L5fix) > 0) {
     df.subtotal[boo_L5fix, "L5"] <- apply(df.subtotal[boo_L5fix
                                            , c("L1", "L2", "L3", "L4")]
@@ -749,13 +778,13 @@ BCG.Level.Membership <- function(df.metric.membership
   df.results <- df.subtotal[, !(names(df.subtotal) %in% c(col.sub, col.ruleslev))]
   # Results are for each SAMPLEID, INDEX_NAME, INDEX_CLASS, and 
   #                                                  LEVEL Assignment/Membership
-  
-  # INDEX_CLASS, fix
-  # replace tolower(INDEX_CLASS) with INDEX_CLASS_ORIG
-  df.results[, col_INDEX_CLASS] <- df.results[, col_INDEX_CLASS_ORIG]
-  # remove INDEX_CLASS_ORIG
-  col_drop_ICORIG <- !names(df.results) %in% col_INDEX_CLASS_ORIG 
-  df.results <- df.results[, col_drop_ICORIG]
+
+  # # INDEX_CLASS, fix
+  # # replace tolower(INDEX_CLASS) with INDEX_CLASS_ORIG
+  # df.results[, col_INDEX_CLASS] <- df.results[, col_INDEX_CLASS_ORIG]
+  # # remove INDEX_CLASS_ORIG
+  # col_drop_ICORIG <- !names(df.results) %in% col_INDEX_CLASS_ORIG 
+  # df.results <- df.results[, col_drop_ICORIG]
   
   # create output
   return(df.results)

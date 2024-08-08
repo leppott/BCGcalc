@@ -1,11 +1,23 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-08-06 11:28:24.889548
+2024-08-08 18:04:36.234598
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-08-06 11:28:24.909271
+    #> Last Update: 2024-08-08 18:04:36.24805
+
+# BCGcalc 2.1.0.9012 (2024-08-08)
+
+- fix: Modify BCG.Level.Membership to avoid duplication in output for
+  level assigment
+  - Modify INDEX_CLASS_ORIG
+  - Modify Exception calculations (i.e., median, small2, small2A,
+    small2B, and small3)
+
+# BCGcalc 2.1.0.9011 (2024-08-06)
+
+- refactor: Add Great Plains BCG metric flags
 
 # BCGcalc 2.1.0.9010 (2024-08-06)
 
