@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-08-08 18:04:36.234598
+2024-10-08 09:15:14.644265
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-08-08 18:04:36.24805
+    #> Last Update: 2024-10-08 09:15:14.677918
+
+# BCGcalc 2.1.0.9013 (2024-10-08)
+
+- fix: Modify BCG.Level.Membership to flip min and max as an exception
+  rule
+- refactor: Update Rules.xlsx for MN_BCG for EXC_RULE FLIPMINMAX
 
 # BCGcalc 2.1.0.9012 (2024-08-08)
 

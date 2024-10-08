@@ -207,6 +207,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                  , col_MEMBERSHIP = "MEMBERSHIP"
                                  , ...) {
   #
+  browser()
   boo_QC <- FALSE
   if (isTRUE(boo_QC)) {
     df.metric.membership <- df_met_memb
@@ -500,8 +501,14 @@ BCG.Level.Membership <- function(df.metric.membership
   # Add new memberships back to df.merge
   df.merge <- dplyr::bind_rows(df.merge, df_er_small3_calc)
   
+  ## EXC_RULE, FLIPMINMAX ----
+  df.merge <- df.merge %>%
+    dplyr::mutate(MEMBERSHIP = dplyr::case_when(EXC_RULE == "FLIPMINMAX" ~ - MEMBERSHIP,
+                                                .default = MEMBERSHIP))
+  # CHANGE BACK LATER IN CODE with abs() in next step
   
   # Summarize ----
+  # Add abs() for MN FLIPMINMAX fix, 20241008
   # Will get lots of warnings, SampIDs without alt 1 or alt 2 rules
   suppressWarnings(
     df.lev <- dplyr::summarise(dplyr::group_by(df.merge
@@ -511,18 +518,19 @@ BCG.Level.Membership <- function(df.metric.membership
                                                # , INDEX_CLASS_ORIG # 20240607
                                                , LEVEL
                                                )
-                               , .groups = "drop_last"
-                              #
+                 , .groups = "drop_last"
+                #
                 # Min of Rule2 (Alt2)
-                , MembCalc_Rule2_min = min(MEMBERSHIP[RULE_TYPE == "RULE2"]
-                                        , na.rm = TRUE)
+                , MembCalc_Rule2_min = abs(min(MEMBERSHIP[RULE_TYPE == "RULE2"]
+                                               , na.rm = TRUE))
                 # Max of Rule1 (Alt1)
-                , MembCalc_Rule1_max = max(MEMBERSHIP[RULE_TYPE == "RULE1"]
-                                          , na.rm = TRUE)
+                , MembCalc_Rule1_max = abs(max(MEMBERSHIP[RULE_TYPE == "RULE1"]
+                                               , na.rm = TRUE))
                 # Min of Rule0 (with alt above)
-                , MembCalc_Rule0_min = min(MEMBERSHIP[RULE_TYPE == "RULE0"]
-                                           , na.rm = TRUE)
+                , MembCalc_Rule0_min = abs(min(MEMBERSHIP[RULE_TYPE == "RULE0"]
+                                               , na.rm = TRUE))
                 # Exceptions for CT
+                ## don't need MN flip fix
                 , MembCalc_Exc0_min = min(MEMBERSHIP[EXC_RULE == "EXCMEM0"]
                                           , na.rm = TRUE)
                 , MembCalc_Exc1_max = max(MEMBERSHIP[EXC_RULE == "EXCMEM1"]
