@@ -21,6 +21,18 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9014 (2024-10-08)
+
+* fix: Modify BCG.Level.Membership
+    + Update for exception rules
+        - Edit FLIPMINMAX to flip min and max
+        - Add MIN012MAX, MIN of Rules 0, 1, 2 then MAX
+* refactor: Update Rules.xlsx
+    + Populate missing INCREASE values
+    + Add metadata worksheet for EXC_RULE
+    + Add MN_BCG for EXC_RULE MIN012MAX
+* refactor: Add error message for NA in INCREASE column for BCG.Metric.Membership
+
 # BCGcalc 2.1.0.9013 (2024-10-08)
 
 * fix: Modify BCG.Level.Membership to flip min and max as an exception rule

@@ -1,11 +1,24 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-08 09:15:14.644265
+2024-10-08 21:43:53.732261
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-08 09:15:14.677918
+    #> Last Update: 2024-10-08 21:43:53.756255
+
+# BCGcalc 2.1.0.9014 (2024-10-08)
+
+- fix: Modify BCG.Level.Membership
+  - Update for exception rules
+    - Edit FLIPMINMAX to flip min and max
+    - Add MIN012MAX, MIN of Rules 0, 1, 2 then MAX
+- refactor: Update Rules.xlsx
+  - Populate missing INCREASE values
+  - Add metadata worksheet for EXC_RULE
+  - Add MN_BCG for EXC_RULE MIN012MAX
+- refactor: Add error message for NA in INCREASE column for
+  BCG.Metric.Membership
 
 # BCGcalc 2.1.0.9013 (2024-10-08)
 

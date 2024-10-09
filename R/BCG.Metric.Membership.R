@@ -201,6 +201,14 @@ BCG.Metric.Membership <- function(df.metrics
     (df.merge[boo.score.calc, col_UPPER] - df.merge[boo.score.calc, col_LOWER])
   # direction
   boo.direction <- df.merge[, col_INCREASE]
+  
+  # QC, direction ----
+  if (anyNA(boo.direction)) {
+    msg <- paste0("The Increase column (", col_INCREASE, ") contains 'NA' for your data.\n",
+                  "Change to TRUE or FALSE and rerun function.")
+    message(msg)
+  }## IF ~ boo.direction
+
   df.merge[!boo.direction, "MEMBERSHIP"] <- 1 - df.merge[!boo.direction
                                                          , "MEMBERSHIP"]
       # can mess up 0 and 1

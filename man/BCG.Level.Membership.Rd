@@ -122,7 +122,7 @@ df_met_val_bugs <- BioMonTools::metric.values(myDF
 # Import Rules
 df_rules <- readxl::read_excel(system.file("extdata/Rules.xlsx"
                                            , package = "BCGcalc")
-                      , sheet="Rules") 
+                      , sheet="Rules")
 
 # Calculate Metric Memberships
 df_met_memb <- BCG.Metric.Membership(df_met_val_bugs, df_rules)
