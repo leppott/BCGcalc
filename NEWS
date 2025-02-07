@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-08 21:43:53.732261
+2025-02-07 15:13:09.43728
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-08 21:43:53.756255
+    #> Last Update: 2025-02-07 15:13:09.474084
+
+# BCGcalc 2.1.0.9015 (2025-02-07)
+
+- refactor: Add BCG_ORWA_v1_Bugs500ct to Rules.xlsx
+- refactor: Add BCG_ORWA_v1_Bugs500ct to MetricFlags.xlsx
 
 # BCGcalc 2.1.0.9014 (2024-10-08)
 

@@ -180,6 +180,7 @@ df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet = "Flags"))
 # BMT, Taxa Official Pick----
 url_taxa_official_pick <- file.path(url_bmt_base
                                     , "taxa_official"
+                                    , "ORWA"
                                     , "_pick_files.csv")
 httr::GET(url_taxa_official_pick
     , httr::write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
@@ -189,6 +190,7 @@ df_pick_taxoff <- read.csv(temp_taxa_official_pick)
 # BMT, Index Class ----
 url_indexclass_crit <- file.path(url_bmt_base
                                  , "index_class"
+                                 , "ORWA"
                                  , "IndexClass.xlsx")
 httr::GET(url_indexclass_crit
     , httr::write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))
