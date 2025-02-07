@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-02-07 15:13:09.43728
+2025-02-07 15:25:04.308225
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-02-07 15:13:09.474084
+    #> Last Update: 2025-02-07 15:25:04.401487
+
+# BCGcalc 2.1.0.9016 (2025-02-07)
+
+- refactor: Update MetricFlags.xlsx
+  - New ORWA move ni_total flags to top of list for each Index_Class
 
 # BCGcalc 2.1.0.9015 (2025-02-07)
 
