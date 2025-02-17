@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-02-07 15:25:04.308225
+2025-02-17 16:28:10.170144
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-02-07 15:25:04.401487
+    #> Last Update: 2025-02-17 16:28:10.20921
+
+# BCGcalc 2.1.0.9017 (2025-02-17)
+
+- refactor: Update Shiny app references to taxa file on
+  BioMonTools_SupportFiles
 
 # BCGcalc 2.1.0.9016 (2025-02-07)
 

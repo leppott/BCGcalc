@@ -22,8 +22,12 @@ function(id) {
                 , tab_code_filebuilder_indexclassparam())
       , tabItem(tabName = "tab_filebuilder_mergefiles"
                 , tab_code_filebuilder_mergefiles())
-      , tabItem(tabName = "tab_calc_bcg"
-                , tab_code_calc_bcg())
+      # , tabItem(tabName = "tab_calc_bcg"
+      #           , tab_code_calc_bcg())
+      , tabItem(tabName = "tab_calc_bcg_marinw"
+                , tab_code_calc_bcg_marinw())
+      , tabItem(tabName = "tab_calc_bcg_statewide"
+                , tab_code_calc_bcg_statewide())
       , tabItem(tabName = "tab_calc_thermalmetrics"
                 , tab_code_calc_thermalmetrics())
       , tabItem(tabName = "tab_calc_thermalfuzzy"

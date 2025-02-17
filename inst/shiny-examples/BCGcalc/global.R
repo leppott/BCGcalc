@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.1.0.9016"
+pkg_version <- "2.1.0.9017"
 
 # Packages----
 # nolint start
@@ -69,7 +69,11 @@ tab_code_filebuilder_indexclassparam <- source(
 tab_code_filebuilder_mergefiles <- source(
                                          "external/tab_filebuilder_mergefiles.R"
                                          , local = TRUE)$value
-tab_code_calc_bcg              <- source("external/tab_calc_bcg.R"
+# tab_code_calc_bcg              <- source("external/tab_calc_bcg.R"
+#                                          , local = TRUE)$value
+tab_code_calc_bcg_marinw       <- source("external/tab_calc_bcg_marinw.R"
+                                         , local = TRUE)$value
+tab_code_calc_bcg_statewide    <- source("external/tab_calc_bcg_statewide.R"
                                          , local = TRUE)$value
 tab_code_calc_thermalmetrics   <- source("external/tab_calc_thermalmetrics.R"
                                          , local = TRUE)$value
@@ -190,7 +194,6 @@ df_pick_taxoff <- read.csv(temp_taxa_official_pick)
 # BMT, Index Class ----
 url_indexclass_crit <- file.path(url_bmt_base
                                  , "index_class"
-                                 , "ORWA"
                                  , "IndexClass.xlsx")
 httr::GET(url_indexclass_crit
     , httr::write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))

@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9017 (2025-02-17)
+
+* refactor: Update Shiny app references to taxa file on BioMonTools_SupportFiles
+
 # BCGcalc 2.1.0.9016 (2025-02-07)
 
 * refactor: Update MetricFlags.xlsx

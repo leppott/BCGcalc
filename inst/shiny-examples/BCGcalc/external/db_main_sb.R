@@ -43,8 +43,14 @@ function(id) {
       , menuItem(text = "Calculation"
                  , icon = icon("gears")
                  , tabName = "tab_calc"
-                 , menuSubItem("BCG Models"
-                               , tabName = "tab_calc_bcg"
+                 # , menuSubItem("BCG Models, orig"
+                 #               , tabName = "tab_calc_bcg"
+                 #               , icon = icon("award"))
+                 , menuSubItem("BCG Models, MariNW"
+                               , tabName = "tab_calc_bcg_marinw"
+                               , icon = icon("award"))
+                 , menuSubItem("BCG Models, Statewide"
+                               , tabName = "tab_calc_bcg_statewide"
                                , icon = icon("award"))
                  , menuSubItem("MTTI"
                                , tabName = "tab_calc_mtti"
