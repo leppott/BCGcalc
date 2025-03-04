@@ -1006,8 +1006,7 @@ shinyServer(function(input, output) {
       
       # get StreamCat data?
       # Load with file, 240 MB, don't want to do every time app is used
-   
-      
+
       ## Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
       message(paste0("\n", prog_detail))
@@ -1165,23 +1164,41 @@ shinyServer(function(input, output) {
  
 
       ## elevation and precip (PRISM 1981-2010)
-      df_sc <- StreamCatTools::sc_get_data(
+      # df_sc <- StreamCatTools::sc_get_data(
+      #   comid = paste(df_sites[, "COMID"], collapse = ",")
+      #   , metric = "elev,precip8110,ICI,IWI"
+      #   , aoi = "NULL")
+   
+      # Changes in StreamCatTools Dec 2024 - Feb 2025
+      df_sc_cat <- StreamCatTools::sc_get_data(
         comid = paste(df_sites[, "COMID"], collapse = ",")
-        , metric = "elev,Precip8110,ICI,IWI")
+        , metric = "elev,precip8110"
+        , aoi = "cat,cat")
+      
+      df_sc_other <- StreamCatTools::sc_get_data(
+        comid = paste(df_sites[, "COMID"], collapse = ",")
+        , metric = "ICI,IWI"
+        , aoi = "other,other")
+      
+      df_sc <- merge(df_sc_cat, df_sc_other, by = "comid", all.x = TRUE)
       
       # cols to keep
-      sc_names_drop <- c("CATAREASQKM", "ELEVWS", "PRECIP8110WS")
+      sc_names_drop <- c("elevws", "precip8110ws")
       sc_names_keep <- names(df_sc)[!names(df_sc) %in% sc_names_drop]
       
       # add elev to sites
       df_results <- merge(df_sites
                           , df_sc[, sc_names_keep]
                           , by.x = "COMID"
-                          , by.y = "COMID"
+                          , by.y = "comid"
                           , all.x = TRUE)
-      
+     
       # rename StreamCat ELEVCAT to elev_m
-      df_results <- dplyr::rename(df_results, elev_m = ELEVCAT)
+      df_results <- dplyr::rename(df_results, elev_m = elevcat)
+      # change precip back for downstream code, 20250304
+      df_results <- dplyr::rename(df_results, PRECIP8110CAT = precip8110cat)
+      df_results <- dplyr::rename(df_results, ICI = ici)
+      df_results <- dplyr::rename(df_results, IWI = iwi)
       
       ## Calc, 04, Run Function, NHD+ ----
       prog_detail <- "NHDplus; slope"

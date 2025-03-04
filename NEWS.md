@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-02-17 16:28:10.170144
+2025-03-04 17:19:14.82527
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-02-17 16:28:10.20921
+    #> Last Update: 2025-03-04 17:19:14.852832
+
+# BCGcalc 2.1.0.9018 (2025-03-04)
+
+- fix: Update calls to StreamCatTools for Shiny getClassParam function
+  - Changes to StreamCatTools functions due to changes in API
 
 # BCGcalc 2.1.0.9017 (2025-02-17)
 
