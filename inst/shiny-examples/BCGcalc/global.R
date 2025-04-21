@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.1.0.9018"
+pkg_version <- "2.1.0.9019"
 
 # Packages----
 # nolint start
@@ -134,6 +134,8 @@ abr_classparam  <- "ClassParam"
 abr_classassign <- "ClassAssign"
 abr_mergefiles  <- "MergeFiles"
 abr_bcg         <- "BCG"
+abr_bcg_marinw  <- "BCG_marinw"
+abr_bcg_statewide <- "BCG_statewide"
 abr_tmet        <- "ThermMet"
 abr_fuzzy       <- "FuzzyTemp"
 abr_mtti        <- "MTTI"

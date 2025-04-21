@@ -1,15 +1,26 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-03-04 17:19:14.82527
+2025-04-21 15:04:46.567455
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-03-04 17:19:14.852832
+    #> Last Update: 2025-04-21 15:04:46.586313
+
+# BCGcalc 2.1.0.9019 (2025-04-21)
+
+- refactor: Update Generate BCG Class parameters to include watershed
+  area
+  - Re-enable and then rename all caps to match model
+- fix: Update BCG for statewide and marine northwest
+  - Rename objects by model
+  - Reference correct objects within each model
+  - Remove “out of experience” from statewide model pop up
 
 # BCGcalc 2.1.0.9018 (2025-03-04)
 
-- fix: Update calls to StreamCatTools for Shiny getClassParam function
+- fix: Update calls to StreamCatTools for Shiny getClassParam function,
+  Issue \#93
   - Changes to StreamCatTools functions due to changes in API
 
 # BCGcalc 2.1.0.9017 (2025-02-17)

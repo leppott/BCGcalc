@@ -269,6 +269,8 @@ shinyServer(function(input, output) {
     shinyjs::enable("b_calc_indexclass")
     shinyjs::enable("b_calc_indexclassparam")
     shinyjs::enable("b_calc_bcg")
+    shinyjs::enable("b_calc_bcg_marinw")
+    shinyjs::enable("b_calc_bcg_statewide")
     shinyjs::enable("b_calc_met_therm")
     shinyjs::enable("b_calc_modtherm")
     shinyjs::enable("b_calc_mtti")
@@ -951,7 +953,7 @@ shinyServer(function(input, output) {
   ## b_Calc_IndexClassParam ----
   observeEvent(input$b_calc_indexclassparam, {
     shiny::withProgress({
-    
+   
       ### Calc, 00, Initialize ----
       prog_detail <- "Calculation, Generate Index Class Parameters..."
       message(paste0("\n", prog_detail))
@@ -1161,44 +1163,46 @@ shinyServer(function(input, output) {
                                , closeOnClickOutside = TRUE)
         # validate(msg)
       }## IF ~ sel_col_lat
- 
 
       ## elevation and precip (PRISM 1981-2010)
       # df_sc <- StreamCatTools::sc_get_data(
       #   comid = paste(df_sites[, "COMID"], collapse = ",")
       #   , metric = "elev,precip8110,ICI,IWI"
       #   , aoi = "NULL")
-   
+ 
+      #2025-04-21, broken, 403 error, forbidden
+      
       # Changes in StreamCatTools Dec 2024 - Feb 2025
       df_sc_cat <- StreamCatTools::sc_get_data(
         comid = paste(df_sites[, "COMID"], collapse = ",")
         , metric = "elev,precip8110"
         , aoi = "cat,cat")
-      
+
       df_sc_other <- StreamCatTools::sc_get_data(
         comid = paste(df_sites[, "COMID"], collapse = ",")
         , metric = "ICI,IWI"
         , aoi = "other,other")
-      
+
       df_sc <- merge(df_sc_cat, df_sc_other, by = "comid", all.x = TRUE)
-      
+
       # cols to keep
       sc_names_drop <- c("elevws", "precip8110ws")
       sc_names_keep <- names(df_sc)[!names(df_sc) %in% sc_names_drop]
-      
+
       # add elev to sites
       df_results <- merge(df_sites
                           , df_sc[, sc_names_keep]
                           , by.x = "COMID"
                           , by.y = "comid"
                           , all.x = TRUE)
-     
+
       # rename StreamCat ELEVCAT to elev_m
       df_results <- dplyr::rename(df_results, elev_m = elevcat)
       # change precip back for downstream code, 20250304
       df_results <- dplyr::rename(df_results, PRECIP8110CAT = precip8110cat)
       df_results <- dplyr::rename(df_results, ICI = ici)
       df_results <- dplyr::rename(df_results, IWI = iwi)
+      
       
       ## Calc, 04, Run Function, NHD+ ----
       prog_detail <- "NHDplus; slope"
@@ -1222,7 +1226,7 @@ shinyServer(function(input, output) {
                          , "fcode"
                          #, "lengthkm"
                          #, "totdasqkm"
-                         #, "areasqkm"
+                         , "areasqkm"
                          )
       nhdplus_vaa <- nhdplusTools::get_vaa(vaa_names2get)
       ## merge with sites_sc
@@ -1269,6 +1273,8 @@ shinyServer(function(input, output) {
       # Modify names to match Assign Index Class function
       df_results <- dplyr::rename(df_results, pslope_nhd = slope)
       df_results[, "pslope_nhd"] <- 100 * df_results[, "pslope_nhd"]
+      # 2025-04-21
+      df_results <- dplyr::rename(df_results, WSAREASQKM = areasqkm)
       
       
       ## Calc, 07, Save Results ----
@@ -2880,12 +2886,12 @@ shinyServer(function(input, output) {
   )##observeEvent ~ b_calc_bcg ~ END
   
   ### marinw ----
-  observeEvent(input$b_calc_bcg, {
+  observeEvent(input$b_calc_bcg_marinw, {
     shiny::withProgress({
       
       #### Calc, 0, Set Up Shiny Code ----
-      
-      prog_detail <- "Calculation, BCG..."
+   
+      prog_detail <- "Calculation, BCG, MariNW..."
       message(paste0("\n", prog_detail))
       
       # Number of increments
@@ -2906,7 +2912,7 @@ shinyServer(function(input, output) {
       copy_import_file(import_file = input$fn_input)
       
       # result folder and files
-      fn_abr <- abr_bcg
+      fn_abr <- abr_bcg_marinw
       fn_abr_save <- paste0(fn_abr, "_")
       path_results_sub <- file.path(path_results
                                     , paste(abr_results, fn_abr, sep = "_"))
@@ -2925,7 +2931,7 @@ shinyServer(function(input, output) {
       }
       
       # button, disable, download
-      shinyjs::disable("b_download_bcg")
+      shinyjs::disable("b_download_bcg_marinw")
       
       # data
       inFile <- input$fn_input
@@ -2944,11 +2950,11 @@ shinyServer(function(input, output) {
       names(df_input) <- toupper(names(df_input))
       
       # Columns, user selection
-      sel_user_eco3 <- toupper(input$bcg_modelexp_user_col_eco3)
-      sel_user_precip <- toupper(input$bcg_modelexp_user_col_precip)
-      sel_user_wshedarea_km2 <- toupper(input$bcg_modelexp_user_col_wshedarea_km2)
-      sel_user_elev <- toupper(input$bcg_modelexp_user_col_elev)
-      sel_user_slope <- toupper(input$bcg_modelexp_user_col_slope)
+      sel_user_eco3 <- toupper(input$bcg_marinw_modelexp_user_col_eco3)
+      sel_user_precip <- toupper(input$bcg_marinw_modelexp_user_col_precip)
+      sel_user_wshedarea_km2 <- toupper(input$bcg_marinw_modelexp_user_col_wshedarea_km2)
+      sel_user_elev <- toupper(input$bcg_marinw_modelexp_user_col_elev)
+      sel_user_slope <- toupper(input$bcg_marinw_modelexp_user_col_slope)
       
       #### Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -2960,7 +2966,7 @@ shinyServer(function(input, output) {
       
       message(paste0("User response to generate ExclTaxa = ", input$ExclTaxa))
       
-      if (input$ExclTaxa) {
+      if (input$ExclTaxa_bcg_marinw) {
         ## Get TaxaLevel names present in user file
         phylo_all <- c("Kingdom"
                        , "Phylum"
@@ -3247,7 +3253,7 @@ shinyServer(function(input, output) {
                         , quiet = TRUE)
       
       #### Calc, 09, Info Pop Up ----
-      prog_detail <- "Calculate, Model Experience"
+      prog_detail <- "Calculate, Model Experience, BCG MariNW"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
       incProgress(1 / prog_n, detail = prog_detail)
@@ -3361,9 +3367,11 @@ shinyServer(function(input, output) {
       n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
       
       n_total <- nrow(df_samp_flags)
-      
+     
       # save info
-      write.csv(df_samp_flags, file.path("results", "results_BCG", "_BCG_Sample_FLAGS.csv"))
+      write.csv(df_samp_flags, file.path("results", 
+                                         paste(abr_results, fn_abr, sep = "_"),
+                                         "_BCG_Sample_FLAGS.csv"))
       
       # Inform user about number of samples outside of experience of model
       msg <- paste0(n_total, " = Total number of samples", "\n\n"
@@ -3386,7 +3394,7 @@ shinyServer(function(input, output) {
                     , n_bad_slope_vhigh, " = slope, very high (>= 8%)", "\n\n"
                     , "('NA' if data field not provided in input file)."
       )
-      shinyalert::shinyalert(title = "BCG Calculation,\nSamples Outside Model Experience"
+      shinyalert::shinyalert(title = "BCG Calculation, MariNW\nSamples Outside Model Experience"
                              , text = msg
                              , type = "info"
                              , closeOnEsc = TRUE
@@ -3406,7 +3414,7 @@ shinyServer(function(input, output) {
       zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
-      shinyjs::enable("b_download_bcg")
+      shinyjs::enable("b_download_bcg_marinw")
       
     }## expr ~ withProgress ~ END
     , message = "Calculating BCG"
@@ -3415,12 +3423,12 @@ shinyServer(function(input, output) {
   )##observeEvent ~ b_calc_bcg_marinw
   
   ### statewide ----
-  observeEvent(input$b_calc_bcg, {
+  observeEvent(input$b_calc_bcg_statewide, {
     shiny::withProgress({
-      
+   
       #### Calc, 0, Set Up Shiny Code ----
       
-      prog_detail <- "Calculation, BCG..."
+      prog_detail <- "Calculation, BCG, Statewide..."
       message(paste0("\n", prog_detail))
       
       # Number of increments
@@ -3441,7 +3449,7 @@ shinyServer(function(input, output) {
       copy_import_file(import_file = input$fn_input)
       
       # result folder and files
-      fn_abr <- abr_bcg
+      fn_abr <- abr_bcg_statewide
       fn_abr_save <- paste0(fn_abr, "_")
       path_results_sub <- file.path(path_results
                                     , paste(abr_results, fn_abr, sep = "_"))
@@ -3460,7 +3468,7 @@ shinyServer(function(input, output) {
       }
       
       # button, disable, download
-      shinyjs::disable("b_download_bcg")
+      shinyjs::disable("b_download_bcg_statewide")
       
       # data
       inFile <- input$fn_input
@@ -3479,11 +3487,11 @@ shinyServer(function(input, output) {
       names(df_input) <- toupper(names(df_input))
       
       # Columns, user selection
-      sel_user_eco3 <- toupper(input$bcg_modelexp_user_col_eco3)
-      sel_user_precip <- toupper(input$bcg_modelexp_user_col_precip)
-      sel_user_wshedarea_km2 <- toupper(input$bcg_modelexp_user_col_wshedarea_km2)
-      sel_user_elev <- toupper(input$bcg_modelexp_user_col_elev)
-      sel_user_slope <- toupper(input$bcg_modelexp_user_col_slope)
+      sel_user_eco3 <- toupper(input$bcg_statewide_modelexp_user_col_eco3)
+      sel_user_precip <- toupper(input$bcg_statewide_modelexp_user_col_precip)
+      sel_user_wshedarea_km2 <- toupper(input$bcg_statewide_modelexp_user_col_wshedarea_km2)
+      sel_user_elev <- toupper(input$bcg_statewide_modelexp_user_col_elev)
+      sel_user_slope <- toupper(input$bcg_statewide_modelexp_user_col_slope)
       
       #### Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -3495,7 +3503,7 @@ shinyServer(function(input, output) {
       
       message(paste0("User response to generate ExclTaxa = ", input$ExclTaxa))
       
-      if (input$ExclTaxa) {
+      if (input$ExclTaxa_bcg_statewide) {
         ## Get TaxaLevel names present in user file
         phylo_all <- c("Kingdom"
                        , "Phylum"
@@ -3788,140 +3796,126 @@ shinyServer(function(input, output) {
       incProgress(1 / prog_n, detail = prog_detail)
       Sys.sleep(2 * prog_sleep)
       
+      # 2025-04-21, only for MariNW
+      
       # Check 
       # data available
       # df_input = all data
       # df_results = BCG output
       
-      # Create 
-      cols2check <- c("SAMPLEID"
-                      , "INDEX_CLASS")
-      if (sel_user_eco3 != "") {
-        cols2check <- c(cols2check, sel_user_eco3)
-      }## IF ~ eco3
-      if (sel_user_precip != "") {
-        cols2check <- c(cols2check, sel_user_precip)
-      }## IF ~ precip
-      if (sel_user_wshedarea_km2 != "") {
-        cols2check <- c(cols2check, sel_user_wshedarea_km2)
-      }## IF ~ wshed area
-      if (sel_user_elev != "") {
-        cols2check <- c(cols2check, sel_user_elev)
-      }## IF ~ wshed area
-      if (sel_user_slope != "") {
-        cols2check <- c(cols2check, sel_user_slope)
-      }## IF ~ wshed area
-      
-      df_samp_flags <- unique(df_input[, cols2check])
-      
-      # Add flag columns
-      cols_samp_flags <- c("flag"
-                           , "flag_sum"
-                           , "flag_indexclass"
-                           , "flag_eco3"
-                           , "flag_precip"
-                           , "flag_wshed_small"
-                           , "flag_wshed_large"
-                           , "flag_elev_trans"
-                           , "flag_slope_trans"
-                           , "flag_slope_vhigh")
-      df_samp_flags[, cols_samp_flags] <- NA
-      
-      # Evaluate Sample Flags
-      
-      ## Eval, Index_Class
-      df_samp_flags[, "flag_indexclass"] <- tolower(df_samp_flags[, "INDEX_CLASS"]) %in% "lograd-hielev"
-      n_bad_indexclass <- sum(df_samp_flags[, "flag_indexclass"], na.rm = TRUE)
-      
-      ## Eco3
-      fld2check <- sel_user_eco3
-      if (fld2check != "") {
-        eco3_good <- c(1, 2, 3, 4, 77)
-        df_samp_flags[, "flag_eco3"] <- !(df_samp_flags[, fld2check] %in% eco3_good)
-        n_bad_eco3 <- sum(df_samp_flags[, "flag_eco3"])
-      } else {
-        n_bad_eco3 <- NA_integer_
-      }## IF ~ Eco3
-      
-      ## Precip
-      fld2check <- sel_user_precip
-      if (fld2check != "") {
-        df_samp_flags[, "flag_precip"] <- df_samp_flags[, fld2check] < 650
-        n_bad_precip <- sum(df_samp_flags[, "flag_precip"], na.rm = TRUE)
-      } else {
-        n_bad_precip <- NA_integer_
-      }## IF ~ Wshed Area
-      
-      ## Watershed
-      fld2check <- sel_user_wshedarea_km2
-      if (fld2check != "") {
-        df_samp_flags[, "flag_wshed_small"] <- df_samp_flags[, fld2check] < 5
-        df_samp_flags[, "flag_wshed_large"] <- df_samp_flags[, fld2check] > 260
-        n_bad_wshedarea_small <- sum(df_samp_flags[, "flag_wshed_small"], na.rm = TRUE)
-        n_bad_wshedarea_large <- sum(df_samp_flags[, "flag_wshed_large"], na.rm = TRUE)
-      } else {
-        n_bad_wshedarea_small <- NA_integer_
-        n_bad_wshedarea_large <- NA_integer_
-      }## IF ~ Wshed Area
-      
-      ## Elev
-      fld2check <- sel_user_elev
-      if (fld2check != "") {
-        df_samp_flags[, "flag_elev_trans"] <- df_samp_flags[, fld2check] >= 700 &
-          df_samp_flags[, fld2check] <= 800
-        n_bad_elev_trans <- sum(df_samp_flags[, "flag_elev_trans"], na.rm = TRUE)
-      } else {
-        n_bad_elev_trans <- NA_integer_
-      }## IF ~ Elevation
-      
-      ## Slope
-      fld2check <- sel_user_slope 
-      if (fld2check != "") {
-        df_samp_flags[, "flag_slope_trans"] <- df_samp_flags[, fld2check] >= 0.8 &
-          df_samp_flags[, fld2check] <= 1.2
-        df_samp_flags[, "flag_slope_vhigh"] <- df_samp_flags[, fld2check] >= 8
-        n_bad_slope_trans <- sum(df_samp_flags[, "flag_slope_trans"], na.rm = TRUE)
-        n_bad_slope_vhigh <- sum(df_samp_flags[, "flag_slope_vhigh"], na.rm = TRUE)
-      } else {
-        n_bad_slope_trans <- NA_integer_
-        n_bad_slope_vhigh <- NA_integer_
-      }## IF ~ Slope
-      
-      ## Eval, any
-      df_samp_flags[, "flag_sum"] <- rowSums(df_samp_flags[, cols_samp_flags[3:10]]
-                                             , na.rm = TRUE)
-      df_samp_flags[, "flag"] <- ifelse(df_samp_flags[, "flag_sum"] >= 1
-                                        , TRUE
-                                        , FALSE)
-      n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
-      
-      n_total <- nrow(df_samp_flags)
-      
-      # save info
-      write.csv(df_samp_flags, file.path("results", "results_BCG", "_BCG_Sample_FLAGS.csv"))
-      
+      # # Create 
+      # cols2check <- c("SAMPLEID"
+      #                 , "INDEX_CLASS")
+      # if (sel_user_eco3 != "") {
+      #   cols2check <- c(cols2check, sel_user_eco3)
+      # }## IF ~ eco3
+      # if (sel_user_precip != "") {
+      #   cols2check <- c(cols2check, sel_user_precip)
+      # }## IF ~ precip
+      # if (sel_user_wshedarea_km2 != "") {
+      #   cols2check <- c(cols2check, sel_user_wshedarea_km2)
+      # }## IF ~ wshed area
+      # if (sel_user_elev != "") {
+      #   cols2check <- c(cols2check, sel_user_elev)
+      # }## IF ~ wshed area
+      # if (sel_user_slope != "") {
+      #   cols2check <- c(cols2check, sel_user_slope)
+      # }## IF ~ wshed area
+      # 
+      # df_samp_flags <- unique(df_input[, cols2check])
+      # 
+      # # Add flag columns
+      # cols_samp_flags <- c("flag"
+      #                      , "flag_sum"
+      #                      , "flag_indexclass"
+      #                      , "flag_eco3"
+      #                      , "flag_precip"
+      #                      , "flag_wshed_small"
+      #                      , "flag_wshed_large"
+      #                      , "flag_elev_trans"
+      #                      , "flag_slope_trans"
+      #                      , "flag_slope_vhigh")
+      # df_samp_flags[, cols_samp_flags] <- NA
+      # 
+      # # Evaluate Sample Flags
+      # 
+      # ## Eval, Index_Class
+      # df_samp_flags[, "flag_indexclass"] <- tolower(df_samp_flags[, "INDEX_CLASS"]) %in% "lograd-hielev"
+      # n_bad_indexclass <- sum(df_samp_flags[, "flag_indexclass"], na.rm = TRUE)
+      # 
+      # ## Eco3
+      # fld2check <- sel_user_eco3
+      # if (fld2check != "") {
+      #   eco3_good <- c(1, 2, 3, 4, 77)
+      #   df_samp_flags[, "flag_eco3"] <- !(df_samp_flags[, fld2check] %in% eco3_good)
+      #   n_bad_eco3 <- sum(df_samp_flags[, "flag_eco3"])
+      # } else {
+      #   n_bad_eco3 <- NA_integer_
+      # }## IF ~ Eco3
+      # 
+      # ## Precip
+      # fld2check <- sel_user_precip
+      # if (fld2check != "") {
+      #   df_samp_flags[, "flag_precip"] <- df_samp_flags[, fld2check] < 650
+      #   n_bad_precip <- sum(df_samp_flags[, "flag_precip"], na.rm = TRUE)
+      # } else {
+      #   n_bad_precip <- NA_integer_
+      # }## IF ~ Wshed Area
+      # 
+      # ## Watershed
+      # fld2check <- sel_user_wshedarea_km2
+      # if (fld2check != "") {
+      #   df_samp_flags[, "flag_wshed_small"] <- df_samp_flags[, fld2check] < 5
+      #   df_samp_flags[, "flag_wshed_large"] <- df_samp_flags[, fld2check] > 260
+      #   n_bad_wshedarea_small <- sum(df_samp_flags[, "flag_wshed_small"], na.rm = TRUE)
+      #   n_bad_wshedarea_large <- sum(df_samp_flags[, "flag_wshed_large"], na.rm = TRUE)
+      # } else {
+      #   n_bad_wshedarea_small <- NA_integer_
+      #   n_bad_wshedarea_large <- NA_integer_
+      # }## IF ~ Wshed Area
+      # 
+      # ## Elev
+      # fld2check <- sel_user_elev
+      # if (fld2check != "") {
+      #   df_samp_flags[, "flag_elev_trans"] <- df_samp_flags[, fld2check] >= 700 &
+      #     df_samp_flags[, fld2check] <= 800
+      #   n_bad_elev_trans <- sum(df_samp_flags[, "flag_elev_trans"], na.rm = TRUE)
+      # } else {
+      #   n_bad_elev_trans <- NA_integer_
+      # }## IF ~ Elevation
+      # 
+      # ## Slope
+      # fld2check <- sel_user_slope 
+      # if (fld2check != "") {
+      #   df_samp_flags[, "flag_slope_trans"] <- df_samp_flags[, fld2check] >= 0.8 &
+      #     df_samp_flags[, fld2check] <= 1.2
+      #   df_samp_flags[, "flag_slope_vhigh"] <- df_samp_flags[, fld2check] >= 8
+      #   n_bad_slope_trans <- sum(df_samp_flags[, "flag_slope_trans"], na.rm = TRUE)
+      #   n_bad_slope_vhigh <- sum(df_samp_flags[, "flag_slope_vhigh"], na.rm = TRUE)
+      # } else {
+      #   n_bad_slope_trans <- NA_integer_
+      #   n_bad_slope_vhigh <- NA_integer_
+      # }## IF ~ Slope
+      # 
+      # ## Eval, any
+      # df_samp_flags[, "flag_sum"] <- rowSums(df_samp_flags[, cols_samp_flags[3:10]]
+      #                                        , na.rm = TRUE)
+      # df_samp_flags[, "flag"] <- ifelse(df_samp_flags[, "flag_sum"] >= 1
+      #                                   , TRUE
+      #                                   , FALSE)
+      # n_bad_any <- sum(df_samp_flags[, "flag"], na.rm = TRUE)
+      # 
+      # n_total <- nrow(df_samp_flags)
+      n_total <- nrow(df_levmemb)
+      # 
+      # # save info
+      # write.csv(df_samp_flags, file.path("results", 
+      #                                    paste(abr_results, fn_abr, sep = "_"),
+      #                                    "_BCG_Sample_FLAGS.csv"))
+      # 
       # Inform user about number of samples outside of experience of model
-      msg <- paste0(n_total, " = Total number of samples", "\n\n"
-                    , n_bad_any
-                    , " = Total number of samples outside of model experience, transitional (close to elevation/gradient thresholds), or with very high gradient (more prone to scour)"
-                    , "\n\n"
-                    , "\n"
-                    , "Outside of model experience:", "\n"
-                    , n_bad_indexclass, " = Index_Class, incorrect (LoGrad-HiElev)", "\n"
-                    , n_bad_eco3, " = Ecoregion III, incorrect (not 1, 2, 3, 4, or 77)", "\n"
-                    , n_bad_precip, " = precipitation, low (< 650 mm)", "\n"
-                    , n_bad_wshedarea_small, " = watershed area, small (< 5 km2)", "\n"
-                    , n_bad_wshedarea_large, " = watershed area, large (> 260 km2)", "\n"
-                    , "\n"
-                    , "Transitional between classes:", "\n"
-                    , n_bad_elev_trans, " = elevation, transitional (700 - 800 m)", "\n"
-                    , n_bad_slope_trans, " = slope, transitional (0.8 - 1.2%)", "\n"
-                    , "\n"
-                    , "High slope:", "\n"
-                    , n_bad_slope_vhigh, " = slope, very high (>= 8%)", "\n\n"
-                    , "('NA' if data field not provided in input file)."
-      )
-      shinyalert::shinyalert(title = "BCG Calculation,\nSamples Outside Model Experience"
+      msg <- paste0(n_total, " = Total number of samples")
+      shinyalert::shinyalert(title = "BCG Calculation, Statewide"
                              , text = msg
                              , type = "info"
                              , closeOnEsc = TRUE
@@ -3941,7 +3935,7 @@ shinyServer(function(input, output) {
       zip::zip(file.path(path_results, "results.zip"), fn_4zip)
       
       # button, enable, download
-      shinyjs::enable("b_download_bcg")
+      shinyjs::enable("b_download_bcg_statewide")
       
     }## expr ~ withProgress ~ END
     , message = "Calculating BCG"
