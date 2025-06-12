@@ -224,7 +224,7 @@ shinyServer(function(input, output) {
                              , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
-    } else if (as.vector(classes_df[col_num_bcgattr]) != "complex") {
+    } else if (any(as.vector(classes_df[col_num_bcgattr]) != "complex")) {
       # BCG_Attr present = TRUE
       # BCG_Attr Class is complex = FALSE
       # define classes on import = FALSE (change to text after import)

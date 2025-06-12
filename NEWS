@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-04-21 15:04:46.567455
+2025-06-12 12:42:00.82426
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-04-21 15:04:46.586313
+    #> Last Update: 2025-06-12 12:42:00.84326
+
+# BCGcalc 2.1.0.9020 (2025-06-12)
+
+- fix: Update server for columns for BCG Attr
+- refactor: Update NE_Bugs_BCG rules, Issue \#95
+- fix: Update Rules, failed test
+  - pi_SCC to pi_scc
+- fix: Update test, Flags, Metrics, BioMonTools
 
 # BCGcalc 2.1.0.9019 (2025-04-21)
 

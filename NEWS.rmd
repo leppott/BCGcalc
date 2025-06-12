@@ -21,6 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9020 (2025-06-12)
+
+* fix: Update server for columns for BCG Attr
+* refactor: Update NE_Bugs_BCG rules, Issue #95
+* fix: Update Rules, failed test
+    + pi_SCC to pi_scc
+* fix: Update test, Flags, Metrics, BioMonTools
+
 # BCGcalc 2.1.0.9019 (2025-04-21)
 
 * refactor: Update Generate BCG Class parameters to include watershed area

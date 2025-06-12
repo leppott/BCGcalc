@@ -198,6 +198,7 @@ test_that("Flags, Metrics, BioMonTools", {
                         , "SurfaceArea"
                         , "pslope_nhd"
                         , "WSAREASQKM"
+                        , "WsAreaSqKm"
                         , "PRECIP8110CAT")
   metnam_flags_check <- metnam_flags_all[!metnam_flags_all %in% 
                                            names_notmetrics]
