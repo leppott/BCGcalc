@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9021 (2025-06-12)
+
+* refactor: Add new Flags for GP BCG, Issue #96
+
 # BCGcalc 2.1.0.9020 (2025-06-12)
 
 * fix: Update server for columns for BCG Attr
