@@ -32,8 +32,8 @@ function() {
        
        , h4("E. User File Column Names")
        
-       , h6("Model Experience Fields")
-       , p("These fields will be used to check if sites are within the experience of the model.")
+       , h6("Model Experience Fields (REQUIRED)")
+       , p("These required fields will be used to check if sites are within the experience of the model.")
        , p("If the default values are present they will be auto-populated.")
        # SampleID (really for group_by)
        , uiOutput("UI_bcg_marinw_modelexp_user_col_eco3")

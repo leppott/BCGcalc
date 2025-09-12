@@ -21,6 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9022 (2025-06-12)
+
+* refactor: Shiny app, MariNW, 
+    + Exclude taxa, add new levels
+        - SpeciesGroup, SpeciesSubGroup, and SpeciesComplex
+    + Add 'required' to section E for column names
+    + Add example for Ecoregion (e.g., 2, 3, or 4)
+
 # BCGcalc 2.1.0.9021 (2025-06-12)
 
 * refactor: Add new Flags for GP BCG, Issue #96

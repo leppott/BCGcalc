@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-06-12 12:53:28.480776
+2025-09-12 09:25:24.271552
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-06-12 12:53:28.494988
+    #> Last Update: 2025-09-12 09:25:24.304761
+
+# BCGcalc 2.1.0.9022 (2025-06-12)
+
+- refactor: Shiny app, MariNW,
+  - Exclude taxa, add new levels
+    - SpeciesGroup, SpeciesSubGroup, and SpeciesComplex
+  - Add ‘required’ to section E for column names
+  - Add example for Ecoregion (e.g., 2, 3, or 4)
 
 # BCGcalc 2.1.0.9021 (2025-06-12)
 

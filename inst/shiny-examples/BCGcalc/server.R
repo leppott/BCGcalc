@@ -2256,7 +2256,7 @@ shinyServer(function(input, output) {
   
   ### marinw ----
   output$UI_bcg_marinw_modelexp_user_col_eco3 <- renderUI({
-    str_col <- "Column, Ecoregion III (L3_ECO)"
+    str_col <- "Column, Ecoregion III (L3_ECO) [e.g., 2, 3, or 4]"
     selectInput("bcg_marinw_modelexp_user_col_eco3"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -2982,6 +2982,9 @@ shinyServer(function(input, output) {
                        , "Tribe"
                        , "Genus"
                        , "SubGenus"
+                       , "SpeciesGroup"
+                       , "SpeciesSubGroup"
+                       , "SpeciesComplex"
                        , "Species"
                        , "Variety")
         phylo_all <- toupper(phylo_all) # so matches rest of file
