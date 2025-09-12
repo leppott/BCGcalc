@@ -27,13 +27,15 @@
 #' L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4), 0, 1)
 #' L6 <- c(rep(0, length(L1)))
 #' SAMPLEID <- LETTERS[1:length(L1)]
-# df_lev_memb <- data.frame(SAMPLEID = SAMPLEID
-#                           , L1 = L1
-#                           , L2 = L2
-#                           , L3 = L3
-#                           , L4 = L4
-#                           , L5 = L5
-#                           , L6 = L6)
+#' df_lev_memb <- data.frame(SAMPLEID = SAMPLEID,
+#'                           INDEX_NAME = "test",
+#'                           INDEX_CLASS = "x",
+#'                           L1 = L1,
+#'                           L2 = L2,
+#'                           L3 = L3,
+#'                           L4 = L4,
+#'                           L5 = L5,
+#'                           L6 = L6)
 #' 
 #' # Calculate BCG Level Assignments
 #' df_Levels <- BCG.Level.Assignment(df_lev_memb)
@@ -75,7 +77,7 @@ BCG.ContLevelText <- function(ContValue) {
       ContValue <- df_Levels$Continuous_BCG_Level 
     } else if (data_QC == 2) {
       # Random Values
-      ContValue <- sort(round(runif(100, 2, 6), 2))
+      ContValue <- sort(round(stats::runif(100, 2, 6), 2))
     } else {
       ContValue <- seq(1.5, 6, by = 0.01) # n = 401
     }## IF ~ data_QC
@@ -153,8 +155,13 @@ BCG.ContLevelText <- function(ContValue) {
   # QC, check output
   if (isTRUE(boo_QC)) {
     # QC vs. Jen's file
-    write.table(df_data, "clipboard", sep = "\t", row.names = FALSE)
-    write.csv(df_data, file.path(tempdir(), "calc_lev.csv"), row.names = FALSE)
+    utils::write.table(df_data, 
+                       "clipboard", 
+                       sep = "\t", 
+                       row.names = FALSE)
+    utils::write.csv(df_data, 
+                     file.path(tempdir(), "calc_lev.csv"), 
+                     row.names = FALSE)
     shell.exec(tempdir())
   }## IF ~ boo_QC, output
   

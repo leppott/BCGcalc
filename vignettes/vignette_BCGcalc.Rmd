@@ -304,8 +304,8 @@ The first few lines are also displayed below.
 ```{r Head_TaxaMaster, echo=FALSE, eval=TRUE}
 library(BCGcalc)
 library(knitr)
-kable(head(TaxaMaster_Ben_BCG_PugLowWilVal)
-      , caption="PugLowWilVal BCG Master Taxa")
+kable(head(TaxaMaster_Ben_BCG_PugLowWilVal),
+      caption="PugLowWilVal BCG Master Taxa")
 ```
 
 
@@ -379,9 +379,10 @@ library(reshape2)
 library(BioMonTools)
 
 # Import
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
-                                        , package="BCGcalc")
-                            , guess_max = 10^6)
+df.samps.bugs <- read_excel(
+  system.file("./extdata/Data_BCG_PugLowWilVal.xlsx",
+              package="BCGcalc"),
+  guess_max = 10^6)
 
 # QC for TRUE/FALSE (both ok) 
 # Exclude to TRUE/FALSE
@@ -390,52 +391,66 @@ table(df.samps.bugs$Exclude)
 table(df.samps.bugs$NonTarget)
 
 # Add missing columns
-col_add_char <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
-                  , "WSAREA_ATTR", "HABSTRUCT")
+col_add_char <- c("INFRAORDER", 
+                  "HABITAT", 
+                  "ELEVATION_ATTR", 
+                  "GRADIENT_ATTR",
+                  "WSAREA_ATTR", 
+                  "HABSTRUCT")
 col_add_num <- "UFC"
 df.samps.bugs[, col_add_char] <- NA_character_
 df.samps.bugs[, col_add_num] <- NA_integer_
 
 # 1.A. Calculate Metrics
 # Extra columns to keep in results
-keep.cols <- c("Area_mi2"
-               , "SurfaceArea"
-               , "Density_m2"
-               , "Density_ft2"
-               , "Site_Type")
+keep.cols <- c("Area_mi2",
+               "SurfaceArea",
+               "Density_m2",
+               "Density_ft2")
 # Run Function
-df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
+df.metrics <- metric.values(df.samps.bugs, 
+                            "bugs", 
+                            fun.cols2keep = keep.cols)
 # QC
 dim(df.metrics)
-View(df.metrics)
+# View(df.metrics)
 # Save
-write.table(df.metrics
-            , "Metric.Values.Test.tsv"
-            , col.names=TRUE
-            , row.names=FALSE
-            , sep="\t")
+# write.table(df.metrics,
+#             "Metric.Values.Test.tsv",
+#             col.names = TRUE,
+#             row.names = FALSE,
+#             sep = "\t")
 
 # 1.B. Metric Membership
 # Import Rules
-df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
-                             , package="BCGcalc")
-                       , sheet="BCG_PugLowWilVal_500ct") 
+df.rules <- read_excel(
+  system.file("./extdata/Rules.xlsx",
+              package = "BCGcalc"),
+  sheet = "Rules") 
 # Run function
-df.Metric.Membership <- BCG.Metric.Membership(df.metrics, df.rules)
+df.Metric.Membership <- BCG.Metric.Membership(df.metrics, 
+                                              df.rules)
 # Show Results
-View(df.Metric.Membership)
+# View(df.Metric.Membership)
 # Save Results
-write.table(df.Metric.Membership, "Metric.Membership.Test.tsv"
-              , row.names=FALSE, col.names=TRUE, sep="\t")
+# write.table(df.Metric.Membership, 
+#             "Metric.Membership.Test.tsv",
+#             row.names = FALSE,
+#             col.names = TRUE,
+#             sep = "\t")
 
 # 1.C. Level Assignment
 # Run Function
-df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
+df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership,
+                                            df.rules)
 # Show results
-View(df.Level.Membership)
+# View(df.Level.Membership)
 # Save Results
-write.table(df.Level.Membership, "Level.Membership.Test.tsv"
-             , row.names=FALSE, col.names=TRUE, sep="\t")
+# write.table(df.Level.Membership, 
+#             "Level.Membership.Test.tsv",
+#             row.names = FALSE,
+#             col.names = TRUE,
+#             sep = "\t")
 
 # 1.D. Level Membership
 # Run Function
@@ -443,29 +458,35 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 
 # 1.E. Flags
 # Import QC Checks
-df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
-                                          , package="BCGcalc")
-                        , sheet="Flags") 
+df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx",
+                                    package = "BCGcalc"),
+                        sheet = "Flags") 
 # Run Function
 df.flags <- qc.checks(df.metrics, df.checks)
 # Change terminology; PASS/FAIL to NA/flag
-df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
-df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
+df.flags[, "FLAG"][df.flags[, "FLAG"] == "FAIL"] <- "flag"
+df.flags[, "FLAG"][df.flags[, "FLAG"] == "PASS"] <- NA
 # long to wide format
-df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
+df.flags.wide <- dcast(df.flags, 
+                       SAMPLEID ~ CHECKNAME,
+                       value.var = "FLAG")
 # Calc number of "flag"s by row.
-df.flags.wide$NumFlags <- rowSums(df.flags.wide=="flag", na.rm=TRUE)
+df.flags.wide$NumFlags <- rowSums(df.flags.wide == "flag", na.rm = TRUE)
 # Rearrange columns
 NumCols <- ncol(df.flags.wide)
 df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
 # Merge Levels and Flags
-df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
+df.Levels.Flags <- merge(df.Levels, 
+                         df.flags.wide,
+                         by.x = "SampleID", 
+                         by.y = "SAMPLEID",
+                         all.x = TRUE)
 # Show Results
-View(df.Levels.Flags)
+# View(df.Levels.Flags)
 # Summarize Results
-table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
+table(df.flags[, "CHECKNAME"], df.flags[, "FLAG"], useNA = "ifany")
 # Save Results
-write.csv(df.Levels.Flags, "Levels.Flags.Test.csv")
+# write.csv(df.Levels.Flags, "Levels.Flags.Test.csv")
 ```
 
 ### Example, New Data
@@ -490,6 +511,7 @@ library(readxl)
 library(dplyr)
 library(BCGcalc)
 library(BioMonTools)
+library(reshape2)
 
 # Read File
 ## FileName
@@ -502,7 +524,9 @@ fn.data <- system.file("./extdata/ExampleMunge_UnformatedData.xlsx"
 sh.data <- "SamplesWithBioticAttributesAndR"
 ## Import
 ### set "guess" to a large number to avoid type being wrong
-df.data <- read_excel(fn.data, sheet = sh.data, guess_max=12000)
+df.data <- read_excel(fn.data, 
+                      sheet = sh.data,
+                      guess_max = 12000)
 dim(df.data)
 
 # Munge
@@ -510,11 +534,11 @@ dim(df.data)
 ### convert to upper case
 names(df.data) <- toupper(names(df.data))
 ### Rename Columns (base R) [dplyr::rename not working]
-names(df.data)[names(df.data)=="SAMPLE ID"] <- "SAMPLEID"
-names(df.data)[names(df.data)=="TAXON"] <- "TAXAID"
-names(df.data)[names(df.data)=="SAMPLE ID"] <- "SAMPLEID"
-names(df.data)[names(df.data)=="QUANTITY SUBSAMPLING"] <- "N_TAXA"
-#names(df.data)[names(df.data)=="HILSENHOFF BIOTIC TOLERANCE INDEX"] <- "TOLVAL"
+names(df.data)[names(df.data) == "SAMPLE ID"] <- "SAMPLEID"
+names(df.data)[names(df.data) == "TAXON"] <- "TAXAID"
+names(df.data)[names(df.data) == "SAMPLE ID"] <- "SAMPLEID"
+names(df.data)[names(df.data) == "QUANTITY SUBSAMPLING"] <- "N_TAXA"
+#names(df.data)[names(df.data) == "HILSENHOFF BIOTIC TOLERANCE INDEX"] <- "TOLVAL"
 # df.data <- df.data %>% rename("SAMPLEID"="SAMPLE ID"
 #                              , "TAXAID"="TAXON"
 #                              , "N_TAXA"="QUANTITY SUBSAMPLING"
@@ -538,16 +562,17 @@ df.data$DENSITY_M2 <- NA
 df.data$DENSITY_FT2 <- NA
 
 # Add slope (and then gradient for SiteType) from NHD+ v2
-fn.slope <- system.file("./extdata/ExampleMunge_Slope.xlsx", package="BCGcalc")
+fn.slope <- system.file("./extdata/ExampleMunge_Slope.xlsx",
+                        package="BCGcalc")
 # fn.slope <- file.path(wd, "ExampleMunge_Slope.xlsx")
 df.slope <- read_excel(fn.slope)
 names(df.slope) <- toupper(names(df.slope))
 # merge files
-df.comb.slope <- merge(df.data
-                       , df.slope
-                       , by.x="SITE CODE"
-                       , by.y="SITE_CODE"
-                       , all.x=TRUE)
+df.comb.slope <- merge(df.data,
+                       df.slope,
+                       by.x = "SITE CODE",
+                       by.y = "SITE_CODE",
+                       all.x = TRUE)
 # QC (rows)
 dim(df.data)
 dim(df.comb.slope)
@@ -558,20 +583,50 @@ df.comb.slope$SITE_TYPE <- df.comb.slope$`SLOPE CATEGORY`
 df.taxamaster <- TaxaMaster_Ben_BCG_PugLowWilVal
 names(df.taxamaster) <- toupper(names(df.taxamaster))
 ## Assume phylogenetic information is correct.
-col.auteco <- c("TAXAID", "BCG_ATTR", "THERMAL_INDICATOR", "LONG_LIVED", "FFG"
-                , "HABIT", "LIFE_CYCLE", "TOLVAL")
-df.comb.slope.auteco <- merge(df.comb.slope, df.taxamaster[, col.auteco]
-                              , by.x="TAXAID", by.y="TAXAID", all.x=TRUE)
+col.auteco <- c("TAXAID", 
+                "BCG_ATTR",
+                "THERMAL_INDICATOR", 
+                "LONG_LIVED", 
+                "FFG",
+                "HABIT",
+                "LIFE_CYCLE", 
+                "TOLVAL")
+df.comb.slope.auteco <- merge(df.comb.slope,
+                              df.taxamaster[, col.auteco],
+                              by.x = "TAXAID", 
+                              by.y = "TAXAID", 
+                              all.x = TRUE)
 nrow(df.comb.slope) == nrow(df.comb.slope.auteco)
 
+# SiteClass to Index_Class
+df.comb.slope.auteco$INDEX_CLASS <- df.comb.slope.auteco$SITE_TYPE
+
 # Create Anlaysis File
-col2keep <- c("SAMPLEID", "INDEX_NAME", "SITE_TYPE"
-              , "AREA_MI2", "SURFACEAREA", "DENSITY_M2", "DENSITY_FT2"
-              , "TAXAID", "N_TAXA", "EXCLUDE", "NONTARGET"
-              , "PHYLUM", "SUBPHYLUM", "CLASS", "ORDER", "FAMILY", "SUBFAMILY"
-              , "TRIBE", "GENUS"
-              , "FFG", "HABIT", "LIFE_CYCLE", "TOLVAL", "BCG_ATTR"
-              , "THERMAL_INDICATOR")
+col2keep <- c("SAMPLEID", 
+              "INDEX_NAME",
+              "INDEX_CLASS",
+              "AREA_MI2",
+              "SURFACEAREA",
+              "DENSITY_M2", 
+              "DENSITY_FT2",
+              "TAXAID", 
+              "N_TAXA", 
+              "EXCLUDE", 
+              "NONTARGET",
+              "PHYLUM",
+              "SUBPHYLUM",
+              "CLASS",
+              "ORDER", 
+              "FAMILY",
+              "SUBFAMILY",
+              "TRIBE",
+              "GENUS",
+              "FFG", 
+              "HABIT", 
+              "LIFE_CYCLE",
+              "TOLVAL", 
+              "BCG_ATTR",
+              "THERMAL_INDICATOR")
 df.samps.bugs <- as.data.frame(df.comb.slope.auteco[, col2keep ])
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -587,44 +642,55 @@ table(df.samps.bugs$NONTARGET)
 
 # 1.A. Calculate Metrics
 # Extra columns to keep in results
-keep.cols <- toupper(c("Area_mi2"
-                       , "SurfaceArea"
-                       , "Density_m2"
-                       , "Density_ft2"
-                       , "Site_Type"))
+keep.cols <- toupper(c("Area_mi2",
+                       "SurfaceArea",
+                       "Density_m2",
+                       "Density_ft2"))
 # Run Function
-df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
+df.metrics <- metric.values(df.samps.bugs, 
+                            "bugs", 
+                            fun.cols2keep = keep.cols,
+                            boo.Shiny = TRUE)
 # QC
 dim(df.metrics)
-View(df.metrics)
+# View(df.metrics)
 # Save
-write.table(df.metrics
-            , "Metric.Values.New.tsv"
-            , col.names=TRUE
-            , row.names=FALSE
-            , sep="\t")
+# write.table(df.metrics
+#             , "Metric.Values.New.tsv"
+#             , col.names = TRUE
+#             , row.names = FALSE
+#             , sep = "\t")
 
 # 1.B. Metric Membership
 # Import Rules
 df.rules <- read_excel(system.file("./extdata/Rules.xlsx"
                              , package="BCGcalc")
-                       , sheet="BCG_PugLowWilVal_500ct") 
+                       , sheet="Rules") 
+names(df.rules)[names(df.rules) %in% "Index_Name"] <- "INDEX_NAME"
 # Run function
 df.Metric.Membership <- BCG.Metric.Membership(df.metrics, df.rules)
 # Show Results
-View(df.Metric.Membership)
+# View(df.Metric.Membership)
 # Save Results
-write.table(df.Metric.Membership, "Metric.Membership.New.tsv"
-              , row.names=FALSE, col.names=TRUE, sep="\t")
+# write.table(df.Metric.Membership, 
+#             "Metric.Membership.New.tsv",
+#             row.names = FALSE, 
+#             col.names = TRUE, 
+#             sep = "\t")
 
 # 1.C. Level Assignment
 # Run Function
-df.Level.Membership <- BCG.Level.Membership(df.Metric.Membership, df.rules)
-# Show results
-View(df.Level.Membership)
+df.Level.Membership <- BCG.Level.Membership(
+  df.Metric.Membership,
+  df.rules)
+# # Show results
+# View(df.Level.Membership)
 # Save Results
-write.table(df.Level.Membership, "Level.Membership.New.tsv"
-             , row.names=FALSE, col.names=TRUE, sep="\t")
+# write.table(df.Level.Membership, 
+#             "Level.Membership.New.tsv",
+#             row.names = FALSE, 
+#             col.names = TRUE, 
+#             sep = "\t")
 
 # 1.D. Level Membership
 # Run Function
@@ -632,29 +698,36 @@ df.Levels <- BCG.Level.Assignment(df.Level.Membership)
 
 # 1.E. Flags
 # Import QC Checks
-df.checks <- read_excel(system.file("./extdata/MetricFlags.xlsx"
-                                          , package="BCGcalc")
-                        , sheet="Flags") 
+df.checks <- read_excel(
+  system.file("./extdata/MetricFlags.xlsx",
+              package = "BCGcalc"),
+  sheet = "Flags") 
 # Run Function
 df.flags <- qc.checks(df.metrics, df.checks)
 # Change terminology; PASS/FAIL to NA/flag
-df.flags[,"FLAG"][df.flags[,"FLAG"]=="FAIL"] <- "flag"
-df.flags[, "FLAG"][df.flags[,"FLAG"]=="PASS"] <- NA
+df.flags[, "FLAG"][df.flags[, "FLAG"] == "FAIL"] <- "flag"
+df.flags[, "FLAG"][df.flags[, "FLAG"] == "PASS"] <- NA
 # long to wide format
-df.flags.wide <- dcast(df.flags, SAMPLEID ~ CHECKNAME, value.var="FLAG")
+df.flags.wide <- dcast(df.flags, 
+                       SAMPLEID ~ CHECKNAME, 
+                       value.var="FLAG")
 # Calc number of "flag"s by row.
-df.flags.wide$NumFlags <- rowSums(df.flags.wide=="flag", na.rm=TRUE)
+df.flags.wide$NumFlags <- rowSums(df.flags.wide == "flag", na.rm = TRUE)
 # Rearrange columns
 NumCols <- ncol(df.flags.wide)
-df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols-1))]
+df.flags.wide <- df.flags.wide[, c(1, NumCols, 2:(NumCols - 1))]
 # Merge Levels and Flags
-df.Levels.Flags <- merge(df.Levels, df.flags.wide, by="SAMPLEID", all.x=TRUE)
+df.Levels.Flags <- merge(df.Levels, 
+                         df.flags.wide, 
+                         by.x = "SampleID", 
+                         by.y = "SAMPLEID", 
+                         all.x = TRUE)
 # Show Results
-View(df.Levels.Flags)
+# View(df.Levels.Flags)
 # Summarize Results
-table(df.flags[,"CHECKNAME"], df.flags[,"FLAG"], useNA="ifany")
+table(df.flags[, "CHECKNAME"], df.flags[, "FLAG"], useNA = "ifany")
 # Save Results
-write.csv(df.Levels.Flags, "Levels.Flags.New.csv")
+# write.csv(df.Levels.Flags, "Levels.Flags.New.csv")
 ```
 
 ## Additional (Optional) Functions
@@ -717,19 +790,27 @@ df_biodata <- df_data
 #View(df_biodata)
 
 # subsample
-mySize <- 600
+mySize  <- 600
 Seed_OR <- 18590214
 Seed_WA <- 18891111
 Seed_US <- 17760704
-bugs_mysize <- BioMonTools::rarify(inbug=df_biodata, sample.ID="SampleID"
-                     ,abund="N_Taxa",subsiz=mySize, mySeed=Seed_US)
+bugs_mysize <- BioMonTools::rarify(inbug = df_biodata,
+                                   sample.ID = "SampleID",
+                                   abund = "N_Taxa",
+                                   subsiz = mySize, 
+                                   mySeed = Seed_US)
 #dim(bugs.mysize)
 #View(bugs.mysize)
 
 # Compare pre- and post- subsample counts
-df_compare <- merge(df_biodata, bugs_mysize, by=c("SampleID", "TaxaID")
-                    , suffixes = c("_Orig","_600"))
-df_compare <- df_compare[,c("SampleID", "TaxaID", "N_Taxa_Orig", "N_Taxa_600")]
+df_compare <- merge(df_biodata, 
+                    bugs_mysize,
+                    by=c("SampleID", "TaxaID"),
+                    suffixes = c("_Orig","_600"))
+df_compare <- df_compare[, c("SampleID", 
+                             "TaxaID", 
+                             "N_Taxa_Orig", 
+                             "N_Taxa_600")]
 #View(df.compare)
 
 # compare totals
@@ -737,14 +818,14 @@ tbl_compare <- head(df_compare)
 tbl_compare_caption <- "First few rows of original and rarified data."
 kable(tbl_compare, caption=tbl_compare_caption)
 
-tbl_totals <- aggregate(cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID
-                        , df_compare, sum)
+tbl_totals <- aggregate(
+  cbind(N_Taxa_Orig, N_Taxa_600) ~ SampleID,
+  df_compare, sum)
 tbl_totals_caption <- "Comparison of total individuals per sample."
 kable(tbl_totals, caption=tbl_totals_caption)
 
 # save the data
 #write.table(bugs.mysize,paste("bugs",mySize,"txt",sep="."),sep="\t")
-
 ```
 
 ### Metric Calculation, Save Specific Metrics
@@ -784,20 +865,34 @@ df.data <- read_excel(system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
                                        , package="BCGcalc")
                       , guess_max = 10^6)
 # Columns to keep
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
+myCols <- c("Area_mi2", 
+            "SurfaceArea", 
+            "Density_m2", 
+            "Density_ft2")
 # Metrics of Interest (BCG)
-col.met2keep <- c("ni_total", "nt_total", "nt_BCG_att1i2", "pt_BCG_att1i23"
-                  , "pi_BCG_att1i23", "pt_BCG_att56", "pi_BCG_att56"
-                  , "nt_EPT_BCG_att1i23", "pi_NonInsJugaRiss_BCG_att456"
-                  , "pt_NonIns_BCG_att456", "nt_EPT", "pi_NonIns_BCG_att456")
+col.met2keep <- c("ni_total", 
+                  "nt_total",
+                  "nt_BCG_att1i2",
+                  "pt_BCG_att1i23",
+                  "pi_BCG_att1i23", 
+                  "pt_BCG_att56",
+                  "pi_BCG_att56",
+                  "nt_EPT_BCG_att1i23", 
+                  "pi_NonInsJugaRiss_BCG_att456",
+                  "pt_NonIns_BCG_att456", 
+                  "nt_EPT", 
+                  "pi_NonIns_BCG_att456")
 # Run Function
-df.metval <- metric.values(df.data, "bugs"
-                           , fun.cols2keep=myCols
-                           , fun.MetricNames = col.met2keep)
-1 # YES
+df.metval <- metric.values(df.data, 
+                           "bugs",
+                           fun.cols2keep = myCols,
+                           fun.MetricNames = col.met2keep,
+                           boo.Shiny = TRUE)
 
 # Select columns
-col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
+col.ID <- c("SAMPLEID",
+            toupper(myCols), 
+            "INDEX_NAME")
 # Ouput
 df.metval.bcg12 <- df.metval[, c(col.ID, col.met2keep)]
 # RMD table
@@ -820,26 +915,53 @@ df.data <- read_excel(system.file("./extdata/Data_BCG_PugLowWilVal.xlsx"
                       , guess_max = 10^6)
 
 # Add missing columns
-col_add_char <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
-                  , "WSAREA_ATTR", "HABSTRUCT")
+col_add_char <- c("INFRAORDER", 
+                  "HABITAT",
+                  "ELEVATION_ATTR", 
+                  "GRADIENT_ATTR",
+                  "WSAREA_ATTR",
+                  "HABSTRUCT")
 col_add_num <- "UFC"
 df.data[, col_add_char] <- NA_character_
 df.data[, col_add_num] <- NA_integer_
 
 # Columns to keep
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2", "Site_Type")
+myCols <- c("Area_mi2", 
+            "SurfaceArea", 
+            "Density_m2", 
+            "Density_ft2")
 
 # Run Function
-df.metval <- metric.values(df.data, "bugs", fun.cols2keep=myCols)
+df.metval <- metric.values(df.data, 
+                           "bugs", 
+                           fun.cols2keep=myCols)
 # Metrics of Interest
 ## thermal indicator (_ti_)
 #names(df.metval)[grepl("_ti_", names(df.metval))]
-col.met2keep <- c("ni_total", "nt_total"
-         , paste0("nt_ti_", c("stenocold", "cold", "cool", "warm", "stenowarm"))
-         , paste0("pi_ti_", c("stenocold", "cold", "cool", "warm", "stenowarm"))
-         , paste0("pt_ti_", c("stenocold", "cold", "cool", "warm", "stenowarm"))
+col.met2keep <- c("ni_total", 
+                  "nt_total",
+                  paste0("nt_ti_",
+                         c("stenocold", 
+                           "cold", 
+                           "cool", 
+                           "warm", 
+                           "stenowarm")),
+                  paste0("pi_ti_", 
+                         c("stenocold", 
+                           "cold", 
+                           "cool", 
+                           "warm", 
+                           "stenowarm")),
+                  paste0("pt_ti_", 
+                         c("stenocold", 
+                           "cold",
+                           "cool",
+                           "warm", 
+                           "stenowarm"))
           )
-col.ID <- c("SAMPLEID", toupper(myCols), "INDEX_NAME", "SITE_TYPE")
+col.ID <- c("SAMPLEID", 
+            toupper(myCols), 
+            "INDEX_NAME")
 # Ouput
 df.metval.ci <- df.metval[, c(col.ID, col.met2keep)]
 # RMD table
@@ -884,8 +1006,7 @@ df.samps.bugs[, col_add_num] <- NA_integer_
 keep.cols <- c("Area_mi2"
                , "SurfaceArea"
                , "Density_m2"
-               , "Density_ft2"
-               , "Site_Type")
+               , "Density_ft2")
 # Run Function
 df.metrics <- metric.values(df.samps.bugs, "bugs", fun.cols2keep = keep.cols)
 # # QC
@@ -955,7 +1076,7 @@ df.Levels.Flags <- merge(df.Levels, df.flags.wide
 
 # Flags
 # Filter for "hi"
-tbl.checks.hi <- df.checks[df.checks[,"Site_Type"]=="Hi", ]
+tbl.checks.hi <- df.checks[df.checks[,"SITE_TYPE"]=="Hi", ]
 # Display
 tbl.checks.caption <- "Flags, Hi Gradient"
 kable(tbl.checks.hi, caption = tbl.checks.caption)

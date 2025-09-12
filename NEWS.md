@@ -1,11 +1,25 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-09-12 09:25:24.271552
+2025-09-12 14:31:25.083305
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-09-12 09:25:24.304761
+    #> Last Update: 2025-09-12 14:31:25.157915
+
+# BCGcalc 2.1.0.9023 (2025-09-12)
+
+- fix: Update BCG.ContLevel example to not fail
+- fix: Update example code in Vignettes to avoid failures
+- docs: Remove reshape2 from suggests in DESCRIPTION
+- fix: Add files in root directory to .Rbuildignore
+  - NEWS.rmd
+  - README.rmd
+  - \_test/
+  - data-raw/
+- refactor: Add missing package references to functions in code
+  - BCG.Level.Membership
+  - BCG.ContLevel
 
 # BCGcalc 2.1.0.9022 (2025-06-12)
 

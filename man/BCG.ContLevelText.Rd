@@ -35,6 +35,15 @@ L4 <- c(0, 0.9, 0, 0, 0.58, 0.05, 0, 0, 0.78, 0.67, 0.5, 0)
 L5 <- c(0, 0.1, 0, 1, 0, 0.95, rep(0,4), 0, 1)
 L6 <- c(rep(0, length(L1)))
 SAMPLEID <- LETTERS[1:length(L1)]
+df_lev_memb <- data.frame(SAMPLEID = SAMPLEID,
+                          INDEX_NAME = "test",
+                          INDEX_CLASS = "x",
+                          L1 = L1,
+                          L2 = L2,
+                          L3 = L3,
+                          L4 = L4,
+                          L5 = L5,
+                          L6 = L6)
 
 # Calculate BCG Level Assignments
 df_Levels <- BCG.Level.Assignment(df_lev_memb)

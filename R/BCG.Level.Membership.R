@@ -376,7 +376,7 @@ BCG.Level.Membership <- function(df.metric.membership
                                       , .groups = "drop_last"
                 #
                 # Calc MEDIAN
-                , MEMBERSHIP = median(MEMBERSHIP, na.rm = TRUE)
+                , MEMBERSHIP = stats::median(MEMBERSHIP, na.rm = TRUE)
                 # , MEMBERSHIP_MEDIAN = median(MEMBERSHIP, na.rm = TRUE)
                 # , MEMBERSHIP_COUNT = dplyr::n()
   )##summarise ~ MEDIAN

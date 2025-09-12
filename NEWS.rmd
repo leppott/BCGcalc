@@ -21,6 +21,20 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9023 (2025-09-12)
+
+* fix: Update BCG.ContLevel example to not fail
+* fix: Update example code in Vignettes to avoid failures
+* docs: Remove reshape2 from suggests in DESCRIPTION
+* fix: Add files in root directory to .Rbuildignore
+    + NEWS.rmd
+    + README.rmd
+    + _test/
+    + data-raw/
+* refactor: Add missing package references to functions in code
+    + BCG.Level.Membership
+    + BCG.ContLevel
+
 # BCGcalc 2.1.0.9022 (2025-06-12)
 
 * refactor: Shiny app, MariNW, 
