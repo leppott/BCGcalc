@@ -11,3 +11,4 @@
 ^README\.rmd$
 ^data-raw$
 ^_test$
+^LICENSE\.md$

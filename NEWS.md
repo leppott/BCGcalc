@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-09-12 14:41:27.704552
+2025-09-12 15:00:14.359186
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-09-12 14:41:27.777319
+    #> Last Update: 2025-09-12 15:00:14.423838
+
+# BCGcalc 2.1.0.9025 (2025-09-12)
+
+- docs: Update LICENSE files and reference in DESCRIPTION
+- docs: Move BioMonTools from Imports to Suggests in DESCRIPTION
 
 # BCGcalc 2.1.0.9024 (2025-09-12)
 
