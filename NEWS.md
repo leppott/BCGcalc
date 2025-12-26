@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-09-12 15:00:14.359186
+2025-12-26 15:48:08.420517
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-09-12 15:00:14.423838
+    #> Last Update: 2025-12-26 15:48:08.449858
+
+# BCGcalc 2.1.0.9026 (2025-12-26)
+
+- refactor: Add additional rules, Boise BCG, Issue \#97
+- refactor: Add additional flags, Boise BCG, Issue \#97
 
 # BCGcalc 2.1.0.9025 (2025-09-12)
 

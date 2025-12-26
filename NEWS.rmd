@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9026 (2025-12-26)
+
+* refactor: Add additional rules, Boise BCG, Issue #97
+* refactor: Add additional flags, Boise BCG, Issue #97
+
 # BCGcalc 2.1.0.9025 (2025-09-12)
 
 * docs: Update LICENSE files and reference in DESCRIPTION
