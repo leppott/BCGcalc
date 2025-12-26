@@ -1,0 +1,7 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  BCGcalc_Map: BCGcalc_Map.html
+  vignette_BCGcalc: vignette_BCGcalc.html
+last_built: 2025-12-26T21:00Z
