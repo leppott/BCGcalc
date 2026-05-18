@@ -53,3 +53,4 @@ data/data_GIS_NHDplus_catch_ORWA.rda
 data/data_GIS_NHDplus_flowline_ORWA.rda
 inst/shiny-examples/BCGcalc/_TemplateCode2data.R
 inst/shiny-examples/BCGcalc/_TemplateCode.R
+.positai

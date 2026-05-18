@@ -259,7 +259,7 @@ build_report_table <- function(df_template_data
     # QC, PK
     pk_i_boo <- tolower(pk_orig) %in% tolower(names(df_i_orig))
     
-    # QC, Shiny Alert, Primary Key
+    # QC, Shiny Alert, Primary Key (PK)
     # Shiny Alert
     if (!pk_i_boo) {
       # end process with pop up

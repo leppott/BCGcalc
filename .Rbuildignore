@@ -12,3 +12,5 @@
 ^data-raw$
 ^_test$
 ^LICENSE\.md$
+^\.positai$
+^\.claude$

@@ -43,12 +43,15 @@ col_add_char <- c("INFRAORDER",
                   "GRADIENT_ATTR",
                   "WSAREA_ATTR", 
                   "HABSTRUCT")
-col_add_num <- "UFC"
+col_add_num <- c("UFC",
+                 "SAMP_AREA_M2"#,
+                 # "DENSITY_M2"
+                 )
 myDF[, col_add_char] <- NA_character_
 myDF[, col_add_num] <- NA_integer_
 myCols <- c("Area_mi2", 
             "SurfaceArea", 
-            "Density_m2", 
+            # "Density_m2", 
             "Density_ft2")
 df_metval <- metric.values(myDF, 
                            "bugs",
