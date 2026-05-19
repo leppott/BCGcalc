@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-05-18 16:26:49.200639
+2026-05-19 11:32:57.134086
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-05-18 16:26:49.223404
+    #> Last Update: 2026-05-19 11:32:57.231649
+
+# BCGcalc 2.1.0.9029 (2026-05-19)
+
+- refactor: Add flags, Boise BCG, Bugs
+  - sum_density_m2
+- refactor: Add rules, Boise BCG, Fish
+- tests: Write rule for symbols for Rules.xlsx
 
 # BCGcalc 2.1.0.9028 (2026-05-18)
 

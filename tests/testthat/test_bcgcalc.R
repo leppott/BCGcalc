@@ -63,7 +63,7 @@ test_that("bcgcalc", {
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Num Digits, xlRules ----
 
-test_that("thresholds, num digits, rules", {
+test_that("thresholds, num digits, xlRules", {
   # Packages
   #library(readxl) # part of BCGcalc
   
@@ -96,7 +96,7 @@ test_that("thresholds, num digits, rules", {
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Num Digits, xlFlags ----
 
-test_that("thresholds, num digits, flags", {
+test_that("thresholds, num digits, xlFlags", {
   # Packages
   #library(readxl) # part of BioMonTools
   
@@ -123,9 +123,37 @@ test_that("thresholds, num digits, flags", {
 })## Test ~ thresholds, num digits ~ END
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Flags, xlFlags, symbols ----
+# Symbols, xlRules ----
 
-test_that("Flags, symbols", {
+test_that("symbols, xlRules", {
+  # Packages
+  #library(readxl) # part of BioMonTools
+  
+  # Thresholds
+  fn_rules <- file.path(system.file(package = "BCGcalc")
+                         , "extdata"
+                         , "Rules.xlsx")
+  df_rules <- readxl::read_excel(fn_rules, sheet = "Rules")
+
+  # symbols
+  symbols_qc <- c(">", "<", ">=", "<=", "==", "!=")
+  symbols_rules <- unique(df_rules$Symbol)
+  
+  #
+  qc_sum <- sum(symbols_rules %in% symbols_qc)
+  qc_len <- length(symbols_rules)
+  
+  # Find, non matching symbols
+  symbols_rules[symbols_rules %in% symbols_qc]
+  
+  # test
+  testthat::expect_true(qc_sum == qc_len)
+})## Test ~ thresholds, num digits ~ END
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Symbols, xlFlags ----
+
+test_that("symbols, Flags", {
   # Packages
   #library(readxl) # part of BioMonTools
   
