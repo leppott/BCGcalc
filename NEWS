@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-05-19 11:32:57.134086
+2026-05-20 14:33:38.046953
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-05-19 11:32:57.231649
+    #> Last Update: 2026-05-20 14:33:38.116174
+
+# BCGcalc 2.1.0.9030 (2026-05-20)
+
+- fix: Remove draft rules (2.0.1.9027, 2025-12-26)
+  - BCG, Boise, Fish, Main_Eckert, Issue \#97
 
 # BCGcalc 2.1.0.9029 (2026-05-19)
 
