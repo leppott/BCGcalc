@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-05-26 15:28:52.851955
+2026-05-26 15:48:02.870764
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-05-26 15:28:52.87414
+    #> Last Update: 2026-05-26 15:48:02.901667
+
+# BCGcalc 2.1.0.9032 (2026-05-26)
+
+- refactor: Update Rules.xlsx for Metric_Sort column spelling
 
 # BCGcalc 2.1.0.9031 (2026-05-26)
 
