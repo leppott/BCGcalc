@@ -26,6 +26,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Erik W. Leppo \email{Erik.Leppo@tetratech.com}
 
+Authors:
+\itemize{
+  \item Erik W. Leppo \email{Erik.Leppo@tetratech.com}
+}
+
 Other contributors:
 \itemize{
   \item Jen Stamp \email{Jen.Stamp@tetratech.com} [contributor]
