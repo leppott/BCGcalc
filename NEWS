@@ -1,11 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-06-04 15:48:37.350392
+2026-06-09 15:52:05.656751
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-06-04 15:48:37.407894
+    #> Last Update: 2026-06-09 15:52:05.680808
+
+# BCGcalc 2.1.0.9034 (2026-06-09)
+
+- refactor: Add ORWA Statewide BCG classes (20260603) to Shiny data
+  folder
+  - In preparation for addition of ORWA index assign class to Shiny app
+    calculator
+- refactor: Remove older ORWA rules (Hi/Lo-Grad/Elev) from Rules.xlsx
+- refactor: Update MetricFlags.xlsx for ORWA
+- style: Update tests with package name for each test
 
 # BCGcalc 2.1.0.9033 (2026-06-04)
 

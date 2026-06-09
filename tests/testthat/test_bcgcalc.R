@@ -1,5 +1,5 @@
 # BCGcalc ----
-test_that("bcgcalc", {
+testthat::test_that("bcgcalc", {
   #
   # Metrics
   df.metric.values.bugs <- BCGcalc::metrics_values
@@ -62,8 +62,7 @@ test_that("bcgcalc", {
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Num Digits, xlRules ----
-
-test_that("thresholds, num digits, xlRules", {
+testthat::test_that("thresholds, num digits, xlRules", {
   # Packages
   #library(readxl) # part of BCGcalc
   
@@ -95,8 +94,7 @@ test_that("thresholds, num digits, xlRules", {
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Num Digits, xlFlags ----
-
-test_that("thresholds, num digits, xlFlags", {
+testthat::test_that("thresholds, num digits, xlFlags", {
   # Packages
   #library(readxl) # part of BioMonTools
   
@@ -124,8 +122,7 @@ test_that("thresholds, num digits, xlFlags", {
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Symbols, xlRules ----
-
-test_that("symbols, xlRules", {
+testthat::test_that("symbols, xlRules", {
   # Packages
   #library(readxl) # part of BioMonTools
   
@@ -152,8 +149,7 @@ test_that("symbols, xlRules", {
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Symbols, xlFlags ----
-
-test_that("symbols, Flags", {
+testthat::test_that("symbols, Flags", {
   # Packages
   #library(readxl) # part of BioMonTools
   
@@ -180,7 +176,7 @@ test_that("symbols, Flags", {
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Flags, Metric Names, xlFlags,  BioMonTools xlNames ----
-test_that("Flags, Metrics, BioMonTools", {
+testthat::test_that("Flags, Metrics, BioMonTools", {
   # Import Flags
   fn_flags <- file.path(system.file(package = "BCGcalc")
                         , "extdata"
@@ -253,7 +249,7 @@ test_that("Flags, Metrics, BioMonTools", {
 })## Test ~ flags, metrics, BioMonTools
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Metric Names, BCGcalc xlRules, BioMonTools xlNames----
-test_that("Rules, Metrics, BioMonTools", {
+testthat::test_that("Rules, Metrics, BioMonTools", {
   # Import Flags
   fn_rules <- file.path(system.file(package = "BCGcalc")
                         , "extdata"

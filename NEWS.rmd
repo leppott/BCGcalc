@@ -21,6 +21,15 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9034 (2026-06-09)
+
+* refactor: Add ORWA Statewide BCG classes (20260603) to Shiny data folder
+   + In preparation for addition of ORWA index assign class to
+     Shiny app calculator
+* refactor: Remove older ORWA rules (Hi/Lo-Grad/Elev) from Rules.xlsx
+* refactor: Update MetricFlags.xlsx for ORWA
+* style: Update tests with package name for each test
+
 # BCGcalc 2.1.0.9033 (2026-06-04)
 
 * refactor: Update Rules.xlsx for BCG_ORWA_v1_Bugs500ct
