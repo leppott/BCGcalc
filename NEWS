@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-06-09 15:52:05.656751
+2026-07-02 13:27:00.95174
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-06-09 15:52:05.680808
+    #> Last Update: 2026-07-02 13:27:01.005508
+
+# BCGcalc 2.1.0.9035 (2026-07-02)
+
+- refactor: Comment out user file columns for statewide model in Shiny
+  app
+- refactor: Add check for existing column for Exclude taxa in statewide
+  model
 
 # BCGcalc 2.1.0.9034 (2026-06-09)
 

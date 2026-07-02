@@ -30,26 +30,27 @@ function() {
        #               , selected = "BCG_MariNW_Bugs500ct")
        #, uiOutput("UI_col_calcmet_Cols2Keep")
        
-       , h4("E. User File Column Names")
+       # Remove, 20260703
+       # , h4("E. User File Column Names")
+       # 
+       # , h6("Model Experience Fields")
+       # , p("These fields will be used to check if sites are within the experience of the model.")
+       # , p("If the default values are present they will be auto-populated.")
+       # # SampleID (really for group_by)
+       # , uiOutput("UI_bcg_statewide_modelexp_user_col_eco3")
+       # , uiOutput("UI_bcg_statewide_modelexp_user_col_precip")
+       # , uiOutput("UI_bcg_statewide_modelexp_user_col_wshedarea_km2")
+       # , uiOutput("UI_bcg_statewide_modelexp_user_col_elev")
+       # , uiOutput("UI_bcg_statewide_modelexp_user_col_slope")
        
-       , h6("Model Experience Fields")
-       , p("These fields will be used to check if sites are within the experience of the model.")
-       , p("If the default values are present they will be auto-populated.")
-       # SampleID (really for group_by)
-       , uiOutput("UI_bcg_statewide_modelexp_user_col_eco3")
-       , uiOutput("UI_bcg_statewide_modelexp_user_col_precip")
-       , uiOutput("UI_bcg_statewide_modelexp_user_col_wshedarea_km2")
-       , uiOutput("UI_bcg_statewide_modelexp_user_col_elev")
-       , uiOutput("UI_bcg_statewide_modelexp_user_col_slope")
-       
-       , h4("F. Run Calculations")
+       , h4("E. Run Calculations")
        , p("This button will calculate metrics values, metric memberships
            , level membership, and level assignment.")
        , useShinyjs()
        , shinyjs::disabled(shinyBS::bsButton("b_calc_bcg_statewide"
                                              , label = "Run Calculations"))
        
-       , h4("G. Download Results")
+       , h4("F. Download Results")
        , p("All input and output files will be available in a single zip file.")
        , shinyjs::disabled(downloadButton("b_download_bcg_statewide"
                                           , "Download Results"))

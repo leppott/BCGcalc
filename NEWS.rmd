@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9035 (2026-07-02)
+
+* refactor: Comment out user file columns for statewide model in Shiny app
+* refactor: Add check for existing column for Exclude taxa in statewide model
+
 # BCGcalc 2.1.0.9034 (2026-06-09)
 
 * refactor: Add ORWA Statewide BCG classes (20260603) to Shiny data folder

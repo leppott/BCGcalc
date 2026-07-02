@@ -3489,12 +3489,13 @@ shinyServer(function(input, output) {
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
       
-      # Columns, user selection
-      sel_user_eco3 <- toupper(input$bcg_statewide_modelexp_user_col_eco3)
-      sel_user_precip <- toupper(input$bcg_statewide_modelexp_user_col_precip)
-      sel_user_wshedarea_km2 <- toupper(input$bcg_statewide_modelexp_user_col_wshedarea_km2)
-      sel_user_elev <- toupper(input$bcg_statewide_modelexp_user_col_elev)
-      sel_user_slope <- toupper(input$bcg_statewide_modelexp_user_col_slope)
+      # Remove, 20260703
+      # # Columns, user selection
+      # sel_user_eco3 <- toupper(input$bcg_statewide_modelexp_user_col_eco3)
+      # sel_user_precip <- toupper(input$bcg_statewide_modelexp_user_col_precip)
+      # sel_user_wshedarea_km2 <- toupper(input$bcg_statewide_modelexp_user_col_wshedarea_km2)
+      # sel_user_elev <- toupper(input$bcg_statewide_modelexp_user_col_elev)
+      # sel_user_slope <- toupper(input$bcg_statewide_modelexp_user_col_slope)
       
       #### Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -3527,6 +3528,12 @@ shinyServer(function(input, output) {
         phylo_all <- toupper(phylo_all) # so matches rest of file
         
         # case and matching of taxa levels handled inside of markExluded 
+ 
+        # 20260702
+        # Rename EXCLUDE if exists to avoid console question
+        if ("EXCLUDE" %in% names(df_input)) {
+          df_input <- dplyr::rename(df_input, EXCLUDE_ORIG = EXCLUDE)
+        }## IF ~ EXCLUDE
         
         # overwrite current data frame
         df_input <- BioMonTools::markExcluded(df_samptax = df_input
@@ -3535,7 +3542,8 @@ shinyServer(function(input, output) {
                                               , TaxaCount = "N_TAXA"
                                               , Exclude = "EXCLUDE"
                                               , TaxaLevels = phylo_all
-                                              , Exceptions = NA)
+                                              , Exceptions = NA
+                                              , verbose = TRUE)
         
         # Save Results
         fn_excl <- paste0(fn_abr_save, "1markexcl.csv")
