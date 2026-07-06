@@ -205,7 +205,7 @@ shinyServer(function(input, output) {
     # Add extra colClasses parameter for BCG_Attr
     # the "i" values default to complex numbers
     # many permutations of BCG_Attr so check for it first then import
-    
+  
     df_header <- read.delim(fn_inFile
                             , header = TRUE
                             , sep = sep_user
@@ -233,7 +233,9 @@ shinyServer(function(input, output) {
                              , sep = sep_user
                              , stringsAsFactors = FALSE
                              , na.strings = c("", "NA"))
-      df_input[, col_num_bcgattr] <- as.character(df_input[, col_num_bcgattr])
+      for (b in seq_along(col_num_bcgattr)) {
+        df_input[, col_num_bcgattr[b]] <- as.character(df_input[, col_num_bcgattr[b]])  
+      }## FOR ~ b
     } else {
       # BCG_Attr present = TRUE
       # BCG_Attr Class is complex = TRUE
@@ -3428,7 +3430,7 @@ shinyServer(function(input, output) {
   ### statewide ----
   observeEvent(input$b_calc_bcg_statewide, {
     shiny::withProgress({
-   
+ 
       #### Calc, 0, Set Up Shiny Code ----
       
       prog_detail <- "Calculation, BCG, Statewide..."
@@ -3686,7 +3688,7 @@ shinyServer(function(input, output) {
       pn_levassign <- file.path(dn_levassign, fn_levassign)
       write.csv(df_levassign, pn_levassign, row.names = FALSE)
       
-      
+    
       #### Calc, 8, QC Flags----
       prog_detail <- "Calculate, QC Flags"
       message(paste0("\n", prog_detail))
@@ -3723,7 +3725,7 @@ shinyServer(function(input, output) {
         df_metflags <- data.frame(x = str_nodata)
         
       } else {
-        
+ browser()       
         # Calc
         # df_checks loaded in global.R
         df_flags <- BioMonTools::qc.checks(df_metval, df_checks)

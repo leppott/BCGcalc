@@ -210,20 +210,21 @@ testthat::test_that("Flags, Metrics, BioMonTools", {
   # Check all names
   metnam_flags_all <- unique(df_flags[, "Metric_Name", TRUE])
   # Remove known non-metrics
-  names_notmetrics <- c("Area_mi2"
-                        , "CollMonth"
-                        , "Density_ft2"
-                        , "Density_m2"
-                        , "DrArea_mi2"
-                        , "pcSLOPE"
-                        , "Precip8110Cat"
-                        , "SfcArea_ft2"
-                        , "Subsample_percent"
-                        , "SurfaceArea"
-                        , "pslope_nhd"
-                        , "WSAREASQKM"
-                        , "WsAreaSqKm"
-                        , "PRECIP8110CAT")
+  names_notmetrics <- c("Area_mi2",
+                        "CollMonth",
+                        "Density_ft2",
+                        "Density_m2",
+                        "DrArea_mi2",
+                        "pcSLOPE",
+                        "Precip8110Cat",
+                        "SfcArea_ft2",
+                        "Subsample_percent",
+                        "SurfaceArea",
+                        "pslope_nhd",
+                        "WSAREASQKM",
+                        "WsAreaSqKm",
+                        "PRECIP8110CAT",
+                        "nt_largeriver")
   metnam_flags_check <- metnam_flags_all[!metnam_flags_all %in% 
                                            names_notmetrics]
   # Compare
@@ -234,7 +235,7 @@ testthat::test_that("Flags, Metrics, BioMonTools", {
   # should be character(0)
   metnam_flags_check[!metnam_flags_check %in% metnam_bmt]
   
-  # test, All non known non-metrics ----
+  ## test, All non known non-metrics ----
   testthat::expect_equal(length(metnam_flags_check_match)
                          , length(metnam_flags_check))
   
@@ -242,7 +243,7 @@ testthat::test_that("Flags, Metrics, BioMonTools", {
   # should be character(0)
   metnam_flags_check[!metnam_flags_check %in% metnam_bmt]
   
-  # test, for those marked TRUE in flags----
+  ## test, for those marked TRUE in flags----
   testthat::expect_equal(len_metnam_flags, length(metnam_flags_check))
   
   
