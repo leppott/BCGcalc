@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.1.0.9042 (2026-07-06)
+
+* fix: Remove browser command from Shiny app
+
 # BCGcalc 2.1.0.9041 (2026-07-06)
 
 * fix: Change Shiny import routine for BCG_Attr and BCG_Attr2

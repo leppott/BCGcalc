@@ -3725,7 +3725,7 @@ shinyServer(function(input, output) {
         df_metflags <- data.frame(x = str_nodata)
         
       } else {
- browser()       
+      
         # Calc
         # df_checks loaded in global.R
         df_flags <- BioMonTools::qc.checks(df_metval, df_checks)

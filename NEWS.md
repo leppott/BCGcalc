@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-06 13:21:33.148195
+2026-07-06 13:54:23.127965
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-06 13:21:33.172784
+    #> Last Update: 2026-07-06 13:54:23.206254
+
+# BCGcalc 2.1.0.9042 (2026-07-06)
+
+- fix: Remove browser command from Shiny app
 
 # BCGcalc 2.1.0.9041 (2026-07-06)
 

@@ -1,19 +1,24 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-06 13:13:55.357138
+2026-07-06 13:54:23.127965
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-06 13:13:55.513573
+    #> Last Update: 2026-07-06 13:54:23.206254
+
+# BCGcalc 2.1.0.9042 (2026-07-06)
+
+- fix: Remove browser command from Shiny app
 
 # BCGcalc 2.1.0.9041 (2026-07-06)
 
 - fix: Change Shiny import routine for BCG_Attr and BCG_Attr2
   - Certain conditions the imported file had all values on each row
-- fix: Update ORWA flags from 2.1.0.9035 file symbols to be R compliant
+- fix: Update MetricFlags.xlsx
+  - ORWA flags from 2.1.0.9035 file symbols to be R compliant
 - docs: Update NEWS file for undocumented updates.
-- tests: Add nt_largeriver as a non BioMonTools metric for testing or
+- tests: Add nt_largeriver as a non BioMonTools metric for testing for
   MetricFlags.xlsx
 
 # BCGcalc 2.1.0.9040 (2026-07-02)
