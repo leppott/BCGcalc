@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-06 13:54:23.127965
+2026-07-06 14:46:45.01882
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-06 13:54:23.206254
+    #> Last Update: 2026-07-06 14:46:45.058768
+
+# BCGcalc 2.2.0 (2026-07-06)
+
+- refactor: Move Shiny app out of BCGcalc into its own package
+- docs: Remove Shiny-centric packages from DESCRIPTION
 
 # BCGcalc 2.1.0.9042 (2026-07-06)
 

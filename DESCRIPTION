@@ -1,7 +1,7 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, calculator
-Version: 2.1.0.9041
+Version: 2.2.0
 Authors@R: c(
   person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre")), 
   person("Jen", "Stamp", email="Jen.Stamp@tetratech.com", role="ctb"),
@@ -22,10 +22,6 @@ Suggests:
     rmarkdown,
     ggplot2,
     shiny,
-    shinyjs,
-    shinydashboard,
-    shinydashboardPlus,
-    shinyBS,
     DT,
     httr,
     testthat (>= 3.0.0),
@@ -33,13 +29,8 @@ Suggests:
     tidyr,
     tibble,
     rioja, 
-    zip,
-    StreamCatTools,
     nhdplusTools,
-    ComplexUpset,
-    openxlsx,
-    MazamaSpatialUtils,
-    shinyalert
+    ComplexUpset
 Remotes: leppott/BCGcalc
 Encoding: UTF-8
 LazyData: true
