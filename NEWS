@@ -1,11 +1,23 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-06 14:46:45.01882
+2026-07-07 09:43:50.406887
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-06 14:46:45.058768
+    #> Last Update: 2026-07-07 09:43:50.437218
+
+# BCGcalc 2.2.0.9001 (2026-07-07)
+
+- refactor: Add missing global bindings
+  - BCG.Level.Membership
+- docs: Update help file for TaxaMaster_Ben_BCG_PugLowWilVal
+- docs: Add help files for those missing help files
+  - data_GIS_BCGclass
+  - data_GIS_eco3_orwa
+  - data_GIS_eco3_orwa_bcg
+- refactor: Update BCGcalc_Map vignette
+  - Still has issues
 
 # BCGcalc 2.2.0 (2026-07-06)
 

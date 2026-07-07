@@ -5,7 +5,7 @@
 \alias{TaxaMaster_Ben_BCG_PugLowWilVal}
 \title{Benthic Master Taxa List, BCG Puget Lowlands Willamette Valley}
 \format{
-A data frame with 684 rows and 19 variables:
+A data frame with 684 rows and 20 variables:
 \describe{
    \item{TaxaID}{unique taxonomic identifier}
    \item{Phylum}{Taxonomic rank, Phylum}
@@ -13,6 +13,7 @@ A data frame with 684 rows and 19 variables:
    \item{Class}{Taxonomic rank, Class}
    \item{SubClass}{Taxonomic rank, SubClass}
    \item{Order}{Taxonomic rank, Order}
+   \item{SuperFamily}{Taxonomic rank, SuperFamily}#'    
    \item{Family}{Taxonomic rank, Family}
    \item{Tribe}{Taxonomic rank, Tribe}
    \item{Genus}{Taxonomic rank, Genus}

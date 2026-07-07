@@ -63,8 +63,7 @@ df_rules <- read_excel(
   sheet="Rules") 
 ## Calculate Metric Memberships
 df_metmemb <- BCG.Metric.Membership(df_metval, 
-                                    df_rules,
-                                    col_SITE_TYPE = "INDEX_REGION")
+                                    df_rules)
 ## Calculate Level Memberships
 df_levmemb <- BCG.Level.Membership(df_metmemb, 
                                    df_rules)

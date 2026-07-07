@@ -21,6 +21,18 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9001 (2026-07-07)
+
+* refactor: Add missing global bindings
+    + BCG.Level.Membership
+* docs: Update help file for TaxaMaster_Ben_BCG_PugLowWilVal
+* docs: Add help files for those missing help files
+    + data_GIS_BCGclass
+    + data_GIS_eco3_orwa
+    + data_GIS_eco3_orwa_bcg
+* refactor: Update BCGcalc_Map vignette
+    + Still has issues
+
 # BCGcalc 2.2.0 (2026-07-06)
 
 * refactor: Move Shiny app out of BCGcalc into its own package

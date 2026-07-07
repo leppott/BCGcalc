@@ -206,7 +206,13 @@ BCG.Level.Membership <- function(df.metric.membership
                                  , col_EXC_RULE = "EXC_RULE"
                                  , col_MEMBERSHIP = "MEMBERSHIP"
                                  , ...) {
-  #
+  # global variable bindings
+  df_met_memb <- df_rules <- col_SITE_TYPE <- EXC_RULE <- SAMPLEID <- 
+    INDEX_NAME <- INDEX_CLASS <- LEVEL <- RULE_TYPE <- MEMBERSHIP <- 
+    MembCalc_Rule2_min <- MembCalc_Rule1_min <- MembCalc_Rule0_min <- 
+    col_SITE_TYPE <- NULL
+  
+  # QC Testing
   boo_QC <- FALSE
   if (isTRUE(boo_QC)) {
     df.metric.membership <- df_met_memb
@@ -227,6 +233,7 @@ BCG.Level.Membership <- function(df.metric.membership
            , col_EXC_RULE)
   }## IF ~ boo_QC ~ END
 
+  
   # define pipe
   `%>%` <- dplyr::`%>%`
 
