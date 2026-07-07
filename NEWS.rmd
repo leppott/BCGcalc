@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9003 (2026-07-07)
+
+* fix: Remove runShiny
+
 # BCGcalc 2.2.0.9002 (2026-07-07)
 
 * refactor: Replace Boise NotusParma rules with updated rules
