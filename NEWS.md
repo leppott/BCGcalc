@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-07 09:43:50.406887
+2026-07-07 10:08:20.261605
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-07 09:43:50.437218
+    #> Last Update: 2026-07-07 10:08:20.336732
+
+# BCGcalc 2.2.0.9002 (2026-07-07)
+
+- refactor: Replace Boise NotusParma rules with updated rules
+  - Rules.xlsx
 
 # BCGcalc 2.2.0.9001 (2026-07-07)
 
