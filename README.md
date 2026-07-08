@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2023-02-03 12:47:11
+2026-07-08 12:10:33.019249
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-02-03 12:47:11
+    #> Last Update: 2026-07-08 12:10:33.041488
 
 # BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
 
@@ -36,60 +36,28 @@ releases](https://img.shields.io/github/downloads/leppott/BCGcalc/total.svg)](ht
 
 To install the current version use the code below to install from
 GitHub. The use of “force = TRUE” ensures the package is installed even
-if already present. If the package `remotes` is missing the code below
-will install it.
+if already present. If the package `pak` is missing the code below will
+install it.
 
 ``` r
-if(!require(remotes)){install.packages("remotes")}  #install if needed
-install_github("leppott/BCGcalc", force=TRUE)
+if(!require(pak)){install.packages("pak")}  #install if needed
+pkg_install("leppott/BCGcalc")
 ```
 
-The vignette (big help file) isn’t created when installing from GitHub
-with the basic `install_github` command. If you want the vignette
-install with the code below.
+The default for pak::pkg_install does the minimum. If need to update the
+package and all dependencies use the code below.
 
 ``` r
-if(!require(remotes)){install.packages("remotes")}  #install if needed
-install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
-```
-
-All dependent libraries should install with the install_github command
-but occassionally they do not. If you encounter issues the dependent
-libraries can be installed separately with the command below.
-
-``` r
-# Choose a CRAN mirror (dowload site) first (can change number)
-chooseCRANmirror(ind=21) 
-# libraries to be installed
-data.packages = c(                  
-                  "devtools"        # install helper for non CRAN libraries
-                  ,"installr"       # install helper
-                  ,"knitr"          # create documents in other formats (e.g., PDF or Word)
-                  ,"dplyr"          # summary stats
-                  ,"reshape2"       # convert wide to long format
-                  ,"rmarkdown"      # a dependency that is sometimes missed.
-                  ,"readxl"         # for importing Excel data
-                  )
-                  
-lapply(data.packages,function(x) install.packages(x))
-```
-
-Additionally Pandoc is required for creating the reports and (sometimes)
-needs to be installed separately. Pandoc is installed with RStudio so if
-you have RStudio you already have Pandoc on your computer. Install
-directions are included below.
-
-``` r
-## pandoc
-#install.packages("installr")
-library(installr)
-install.pandoc()
+if(!require(pak)){install.packages("pak")}  #install if needed
+pkg_install("leppott/BCGcalc", upgrade = TRUE)
 ```
 
 ## Purpose
 
 To aid users in data tasks related to the Biological Condition Gradient
-for the Pacific Northwest.
+(BCG). The package is generic and can be used with any region with a
+BCG. If the region is not one of the pre-programmed BCGs the user will
+need to supply their own Rules.xlsx.
 
 ## Usage
 
@@ -114,9 +82,8 @@ setwd(myDir.BASE)
 
 ## Shiny
 
-The Shiny app code is included in the package but is also on the web.
-
-<https://tetratech-wtr-wne.shinyapps.io/BCGcalc/>
+The Shiny app code is no longer included in the package but is available
+for a number of regions.
 
 ## Help
 
@@ -135,27 +102,27 @@ To see all available functions in the package use the command below.
 ``` r
 # To get index of help on all functions
 # library(BCGcalc) # the library must be loaded before accessing help
-help(package="BCGcalc")
+help(package = "BCGcalc")
 ```
 
 The vignette file is located in the “doc” directory of the library in
-the R install folder. Below is the path to the file on my PC. But it is
-much easier to use the code below to call the vignette by name. There is
-also be a link to the vignette at the top of the help index for the
-package.
-
-“C:\Programs\R\R-3.4.3\library\BCGcalc\doc\vignette_BCGcalc.html”
+the R install folder. But it is much easier to use the code below to
+call the vignette by name. There is also be a link to the vignette at
+the top of the help index for the package.
 
 ``` r
-vignette("vignette_BCGcalc", package="BCGcalc")
+vignette("vignette_BCGcalc", package = "BCGcalc")
 ```
 
-If the vignette fails to show on your computer. Run the code below to
-reinstall the package and specify the creation of the vignette.
+If the vignette fails to show on your computer the `remotes` package
+does not install the vignettes by default. Run the code below to
+reinstall using `remotes` and specify the creation of the vignette.
 
 ``` r
 library(remotes)
-remotes::install_github("leppott/BCGcalc", force=TRUE, build_vignettes=TRUE)
+remotes::install_github("leppott/BCGcalc", 
+                        force = TRUE, 
+                        build_vignettes = TRUE)
 ```
 
 ## Example
@@ -172,24 +139,29 @@ library(reshape2)
 library(knitr)
 library(BioMonTools)
 
-df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx"
-                                       , package="BCGcalc"))
+df.samps.bugs <- read_excel(system.file("./extdata/Data_BCG_PacNW.xlsx",
+                                        package="BCGcalc"))
 myDF <- df.samps.bugs
 
 # Columns to keep
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+myCols <- c("Area_mi2", 
+            "SurfaceArea", 
+            "Density_m2", 
+            "Density_ft2")
 
 # Metrics to Keep
-met2keep <- c("ni_total", "nt_total", "nt_BCG_att1i2", "pt_BCG_att1i23"
-              , "pi_BCG_att1i23", "pt_BCG_att56", "pi_BCG_att56"
-              , "nt_EPT_BCG_att1i23", "pi_NonInsJugaRiss_BCG_att456"
-              , "pt_NonIns_BCG_att456", "pi_NonIns_BCG_att456", "nt_EPT")
+met2keep <- c("ni_total", "nt_total", "nt_BCG_att1i2", "pt_BCG_att1i23",
+              "pi_BCG_att1i23", "pt_BCG_att56", "pi_BCG_att56",
+              "nt_EPT_BCG_att1i23", "pi_NonInsJugaRiss_BCG_att456",
+              "pt_NonIns_BCG_att456", "pi_NonIns_BCG_att456", "nt_EPT")
 
 # Run Function
-df.metric.values.bugs <- metric.values(myDF, "bugs", fun.MetricNames=met2keep
-                                       , fun.cols2keep=myCols)
+df.metric.values.bugs <- metric.values(myDF, 
+                                       "bugs", 
+                                       fun.MetricNames = met2keep,
+                                       fun.cols2keep = myCols)
 
 # View Results
 #View(df.metric.values.bugs)
-kable(head(df.metric.values.bugs), caption="Selected metric results")
+kable(head(df.metric.values.bugs), caption = "Selected metric results")
 ```

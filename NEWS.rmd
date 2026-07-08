@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9006 (2026-07-08)
+
+* docs: Update README, Issue #99
+
 # BCGcalc 2.2.0.9005 (2026-07-08)
 
 * refactor: Update OK_Bugs_BCG rules for pi_COEPT_BCG_att1i234b4m
