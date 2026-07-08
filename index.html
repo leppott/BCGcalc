@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">BCGcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0.9006</span>
       </span>
     </div>
 
@@ -84,9 +84,9 @@
 <div class="section level1">
 <div class="page-header"><h1 id="bcgcalc-readme">BCGcalc-README<a class="anchor" aria-label="anchor" href="#bcgcalc-readme"></a>
 </h1></div>
-<p><a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a> 2023-02-03 12:47:11</p>
+<p><a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a> 2026-07-08 12:10:33.019249</p>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#&gt; Last Update: 2023-02-03 12:47:11</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#&gt; Last Update: 2026-07-08 12:10:33.041488</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="bcgcalc-">BCGcalc <a href="https://github.com/leppott/BCGcalc" class="external-link"><img src="inst/figures/logo.png" align="right" height="139"></a>
@@ -105,51 +105,29 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>To install the current version use the code below to install from GitHub. The use of “force = TRUE” ensures the package is installed even if already present. If the package <code>remotes</code> is missing the code below will install it.</p>
+<p>To install the current version use the code below to install from GitHub. The use of “force = TRUE” ensures the package is installed even if already present. If the package <code>pak</code> is missing the code below will install it.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span></span>
-<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/BCGcalc"</span>, force<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>The vignette (big help file) isn’t created when installing from GitHub with the basic <code>install_github</code> command. If you want the vignette install with the code below.</p>
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://pak.r-lib.org/" class="external-link">pak</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span></span>
+<span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"leppott/BCGcalc"</span><span class="op">)</span></span></code></pre></div>
+<p>The default for pak::pkg_install does the minimum. If need to update the package and all dependencies use the code below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span></span>
-<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/BCGcalc"</span>, force<span class="op">=</span><span class="cn">TRUE</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>All dependent libraries should install with the install_github command but occassionally they do not. If you encounter issues the dependent libraries can be installed separately with the command below.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Choose a CRAN mirror (dowload site) first (can change number)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/chooseCRANmirror.html" class="external-link">chooseCRANmirror</a></span><span class="op">(</span>ind<span class="op">=</span><span class="fl">21</span><span class="op">)</span> </span>
-<span><span class="co"># libraries to be installed</span></span>
-<span><span class="va">data.packages</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>                  </span>
-<span>                  <span class="st">"devtools"</span>        <span class="co"># install helper for non CRAN libraries</span></span>
-<span>                  ,<span class="st">"installr"</span>       <span class="co"># install helper</span></span>
-<span>                  ,<span class="st">"knitr"</span>          <span class="co"># create documents in other formats (e.g., PDF or Word)</span></span>
-<span>                  ,<span class="st">"dplyr"</span>          <span class="co"># summary stats</span></span>
-<span>                  ,<span class="st">"reshape2"</span>       <span class="co"># convert wide to long format</span></span>
-<span>                  ,<span class="st">"rmarkdown"</span>      <span class="co"># a dependency that is sometimes missed.</span></span>
-<span>                  ,<span class="st">"readxl"</span>         <span class="co"># for importing Excel data</span></span>
-<span>                  <span class="op">)</span></span>
-<span>                  </span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">data.packages</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Additionally Pandoc is required for creating the reports and (sometimes) needs to be installed separately. Pandoc is installed with RStudio so if you have RStudio you already have Pandoc on your computer. Install directions are included below.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## pandoc</span></span>
-<span><span class="co">#install.packages("installr")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://talgalili.github.io/installr/" class="external-link">installr</a></span><span class="op">)</span></span>
-<span><span class="fu">install.pandoc</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://pak.r-lib.org/" class="external-link">pak</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">}</span>  <span class="co">#install if needed</span></span>
+<span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"leppott/BCGcalc"</span>, upgrade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
-<p>To aid users in data tasks related to the Biological Condition Gradient for the Pacific Northwest.</p>
+<p>To aid users in data tasks related to the Biological Condition Gradient (BCG). The package is generic and can be used with any region with a BCG. If the region is not one of the pre-programmed BCGs the user will need to supply their own Rules.xlsx.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Everytime R is launched the <code>BCGcalc</code> package needs to be loaded.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load library and dependant libraries</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/leppott/BCGcalc" class="external-link">"BCGcalc"</a></span><span class="op">)</span></span></code></pre></div>
 <p>The default working directory is based on how R was installed but is typically the user’s ‘MyDocuments’ folder. You can change it through the menu bar in R (File - Change dir) or RStudio (Session - Set Working Directory). You can also change it from the command line.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).</span></span>
 <span><span class="co">#myDir.BASE  &lt;- "C:/Users/Erik.Leppo/Documents/ProjectName"</span></span>
 <span><span class="va">myDir.BASE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -158,62 +136,67 @@
 <div class="section level2">
 <h2 id="shiny">Shiny<a class="anchor" aria-label="anchor" href="#shiny"></a>
 </h2>
-<p>The Shiny app code is included in the package but is also on the web.</p>
-<p><a href="https://tetratech-wtr-wne.shinyapps.io/BCGcalc/" class="external-link uri">https://tetratech-wtr-wne.shinyapps.io/BCGcalc/</a></p>
+<p>The Shiny app code is no longer included in the package but is available for a number of regions.</p>
 </div>
 <div class="section level2">
 <h2 id="help">Help<a class="anchor" aria-label="anchor" href="#help"></a>
 </h2>
 <p>Every function has a help file with a working example. There is also a vignette with descriptions and examples of all functions in the <code>BCGcalc</code> library.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To get help on a function</span></span>
 <span><span class="co"># library(BCGcalc) # the library must be loaded before accessing help</span></span>
 <span><span class="op">?</span><span class="va">BCGcalc</span></span></code></pre></div>
 <p>To see all available functions in the package use the command below.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To get index of help on all functions</span></span>
 <span><span class="co"># library(BCGcalc) # the library must be loaded before accessing help</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"BCGcalc"</span><span class="op">)</span></span></code></pre></div>
-<p>The vignette file is located in the “doc” directory of the library in the R install folder. Below is the path to the file on my PC. But it is much easier to use the code below to call the vignette by name. There is also be a link to the vignette at the top of the help index for the package.</p>
-<p>“C:.3_BCGcalc.html”</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"vignette_BCGcalc"</span>, package<span class="op">=</span><span class="st">"BCGcalc"</span><span class="op">)</span></span></code></pre></div>
-<p>If the vignette fails to show on your computer. Run the code below to reinstall the package and specify the creation of the vignette.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"BCGcalc"</span><span class="op">)</span></span></code></pre></div>
+<p>The vignette file is located in the “doc” directory of the library in the R install folder. But it is much easier to use the code below to call the vignette by name. There is also be a link to the vignette at the top of the help index for the package.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"vignette_BCGcalc"</span>, package <span class="op">=</span> <span class="st">"BCGcalc"</span><span class="op">)</span></span></code></pre></div>
+<p>If the vignette fails to show on your computer the <code>remotes</code> package does not install the vignettes by default. Run the code below to reinstall using <code>remotes</code> and specify the creation of the vignette.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/BCGcalc"</span>, force<span class="op">=</span><span class="cn">TRUE</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"leppott/BCGcalc"</span>, </span>
+<span>                        force <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                        build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>A quick example showing the calculation of metrics on a dataset but returning only a select few (e.g., the 12 metrics used in the BCG model for the Pacific NW). This functionality is built into the <code>metric.values</code> function as an optional parameter.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/BCGcalc" class="external-link">BCGcalc</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org" class="external-link">readxl</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape" class="external-link">reshape2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/leppott/BioMonTools" class="external-link">BioMonTools</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df.samps.bugs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"./extdata/Data_BCG_PacNW.xlsx"</span></span>
-<span>                                       , package<span class="op">=</span><span class="st">"BCGcalc"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">df.samps.bugs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"./extdata/Data_BCG_PacNW.xlsx"</span>,</span>
+<span>                                        package<span class="op">=</span><span class="st">"BCGcalc"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">myDF</span> <span class="op">&lt;-</span> <span class="va">df.samps.bugs</span></span>
 <span></span>
 <span><span class="co"># Columns to keep</span></span>
-<span><span class="va">myCols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area_mi2"</span>, <span class="st">"SurfaceArea"</span>, <span class="st">"Density_m2"</span>, <span class="st">"Density_ft2"</span><span class="op">)</span></span>
+<span><span class="va">myCols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area_mi2"</span>, </span>
+<span>            <span class="st">"SurfaceArea"</span>, </span>
+<span>            <span class="st">"Density_m2"</span>, </span>
+<span>            <span class="st">"Density_ft2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Metrics to Keep</span></span>
-<span><span class="va">met2keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ni_total"</span>, <span class="st">"nt_total"</span>, <span class="st">"nt_BCG_att1i2"</span>, <span class="st">"pt_BCG_att1i23"</span></span>
-<span>              , <span class="st">"pi_BCG_att1i23"</span>, <span class="st">"pt_BCG_att56"</span>, <span class="st">"pi_BCG_att56"</span></span>
-<span>              , <span class="st">"nt_EPT_BCG_att1i23"</span>, <span class="st">"pi_NonInsJugaRiss_BCG_att456"</span></span>
-<span>              , <span class="st">"pt_NonIns_BCG_att456"</span>, <span class="st">"pi_NonIns_BCG_att456"</span>, <span class="st">"nt_EPT"</span><span class="op">)</span></span>
+<span><span class="va">met2keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ni_total"</span>, <span class="st">"nt_total"</span>, <span class="st">"nt_BCG_att1i2"</span>, <span class="st">"pt_BCG_att1i23"</span>,</span>
+<span>              <span class="st">"pi_BCG_att1i23"</span>, <span class="st">"pt_BCG_att56"</span>, <span class="st">"pi_BCG_att56"</span>,</span>
+<span>              <span class="st">"nt_EPT_BCG_att1i23"</span>, <span class="st">"pi_NonInsJugaRiss_BCG_att456"</span>,</span>
+<span>              <span class="st">"pt_NonIns_BCG_att456"</span>, <span class="st">"pi_NonIns_BCG_att456"</span>, <span class="st">"nt_EPT"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run Function</span></span>
-<span><span class="va">df.metric.values.bugs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BioMonTools/man/metric.values.html" class="external-link">metric.values</a></span><span class="op">(</span><span class="va">myDF</span>, <span class="st">"bugs"</span>, fun.MetricNames<span class="op">=</span><span class="va">met2keep</span></span>
-<span>                                       , fun.cols2keep<span class="op">=</span><span class="va">myCols</span><span class="op">)</span></span>
+<span><span class="va">df.metric.values.bugs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BioMonTools/man/metric.values.html" class="external-link">metric.values</a></span><span class="op">(</span><span class="va">myDF</span>, </span>
+<span>                                       <span class="st">"bugs"</span>, </span>
+<span>                                       fun.MetricNames <span class="op">=</span> <span class="va">met2keep</span>,</span>
+<span>                                       fun.cols2keep <span class="op">=</span> <span class="va">myCols</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View Results</span></span>
 <span><span class="co">#View(df.metric.values.bugs)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df.metric.values.bugs</span><span class="op">)</span>, caption<span class="op">=</span><span class="st">"Selected metric results"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df.metric.values.bugs</span><span class="op">)</span>, caption <span class="op">=</span> <span class="st">"Selected metric results"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 
