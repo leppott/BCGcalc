@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-08 09:00:44.833393
+2026-07-08 09:50:17.307017
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-08 09:00:44.909354
+    #> Last Update: 2026-07-08 09:50:17.352781
+
+# BCGcalc 2.2.0.9005 (2026-07-08)
+
+- refactor: Update OK_Bugs_BCG rules for pi_COEPT_BCG_att1i234b4m
+  - Rules.xlsx
 
 # BCGcalc 2.2.0.9004 (2026-07-08)
 
