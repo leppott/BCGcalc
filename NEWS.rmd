@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9007 (2026-07-08)
+
+* refactor: Remove unused GIS data files, Issue #100
+    + Move to BCGcalc_ORWA repo
+
 # BCGcalc 2.2.0.9006 (2026-07-08)
 
 * docs: Update README, Issue #99

@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-08 12:11:31.271944
+2026-07-08 14:55:02.338328
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-08 12:11:31.293445
+    #> Last Update: 2026-07-08 14:55:02.362332
+
+# BCGcalc 2.2.0.9007 (2026-07-08)
+
+- refactor: Remove unused GIS data files, Issue \#100
+  - Move to BCGcalc_ORWA repo
 
 # BCGcalc 2.2.0.9006 (2026-07-08)
 
