@@ -21,7 +21,7 @@ testthat::test_that("bcgcalc", {
   
   
 
-  # _test, metric membership ----
+  ## _test, metric membership ----
   testthat::expect_equal(mean_membership_calc, mean_membership_qc
                          , tolerance = 0.00001)
   
@@ -34,7 +34,7 @@ testthat::test_that("bcgcalc", {
                                               , "L5", "L6")])
   sum_LevMemb_qc <- 678
   
-  # _test, level membership, all equal 1 ----
+  ## _test, level membership, all equal 1 ----
   testthat::expect_equal(sum_LevMemb_calc, sum_LevMemb_qc)
   
   colsums_LevMemb_calc <- as.vector(colSums(df.Level.Membership[
@@ -46,7 +46,7 @@ testthat::test_that("bcgcalc", {
                        , 104.63021
                        , 54.00467)
   
-  # _test, level membership, colSums ----
+  ## _test, level membership, colSums ----
   testthat::expect_equal(colsums_LevMemb_calc, colSums_LevMemb_qc)
   
   # Calculate Level Assignments
@@ -55,7 +55,7 @@ testthat::test_that("bcgcalc", {
   sum_LevA_calc <- sum(df.Levels$Continuous_BCG_Level)
   sum_LevA_qc <- 2505.204
   
-  # _test, level assignment, sum of Proportional Number ----
+  ## _test, level assignment, sum of Proportional Number ----
   testthat::expect_equal(sum_LevA_calc, sum_LevA_qc, tolerance = 0.01)
 
 })## Test ~ BCGcalc ~ END

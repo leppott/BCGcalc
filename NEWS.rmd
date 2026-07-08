@@ -21,6 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9004 (2026-07-08)
+
+* refactor: Update rules and flags for ORWA
+    + 6 to 6m6t
+* refactor: Modify deprecated input col_SITE_TYPE message with global binding
+    + BCG.Metric.Membership
+    + BCG.Level.Membership
+
 # BCGcalc 2.2.0.9003 (2026-07-07)
 
 * fix: Remove runShiny

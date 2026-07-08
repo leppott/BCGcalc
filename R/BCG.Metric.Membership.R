@@ -97,9 +97,14 @@ BCG.Metric.Membership <- function(df.metrics
                                   , col_INCREASE = "INCREASE"
                                   , ...) {
   
+  # Global Bindings
+  col_SITE_TYPE <- NULL
+  
   # QC
   # DEPRECATE SITE_TYPE
-  if (exists("col_SITE_TYPE")) {
+  # if (exists("col_SITE_TYPE")) {
+  # change when add global binding
+  if (!is.null(col_SITE_TYPE)) {
     col_INDEX_CLASS <- col_SITE_TYPE
     msg <- "The parameter 'col_SITE_TYPE' was deprecated in v2.0.0.9001. \n
     Use 'col_INDEX_CLASS' instead."

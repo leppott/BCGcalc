@@ -1,11 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-07 11:59:59.212603
+2026-07-08 09:00:44.833393
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-07 11:59:59.305229
+    #> Last Update: 2026-07-08 09:00:44.909354
+
+# BCGcalc 2.2.0.9004 (2026-07-08)
+
+- refactor: Update rules and flags for ORWA
+  - 6 to 6m6t
+- refactor: Modify deprecated input col_SITE_TYPE message with global
+  binding
+  - BCG.Metric.Membership
+  - BCG.Level.Membership
 
 # BCGcalc 2.2.0.9003 (2026-07-07)
 
