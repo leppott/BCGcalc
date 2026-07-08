@@ -75,12 +75,22 @@ df_samps_bugs <- readxl::read_excel(
                            system.file("extdata/Data_BCG_PugLowWilVal.xlsx"
                                              , package = "BCGcalc")
                            , guess_max = 10^6)
-myDF <- df_samps_bugs
-myCols <- c("Area_mi2", "SurfaceArea", "Density_m2", "Density_ft2")
+myDF <- df_samps_bugs[1:1000, ]
+myCols <- c("Area_mi2", 
+            "SurfaceArea", 
+            "Density_m2",
+            "Density_ft2")
 # populate missing columns prior to metric calculation
-col_missing <- c("INFRAORDER", "HABITAT", "ELEVATION_ATTR", "GRADIENT_ATTR"
-                 , "WSAREA_ATTR", "HABSTRUCT", "UFC")
+col_missing <- c("INFRAORDER", 
+                 "HABITAT", 
+                 "ELEVATION_ATTR", 
+                 "GRADIENT_ATTR",
+                 "WSAREA_ATTR", 
+                 "HABSTRUCT", 
+                 "UFC",
+                 "SAMP_AREA_M2")
 myDF[, col_missing] <- NA
+myDF$SAMP
 df_met_val_bugs <- BioMonTools::metric.values(myDF
                                               , "bugs"
                                               , fun.cols2keep = myCols)

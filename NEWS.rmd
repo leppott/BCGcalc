@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9008 (2026-07-08)
+
+* refactor: Update documentation for metrics_values, Issue #100
+* refactor: Make examples run times shorter, Issue #100
+
 # BCGcalc 2.2.0.9007 (2026-07-08)
 
 * refactor: Remove unused GIS data files, Issue #100
