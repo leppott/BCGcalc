@@ -18,7 +18,7 @@ given Level memberships."><!-- mathjax --><script src="https://cdnjs.cloudflare.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BCGcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0.9009</span>
       </span>
     </div>
 
@@ -188,7 +188,7 @@ assignment ("Continuous_BCG_Level").</p>
 <span class="r-in"><span>                           , guess_max <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span>                                        </span></span>
 <span class="r-in"><span><span class="co"># Run Function</span></span></span>
-<span class="r-in"><span><span class="va">myDF</span> <span class="op">&lt;-</span> <span class="va">df_samps_bugs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">myDF</span> <span class="op">&lt;-</span> <span class="va">df_samps_bugs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">250</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">myCols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area_mi2"</span>, </span></span>
 <span class="r-in"><span>            <span class="st">"SurfaceArea"</span>, </span></span>
 <span class="r-in"><span>            <span class="st">"Density_m2"</span>, </span></span>
@@ -256,20 +256,20 @@ assignment ("Continuous_BCG_Level").</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">df_flags</span><span class="op">[</span>, <span class="st">"CHECKNAME"</span><span class="op">]</span>, <span class="va">df_flags</span><span class="op">[</span>, <span class="st">"FLAG"</span><span class="op">]</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                   flag &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Low density (ft2)                  0  157</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Low density (m2)                   0  157</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Ramellogammarus                    0  157</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   brackish organisms present         0  157</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   catchment, Large                   0  157</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   catchment, small                  36  121</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   individuals, Large                 0  157</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   individuals, dominant 02, Large  156    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   individuals, small               157    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   surface area, small               10  147</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Low density (ft2)                  0   74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Low density (m2)                   0   74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Ramellogammarus                    0   74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   brackish organisms present         0   74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   catchment, Large                   0   74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   catchment, small                  15   59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   individuals, Large                 0   74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   individuals, dominant 02, Large   73    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   individuals, small                74    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   surface area, small               10   64</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">df_lev_flags</span><span class="op">$</span><span class="va">BCG_Status</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 157 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show Results</span></span></span>
 <span class="r-in"><span><span class="co"># View(df_lev_flags)</span></span></span>
