@@ -1,11 +1,18 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-09 09:15:12.175142
+2026-07-09 14:13:52.978837
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-09 09:15:12.274347
+    #> Last Update: 2026-07-09 14:13:53.048916
+
+# BCGcalc 2.2.0.9010 (2026-07-09)
+
+- fix: Update Boise BCG Fish Level nt_total Level 4 duplicate to Level 5
+- tests: Add test for duplicate metrics
+  - Index_Name, INDEX_CLASS, Level, Rule_Type
+  - Keep disabled as may not be always true
 
 # BCGcalc 2.2.0.9009 (2026-07-09)
 

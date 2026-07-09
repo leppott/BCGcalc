@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9010 (2026-07-09)
+
+* fix: Update Boise BCG Fish Level nt_total Level 4 duplicate to Level 5
+* tests: Add test for duplicate metrics
+    + Index_Name, INDEX_CLASS, Level, Rule_Type
+    + Keep disabled as may not be always true
+
 # BCGcalc 2.2.0.9009 (2026-07-09)
 
 * refactor: Make example run time shorter, Issue #100

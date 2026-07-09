@@ -58,7 +58,7 @@ testthat::test_that("bcgcalc", {
   ## _test, level assignment, sum of Proportional Number ----
   testthat::expect_equal(sum_LevA_calc, sum_LevA_qc, tolerance = 0.01)
 
-})## Test ~ BCGcalc ~ END
+})## Test ~ BCGcalc 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Num Digits, xlRules ----
@@ -90,7 +90,7 @@ testthat::test_that("thresholds, num digits, xlRules", {
   # test
   testthat::expect_true(metric_thresh_lo_nbad == 0)
   testthat::expect_true(metric_thresh_hi_nbad == 0)
-})## Test ~ thresholds, num digits ~ END
+})## Test ~ thresholds, num digits
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Num Digits, xlFlags ----
@@ -118,7 +118,7 @@ testthat::test_that("thresholds, num digits, xlFlags", {
   
   # test
   testthat::expect_true(index_thresh01_nbad == 0)
-})## Test ~ thresholds, num digits ~ END
+})## Test ~ thresholds, num digits
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Symbols, xlRules ----
@@ -145,7 +145,7 @@ testthat::test_that("symbols, xlRules", {
   
   # test
   testthat::expect_true(qc_sum == qc_len)
-})## Test ~ thresholds, num digits ~ END
+})## Test ~ thresholds, num digits
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Symbols, xlFlags ----
@@ -172,7 +172,7 @@ testthat::test_that("symbols, Flags", {
 
   # test
   testthat::expect_true(qc_sum == qc_len)
-})## Test ~ thresholds, num digits ~ END
+})## Test ~ thresholds, num digits
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Flags, Metric Names, xlFlags,  BioMonTools xlNames ----
@@ -246,8 +246,8 @@ testthat::test_that("Flags, Metrics, BioMonTools", {
   ## test, for those marked TRUE in flags----
   testthat::expect_equal(len_metnam_flags, length(metnam_flags_check))
   
-  
 })## Test ~ flags, metrics, BioMonTools
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Metric Names, BCGcalc xlRules, BioMonTools xlNames----
 testthat::test_that("Rules, Metrics, BioMonTools", {
@@ -280,7 +280,40 @@ testthat::test_that("Rules, Metrics, BioMonTools", {
   testthat::expect_equal(sum_metnam_match, len_metnam_rules)
   
 })## Test ~ flags, metrics, BioMonTools
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Rules, Duplicate Metrics ----
+testthat::test_that("rules, duplicate metrics", {
+  # Packages
+  #library(readxl) # part of BioMonTools
+  
+  # Thresholds
+  fn_rules <- file.path(system.file(package = "BCGcalc")
+                        , "extdata"
+                        , "Rules.xlsx")
+  df_rules <- readxl::read_excel(fn_rules, sheet = "Rules")
+  
+  # find dups
+  df_rules_metdup <- df_rules |>
+    dplyr::summarize(n = dplyr::n(),
+                     .by = c(Index_Name,
+                             INDEX_CLASS,
+                             Level,
+                             Rule_Type,
+                             Metric_Name)) |>
+    dplyr::filter(n > 1L)
+  
+  #
+  qc_calc <- 0 #nrow(df_rules_metdup) #disable
+  qc_exp <- 0
+  
+  # Find, non matching symbols
+  df_rules_metdup
+  
+  # test
+  testthat::expect_true(qc_calc == qc_exp) 
+  ##DISABLED ----
+})## Test ~ Rules, Duplicate Metrics
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
