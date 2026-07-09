@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-09 14:13:52.978837
+2026-07-09 14:42:45.127685
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-09 14:13:53.048916
+    #> Last Update: 2026-07-09 14:42:45.150147
+
+# BCGcalc 2.2.0.9011 (2026-07-09)
+
+- tests: Update duplicate metric test
+  - Add Symbol and Increase columns
 
 # BCGcalc 2.2.0.9010 (2026-07-09)
 

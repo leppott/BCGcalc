@@ -300,19 +300,21 @@ testthat::test_that("rules, duplicate metrics", {
                              INDEX_CLASS,
                              Level,
                              Rule_Type,
+                             Symbol,
+                             Increase,
                              Metric_Name)) |>
     dplyr::filter(n > 1L)
   
   #
-  qc_calc <- 0 #nrow(df_rules_metdup) #disable
-  qc_exp <- 0
+  qc_calc <- nrow(df_rules_metdup) #disable
+  qc_exp  <- 0
   
   # Find, non matching symbols
   df_rules_metdup
   
   # test
   testthat::expect_true(qc_calc == qc_exp) 
-  ##DISABLED ----
+
 })## Test ~ Rules, Duplicate Metrics
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
