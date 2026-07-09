@@ -71,7 +71,7 @@
 #'                            , guess_max = 10^6)
 #'                                         
 #' # Run Function
-#' myDF <- df_samps_bugs[1:500, ]
+#' myDF <- df_samps_bugs[1:250, ]
 #' myCols <- c("Area_mi2", 
 #'             "SurfaceArea", 
 #'             "Density_m2", 

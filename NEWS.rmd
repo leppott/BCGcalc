@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9009 (2026-07-09)
+
+* refactor: Make example run time shorter, Issue #100
+    + BCG.Level.Assignment
+
 # BCGcalc 2.2.0.9008 (2026-07-08)
 
 * refactor: Update documentation for metrics_values, Issue #100

@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-08 16:08:51.35837
+2026-07-09 09:15:12.175142
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-08 16:08:51.477419
+    #> Last Update: 2026-07-09 09:15:12.274347
+
+# BCGcalc 2.2.0.9009 (2026-07-09)
+
+- refactor: Make example run time shorter, Issue \#100
+  - BCG.Level.Assignment
 
 # BCGcalc 2.2.0.9008 (2026-07-08)
 
