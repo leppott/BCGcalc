@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-09 14:42:45.127685
+2026-07-10 12:26:27.696996
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-09 14:42:45.150147
+    #> Last Update: 2026-07-10 12:26:27.782238
+
+# BCGcalc 2.2.0.9012 (2026-07-10)
+
+- refactor: Update Rules.xlsx
+  - Remove metric nt_ti_stenocold_cold_cool from BCG_ORWA_v1_Bugs500ct,
+    Foothills_Multihab
 
 # BCGcalc 2.2.0.9011 (2026-07-09)
 
