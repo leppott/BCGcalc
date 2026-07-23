@@ -1,11 +1,11 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-08 12:10:33.019249
+2026-07-23 12:34:37.318709
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-08 12:10:33.041488
+    #> Last Update: 2026-07-23 12:34:37.377737
 
 # BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
 
@@ -15,13 +15,13 @@ needed for metric calculation and model (level) assignments.
 ## Badges
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/BCGcalc/graphs/commit-activity)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 [![GitHub
 license](https://img.shields.io/github/license/leppott/BCGcalc.svg)](https://github.com/leppott/BCGcalc/blob/master/LICENSE)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/leppott/BCGcalc/badge)](https://www.codefactor.io/repository/github/leppott/BCGcalc)
-[![codecov](https://codecov.io/gh/leppott/BCGcalc/branch/master/graph/badge.svg)](https://codecov.io/gh/leppott/BCGcalc)
+[![codecov](https://codecov.io/gh/leppott/BCGcalc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/leppott/BCGcalc)
 [![R-CMD-check](https://github.com/leppott/BCGcalc/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/BCGcalc/actions)
 
 [![GitHub

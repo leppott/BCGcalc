@@ -1,7 +1,7 @@
 Package: BCGcalc
 Type: Package
-Title: Biological Condition Gradient, calculator
-Version: 2.2.0.9012
+Title: Biological Condition Gradient, Calculator
+Version: 2.2.0.9013
 Authors@R: c(
   person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre")), 
   person("Jen", "Stamp", email="Jen.Stamp@tetratech.com", role="ctb"),
@@ -31,7 +31,6 @@ Suggests:
     rioja, 
     nhdplusTools,
     ComplexUpset
-Remotes: leppott/BCGcalc
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/leppott/BCGcalc

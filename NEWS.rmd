@@ -21,6 +21,18 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.2.0.9013 (2026-07-23)
+
+* refactor: Updates for CRAN, Issue #100
+* docs: Add cran comments to _test
+* refactor: Add cran comments to buildignore
+* docs: Update title of package to Title Case
+* docs: Remove Remotes line from DESCRIPTION
+* docs: Update URLs in README
+    + CodeCov
+    + lifecycle
+* refactor: Trim number of records in example for BCG.Metric.Membership
+
 # BCGcalc 2.2.0.9012 (2026-07-10)
 
 * refactor: Update Rules.xlsx
