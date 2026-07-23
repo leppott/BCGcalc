@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BCGcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.3</span>
       </span>
     </div>
 
@@ -1578,7 +1578,18 @@ Test data above, columns with flags will be added into the file with the
 Level Assignments.</p>
 <p>The checks for hi and lo gradient are the same so only one set of
 checks is shown below.</p>
-<pre><code><span><span class="co">#&gt; Joining with `by = join_by(SAMPLEID, INDEX_NAME, INDEX_CLASS)`</span></span></code></pre>
+<pre><code><span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; There are 1 missing fields in the data:</span></span>
+<span><span class="co">#&gt; SAMP_AREA_M2</span></span>
+<span><span class="co">#&gt;  </span></span>
+<span><span class="co">#&gt; If you continue the metrics associated with these fields will be invalid.</span></span>
+<span><span class="co">#&gt; For example, if the HABIT field is missing all habit related metrics will not be correct.</span></span>
+<span><span class="co">#&gt; Do you wish to continue (YES or NO)?</span></span>
+<span><span class="co">#&gt; boo.Shiny == TRUE and interactive == FALSE</span></span>
+<span><span class="co">#&gt;                so prompt skipped and value set to '1'.</span></span>
+<span><span class="co">#&gt; Warning in metric.values.bugs(myDF = fun.DF, MetricNames = fun.MetricNames, : Metrics related to the following fields are invalid:</span></span>
+<span><span class="co">#&gt;    SAMP_AREA_M2</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(SAMPLEID, INDEX_NAME, INDEX_CLASS)`</span></span></code></pre>
 <table style="width:100%;" class="table">
 <caption>Flags, Hi Gradient</caption>
 <colgroup>
@@ -1848,23 +1859,23 @@ checks is shown below.</p>
 </tr>
 </tbody>
 </table>
-<table class="table">
+<table style="width:100%;" class="table">
 <caption>Levels and Flags.</caption>
 <colgroup>
 <col width="5%">
 <col width="4%">
 <col width="2%">
 <col width="0%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
+<col width="2%">
 <col width="0%">
 <col width="3%">
+<col width="4%">
 <col width="3%">
 <col width="3%">
-<col width="3%">
-<col width="3%">
+<col width="4%">
 <col width="4%">
 <col width="3%">
 <col width="3%">
@@ -1880,8 +1891,7 @@ checks is shown below.</p>
 <col width="3%">
 <col width="3%">
 <col width="3%">
-<col width="3%">
-<col width="3%">
+<col width="4%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">SampleID</th>
@@ -1912,7 +1922,6 @@ checks is shown below.</p>
 <th align="left">individuals, Large</th>
 <th align="left">individuals, small</th>
 <th align="left">Low density (ft2)</th>
-<th align="left">Low density (m2)</th>
 <th align="left">Ramellogammarus</th>
 <th align="left">surface area, small</th>
 </tr></thead>
@@ -1943,7 +1952,6 @@ checks is shown below.</p>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">flag</td>
-<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -1981,7 +1989,6 @@ checks is shown below.</p>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">03013CSR_Bug_2003-07-01_0</td>
@@ -2014,7 +2021,6 @@ checks is shown below.</p>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">03053CSR_Bug_2003-08-14_0</td>
@@ -2038,7 +2044,6 @@ checks is shown below.</p>
 <td align="left">3</td>
 <td align="left">3</td>
 <td align="right">0</td>
-<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -2080,7 +2085,6 @@ checks is shown below.</p>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">06012CSR_Bug_2006-09-05_0</td>
@@ -2104,7 +2108,6 @@ checks is shown below.</p>
 <td align="left">4</td>
 <td align="left">4-</td>
 <td align="right">0</td>
-<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
@@ -2161,16 +2164,11 @@ checks is shown below.</p>
 <td align="right">678</td>
 </tr>
 <tr class="even">
-<td align="left">Low density (m2)</td>
-<td align="right">0</td>
-<td align="right">678</td>
-</tr>
-<tr class="odd">
 <td align="left">Ramellogammarus</td>
 <td align="right">8</td>
 <td align="right">670</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">surface area, small</td>
 <td align="right">112</td>
 <td align="right">566</td>
