@@ -1,16 +1,20 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-23 10:20:17.918935
+2026-07-23 15:55:58.037094
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-23 10:20:17.977462
+    #> Last Update: 2026-07-23 15:55:58.058861
 
-# BCGcalc 2.2.0.9013 (2026-07-22)
+# BCGcalc 2.3 (2026-07-23)
+
+- docs: Increase version for CRAN release
+
+# BCGcalc 2.2.0.9013 (2026-07-23)
 
 - refactor: Updates for CRAN, Issue \#100
-- docs: Add cran comments
+- docs: Add cran comments to \_test
 - refactor: Add cran comments to buildignore
 - docs: Update title of package to Title Case
 - docs: Remove Remotes line from DESCRIPTION

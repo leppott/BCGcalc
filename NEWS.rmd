@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.3 (2026-07-23)
+
+* docs: Increase version for CRAN release
+
 # BCGcalc 2.2.0.9013 (2026-07-23)
 
 * refactor: Updates for CRAN, Issue #100
