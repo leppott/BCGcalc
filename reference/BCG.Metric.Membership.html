@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BCGcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0.9012</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0.9013</span>
       </span>
     </div>
 
@@ -169,7 +169,7 @@ each named index.</p>
 <span class="r-in"><span>                           <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/Data_BCG_PugLowWilVal.xlsx"</span></span></span>
 <span class="r-in"><span>                                             , package <span class="op">=</span> <span class="st">"BCGcalc"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>                           , guess_max <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">myDF</span> <span class="op">&lt;-</span> <span class="va">df_samps_bugs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">myDF</span> <span class="op">&lt;-</span> <span class="va">df_samps_bugs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">myCols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area_mi2"</span>, </span></span>
 <span class="r-in"><span>            <span class="st">"SurfaceArea"</span>, </span></span>
 <span class="r-in"><span>            <span class="st">"Density_m2"</span>,</span></span>
@@ -184,9 +184,6 @@ each named index.</p>
 <span class="r-in"><span>                 <span class="st">"UFC"</span>,</span></span>
 <span class="r-in"><span>                 <span class="st">"SAMP_AREA_M2"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">myDF</span><span class="op">[</span>, <span class="va">col_missing</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
-<span class="r-in"><span><span class="va">myDF</span><span class="op">$</span><span class="va">SAMP</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unknown or uninitialised column: `SAMP`.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="va">df_met_val_bugs</span> <span class="op">&lt;-</span> <span class="fu">BioMonTools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BioMonTools/man/metric.values.html" class="external-link">metric.values</a></span><span class="op">(</span><span class="va">myDF</span></span></span>
 <span class="r-in"><span>                                              , <span class="st">"bugs"</span></span></span>
 <span class="r-in"><span>                                              , fun.cols2keep <span class="op">=</span> <span class="va">myCols</span><span class="op">)</span></span></span>
