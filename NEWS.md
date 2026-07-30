@@ -1,18 +1,23 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-30 10:48:46.163198
+2026-07-30 11:19:50.189592
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-30 10:48:46.180188
+    #> Last Update: 2026-07-30 11:19:50.211022
+
+# BCGcalc 2.3.0.9002 (2026-07-30)
+
+- docs: Update package description with more detail and references per
+  CRAN fix, Issue \#100
 
 # BCGcalc 2.3.0.9001 (2026-07-30)
 
 - refactor: Remove example BDVI data as not used in package
-  - CRAN fix
+  - CRAN fix, Issue \#100
   - Moved to BCGcalc_ORWA
-- docs: Update package description per CRAN fix
+- docs: Update package description per CRAN fix, Issue \#100
 
 # BCGcalc 2.3 (2026-07-23)
 
