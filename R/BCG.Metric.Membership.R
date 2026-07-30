@@ -126,6 +126,11 @@ BCG.Metric.Membership <- function(df.metrics
   
   # QC, Column names
   ## use inputs
+  
+  # 20260727
+  # Ensure needed metrics present
+  
+  
   #
   # Metrics to long
   if (input.shape == "wide") {

@@ -1,14 +1,21 @@
 Package: BCGcalc
 Type: Package
 Title: Biological Condition Gradient, Calculator
-Version: 2.3
+Version: 2.3.0.9001
 Authors@R: c(
   person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre")), 
   person("Jen", "Stamp", email="Jen.Stamp@tetratech.com", role="ctb"),
   person("Matt", "Hedin", email="Matt.Hedin@tetratech.com", role="ctb"),
   person("Ben", "Block", email="Ben.Block@tetratech.com", role="ctb"))
 Maintainer: Erik W. Leppo <Erik.Leppo@tetratech.com>
-Description: Biological Condition Gradient helper functions.
+Description: Functions to calculate Biological Condition Gradient (BCG) using 
+  input files with one row per sample with metric values and site classes as 
+  columns.  A second file with the BCG Rules (example included) to define the 
+  memberships is also needed.  The three main functions convert metric scores to
+  metric memberships following fuzzy set BCG Rules (BCG.Level.Assignment), 
+  combine metric memberships to level memberships according to BCG Rules 
+  (BCG.Level.Membership), and then assign a BCG primary and secondary level 
+  based on level memberships (BCG.Level.Assignment).
 License: MIT + file LICENSE
 Depends: 
     R (>= 3.5.0)
