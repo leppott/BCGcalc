@@ -1,11 +1,21 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-30 11:19:50.189592
+2026-07-30 12:20:33.356035
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-30 11:19:50.211022
+    #> Last Update: 2026-07-30 12:20:33.464517
+
+# BCGcalc 2.3.0.9003 (2026-07-30)
+
+- refactor: Move large files to BCGcalc_ORWA, Issue \#100
+  - Data_BCG_PugLowWilVal.csv
+  - \_Input_HiGradHiElev_noExclude_20220108.csv
+- refactor: Make smaller versions (1000 records) of example files, Issue
+  \#100
+  - Data_BCG_PugLowWilVal.xlsx
+  - ExampleMunge_UnformattedData.xlsx
 
 # BCGcalc 2.3.0.9002 (2026-07-30)
 

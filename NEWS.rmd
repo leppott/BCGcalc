@@ -21,6 +21,15 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.3.0.9003 (2026-07-30)
+
+* refactor: Move large files to BCGcalc_ORWA, Issue #100
+    + Data_BCG_PugLowWilVal.csv
+    + _Input_HiGradHiElev_noExclude_20220108.csv
+* refactor: Make smaller versions (1000 records) of example files, Issue #100
+    + Data_BCG_PugLowWilVal.xlsx
+    + ExampleMunge_UnformattedData.xlsx
+
 # BCGcalc 2.3.0.9002 (2026-07-30)
 
 * docs: Update package description with more detail and references per CRAN fix,
