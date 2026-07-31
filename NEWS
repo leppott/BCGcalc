@@ -1,11 +1,24 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-31 10:27:00.08585
+2026-07-31 14:36:44.892499
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-31 10:27:00.178518
+    #> Last Update: 2026-07-31 14:36:44.919206
+
+# BCGcalc 2.3.1.9001 (2026-07-31)
+
+- tests: Add tests for code coverage
+  - metric.membership
+    - shape
+    - missing metrics
+- refactor: Modify metric.membership error for missing metrics
+  - Allow for test to check class so it is generic
+- docs: Add rlang to DESCRIPTION as Suggests
+- tests: Split test file into function_calculations and rules_flags
+- refactor: Add error for level.membership for missing metrics in data,
+  Issue \#54
 
 # BCGcalc 2.3.1 (2026-07-31)
 

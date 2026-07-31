@@ -128,10 +128,8 @@ BCG.Metric.Membership <- function(df.metrics
   ## use inputs
   
   # 20260727
-  # Ensure needed metrics present
+  # Ensure needed metrics present is at end
   
-  
-  #
   # Metrics to long
   if (input.shape == "wide") {
     df.long <- reshape2::melt(df.metrics
@@ -177,11 +175,25 @@ BCG.Metric.Membership <- function(df.metrics
   rules.metrics.len <- length(rules.metrics.names)
   #
   if (sum(rules.metrics.TF) != rules.metrics.len) {
-    Msg <- paste0("Data provided does not include all metrics in rules table. "
-                  , "The following metrics are missing: "
-                  , paste(rules.metrics.names[!rules.metrics.TF]
-                          , collapse = ", "))
-    stop(Msg)
+    # 2026-07-31, modify error message to allow for class for testing
+    # Msg <- paste0("Data provided does not include all metrics in rules table. "
+    #               , "The following metrics are missing: "
+    #               , paste(rules.metrics.names[!rules.metrics.TF]
+    #                       , collapse = ", "))
+    # stop(Msg)
+    # use CoPilot to update
+    missing_metrics <- rules.metrics.names[!rules.metrics.TF]
+      
+    rlang::abort(
+      message = paste0(
+        "Data provided does not include all metrics in rules table. ",
+        "The following metrics are missing: ",
+        paste(missing_metrics, collapse = ", ")
+      ),
+      class = c("bcg_missing_metrics",
+                "bcg_metric_membership",
+                "bcg_error")
+    )
   }##IF.RulesCount.END
   
   

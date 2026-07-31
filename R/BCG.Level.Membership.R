@@ -224,7 +224,8 @@ BCG.Level.Membership <- function(df.metric.membership
   # QC Testing
   boo_QC <- FALSE
   if (isTRUE(boo_QC)) {
-    df.metric.membership <- df_met_memb
+    # run example first
+    df.metric.membership <- df_met_memb 
     df.rules <- df_rules
     col_SAMPLEID <- "SAMPLEID"
     col_INDEX_NAME <- "INDEX_NAME"
@@ -318,8 +319,48 @@ BCG.Level.Membership <- function(df.metric.membership
                 , "INCLUDE_THRESHOLD"
                 , "SITE_TYPE"
                 , "INDEX_REGION")
-  col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in%
-                                                                      col.drop)]
+  col.keep <- names(df.metric.membership)[!(names(df.metric.membership) %in% 
+                                              col.drop)]
+  
+  # Check for Missing Metrics (only for index provided in metric df)
+  ## ignore site type for checking 
+  ### added back 20220214, for when run a single index region 
+  #                                & rules has more than one
+  ### and metrics are not the same in each region
+  # 2026-07-31, port from BCG.Metric.Membership
+  index.data <- unique(df.metric.membership[, col_INDEX_NAME])
+  index.data.region <- unique(df.metric.membership[, col_INDEX_CLASS])
+  rules.metrics.names <- unique(df.rules[(df.rules[, col_INDEX_NAME] %in% 
+                                          index.data
+                                        & df.rules[, col_INDEX_CLASS] %in% 
+                                          index.data.region)
+                                       , col_METRIC_NAME])
+  rules.metrics.TF <- rules.metrics.names %in% 
+    unique(df.metric.membership[, col_METRIC_NAME])
+  rules.metrics.len <- length(rules.metrics.names)
+  #
+  if (sum(rules.metrics.TF) != rules.metrics.len) {
+    # 2026-07-31, modify error message to allow for class for testing
+    # Msg <- paste0("Data provided does not include all metrics in rules table. "
+    #               , "The following metrics are missing: "
+    #               , paste(rules.metrics.names[!rules.metrics.TF]
+    #                       , collapse = ", "))
+    # stop(Msg)
+    # use CoPilot to update
+    missing_metrics <- rules.metrics.names[!rules.metrics.TF]
+    
+    rlang::abort(
+      message = paste0(
+        "Data provided does not include all metrics in rules table. ",
+        "The following metrics are missing: ",
+        paste(missing_metrics, collapse = ", ")
+      ),
+      class = c("bcg_missing_metrics",
+                "bcg_level_membership",
+                "bcg_error")
+    )
+  }##IF.RulesCount.END                    
+              
   # MERGE----
   # merge metrics and rules
   df.merge <- merge(df.metric.membership[, col.keep]
@@ -345,7 +386,15 @@ BCG.Level.Membership <- function(df.metric.membership
   # remove INDEX_CLASS_ORIG
   col_drop_ICORIG <- !names(df.merge) %in% col_INDEX_CLASS_ORIG
   df.merge <- df.merge[, col_drop_ICORIG]
-
+  
+  # QC
+  if (nrow(df.merge) == 0) {
+    msg <- "Merging of Metric Membership and Rules data frames failed.
+    Check columns col_INDEX_NAME, col_INDEX_CLASS, col_LEVEL, col_METRIC_NAME, col_RULE_TYPE, and col_EXC_RULE."
+    stop(msg)
+  }## IF ~ nrow(df.merge) ~ END
+  
+  # QC
   nrow_metmemb <- nrow(df.metric.membership)
   nrow_merge <- nrow(df.merge)
   if (nrow_metmemb != nrow_merge) {
@@ -359,13 +408,6 @@ BCG.Level.Membership <- function(df.metric.membership
   # Min of Rule2 (Alt2)
   # Max of Rule1 (Alt1) (with Min of Rule2 (Alt2))
   # Min of Rule0 (with alt above)
-
-  # QC
-  if (nrow(df.merge) == 0) {
-    msg <- "Merging of Metric Membership and Rules data frames failed.
-    Check columns col_INDEX_NAME, col_INDEX_CLASS, col_LEVEL, col_METRIC_NAME, col_RULE_TYPE, and col_EXC_RULE."
-    stop(msg)
-  }## IF ~ nrow(df.merge) ~ END
 
   # dplyr fix 1 ----
   # Ensure have correct names for summarise(group_by))
