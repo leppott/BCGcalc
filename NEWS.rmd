@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.3.0.9004 (2026-07-31)
+
+* refactor: Move Shiny example files to BCGcalc_ORWA, Issue #100
+
 # BCGcalc 2.3.0.9003 (2026-07-30)
 
 * refactor: Move large files to BCGcalc_ORWA, Issue #100
