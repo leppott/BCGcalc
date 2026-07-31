@@ -1,11 +1,15 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-31 10:22:39.60696
+2026-07-31 10:27:00.08585
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-31 10:22:39.627844
+    #> Last Update: 2026-07-31 10:27:00.178518
+
+# BCGcalc 2.3.1 (2026-07-31)
+
+- refactor: Bump version number for resubmittal to CRAN, Issue \#100
 
 # BCGcalc 2.3.0.9004 (2026-07-31)
 
