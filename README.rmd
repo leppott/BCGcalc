@@ -3,6 +3,9 @@ title: "BCGcalc-README"
 author: "Erik.Leppo@tetratech.com"
 date: "`r Sys.time()`"
 output: github_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -18,39 +21,44 @@ knitr::opts_chunk$set(echo = TRUE
 ```{r, echo = FALSE}
 cat(paste0("Last Update: ",Sys.time()))
 ```
-# BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
-Biological Condition Gradient (BCG) calculator.  Perform basic functions needed 
-for metric calculation and model (level) assignments.
 
-Badges
------------
+# BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src="inst/figures/logo.png" align="right" height="139"/></a>
+
+Biological Condition Gradient (BCG) calculator. Perform basic functions
+needed for metric calculation and model (level) assignments.
+
+## Badges
+
+<!-- badges: start -->
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/BCGcalc/graphs/commit-activity)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 [![GitHub license](https://img.shields.io/github/license/leppott/BCGcalc.svg)](https://github.com/leppott/BCGcalc/blob/master/LICENSE)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/leppott/BCGcalc/badge)](https://www.codefactor.io/repository/github/leppott/BCGcalc)
-[![codecov](https://codecov.io/gh/leppott/BCGcalc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/leppott/BCGcalc)
-[![R-CMD-check](https://github.com/leppott/BCGcalc/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/BCGcalc/actions)
+[![Codecov test coverage](https://codecov.io/gh/leppott/BCGcalc/graph/badge.svg)](https://app.codecov.io/gh/leppott/BCGcalc)
 
+[![R-CMD-check](https://github.com/leppott/BCGcalc/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/BCGcalc/actions)
 
 [![GitHub issues](https://img.shields.io/github/issues/leppott/BCGcalc.svg)](https://GitHub.com/leppott/BCGcalc/issues/)
 
 [![GitHub release](https://img.shields.io/github/release/leppott/BCGcalc.svg)](https://GitHub.com/leppott/BCGcalc/releases/)
 [![Github all releases](https://img.shields.io/github/downloads/leppott/BCGcalc/total.svg)](https://GitHub.com/leppott/BCGcalc/releases/)
+<!-- badges: end -->
 
-Installation
------------------
-To install the current version use the code below to install from GitHub. The 
-use of “force = TRUE” ensures the package is installed even if already present. 
-If the package `pak` is missing the code below will install it.
+## Installation
+
+To install the current version use the code below to install from
+GitHub. The use of “force = TRUE” ensures the package is installed even
+if already present. If the package `pak` is missing the code below will
+install it.
 
 ```{r Install, eval=FALSE}
 if(!require(pak)){install.packages("pak")}  #install if needed
 pkg_install("leppott/BCGcalc")
 ```
 
-The default for pak::pkg_install does the minimum.  If need to update the 
+The default for pak::pkg_install does the minimum. If need to update the
 package and all dependencies use the code below.
 
 ```{r Install_Vignette, eval=FALSE}
@@ -58,15 +66,15 @@ if(!require(pak)){install.packages("pak")}  #install if needed
 pkg_install("leppott/BCGcalc", upgrade = TRUE)
 ```
 
-Purpose
---------------
-To aid users in data tasks related to the Biological Condition Gradient (BCG).
-The package is generic and can be used with any region with a BCG.  If the 
-region is not one of the pre-programmed BCGs the user will need to supply their
-own Rules.xlsx.
+## Purpose
 
-Usage
-------------
+To aid users in data tasks related to the Biological Condition Gradient
+(BCG). The package is generic and can be used with any region with a
+BCG. If the region is not one of the pre-programmed BCGs the user will
+need to supply their own Rules.xlsx.
+
+## Usage
+
 Everytime R is launched the `BCGcalc` package needs to be loaded.
 
 ```{r LoadLibrary, eval=FALSE}
@@ -74,10 +82,10 @@ Everytime R is launched the `BCGcalc` package needs to be loaded.
 library("BCGcalc")
 ```
 
-The default working directory is based on how R was installed but is typically 
-the user's 'MyDocuments' folder.  You can change it through the menu bar in R 
-(File - Change dir) or RStudio (Session - Set Working Directory).  You can also 
-change it from the command line.
+The default working directory is based on how R was installed but is
+typically the user's 'MyDocuments' folder. You can change it through the
+menu bar in R (File - Change dir) or RStudio (Session - Set Working
+Directory). You can also change it from the command line.
 
 ```{r Directory, eval=FALSE}
 # if specify directory use "/" not "\" (as used in Windows) and leave off final "/" (example below).
@@ -86,15 +94,16 @@ myDir.BASE <- getwd()
 setwd(myDir.BASE)
 ```
 
-Shiny
-------------
-The Shiny app code is no longer included in the package but is available for a 
-number of regions.
+## Shiny
 
-Help
-------------
-Every function has a help file with a working example.  There is also a vignette
-with descriptions and examples of all functions in the `BCGcalc` library.
+The Shiny app code is no longer included in the package but is available
+for a number of regions.
+
+## Help
+
+Every function has a help file with a working example. There is also a
+vignette with descriptions and examples of all functions in the
+`BCGcalc` library.
 
 ```{r Help_Function, eval=FALSE}
 # To get help on a function
@@ -110,18 +119,18 @@ To see all available functions in the package use the command below.
 help(package = "BCGcalc")
 ```
 
-The vignette file is located in the “doc” directory of the library in the R 
-install folder.  But it is much easier to use the code below to call the 
-vignette by name.  There is also be a link to the vignette at the top of the 
-help index for the package.
+The vignette file is located in the “doc” directory of the library in
+the R install folder. But it is much easier to use the code below to
+call the vignette by name. There is also be a link to the vignette at
+the top of the help index for the package.
 
 ```{r Help_Vignette, eval=FALSE}
 vignette("vignette_BCGcalc", package = "BCGcalc")
 ```
 
-If the vignette fails to show on your computer the `remotes` package does not 
-install the vignettes by default.  Run the code below to reinstall using 
-`remotes` and specify the creation of the vignette.
+If the vignette fails to show on your computer the `remotes` package
+does not install the vignettes by default. Run the code below to
+reinstall using `remotes` and specify the creation of the vignette.
 
 ```{r Install_Vignette2, eval=FALSE}
 library(remotes)
@@ -130,12 +139,12 @@ remotes::install_github("leppott/BCGcalc",
                         build_vignettes = TRUE)
 ```
 
-Example
-------------
-A quick example showing the calculation of metrics on a dataset but returning 
-only a select few (e.g., the 12 metrics used in the BCG model for the Pacific 
-NW).  This functionality is built into the `metric.values` function as an 
-optional parameter.
+## Example
+
+A quick example showing the calculation of metrics on a dataset but
+returning only a select few (e.g., the 12 metrics used in the BCG model
+for the Pacific NW). This functionality is built into the
+`metric.values` function as an optional parameter.
 
 ```{r Metric_Select, eval=FALSE, echo=TRUE}
 library(BCGcalc)

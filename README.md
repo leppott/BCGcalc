@@ -1,18 +1,20 @@
 BCGcalc-README
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-23 12:34:37.318709
+2026-08-03 11:04:39.647019
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-23 12:34:37.377737
+    #> Last Update: 2026-08-03 11:04:39.739124
 
-# BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src='inst/figures/logo.png' align="right" height="139" /></a>
+# BCGcalc <a href='https://github.com/leppott/BCGcalc'><img src="inst/figures/logo.png" align="right" height="139"/></a>
 
 Biological Condition Gradient (BCG) calculator. Perform basic functions
 needed for metric calculation and model (level) assignments.
 
 ## Badges
+
+<!-- badges: start -->
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leppott/BCGcalc/graphs/commit-activity)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
@@ -21,7 +23,9 @@ needed for metric calculation and model (level) assignments.
 license](https://img.shields.io/github/license/leppott/BCGcalc.svg)](https://github.com/leppott/BCGcalc/blob/master/LICENSE)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/leppott/BCGcalc/badge)](https://www.codefactor.io/repository/github/leppott/BCGcalc)
-[![codecov](https://codecov.io/gh/leppott/BCGcalc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/leppott/BCGcalc)
+[![Codecov test
+coverage](https://codecov.io/gh/leppott/BCGcalc/graph/badge.svg)](https://app.codecov.io/gh/leppott/BCGcalc)
+
 [![R-CMD-check](https://github.com/leppott/BCGcalc/workflows/R-CMD-check/badge.svg)](https://github.com/leppott/BCGcalc/actions)
 
 [![GitHub
@@ -31,6 +35,7 @@ issues](https://img.shields.io/github/issues/leppott/BCGcalc.svg)](https://GitHu
 release](https://img.shields.io/github/release/leppott/BCGcalc.svg)](https://GitHub.com/leppott/BCGcalc/releases/)
 [![Github all
 releases](https://img.shields.io/github/downloads/leppott/BCGcalc/total.svg)](https://GitHub.com/leppott/BCGcalc/releases/)
+<!-- badges: end -->
 
 ## Installation
 
