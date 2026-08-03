@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.3.1.9003 (2026-08-03)
+
+* refactor: Add secret token in code coverage YAML
+
 # BCGcalc 2.3.1.9002 (2026-08-03)
 
 * refactor: Update code coverage YAML and badge in README

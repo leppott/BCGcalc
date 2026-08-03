@@ -1,11 +1,19 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-07-31 14:36:44.892499
+2026-08-03 11:57:24.060214
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-07-31 14:36:44.919206
+    #> Last Update: 2026-08-03 11:57:24.086287
+
+# BCGcalc 2.3.1.9003 (2026-08-03)
+
+- refactor: Add secret token in code coverage YAML
+
+# BCGcalc 2.3.1.9002 (2026-08-03)
+
+- refactor: Update code coverage YAML and badge in README
 
 # BCGcalc 2.3.1.9001 (2026-07-31)
 
