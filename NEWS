@@ -1,11 +1,17 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-08-03 11:57:24.060214
+2026-08-07 14:39:31.39631
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-08-03 11:57:24.086287
+    #> Last Update: 2026-08-07 14:39:31.540686
+
+# BCGcalc 2.3.1.9004 (2026-08-07)
+
+- refactor: Update MetricFlags.xlsx
+  - LBR_Fish_BCG_v1
+    - Remove existing Main_Eckert before adding updated flags
 
 # BCGcalc 2.3.1.9003 (2026-08-03)
 

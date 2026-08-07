@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.3.1.9004 (2026-08-07)
+
+* refactor: Update MetricFlags.xlsx
+    + LBR_Fish_BCG_v1
+        - Remove existing Main_Eckert before adding updated flags
+
 # BCGcalc 2.3.1.9003 (2026-08-03)
 
 * refactor: Add secret token in code coverage YAML
