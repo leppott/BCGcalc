@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.3.1.9005 (2026-08-07)
+
+* fix: Update MetricFlags.xlsx symbols
+    + "==" not "=" for new rules
+
 # BCGcalc 2.3.1.9004 (2026-08-07)
 
 * refactor: Update MetricFlags.xlsx

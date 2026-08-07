@@ -1,11 +1,16 @@
 BCGcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-08-07 14:39:31.39631
+2026-08-07 14:47:56.83751
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-08-07 14:39:31.540686
+    #> Last Update: 2026-08-07 14:47:56.858168
+
+# BCGcalc 2.3.1.9005 (2026-08-07)
+
+- fix: Update MetricFlags.xlsx symbols
+  - “==” not “=” for new rules
 
 # BCGcalc 2.3.1.9004 (2026-08-07)
 
