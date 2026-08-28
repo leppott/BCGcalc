@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# BCGcalc 2.3.1.9007 (2026-08-28)
+
+* refactor: Update GP (MO) Bug Rules, Issue #103
+    + Rules.xlsx
+    
 # BCGcalc 2.3.1.9006 (2026-08-14)
 
 * refactor: Update GP Bug Rules, Issue #102
